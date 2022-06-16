@@ -1,3 +1,6 @@
+// guids on mongodb atlas operations for reference
+
+
 // how to import a local file:
 // mongoimport --uri "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority" --collection destinations --drop --db ascenda-hotel-booking  --file ../data/destinations.json --jsonArray
 const { MongoClient } = require("mongodb");
