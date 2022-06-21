@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 async function fetch_api_info(url,identifier) {
   try {
     const response = await fetch(url, {
