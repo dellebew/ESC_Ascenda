@@ -1,4 +1,4 @@
-// guids on mongodb atlas operations for reference
+// guides on mongodb atlas operations for reference
 
 
 // how to import a local file:
