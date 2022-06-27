@@ -1,56 +1,25 @@
-// retrieve and store in db
+const { application } = require('express');
 var express = require('express');
 var router = express.Router();
-const https = require('https')
-
-var { MongoClient } = require("mongodb");
-const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
-var client = new MongoClient(uri);
 
 
-const baseUrl = 'https://hotelapi.loyalty.dev/api/hotels/'
-const id = 'diH7'
 
-const value = Array();
-router.get('/', function(req, reso, next) {
+// Require controllers
+var apiController = require("../controllers/apiController");
+var dbController = require("../controllers/dbController");
 
-    https.get(baseUrl+id, res => {
-    let data = '';
-    res.on('data', chunk => {
-        data += chunk;
-    });
-    res.on('end', () => {
-        data = JSON.parse(data);
-        value.push(data.amenities_ratings);
-        reso.send(value[0][0].name)
-        run(value[0]).catch(console.dir);
-    })
-    }).on('error', err => {
-    console.log(err.message);
-    })
+// static details for a given hotel
+router.get('/hotel/:id', apiController.getOneHotel);
+router.get('/db/hotel/:id', dbController.addOneHotel);
 
-    
-  });
+// hotels belonging to a particular destination
+router.get('/hotels?destination_id/:id', apiController.getDestinationHotels);
+router.get('/db/hotels_destinationid/:id', dbController.addDestinationHotelIds);
 
 
-async function run(docs) {
-  try {
-    await client.connect();
+// price for a given hotel
 
-    // database and collection code goes here
-    const db = client.db("ascenda-hotel-booking");
-    const coll = db.collection("planets");
-    // const coll = db.collection("destinations");
-
-    // insert data
-    const result = await coll.insertMany(docs);
-    console.log(result);
-
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
+// hotel prices for a given destination
 
 
 
