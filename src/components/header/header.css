@@ -1,0 +1,13 @@
+.header {
+    height:100px;
+    background-color:cornflowerblue;
+    display: flex;
+    justify-content: center;
+}
+
+.header--container {
+    width: 80%;
+    color:white;
+    font-weight:bolder;
+    padding: 10px;
+}
