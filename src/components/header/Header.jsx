@@ -1,4 +1,5 @@
 import "./header.css"
+import SearchBar from '../searchBar/SearchBar'
 
 const Header = () => {
     return (
@@ -9,7 +10,9 @@ const Header = () => {
                     Search deals on hotels, homes, and much more... 
                     Get rewarded for your travels!
                 </p>
+                <SearchBar/>
             </div>
+            
         </div>
     )
 }

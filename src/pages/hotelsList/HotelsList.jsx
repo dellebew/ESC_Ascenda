@@ -7,6 +7,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import SearchBar from "../../components/searchBar/SearchBar";
 // import { useLocation } from "react-router-dom";
 
 
@@ -18,7 +19,7 @@ const List = () => {
     const location = useLocation(); // retrieves data from home page
     const [destination, setDestination] = useState(location.state.destination)
     const [date, setDate] = useState(location.state.date)
-    const [option, setOptions] = useState(location.state.option)
+    const [options, setOptions] = useState(location.state.option)
 */
     const [date, setDate] = useState([
         {
@@ -30,35 +31,17 @@ const List = () => {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
+            <SearchBar />
             <div className="list--container">
                 <div className="list--wrapper">
                     <div className="list--search">
                         
                         <div className="search--title">
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            <h2>Search</h2>
-                        </div>
-                        <div className="list--item">
-                            <label>Destination/Hotel Name:</label>
-                            <input type='text' placeholder="WIP"/>
-                        </div>
-
-                        <div className="list--item">
-                            <label>Check-In/Check-Out Date:</label>
-                            <span onClick={()=>setOpenDate(!openDate)}>
-                                04/07/1999 to 04/08/1999
-                            </span> 
-                            {openDate && (<DateRange
-                                onChange={(item)=>setImmediate([item.selection])}
-                                minDate={new Date()}
-                                ranges={date}
-                                className="date--picker"
-                            />)}
+                            <h2>Filter By</h2>
                         </div>
                         
                         <div className="list--item">
-                            <label>Filter By:</label>
                             <div className="option--item">
                                 <span className="option--text">
                                     Min price <small> (per night) </small>
