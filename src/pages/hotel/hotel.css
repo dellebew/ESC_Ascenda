@@ -1,6 +1,6 @@
 .hotel--container {
     display:flex;
-    margin-top:20px;
+    margin-top:40px;
     justify-content: center;
 }
 
@@ -15,95 +15,158 @@
 
 .hotel--header {
     display: flex;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px lightgrey solid;
     justify-content: space-between;
-    padding-bottom: 10px;
+}
+
+    .hotel--name{
+        font-size: 26px;
+    }
+
+    .hotel--shortdesc{
+        font-size: 14px;
+        color:grey;
+    }
+
+    .hotel--address{
+        font-size: 12px;
+        display:flex;
+        align-items: center;
+        gap:10px;
+        padding: 5px 0px;
+    }
+
+    .hotel--price {
+        display:flex;
+        flex-direction: column;
+        align-items:flex-end;
+        justify-content: right;
+    }
+    
+    .hotel--price > .price {
+        font-size: 26px;
+        font-weight: bold;
+    }
+    
+    .hotel--price > .subtext {
+        font-size: 12px;
+        color:grey;
+        margin-bottom: 5px;
+    }
+    
+    .hotel--choose {
+        background-color: cornflowerblue;
+        font-size: 15px;
+        color:white;
+        padding:7px 15px;
+        border:none;
+        width:fit-content;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor:pointer;
+    }
+
+
+.hotel--body {
+    display: flex;
+    padding-bottom: 20px;
     margin-bottom: 10px;
     border-bottom: 1px lightgrey solid;
+    align-items: flex-start;
 }
 
-.hotel--title{
-    font-size: 26px;
-}
+    .hotel--images {
+        width:60%;
+        object-fit: cover;
+        border-radius: 5px;
+    }
 
-.hotel--shortdesc{
-    font-size: 14px;
-    color:grey;
-}
+    .hotel--details {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 20px;
+        gap:10px;
+    }
 
-.hotel--address{
-    font-size: 12px;
-    display:flex;
-    align-items: center;
-    gap:10px;
-    padding: 5px 0px;
-}
 
-.hotel--images{
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px lightgrey solid;
-}
+    .hotel--location > img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+    }
 
-.hotel--images > img {
-    width:80%;
-    object-fit: cover;
-}
+    .hotel--state {
+        display:flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        padding: 5px;
+        padding-bottom: 15px;
+        border-bottom: 1px lightgrey solid;
+    }
 
-.hotel--price {
-    display:flex;
-    flex-direction: column;
-    align-items:flex-end;
-    justify-content: right;
-}
+    .hotel--rating {
+        padding-top: 10px;
+        display:flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
-.hotel--price > .price {
-    font-size: 26px;
-    font-weight: bold;
-}
+    .hotel--rating > span {
+        font-weight: bold;
+    }
 
-.hotel--price > .subtext {
-    font-size: 12px;
-    color:grey;
-    margin-bottom: 5px;
-}
+    .hotel--rating > span > button {
+        background-color: cornflowerblue;
+        color:white;
+        border: none;
+        font-weight: bold;
+        padding: 5px;
+        border-radius: 5px;
+        margin-right: 7px;
+    }
 
-.hotel--choose {
-    background-color: cornflowerblue;
-    font-size: 15px;
-    color:white;
-    padding:7px 15px;
-    border:none;
-    width:fit-content;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor:pointer;
-}
 
-.hotel--details {
-    display:flex;
-    justify-content: space-between;
-    gap: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px lightgrey solid;
-}
-
-.hotel--desc {
+.hotel--description {
     flex: 2;
-    padding-right: 30px;
     font-size: 14px;
+    padding-right: 40px;
 }
 
-.hotel--location {
-    flex:1;
-    padding-top: 20px;
-    padding-right: 10px;
+.hotel--details2 {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px;
+    gap:10px;
 }
 
-.hotel--location > img {
-    width: 100%;
-    object-fit: cover;
+.hotel--contact {
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+    font-weight: 500;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    background-color: antiquewhite;
+    padding: 10px 15px;
+    gap:5px;
 }
+
+.hotel--amenities {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+
+
+
+
+
+
+
+
