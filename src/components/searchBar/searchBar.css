@@ -38,6 +38,7 @@
   justify-content: space-evenly;
   padding: 10px 0px;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  position: relative;
 }
 
 .search--icon {
@@ -64,14 +65,14 @@
 }
 
 .date {
-  position: absolute;
-  top: 290px;
+  position:absolute;
+  top: 50px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .options {
   position: absolute;
-  top:290px;
+  top:50px;
   background-color: white;
   color:grey;
   border-radius: 5px;
@@ -119,10 +120,11 @@
 
 
 .dropdown {
+  z-index:1;
   position: absolute;
   width: 100%;
   max-width: 250px;
-  top: 280px;
+  top: 40px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -138,6 +140,7 @@
 .dropdown:empty {
   border: none;
   box-shadow: none;
+  background: none;
 }
 
 .dropdown-row {

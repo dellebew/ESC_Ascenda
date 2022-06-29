@@ -4,11 +4,13 @@ import Navbar from '../../components/navbar/Navbar'
 import RoomCard from '../../components/roomCard/RoomCard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import SearchBar from '../../components/searchBar/SearchBar'
 
 const Hotel = () => {
     return (
         <div>
             <Navbar />
+            <SearchBar />
             <div className='hotel--container'>
                 <div className='hotel--wrapper'>
                     <div className="hotel--header">
