@@ -1,77 +1,8 @@
-const https = require('https')
-var { MongoClient } = require("mongodb");
-const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
-var client = new MongoClient(uri);
+module.exports.insert = insert;
+module.exports.query = query;
+module.exports.update = update;
+module.exports.del = del;
 
-
-// var insert = require("../public/javascripts/dbops").insert
-// var query = require("../public/javascripts/dbops").query
-// var update = require("../public/javascripts/dbops").update
-// var del = require("../public/javascripts/dbops").del
-
-const baseUrl = 'https://hotelapi.loyalty.dev/api/'
-const dbName = "ascenda-hotel-booking"
-
-// add static details for a given hotel
-exports.addOneHotel = function(req, resPage, next) {
-    
-    const value = Array();
-    const hotelId = req.params.id;
-    const url = baseUrl+"hotels/"+hotelId
-    // resPage.send(url)
-    https.get(url, res => {
-    let data = '';
-    res.on('data', chunk => {
-        data += chunk;
-    });
-    res.on('end', () => {
-        data = JSON.parse(data);
-        value.push(data);
-        // resPage.send(value);
-        update(client,dbName,"hotels",value[0],{id:hotelId},"set").catch(console.dir);
-    })
-    }).on('error', err => {
-    console.log(err.message);
-    })
-    next();
-    
-  };
-
-
-// hotels belonging to a particular destination(store id only)
-exports.addDestinationHotelIds = function(req, resPage, next) {
-    
-  const value = Array();
-  var ids = Array();
-
-  const destinationId = req.params.id;
-  const url = baseUrl+"hotels?destination_id="+destinationId
-  console.log(url)
-  https.get(url, res => {
-  let data = '';
-  res.on('data', chunk => {
-      data += chunk;
-  });
-  res.on('end', () => {
-      data = JSON.parse(data);
-      value.push(data);
-      value[0].forEach(e=>ids.push(e.id));
-      update(client,dbName,"destination_hotels",ids,{id:destinationId},"addToSet").catch(console.dir);
-
-      
-  })
-  }).on('error', err => {
-  console.log(err.message);
-  })
-  next();
-  
-};
-// price for a given hotel
-
-// hotel prices for a given destination
-
-
-// helper
 async function insert(client,dbName,collection,docs) {
   // docs is an Array()
     try {
@@ -91,7 +22,7 @@ async function insert(client,dbName,collection,docs) {
     }
   }
 
-async function query(client,dbName,collection,find_condition) {
+  async function query(client,dbName,collection,filter) {
     try {
       await client.connect();
   
@@ -100,20 +31,22 @@ async function query(client,dbName,collection,find_condition) {
       const coll = db.collection(collection);
   
       // find data
-      const cursor = coll.find(find_condition); // find with queries
+      const cursor = coll.find(filter); // find with queries
       const res = Array();
       await cursor.forEach(e => {
-          if (identifier != NaN){
-              res.push(e[identifier]);
-          }
-          else{
-              res.push(e);
-          }
-          
+          res.push(e);
+          // console.log("query: "+e);
       })
+
       return res;  
   
-    } finally {
+    } 
+    catch{
+      console.log("error in query")
+      return null;
+    }
+    
+    finally {
       // Ensures that the client will close when you finish/error
       await client.close();
     }
@@ -181,8 +114,3 @@ async function del(client,dbName,collection,doc) {
       await client.close();
     }
   }
-
-// exports.insert = insert()
-// exports.query = query()
-// exports.update = update()
-// exports.del = del()
