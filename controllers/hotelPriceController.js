@@ -13,54 +13,63 @@ const coll_name = "hotel_price"
 
 // price for a given hotel (with filtering conditions)
 exports.getHotelPrice = function(req, resPage, next) {
-    // 0. get filter data
-    hotel_id,requirements_tuple = getFilteredData();
-    const url = get_hotel_price_url(hotel_id,requirements_tuple);
-    const requirements = get_requirements(hotel_id,requirements_tuple);
 
-    // 1. check if it is in database
-    // query by requirements = requirements
+    let promise0 = client.connect();
+    promise0.then(()=>{
+        // 0. get filter data
+        hotel_id,requirements_tuple = getFilteredData();
+        const url = get_hotel_price_url(hotel_id,requirements_tuple);
+        const requirements = get_requirements(hotel_id,requirements_tuple);
 
-    let promise = query(client,dbName,coll_name,{requirements:requirements})
-    promise.then((result)=>{
-    
-        // 2. if so: display it
-        if (result != null && result.length != 0){
-            console.log("Found in database");
-            resPage.write(JSON.stringify(result));
-            resPage.end();
-            
-        }
-        // 3. if not: request api, display & store in database
-        else{
-            console.log("Not found in database")
-            const value = Array();
-            // const hotel_id = req.params.id;
-            https.get(url, res => {
-                let data = '';
-                res.on('data', chunk => {
-                    data += chunk;
-                    });
-                res.on('end', () => {
-                    data = JSON.parse(data);
+        // 1. check if it is in database
+        // query by requirements = requirements
 
-                    if (data == ''){
-                        resPage.write("does not exist");
+        let promise = query(client,dbName,coll_name,{requirements:requirements})
+        promise.then((result)=>{
+
+            // 2. if so: display it
+            if (result != null && result.length != 0){
+                console.log("Found in database");
+                resPage.write(JSON.stringify(result));
+                resPage.end();
+                
+            }
+            // 3. if not: request api, display & store in database
+            else{
+                console.log("Not found in database")
+                const value = Array();
+                // const hotel_id = req.params.id;
+                https.get(url, res => {
+                    let data = '';
+                    res.on('data', chunk => {
+                        data += chunk;
+                        });
+                    res.on('end', () => {
+                        data = JSON.parse(data);
+
+                        if (data == ''){
+                            resPage.write("does not exist");
+                            resPage.end();
+                            return ;
+                        }
+                        value.push(data);
+                        // storing and displaying at the same time                    
+                        update(client,dbName,coll_name,value[0],{requirements:requirements},"set").catch(console.dir);
+                        resPage.write(JSON.stringify(value[0]));
                         resPage.end();
-                        return ;
-                    }
-                    value.push(data);
-                    // storing and displaying at the same time                    
-                    update(client,dbName,coll_name,value[0],{requirements:requirements},"set").catch(console.dir);
-                    resPage.write(JSON.stringify(value[0]));
-                    resPage.end();
-                    
+                        
+                    })
                 })
-            })
 
-        }
+            }
+        })
     })
+   
     
+    let promise2 = client.close();
+    promise2.then(()=>{
+        return;
+    })
   };
 
   // TODO

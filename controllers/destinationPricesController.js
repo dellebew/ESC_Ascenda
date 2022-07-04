@@ -10,7 +10,10 @@ var update = require("../public/javascripts/dbops").update
 
 // hotel prices for a given destination (with filtering conditions)
 exports.getDestinationHotelPrices = function(req, resPage, next) {
-    // 0. get filter data
+
+    let promise0 = client.connect();
+    promise0.then(()=>{
+        // 0. get filter data
     const requirements_tuple = getFilteredData();
     
     // 1. check if it is in database
@@ -110,7 +113,12 @@ exports.getDestinationHotelPrices = function(req, resPage, next) {
 
         }
     })
+    })
     
+    let promise2 = client.close();
+    promise2.then(()=>{
+        return ;
+    })
   };
 
   // TODO
