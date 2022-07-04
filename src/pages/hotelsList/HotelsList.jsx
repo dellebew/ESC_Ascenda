@@ -1,5 +1,4 @@
 import "./hotelsList.css"
-import React, { useState } from 'react'
 import Navbar from "../../components/navbar/Navbar"
 import SearchItem from "../../components/searchItem/SearchItem"
 import { DateRange} from 'react-date-range';
@@ -9,11 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import SearchBar from "../../components/searchBar/SearchBar";
 import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 
 const List = () => {
     
-    const [openDate, setOpenDate] = useState(false);
+    // const [openDate, setOpenDate] = useState(false);
 
  
     const location = useLocation(); // retrieves data from home page
@@ -22,7 +22,14 @@ const List = () => {
     // const [options, setOptions] = useState(location.state.option)
 
     const x = location.state.searched;
-    console.log(x);
+    
+    useEffect(() => {
+        fetch(`https://ascendahotels.mocklab.io/api/destinations/WD0M/prices`)
+          .then((response) => response.json())
+          .then((actualData) => console.log(actualData));
+      }, 
+      []);
+    
 
     const [date, setDate] = useState([
         {
