@@ -8,19 +8,22 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import SearchBar from "../../components/searchBar/SearchBar";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 const List = () => {
     
     const [openDate, setOpenDate] = useState(false);
 
-/** 
+ 
     const location = useLocation(); // retrieves data from home page
-    const [destination, setDestination] = useState(location.state.destination)
-    const [date, setDate] = useState(location.state.date)
-    const [options, setOptions] = useState(location.state.option)
-*/
+    // const [destination, setDestination] = useState(location.state.destination)
+    // const [date, setDate] = useState(location.state.date)
+    // const [options, setOptions] = useState(location.state.option)
+
+    const x = location.state.searched;
+    console.log(x);
+
     const [date, setDate] = useState([
         {
         startDate: new Date(),

@@ -3,12 +3,14 @@ import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-ico
 import { DateRange} from 'react-date-range';
 import { useState } from "react";
 import { format } from "date-fns"
+import {useNavigate} from 'react-router-dom';
 import "./searchBar.css"
 var data = require("../../database/MOCK_DATA.json");
 
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
+    const navigate = useNavigate();
 
     const onChange = (event) => {
       setValue(event.target.value);
@@ -18,6 +20,8 @@ const SearchBar = () => {
         setValue(searchTerm);
         // our api to fetch the search result
         console.log("search ", searchTerm);
+        let path = '/hotels'
+        navigate(path, {state: {id: 1, searched: {searchTerm}}});
     };
     
     /** FOR DATE-RANGE */

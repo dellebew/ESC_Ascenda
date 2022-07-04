@@ -6,8 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import SearchBar from '../../components/searchBar/SearchBar'
 import axios from "axios"
+import { useLocation } from 'react-router-dom'
 
 const Hotel = () => {
+    const location = useLocation();
+
+    // const getSerach = () => {
+    //     searched = location.state.searchedItem;
+    //     console.log
+    // };
+    
+
+
     return (
         <div>
             <Navbar />

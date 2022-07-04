@@ -2,6 +2,9 @@ import RatesCard from "../ratesCard/RatesCard"
 import "./roomCard.css"
 
 const RoomCard = () => {
+
+    
+
     return (
         <div className="roomCard">
             <div className="room--container">
