@@ -2,6 +2,7 @@ module.exports.insert = insert;
 module.exports.query = query;
 module.exports.update = update;
 module.exports.del = del;
+module.exports.sorted_query = sorted_query;
 
 async function insert(client,dbName,collection,docs) {
   // docs is an Array()
@@ -33,6 +34,35 @@ async function insert(client,dbName,collection,docs) {
 
       return res;  
   }
+
+  // currently only for destination prices
+  async function sorted_query(client,dbName,collection,filter) {
+  
+    // database and collection code goes here
+    const db = client.db(dbName);
+    const coll = db.collection(collection);
+
+    // find data
+    const cursor = coll.aggregate(
+[      // Initial document match (uses index, if a suitable one is available)
+      { $match: filter},
+  
+      // Expand the scores array into a stream of documents
+      { $unwind: '$hotels' },
+  
+      // Sort in descending order
+      { $sort: {
+          'hotels.searchRank': -1
+      }}]
+  )
+    const res = Array();
+    await cursor.forEach(e => {
+        res.push(e);
+        // console.log("query: "+e);
+    })
+
+    return res;  
+}
 
   
 async function update(client,dbName,collection,docs,filter,op) {

@@ -1,6 +1,5 @@
 var https = require('https')
 var { MongoClient } = require("mongodb");
-const { options } = require('../routes');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
@@ -8,6 +7,7 @@ const dbName = "ascenda-hotel-booking"
 
 var query = require("../public/javascripts/dbops").query
 var update = require("../public/javascripts/dbops").update
+var sorted_query = require("../public/javascripts/dbops").sorted_query
 
 const coll_name = "destination_prices"
 
@@ -24,12 +24,13 @@ exports.getDestinationHotelPrices = function(req, resPage, next) {
         // 1. check if it is in database
         // query by requirements = requirements
 
-        let promise = query(client,dbName,coll_name,{requirements:requirements})
+        let promise = sorted_query(client,dbName,coll_name,{requirements:requirements})
         promise.then((result)=>{
             // console.log(result[0].hotels.length)
             // 2. if so: display it
             if (result != null && result.length != 0 && result[0].hotels.length != 0){
                 console.log("Found in database");
+                console.log(typeof(result[0]))
                 resPage.write(JSON.stringify(result));
                 resPage.end();
                 
