@@ -27,7 +27,7 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                 // 2. if so: display it
                 if (result != null && result.length != 0){
                     console.log("Found in database");
-                    resPage.write(JSON.stringify(result));
+                    resPage.write(JSON.stringify(result[0].hotels[0]));
                     resPage.end();
                 
                 }
@@ -55,7 +55,7 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                             // storing and displaying at the same time
                             // console.log("value"+value)
                             update(client,dbName,coll_name,value[0],{id:destination_id},"addToSet").catch(console.dir);
-                            resPage.write(JSON.stringify(value));
+                            resPage.write(JSON.stringify(value[0]));
                             resPage.end();
                         })
                     })
