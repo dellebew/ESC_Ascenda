@@ -24,9 +24,9 @@ exports.getOneHotel = async function(req, resPage, next) {
             // console.log("result: "+result)
 
             // 2. if so: display it
-            if (result != null || result.length != 0){
+            if (result != null && result.length != 0){
                 console.log("Found in database");
-                resPage.write(JSON.stringify(result)[0]);
+                resPage.write(JSON.stringify(result[0]));
                 resPage.end();
             
             }
