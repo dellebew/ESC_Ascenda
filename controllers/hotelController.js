@@ -12,22 +12,21 @@ var update = require("../public/javascripts/dbops").update
 const coll_name = "hotels"
 const mid_url = "hotels/"
 // get static details for a given hotel
-exports.getOneHotel = async function(req, resPage, next,  hotel_id=null) {
+exports.getOneHotel = async function(req, resPage, next) {
 
     let promise0 = client.connect();
     promise0.then(()=>{
         // 1. check if it is in database
-        if (hotel_id == null){
-            hotel_id = req.params.id
-        }
+        const hotel_id = req.params.id
+        
         let promise = query(client,dbName,coll_name,{id:hotel_id})
         promise.then((result)=>{
-            console.log("result: "+result)
+            // console.log("result: "+result)
 
             // 2. if so: display it
-            if (result != null && result.length != 0){
+            if (result != null || result.length != 0){
                 console.log("Found in database");
-                resPage.write(JSON.stringify(result));
+                resPage.write(JSON.stringify(result)[0]);
                 resPage.end();
             
             }
@@ -65,10 +64,10 @@ exports.getOneHotel = async function(req, resPage, next,  hotel_id=null) {
     })
     
     
-    let promise2 = client.close();
-    promise2.then(()=>{
-        return;
-    })
+    // let promise2 = client.close();
+    // promise2.then(()=>{
+    //     return;
+    // })
   };
 
 

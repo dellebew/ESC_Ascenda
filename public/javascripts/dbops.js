@@ -5,8 +5,7 @@ module.exports.del = del;
 
 async function insert(client,dbName,collection,docs) {
   // docs is an Array()
-    try {
-      await client.connect();
+
   
       // database and collection code goes here
       const db = client.db(dbName);
@@ -16,15 +15,9 @@ async function insert(client,dbName,collection,docs) {
       const result = await coll.insertMany(docs);
       console.log(result);   
   
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }
   }
 
   async function query(client,dbName,collection,filter) {
-    try {
-      await client.connect();
   
       // database and collection code goes here
       const db = client.db(dbName);
@@ -39,23 +32,10 @@ async function insert(client,dbName,collection,docs) {
       })
 
       return res;  
-  
-    } 
-    catch{
-      console.log("error in query")
-      return null;
-    }
-    
-    finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }
   }
 
   
 async function update(client,dbName,collection,docs,filter,op) {
-    try {
-      await client.connect();
   
       // database and collection code goes here
       const db = client.db(dbName);
@@ -66,7 +46,7 @@ async function update(client,dbName,collection,docs,filter,op) {
       if (op == "set"){
         const result = await coll.updateMany(
           filter, 
-          {$set:{hotels:docs}},
+          {$set:docs},
           {
             upsert: true,
             multi: true
@@ -86,19 +66,10 @@ async function update(client,dbName,collection,docs,filter,op) {
 
       }
  
-      // display the results of your operation
- 
-  
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }
   }
 
 async function del(client,dbName,collection,doc) {
-    try {
-      await client.connect();
-  
+
       // database and collection code goes here
       const db = client.db(dbName);
       const coll = db.collection(collection);
@@ -108,9 +79,4 @@ async function del(client,dbName,collection,doc) {
       // amount deleted code goes here
       console.log("Number of documents deleted: " + result.deletedCount);
  
-  
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
-    }
   }
