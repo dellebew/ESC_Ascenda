@@ -13,21 +13,25 @@ var data = require("../../database/MOCK_DATA.json");
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
-    const [search, updateSearch] = React.useState([]);
     const navigate = useNavigate();
     // const api_url = 'https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU'
+
+    // 
     
 
     const onChange = (event) => {
       setValue(event.target.value);
     };
     
-    const onSearch = (searchTerm) => {
+    const onSearch = (searchTerm, date, array, fulldata) => {
         setValue(searchTerm);
         // our api to fetch the search result
         console.log("search ", searchTerm);
+        console.log(array);
+        console.log(fulldata)
+
         let path = '/hotels'
-        navigate(path, {state: {id: 1, searched: {searchTerm}}});
+        navigate(path, {state: {id: 1, searched: searchTerm, date: date, hotelObject: array, EVERYTHING: fulldata}});
     };
     
     /** FOR DATE-RANGE */
@@ -109,7 +113,7 @@ const SearchBar = () => {
                     .slice(0, 10) 
                     .map((item) => (
                         <div
-                        onClick={() => onSearch(value)} // searches by item key
+                        onClick={() => onSearch(value, {date}, item, {x})} // searches by item key
                         className="dropdown-row" 
                         key = {item.name}
                         >
