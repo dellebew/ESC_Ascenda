@@ -21,8 +21,9 @@ const List = () => {
     // const [date, setDate] = useState(location.state.date)
     // const [options, setOptions] = useState(location.state.option)
 
-    // const x = location.state.searched;
-    const y = "hello";
+    const everyArray = location.state.EVERYTHING;
+
+
     
     // useEffect(() => {
     //     fetch(`https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU`)
@@ -46,7 +47,7 @@ const List = () => {
             <div className="si--desc">
                 <h1 className="si--name">Hellloasda</h1>
                 <div className="si--small">
-                    <span className="si--address">{name}</span>
+                    <span className="si--address">Hello from nowhere</span>
                     <span className="si--distance">500m from center</span>
                     <span className="si--cancellation"><b>Free Cancellation</b></span>
                 </div>
@@ -127,7 +128,7 @@ const List = () => {
                         <button>Search</button>
                     </div> 
                     <div className="list--result">
-                        {searchItem(y)}
+                        <SearchItem/>
                         <SearchItem/>
                         <SearchItem/>
                         <SearchItem/>

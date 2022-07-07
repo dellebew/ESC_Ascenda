@@ -23,15 +23,33 @@ const SearchBar = () => {
       setValue(event.target.value);
     };
     
-    const onSearch = (searchTerm, date, array, fulldata) => {
+    const onSearch = (searchTerm) => {
         setValue(searchTerm);
         // our api to fetch the search result
-        console.log("search ", searchTerm);
-        console.log(array);
-        console.log(fulldata)
+        const allDaDates = {date}
+        const allOfIt = {x}
+
+        const arrayOfSimilarItems = x.filter((item) => {
+            const similarItem = searchTerm
+
+            return item.name.includes(similarItem)
+        })
+
+        console.log(arrayOfSimilarItems)
+        console.log(allDaDates)
+        console.log(allOfIt)
+        console.log(searchTerm)
+
+        //How it work:
+        // 1. searchedTerm sends an array if searched value is vague, outputting out an array of names that match the term,
+        // otherwise it returns an empty array
+        // 2. allDaDates sends the date data to the hotels page
+        // 3. allOfIt sends the full array fetched directly from the API
+        // 4. arrayOfSimilar Items sends the particular word if vague but the exact array if selected
+
 
         let path = '/hotels'
-        navigate(path, {state: {id: 1, searched: searchTerm, date: date, hotelObject: array, EVERYTHING: fulldata}});
+        navigate(path, {state: {id: 1, searched: searchTerm, dateRange: allDaDates, fullArray: allOfIt}});
     };
     
     /** FOR DATE-RANGE */
@@ -107,13 +125,13 @@ const SearchBar = () => {
 
                         return (
                         searchTerm &&
-                        item.name.startsWith(searchTerm)
+                        item.name.includes(searchTerm)
                         );
                     })
                     .slice(0, 10) 
                     .map((item) => (
                         <div
-                        onClick={() => onSearch(value, {date}, item, {x})} // searches by item key
+                        onClick={() => onSearch(item)} // searches by item key
                         className="dropdown-row" 
                         key = {item.name}
                         >
@@ -179,7 +197,7 @@ const SearchBar = () => {
                 </div>)}
             </div>
 
-            {/*Button onClick needs to call out display page, clear this comment after doing it*/}
+            {/*modify it to send an array of hotels if non specific hotel selected*/}
             <button className="search--button"
                     onClick={() => onSearch(value)}> Search </button>
             </div>
