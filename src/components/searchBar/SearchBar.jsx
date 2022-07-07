@@ -1,16 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format } from "date-fns"
 import {useNavigate} from 'react-router-dom';
-import "./searchBar.css"
+import ReactDOM from "react-dom";
+import "./searchBar.css";
+import axios from 'axios';
 var data = require("../../database/MOCK_DATA.json");
+
 
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
+    const [search, updateSearch] = React.useState([]);
     const navigate = useNavigate();
+    // const api_url = 'https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU'
+    
 
     const onChange = (event) => {
       setValue(event.target.value);
@@ -53,6 +59,25 @@ const SearchBar = () => {
     });
     };
 
+    // Temp for API
+    const RetrieveEverything = (url) => {
+        const [output, setOutput] = useState([]);
+        const fetchFromAPI = async () => {
+          try {
+            const res = await axios.get(url);
+            setOutput(res.data);
+            console.log("Success");
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        useEffect(() => {
+          fetchFromAPI();
+        }, []);
+        return { output };
+      };
+ 
+    const { output: x } = RetrieveEverything('https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU');
     
     return (
         <div className="searchBar">
@@ -60,9 +85,6 @@ const SearchBar = () => {
             <h1 className="search--title">Where to?</h1>
 
             <div className="search--container">
-            {/*Work with this for now, considering slack API right now, google seacrh API apparently is only for places, perhaps
-            when create the places search bar, this can be implemented*/}
-
             <div className="search--item">
                 <FontAwesomeIcon icon={faBed} className="search--icon"/>
                 <input 
@@ -75,25 +97,23 @@ const SearchBar = () => {
                 
                 {/*Dropdown bar for suggestions*/}
                 <div className="dropdown"> 
-                    {data
+                    {x
                     .filter((item) => {
-                        const searchTerm = value.toLowerCase();
-                        const fullName = item.full_name.toLowerCase();
+                        const searchTerm = value;
 
                         return (
                         searchTerm &&
-                        fullName.startsWith(searchTerm) &&
-                        fullName !== searchTerm
+                        item.name.startsWith(searchTerm)
                         );
                     })
-                    .slice(0, 10) // Displays top 10 in json file, can be mmodified to show more/less
+                    .slice(0, 10) 
                     .map((item) => (
                         <div
-                        onClick={() => onSearch(item.full_name)} // searches by item key
+                        onClick={() => onSearch(value)} // searches by item key
                         className="dropdown-row" 
-                        key={item.full_name}
+                        key = {item.name}
                         >
-                        {item.full_name}
+                        {item.name}
                         </div>
                     ))}
                 </div>

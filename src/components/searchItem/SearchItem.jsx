@@ -1,6 +1,14 @@
 import "./searchItem.css"
 
-const SearchItem = () => {
+//img, name, address, distance, cancellation, description, ratingScore, ratingClass, pricing
+//Grand Copthorne Waterfront Singapore
+//392 Havelock Road, Robertson Quay, 169663 Singapore, Singapore
+
+
+export default function SearchItem(name) {
+
+    const y = JSON.stringify(name);
+    
     return (
         <div className="searchItem">
             <img
@@ -9,9 +17,9 @@ const SearchItem = () => {
                 className="si--image"
             />
             <div className="si--desc">
-                <h1 className="si--name">Grand Copthorne Waterfront Singapore</h1>
+                <h1 className="si--name">H</h1>
                 <div className="si--small">
-                    <span className="si--address">392 Havelock Road, Robertson Quay, 169663 Singapore, Singapore</span>
+                    <span className="si--address">{y}</span>
                     <span className="si--distance">500m from center</span>
                     <span className="si--cancellation"><b>Free Cancellation</b></span>
                 </div>
@@ -35,5 +43,3 @@ const SearchItem = () => {
         </div>
     )
 }
-
-export default SearchItem
