@@ -1,0 +1,55 @@
+.ratesCard {
+    height:250px;
+    width:200px;
+    border: 1px solid lightgrey;
+    background-color: white;
+    border-radius: 10px;
+    display:flex;
+    margin-bottom: 10px;
+}
+
+
+.rates--container {
+    display:flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0px 5px;
+    padding: 15px;
+}
+
+.rates--details {
+    text-align: left;
+}
+
+    .free-cancellation {
+        font-weight: bold;
+        color:brown;
+        font-size: 12px;
+    }
+
+.rates--pricing {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-end;
+    justify-content: right;
+}
+    
+
+    .rates--pricing > .price {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .rates--pricing > .room {
+        font-size: 12px;
+        color:grey;
+    }
+
+    .rates--pricing > .website {
+        font-size: 30px;
+        color:crimson;
+        margin-bottom: 7px;
+    }
+
+
