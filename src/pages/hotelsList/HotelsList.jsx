@@ -28,6 +28,12 @@ const List = () => {
     console.log(similarTermsArray);
     console.log(searchElement);
 
+    function htmlDecode(input){
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+      };
+
     function searchItem(img, name, address, distance, cancellation, description, ratingScore, ratingClass, pricing) {
         return (
             <div className="searchItem">
@@ -44,7 +50,7 @@ const List = () => {
                     <span className="si--cancellation"><b>{cancellation}</b></span>
                 </div>
 
-                <span className="si--description">{description}</span>
+                <span className="si--description"><div dangerouslySetInnerHTML={{ __html: htmlDecode({description}) }} /></span>
             </div>
             <div className="si--details">
                 <div className="si--rating"> 
@@ -72,7 +78,7 @@ const List = () => {
             console.log("If/Else is successful!");
             console.log(term.description);
 
-        
+            
             return (searchItem(term.imgix_url, term.name, term.address, term.distance + "m away from your current location", "Free cancellation",
             term.description, "9.5", "Excellent", "$50"))
         } else {
@@ -82,6 +88,49 @@ const List = () => {
     }
     //Untested: Typing the full exact name in the searchBar, results in something weird. Need to test later
 
+    
+
+    // This function will be the item that is going to be for looped
+    
+    
+    
+
+    // test run 1
+    // function dingus (name) {
+    //     return (
+    //         <div className="searchItem">
+    //             <img
+    //                 src="https://t-cf.bstatic.com/xdata/images/hotel/square200/28344036.webp?k=72665465d8384e43417e12ab2a6db168f5aa38864bdf1b1183050282ae779711&o=&s=1"
+    //                 alt=""
+    //                 className="si--image"
+    //             />
+    //             <div className="si--desc">
+    //                 <h1 className="si--name">{name}</h1>
+    //                 <div className="si--small">
+    //                     <span className="si--address">Hello</span>
+    //                     <span className="si--distance">500m from center</span>
+    //                     <span className="si--cancellation"><b>Free Cancellation</b></span>
+    //                 </div>
+    
+    //                 <span className="si--description">
+    //                     Grand Copthorne Waterfront is located along the Singapore River. 
+    //                     A 5-minute drive from Orchard Road, the hotel offers an outdoor pool, 4 restaurants and free parking. 
+    //                 </span>
+    //             </div>
+    //             <div className="si--details">
+    //                 <div className="si--rating"> 
+    //                     <button>8.9</button>
+    //                     <span>Excellent</span>
+    //                 </div>
+    //                 <div className="si--pricing"> 
+    //                     <span className="si--from">From</span>
+    //                     <span className="si--price">$123</span>
+    //                     <button className="si--check">Show Prices</button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
     
 
     const [date, setDate] = useState([
@@ -139,7 +188,11 @@ const List = () => {
                         <button>Search</button>
                     </div> 
                     <div className="list--result">
+                        {/* {dingus("gayFuck")} */}
                         {theChecker(similarTermsArray, searchElement, allItems)}
+                        {/* <SearchItem/>
+                        <SearchItem/>
+                        <SearchItem/> */}
                     </div>
                 </div>
             </div>
