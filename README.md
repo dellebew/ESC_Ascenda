@@ -12,10 +12,23 @@ to enter backend/db:
 
 use `npm start` to start the server
 
-Mongodb:
+# backend call
+1. hotel static data: http://localhost:8080/api/hotel/:id
+e.g. http://localhost:8080/api/hotel/diH7
+
+2. destination hotels: http://localhost:8080/api/destination/hotels/:id
+e.g. http://localhost:8080/api/destination/hotels/4FBY 
+
+3. price for a given hotel: http://localhost:8080/api/hotel/price/:id
+e.g. http://localhost:8080/api/destination/hotels/C7r0 
+
+4. hotel prices for a given destination: http://localhost:8080/api/destination/prices/:id
+e.g. http://localhost:8080/api/destination/prices/0 //this is for testing only
+
+## Mongodb:
 https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946a522a036eec26ba6f/explorer/ascenda-hotel-booking/destinations/find 
 
-APIs:
+# APIs:
 1. static details for a given hotel:
     e.g. https://hotelapi.loyalty.dev/api/hotels/diH7 
     "https://hotelapi.loyalty.dev/api/hotels/"+<hotel_id>
