@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import Home from "./pages/home/Home"
-import Hotel from "./pages/hotel/Hotel"
+import Hotels from "./pages/hotels/Hotels"
 import Destinations from "./pages/destinations/Destinations";
 
 
@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter> 
       <Routes>
         <Route path='/' element = {<Home />}/>
-        <Route path='/destinations' element = {<Destinations />}/>
-        <Route path='/hotels/:id' element = {<Hotel />}/>
+        <Route path='/destinations/:id' element = {<Destinations />}/>
+        <Route path='/hotels/:id' element = {<Hotels />}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,7 +1,6 @@
 import "./hotelCard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
-import defaultImage from "./image-not-found.png"
 import { faLocationDot, faRoad } from "@fortawesome/free-solid-svg-icons";
 
 /**  
@@ -10,7 +9,7 @@ import { faLocationDot, faRoad } from "@fortawesome/free-solid-svg-icons";
 
 export default function HotelCard(props) {
     
-    // formatter for decimal places
+    // formatter for 1dp
     const formatter = new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 1,      
         maximumFractionDigits: 1,
@@ -23,18 +22,16 @@ export default function HotelCard(props) {
     const firstParagraphWithoutHtml = (corresp) ? corresp[1] : "" // text1
     
     // replace unfound images with placeholder
-    const prefix = props.image_details?.prefix
-    const suffix = props.image_details?.suffix
     const handleImgError = e => {
         e.target.onError = null;
-        e.target.src = defaultImage
+        e.target.src = "/image-not-found.png"
     }
 
 
     return (
         <div key={props.id} className="searchItem">
             <img
-                src={prefix+props.default_image_index+suffix}
+                src={props.image_details?.prefix+props.default_image_index+props.image_details?.suffix}
                 alt=""
                 onError={handleImgError}
                 className="si--image"

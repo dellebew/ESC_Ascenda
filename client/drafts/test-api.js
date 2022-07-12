@@ -1,3 +1,5 @@
+// Rename to App.js to test for api fetching
+
 import React, {useEffect, useState} from 'react'
 
 function App() {

@@ -11,7 +11,8 @@ export default function useFetch(url) {
         axios
             .get(url)
             .then((response) => {
-                setData(response.json().data);
+                console.log(response);
+                setData(response.data);
             })
             .catch((err) => {
                 setError(err);
@@ -20,4 +21,6 @@ export default function useFetch(url) {
                 setLoading(false);
             });
     }, [url]);
+
+
 }

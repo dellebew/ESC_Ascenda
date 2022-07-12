@@ -1,10 +1,37 @@
 import "./hotelPage.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import RoomCard from "../roomCard/RoomCard"
+import parse from "html-react-parser";
+import ReactStars from "react-rating-stars-component"
 
 // TODO: finish formatting hotel page with dynamic JSON elements
 
 export default function HotelPage(props) {
+
+    // formatter for 1dp
+    const formatter = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 1,      
+        maximumFractionDigits: 1,
+    });
+
+    // replace unfound images with placeholder
+    const handleImgError = e => {
+        e.target.onError = null;
+        e.target.src = "/image-not-found.png"
+    }
+
+    //Rating System
+    const overallRating = {
+        size: 25,
+        value: props.rating,
+        edit: false,
+        isHalf: true
+      };
+
+    // const amenitiesRating = props.amenities_ratings
+    // amenitiesRating.map(item )
+
     return (
         <div>
             <div key={props.id} className='hotel--container'>
@@ -15,7 +42,7 @@ export default function HotelPage(props) {
                             <div className='hotel--address'>
                                 <span>{props.address}</span>
                             </div>
-                            <span className='hotel--shortdesc'>Luxury hotel with 1 outdoor pools, connected to a shopping center, near Orchard Road </span>
+                            <ReactStars {...overallRating} />
                         </div>
                         <div className="hotel--price">
                             <span className="price">$123</span>
@@ -26,33 +53,34 @@ export default function HotelPage(props) {
                     
                     <div className="hotel--body">
                         <img className="hotel--images" 
-                            src="https://t-cf.bstatic.com/xdata/images/hotel/max1024x768/249556539.jpg?k=dd3501ee1cd64e6d54cf8a6459119080a2b95cee06fe4a3be5153454fa4293de&o=&hp=1"/>
+                            src={props.image_details?.prefix+props.default_image_index+props.image_details?.suffix}
+                            alt=""
+                            onError={handleImgError}
+                        />
                         <div className='hotel--details'>
                             <div className="hotel--location">
                                 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.wired.com%2Fphotos%2F5a6a61938c669c70314b300d%2Fmaster%2Fw_2400%2Cc_limit%2FGoogle-Map-US_10.jpg&f=1&nofb=1"/>
+                                <div>{props.original_metadata?.city}, {props.original_metadata?.country}</div>
                                 <div className="hotel--state">
                                     <FontAwesomeIcon icon={faLocationDot}/>
-                                    City, State, Postal Code
+                                    <span> ({props.latitude + ', ' + props.longitude})</span>
                                 </div>
-                            </div>
-                            <div className="hotel--rating"> 
-                                <span>
-                                    
-                                    <button>8.9</button>
-                                    Excellent
-                                </span>
                             </div>
                         </div>
                     </div>
-
+                    
                     <div className='hotel--body'>
-                        <p className='hotel--description'>
-                            <h2>Hotel Description</h2> <br/>
-                            <div dangerouslySetInnerHTML={ { __html: props.description } }></div>
-                        </p>
-                    </div>
+                        <div className='hotel--description'>
+                            <h2>About</h2>
+                            <div className="hotel--rating">       
+                                <span>
+                                    <button>{formatter.format(props.rating)}</button>
+                                    Excellent
+                                </span>
+                            </div>
+                            <p dangerouslySetInnerHTML={ {__html: props.description} }/>
+                        </div>
 
-                    <div className='hotel--body'> 
                         <div className="hotel--details2">
                             <h3>Contact Details</h3>
                             <div className="hotel--contact">
@@ -68,7 +96,16 @@ export default function HotelPage(props) {
                                 <span>Air Conditioning</span>
                             </div>
                         </div>
-                    
+
+                    </div>
+
+                    <div className='hotel--body'> 
+                        
+                    <div className='hotel--rooms'>
+                        <h2>Room Choices</h2>
+                        <RoomCard />
+                        <RoomCard />
+                    </div>
                     </div>
                 </div>
             </div>

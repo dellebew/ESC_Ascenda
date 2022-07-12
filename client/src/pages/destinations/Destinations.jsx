@@ -5,7 +5,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
-import useFetch from "../../useFetch";
+import Loader from '../../components/loader/Loader'
 // import { useLocation } from "react-router-dom";
 
 
@@ -118,7 +118,7 @@ const Destinations = () => {
                         <button>Search</button>
                     </div> 
                     <div className="list--result">
-                        <React.Suspense fallback={"Loading"}>
+                        <React.Suspense fallback={<Loader/>}>
                             {/* {destData.map(item => (
                                 <HotelCard key={item.id} {...item}/>  
                             ))} */}
