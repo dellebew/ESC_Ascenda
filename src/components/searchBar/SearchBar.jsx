@@ -26,7 +26,7 @@ const SearchBar = () => {
     const onSearch = (searchTerm) => {
         setValue(searchTerm);
         // our api to fetch the search result
-        const allDaDates = {date}
+        // const allDaDates = {date}, dates not in DB
         const allOfIt = {x}
 
         const arrayOfSimilarItems = x.filter((item) => {
@@ -35,10 +35,13 @@ const SearchBar = () => {
             return item.name.includes(similarItem)
         })
 
-        console.log(arrayOfSimilarItems)
-        console.log(allDaDates)
-        console.log(allOfIt)
-        console.log(searchTerm)
+        
+        //console.log(allDaDates) Dates are not inside DB
+        
+        // Order of debugging info
+        // console.log(arrayOfSimilarItems)
+        // console.log(searchTerm)
+        // console.log(allOfIt)
 
         //How it work:
         // 1. searchedTerm sends an array if searched value is vague, outputting out an array of names that match the term,
@@ -49,7 +52,7 @@ const SearchBar = () => {
 
 
         let path = '/hotels'
-        navigate(path, {state: {id: 1, searched: searchTerm, dateRange: allDaDates, fullArray: allOfIt}});
+        navigate(path, {state: {id: 1, similar: arrayOfSimilarItems, searched: searchTerm, fullArray: allOfIt}});
     };
     
     /** FOR DATE-RANGE */
@@ -113,7 +116,7 @@ const SearchBar = () => {
                     type="text" 
                     value={value} 
                     onChange={onChange}
-                    placeholder="Temporarily People Only"
+                    placeholder="Hotel Name"
                     className="search--input" 
                 />
                 
