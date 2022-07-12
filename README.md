@@ -2,11 +2,13 @@
 
 to enter client: 
 1. `cd client`
-2. `npm start`
+2. `npm install`
+3. `npm start`
 
 to enter backend/db:
 1. `cd api`
-2. `npm start`
+2. `npm install`
+3. `npm start`
 
 use `npm start` to start the server
 
