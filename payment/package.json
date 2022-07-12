@@ -1,0 +1,15 @@
+{
+  "name": "payment",
+  "version": "1.0.0",
+  "description": "Connect to Checkout",
+  "main": "payment.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon payment.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
+}
