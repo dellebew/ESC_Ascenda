@@ -29,23 +29,6 @@ const Destinations = () => {
             .catch(console.error);
     }, []);
     
-    // fetch("/api/destination/hotels/WD0M").then(
-    //     response => response.json()
-    //     ).then(
-    //     data => {
-    //         setDestData(data)
-    //     })}, [])
-
-
-    // sample static api url fetch 
-    // useEffect(() => {
-    //     fetch("/api/destination/hotels/WD0M").then(
-    //     response => response.json()
-    //     ).then(
-    //     data => {
-    //         setDestData(data)
-    //     })}, [])
-    
     const hotelcards = destData.map(item => {
         return (
             <HotelCard

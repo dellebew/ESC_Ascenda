@@ -4,6 +4,7 @@
     display:flex;
     justify-content: space-between;
     gap:20px;
+    height:200px;
     margin-bottom: 20px;
 }
 
@@ -39,6 +40,13 @@
     font-size:13px;
     margin-top:5px;
     letter-spacing: -0.5px;
+    overflow: hidden;
+}
+
+.si--description > div {
+    -webkit-column-width: 195px;
+    column-width: 195px;
+    height: 100%;
 }
 
 .si--details {

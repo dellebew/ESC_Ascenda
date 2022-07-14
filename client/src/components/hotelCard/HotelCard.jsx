@@ -1,7 +1,8 @@
 import "./hotelCard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
-import { faLocationDot, faRoad } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faRoad,  } from "@fortawesome/free-solid-svg-icons";
+import ReactStars from "react-rating-stars-component"
 
 /**  
  *  TODO: finish implementation of dynamic JSON elements
@@ -14,12 +15,6 @@ export default function HotelCard(props) {
         minimumFractionDigits: 1,      
         maximumFractionDigits: 1,
     });
-
-    // shorten description
-    const response = props.description
-    const regex = /<p>(.*?)<\/p>/;
-    const corresp = regex.exec(response);
-    const firstParagraphWithoutHtml = (corresp) ? corresp[1] : "" // text1
     
     // replace unfound images with placeholder
     const handleImgError = e => {
@@ -27,6 +22,14 @@ export default function HotelCard(props) {
         e.target.src = "/image-not-found.png"
     }
 
+    // star rating systems
+    const overallRating = {
+        size: 25,
+        value: props.rating,
+        edit: false,
+        isHalf: true,
+        activeColor:"#6495ED",
+      };
 
     return (
         <div key={props.id} className="searchItem">
@@ -51,19 +54,19 @@ export default function HotelCard(props) {
                 </div>
 
                 <span className="si--description">
-                <div>{parse(firstParagraphWithoutHtml)}</div> 
+                <div dangerouslySetInnerHTML={ {__html: props.description} } />
                 </span>
             </div>
             <div className="si--details">
                 <div className="si--rating"> 
                     <button>{formatter.format(props.rating)}</button>
-                    <span>Excellent</span>
+                    <ReactStars {...overallRating} />
                 </div>
-                <div className="si--pricing"> 
+                {/* <div className="si--pricing"> 
                     <span className="si--from">From</span>
                     <span className="si--price">$123</span>
                     <button className="si--check">Show Prices</button>
-                </div>
+                </div> */}
             </div>
         </div>
     )
