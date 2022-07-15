@@ -40,7 +40,7 @@ const Hotels = () => {
       };
 
         fetchData(); 
-    }, [url]);
+    }, []);
 
     return (
         <>

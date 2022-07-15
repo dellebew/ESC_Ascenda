@@ -1,18 +1,21 @@
 import "./hotelPage.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import RoomCard from "../roomCard/RoomCard"
 import ReactStars from "react-rating-stars-component"
 import ImageSlider from "../imageSlider/ImageSlider";
 import { useState, useEffect } from "react"
+import { Map, Marker } from "pigeon-maps"
 
-// TODO: finish formatting hotel page with dynamic JSON elements
+// TODO: fix logic for city hotel
 
 export default function HotelPage(props) {
 
     const image_url = props.image_details?.prefix+0+props.image_details?.suffix
     const imageCount = props.imageCount;
+    const mapCenter = [props.latitude, props.longitude]
     const [imgData, setImgData] = useState([]);
+    const [showMore, setShowMore] = useState(false);
 
     // check if image exists
     const loadImg = (url) => {
@@ -40,17 +43,32 @@ export default function HotelPage(props) {
         };
 
         fetchData(); 
-    }, [image_url]);
-
-
-    // formatter for 1dp
-    const formatter = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 1,      
-        maximumFractionDigits: 1,
-    });
+    }, []);
     
+    // show / hide description
+    const toggleDescription = () => {
+        setShowMore(!showMore)
+        const element = document.querySelector(".desc-wrapper")
+        element.style.height = showMore ? '300px' : 'fit-content';
+    }
 
-    //Rating System
+    // filter through amenities object
+    const filterAmenities = (amenities) => {
+        try {
+            const results = Object.keys(amenities).map((key) => {
+                if (key == "tVInRoom") return 'TV'                    
+                return key.split(/(?=[A-Z])/)
+                    .map(key => key = key.charAt(0).toUpperCase() + key.slice(1)) 
+                    .join(' ')
+                })
+            return results    
+        } catch(err) {
+            console.log(err)
+            return []
+        }
+    }
+
+    // stars rating system
     const overallRating = {
         size: 25,
         value: props.rating,
@@ -58,8 +76,6 @@ export default function HotelPage(props) {
         isHalf: true
       };
 
-    // const amenitiesRating = props.amenities_ratings
-    // amenitiesRating.map(item )
 
     return (
         <div>
@@ -80,9 +96,9 @@ export default function HotelPage(props) {
                             </div>
                             <div className='hotel--address'>
                                 <FontAwesomeIcon icon={faLocationDot}/>
-                                <span>{props.address}, {props.original_metadata.city}, {props.original_metadata.country}</span>
+                                <span>{props.address}, {props.original_metadata?.city}, {props.original_metadata?.country}</span>
                             </div>
-                            <span>Top {Math.round(props.categories.city_hotel.popularity)} in {props.categories.city_hotel.name}s</span>
+                            <span>Top {Math.round(props.categories?.city_hotel.popularity)} in {props.categories?.city_hotel.name}s</span>
                         </div>
                         <div className="hotel--price">
                             <span className="price">$123</span>
@@ -91,47 +107,54 @@ export default function HotelPage(props) {
                         </div>
                     </div>
                     
-                    <div className='hotel--body'>
+                    <div className='hotel--body2'>
                         <div className='hotel--description'>
                             <h2>About</h2>
-                            <div className="hotel--rating">       
-                                <span>
-                                    <button>{formatter.format(props.rating)}</button>
-                                    Excellent
-                                </span>
-                            </div>
-                            <p dangerouslySetInnerHTML={ {__html: props.description} }/>
-                        </div>
-                        
-                        <div className="hotel--details2">
-                            <div className='hotel--details'>
-                                <div className="hotel--location">
-                                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.wired.com%2Fphotos%2F5a6a61938c669c70314b300d%2Fmaster%2Fw_2400%2Cc_limit%2FGoogle-Map-US_10.jpg&f=1&nofb=1"/>
-                                    <div>{props.original_metadata?.city}, {props.original_metadata?.country}</div>
-                                    <div className="hotel--state">
-                                        <FontAwesomeIcon icon={faLocationDot}/>
-                                        <span> ({props.latitude + ', ' + props.longitude})</span>
-                                    </div>
+                            <div className="desc-wrapper">
+                                <div className="desc" dangerouslySetInnerHTML={ {__html: props.description} }/>
+                                <div className="show--more" onClick={toggleDescription}>
+                                    <span>{showMore ? "Show Less " : "Show More "}</span>
+                                    <FontAwesomeIcon icon={showMore ? faChevronUp : faChevronDown}/>
                                 </div>
                             </div>
-                            <h3>Amenities</h3>
+                            <h2>Amenities</h2>
                             <div className='hotel--amenities'>
-                                <span>Free WiFi</span>
-                                <span>Free parking</span>
-                                <span>Non-smoking</span>
-                                <span>Air Conditioning</span>
+                                {filterAmenities(props.amenities).map((key, i) => {
+                                    return <li key={i}>{key}</li>
+                                })}
+                            </div>
+                        
+                        </div>
+                        
+                        <div className="hotel--description">
+                            <div className='hotel--details'>
+                                <h2>Ratings</h2>
+                                <div className="hotel--rating">       
+                                    <span>
+                                        <button>{Math.round(props.rating).toFixed(1)}</button>
+                                        Excellent
+                                    </span>
+                                </div>
+                                
+                                <h2>Location</h2>
+                                <div className="hotel--location">
+                                    <Map className="map" 
+                                        height={300} 
+                                        loading={'lazy'}
+                                        defaultCenter={mapCenter}
+                                        defaultZoom={18}>
+                                        <Marker width={50} anchor={mapCenter}/>
+                                    </Map>
+                                </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div className='hotel--body'> 
-                        
                     <div className='hotel--rooms'>
                         <h2>Room Choices</h2>
                         <RoomCard />
                         <RoomCard />
-                    </div>
                     </div>
                 </div>
             </div>

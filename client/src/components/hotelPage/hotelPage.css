@@ -4,19 +4,34 @@
     justify-content: center;
 }
 
+h2 {
+    font-size: 22px;
+}
+
 .hotel--wrapper{
     width:100%;
     max-width: 1024px;
     display:flex;
     flex-direction: column;
-    gap:5px;
+    gap:10px;
 
+}
+
+.hotel--images {
+    flex: 1;
+    height:65vh;
+    object-fit: cover;
+    border-radius: 5px;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg");
+    background-position: center;
+    background-size:cover;
 }
 
 .hotel--header {
     display: flex;
-    margin-bottom: 15px;
+    padding: 15px 0px;
     justify-content: space-between;
+    border-bottom: 1px lightgrey solid;
 }
 
     .hotel--name {
@@ -70,23 +85,38 @@
     }
 
 
-.hotel--body {
-    display: flex;
-    padding-bottom: 20px;
-    margin-bottom: 10px;
+
+.desc-wrapper {
+    height: 300px;
+    padding-bottom: 30px;
+    overflow:hidden;
+    position: relative;
+    margin: 10px 0px;
     border-bottom: 1px lightgrey solid;
-    align-items: flex-start;
 }
 
-    .hotel--images {
-        flex: 1;
-        height:65vh;
-        object-fit: cover;
-        border-radius: 5px;
-        background-image: url("https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg");
-        background-position: center;
-        background-size:cover;
+    .desc {
+        -webkit-column-width: 300px;
+        column-width: 300px;
+        height: 100%;
     }
+
+    .show--more {
+        position: absolute;
+        bottom: 5px;
+        right: 0px;
+        color:cornflowerblue;
+        cursor: pointer;
+        user-select: none;
+    }
+
+
+
+.hotel--body {
+    display: flex;
+    align-items: flex-start;
+    padding-top: 10px;
+}
 
     .hotel--details {
         display: flex;
@@ -96,22 +126,9 @@
         gap:10px;
     }
 
-
-    .hotel--location > img {
-        width: 100%;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-
-    .hotel--state {
-        display:flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 15px;
-        font-weight: 500;
-        padding: 5px;
-        padding-bottom: 15px;
-        border-bottom: 1px lightgrey solid;
+    .map {
+        height: 300px;
+        width: auto;
     }
 
     .hotel--rating {
@@ -136,24 +153,41 @@
     }
 
 
+.hotel--body2 {
+    display:flex;
+    align-items: flex-start;
+    padding-top: 10px;
+    gap:25px;
+}
+
 .hotel--description {
     flex: 1;
     font-size: 14px;
-    padding-right: 40px;
-}
-
-.hotel--details2 {
-    flex: 1;
-    display: flex;
     flex-direction: column;
-    padding: 0px 40px;
-    gap:10px;
 }
 
 .hotel--amenities {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     padding-left: 10px;
+    padding-top: 5px;
+}
+
+    .hotel--amenities > li {
+        flex: 1 0 33.3%;
+        list-style: none;
+        margin: 5px 0px;
+    }
+
+    .hotel--amenities > li:before {
+        content: '✓';
+        padding-right: 8px;
+        color:cornflowerblue
+    }
+
+.hotel--rooms {
+    border-top: 1px lightgrey solid;
+    padding-top: 10px;
 }
 
 

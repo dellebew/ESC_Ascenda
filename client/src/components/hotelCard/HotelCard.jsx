@@ -10,12 +10,6 @@ import ReactStars from "react-rating-stars-component"
 
 export default function HotelCard(props) {
     
-    // formatter for 1dp
-    const formatter = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 1,      
-        maximumFractionDigits: 1,
-    });
-    
     // replace unfound images with placeholder
     const handleImgError = e => {
         e.target.onError = null;
@@ -45,11 +39,11 @@ export default function HotelCard(props) {
                     <span className="si--address">{props.address}</span>
                     <div className="si--coordinates"> 
                         <FontAwesomeIcon icon={faLocationDot}/>
-                        <span> ({props.latitude + ', ' + props.longitude})</span>
+                        <span> ({parseFloat(props.latitude).toFixed(5) + ', ' + parseFloat(props.longitude).toFixed(5)})</span>
                     </div>
                     <div className="si--distance"> 
                         <FontAwesomeIcon icon={faRoad}/>
-                        <span> {formatter.format(props.distance/1000)} km away from city centre</span>
+                        <span> {Math.round(props.distance/1000).toFixed(1)} km away from city centre</span>
                     </div>
                 </div>
 
@@ -59,7 +53,7 @@ export default function HotelCard(props) {
             </div>
             <div className="si--details">
                 <div className="si--rating"> 
-                    <button>{formatter.format(props.rating)}</button>
+                    <button>{Math.round(props.rating).toFixed(1)}</button>
                     <ReactStars {...overallRating} />
                 </div>
                 {/* <div className="si--pricing"> 
