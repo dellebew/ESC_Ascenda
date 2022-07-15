@@ -7,29 +7,20 @@
 
 .search--wrapper {
   width: 100%;
+  height: fit-content;
   max-width: 1024px;
   justify-content: center;
   box-shadow: inset;
   display: flex;
   flex-direction: column;
   color: black;
-  background-color:white;
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 0px 10px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-}
-
-.search--wrapper > h1 {
-  font-size: 25px;
-  color:navy;
-  font-weight: bold;
 }
 
 .search--container {
   height: 30px;
   width: 100%;
   color:black;
+  background-color: white;
   border: 1px solid lightgrey;
   border-radius: 5px;
   display: flex;
@@ -37,7 +28,7 @@
   align-self: center;
   justify-content: space-evenly;
   padding: 10px 0px;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   position: relative;
 }
 

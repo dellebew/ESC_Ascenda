@@ -53,8 +53,6 @@ const SearchBar = () => {
     return (
         <div className="searchBar">
         <div className="search--wrapper">
-            <h1 className="search--title">Where to?</h1>
-
             <div className="search--container">
             {/*Work with this for now, considering slack API right now, google seacrh API apparently is only for places, perhaps
             when create the places search bar, this can be implemented*/}

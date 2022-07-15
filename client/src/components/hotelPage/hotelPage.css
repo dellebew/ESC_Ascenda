@@ -1,6 +1,6 @@
 .hotel--container {
     display:flex;
-    margin-top:40px;
+    margin-top:20px;
     justify-content: center;
 }
 
@@ -9,33 +9,32 @@
     max-width: 1024px;
     display:flex;
     flex-direction: column;
-    gap:10px;
+    gap:5px;
 
 }
 
 .hotel--header {
     display: flex;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px lightgrey solid;
+    margin-bottom: 15px;
     justify-content: space-between;
 }
 
-    .hotel--name{
-        font-size: 26px;
+    .hotel--name {
+        display: flex;
+        gap: 10px;
     }
 
-    .hotel--shortdesc{
-        font-size: 14px;
-        color:grey;
+    .hotel--name > h1{
+        font-size: 26px;
     }
 
     .hotel--address{
         font-size: 15px;
+        font-weight: 500;
         display:flex;
         align-items: center;
         gap:10px;
-        padding: 5px 0px;
+        padding: 5px;
     }
 
     .hotel--price {
@@ -66,6 +65,8 @@
         font-weight: bold;
         border-radius: 5px;
         cursor:pointer;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, 
+                    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     }
 
 
@@ -78,9 +79,13 @@
 }
 
     .hotel--images {
-        width:60%;
+        flex: 1;
+        height:65vh;
         object-fit: cover;
         border-radius: 5px;
+        background-image: url("https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg");
+        background-position: center;
+        background-size:cover;
     }
 
     .hotel--details {
@@ -132,29 +137,17 @@
 
 
 .hotel--description {
-    flex: 2;
+    flex: 1;
     font-size: 14px;
     padding-right: 40px;
 }
 
 .hotel--details2 {
-    flex: 2;
+    flex: 1;
     display: flex;
     flex-direction: column;
     padding: 0px 40px;
     gap:10px;
-}
-
-.hotel--contact {
-    display: flex;
-    flex-direction: column;
-    font-size: 15px;
-    font-weight: 500;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    background-color: antiquewhite;
-    padding: 10px 15px;
-    gap:5px;
 }
 
 .hotel--amenities {

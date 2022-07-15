@@ -34,7 +34,7 @@ export default function HotelCard(props) {
     return (
         <div key={props.id} className="searchItem">
             <img
-                src={props.image_details?.prefix+props.default_image_index+props.image_details?.suffix}
+                src={props.image_details?.prefix+0+props.image_details?.suffix}
                 alt=""
                 onError={handleImgError}
                 className="si--image"
