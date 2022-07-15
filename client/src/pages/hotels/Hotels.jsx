@@ -10,7 +10,7 @@ const Hotels = () => {
     const [hotelData, setHotelData] = useState([{}])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
-    const url = "/api/hotel/diH7";
+    const url = "/api/hotel/11fD";
 
 
 

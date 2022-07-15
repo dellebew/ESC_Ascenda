@@ -19,7 +19,7 @@ h2 {
 
 .hotel--images {
     flex: 1;
-    height:65vh;
+    height:420px;
     object-fit: cover;
     border-radius: 5px;
     background-image: url("https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg");
@@ -50,6 +50,11 @@ h2 {
         align-items: center;
         gap:10px;
         padding: 5px;
+    }
+
+    .hotel--categories {
+        color:brown;
+        font-weight: bold;
     }
 
     .hotel--price {
@@ -118,38 +123,12 @@ h2 {
     padding-top: 10px;
 }
 
-    .hotel--details {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        padding: 0px 20px;
-        gap:10px;
+    .hotel--location {
+        margin: 10px 0px;
     }
-
     .map {
         height: 300px;
         width: auto;
-    }
-
-    .hotel--rating {
-        padding-top: 10px;
-        display:flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .hotel--rating > span {
-        font-weight: bold;
-    }
-
-    .hotel--rating > span > button {
-        background-color: cornflowerblue;
-        color:white;
-        border: none;
-        font-weight: bold;
-        padding: 5px;
-        border-radius: 5px;
-        margin-right: 7px;
     }
 
 
@@ -157,7 +136,7 @@ h2 {
     display:flex;
     align-items: flex-start;
     padding-top: 10px;
-    gap:25px;
+    gap:30px;
 }
 
 .hotel--description {
@@ -174,7 +153,7 @@ h2 {
 }
 
     .hotel--amenities > li {
-        flex: 1 0 33.3%;
+        flex: 1 0 50%;
         list-style: none;
         margin: 5px 0px;
     }
@@ -183,6 +162,50 @@ h2 {
         content: '✓';
         padding-right: 8px;
         color:cornflowerblue
+    }
+
+.amenities-wrapper {
+    height: 180px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+    overflow:hidden;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+    .show--amenities {
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        color:cornflowerblue;
+        cursor: pointer;
+        user-select: none;
+    }
+    .amenities--ratings {
+        margin-top: 5px;
+    }
+
+    .progress--title {
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    .progress {
+        background-color: #d8d8d8;
+        width: 250px;
+        border-radius: 20px;
+        position: relative;
+
+    }
+
+    .progress-done {
+        background: linear-gradient(to left, #F2709C, #FF9472);
+        box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+        border-radius: 20px;
+        justify-content: center;
+        height: 7px;
     }
 
 .hotel--rooms {
