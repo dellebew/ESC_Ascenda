@@ -103,7 +103,7 @@ export default function HotelPage(props) {
 
 
     return (
-        <div>
+        <div className="body">
             <div key={props.id} className='hotel--container'>
                 <div className='hotel--wrapper'>
                     

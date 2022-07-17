@@ -1,7 +1,24 @@
+.body {
+    min-width: 1024px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 .hotel--container {
     display:flex;
-    margin-top:20px;
+    margin-top: 20px;
+    padding:20px;
+    width: 100%;
+    border-radius: 5px;
+    max-width:1024px;
     justify-content: center;
+    background-color: rgb(255,255,255,.9);
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, 
+                rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+                rgba(0, 0, 0, 0.09) 0px 8px 4px, 
+                rgba(0, 0, 0, 0.09) 0px 16px 8px, 
+                rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 h2 {
@@ -14,7 +31,7 @@ h2 {
     display:flex;
     flex-direction: column;
     gap:10px;
-
+    
 }
 
 .hotel--images {
@@ -98,6 +115,7 @@ h2 {
     position: relative;
     margin: 10px 0px;
     border-bottom: 1px lightgrey solid;
+    
 }
 
     .desc {
@@ -171,6 +189,7 @@ h2 {
     overflow:hidden;
     position: relative;
     margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 20px -20px;
 }
 
     .show--amenities {

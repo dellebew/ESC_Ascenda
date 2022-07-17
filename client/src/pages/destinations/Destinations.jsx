@@ -55,9 +55,11 @@ const Destinations = () => {
     ]);
 
     return (
-        <div>
-            <Navbar />
-            <SearchBar />
+        <>
+        <Navbar />
+        <SearchBar />
+        <div className="body">            
+            
             <div className="list--container">
                 <div className="list--wrapper">
                     <div className="list--search">
@@ -111,6 +113,7 @@ const Destinations = () => {
                 </div>
             </div>
         </div> 
+        </>
     )
 }
 

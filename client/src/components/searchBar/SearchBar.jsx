@@ -19,6 +19,19 @@ const SearchBar = () => {
         // our api to fetch the search result
         console.log("search ", searchTerm);
     };
+
+    /** FOR FIXING SEARCH BAR */
+    const [fixedBar, setFixedBar] = useState(false);
+
+    const fixNav = (nav) => {
+        if (window.scrollY >= nav.offsetTop) {
+            document.body.style.paddingTop = nav.offsetHeight + 'px';
+            document.body.classList.add('fixed-nav');
+        } else {
+            document.body.style.paddingTop = 0;
+            document.body.classList.remove('fixed-nav');
+        }
+    }
     
     /** FOR DATE-RANGE */
     const [openDate, setOpenDate] = useState(false);
@@ -63,7 +76,7 @@ const SearchBar = () => {
                     type="text" 
                     value={value} 
                     onChange={onChange}
-                    placeholder="Temporarily People Only"
+                    placeholder="e.g. Singapore"
                     className="search--input" 
                 />
                 
@@ -93,7 +106,8 @@ const SearchBar = () => {
                 </div>
             </div>
 
-            <div className="search--item">
+            <div className="search--item2">
+                <div className="search--item">
                 <FontAwesomeIcon icon={faCalendarDays} className="search--icon"/>
                 <span 
                     onClick={()=>setOpenDate(!openDate)} 
@@ -107,9 +121,9 @@ const SearchBar = () => {
                     ranges={date}
                     className="date"
                 />)}
-            </div>
+                </div>
 
-            <div className="search--item">
+                <div className="search--item">
                 <FontAwesomeIcon icon={faPerson} className="search--icon"/>
                 <span className="search--text" onClick={() => setOpenOptions(!openOptions)}>
                     {`${options.adult} adults ${options.children} children ${options.room} room`}
@@ -147,11 +161,15 @@ const SearchBar = () => {
                         </div>
                     </div>
                 </div>)}
+                </div>
+
+                {/*Button onClick needs to call out display page, clear this comment after doing it*/}
+                <div className="search--item">
+                    <button className="search--button"
+                        onClick={() => onSearch(value)}> Search </button>
+                </div>
             </div>
 
-            {/*Button onClick needs to call out display page, clear this comment after doing it*/}
-            <button className="search--button"
-                    onClick={() => onSearch(value)}> Search </button>
             </div>
         </div>
     </div>
