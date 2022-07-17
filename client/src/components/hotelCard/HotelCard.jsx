@@ -1,7 +1,8 @@
 import "./hotelCard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
-import { faLocationDot, faRoad } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faRoad,  } from "@fortawesome/free-solid-svg-icons";
+import ReactStars from "react-rating-stars-component"
 
 /**  
  *  TODO: finish implementation of dynamic JSON elements
@@ -9,29 +10,25 @@ import { faLocationDot, faRoad } from "@fortawesome/free-solid-svg-icons";
 
 export default function HotelCard(props) {
     
-    // formatter for 1dp
-    const formatter = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 1,      
-        maximumFractionDigits: 1,
-    });
-
-    // shorten description
-    const response = props.description
-    const regex = /<p>(.*?)<\/p>/;
-    const corresp = regex.exec(response);
-    const firstParagraphWithoutHtml = (corresp) ? corresp[1] : "" // text1
-    
     // replace unfound images with placeholder
     const handleImgError = e => {
         e.target.onError = null;
         e.target.src = "/image-not-found.png"
     }
 
+    // star rating systems
+    const overallRating = {
+        size: 25,
+        value: props.rating,
+        edit: false,
+        isHalf: true,
+        activeColor:"#6495ED",
+      };
 
     return (
         <div key={props.id} className="searchItem">
             <img
-                src={props.image_details?.prefix+props.default_image_index+props.image_details?.suffix}
+                src={props.image_details?.prefix+0+props.image_details?.suffix}
                 alt=""
                 onError={handleImgError}
                 className="si--image"
@@ -42,28 +39,28 @@ export default function HotelCard(props) {
                     <span className="si--address">{props.address}</span>
                     <div className="si--coordinates"> 
                         <FontAwesomeIcon icon={faLocationDot}/>
-                        <span> ({props.latitude + ', ' + props.longitude})</span>
+                        <span> ({parseFloat(props.latitude).toFixed(5) + ', ' + parseFloat(props.longitude).toFixed(5)})</span>
                     </div>
                     <div className="si--distance"> 
                         <FontAwesomeIcon icon={faRoad}/>
-                        <span> {formatter.format(props.distance/1000)} km away from city centre</span>
+                        <span> {Math.round(props.distance/1000).toFixed(1)} km away from city centre</span>
                     </div>
                 </div>
 
                 <span className="si--description">
-                <div>{parse(firstParagraphWithoutHtml)}</div> 
+                <div dangerouslySetInnerHTML={ {__html: props.description} } />
                 </span>
             </div>
             <div className="si--details">
                 <div className="si--rating"> 
-                    <button>{formatter.format(props.rating)}</button>
-                    <span>Excellent</span>
+                    <button>{Math.round(props.rating).toFixed(1)}</button>
+                    <ReactStars {...overallRating} />
                 </div>
-                <div className="si--pricing"> 
+                {/* <div className="si--pricing"> 
                     <span className="si--from">From</span>
                     <span className="si--price">$123</span>
                     <button className="si--check">Show Prices</button>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -1,5 +1,6 @@
 .navbar {
     height:60px;
+    min-width:1024px;
     background-color:cornflowerblue;
     display: flex;
     justify-content: center;

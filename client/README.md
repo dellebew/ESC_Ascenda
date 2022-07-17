@@ -13,3 +13,5 @@ React-Date-Range: https://hypeserver.github.io/react-date-range/
 FontAwesomeIcon: https://fontawesome.com/icons
 
 React-Rating-Stars: https://www.npmjs.com/package/react-rating-stars-component
+
+Pigeon-Maps: https://github.com/mariusandra/pigeon-maps

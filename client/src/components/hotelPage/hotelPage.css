@@ -1,7 +1,28 @@
+.body {
+    min-width: 1024px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
 .hotel--container {
     display:flex;
-    margin-top:40px;
+    margin-top: 20px;
+    padding:20px;
+    width: 100%;
+    border-radius: 5px;
+    max-width:1024px;
     justify-content: center;
+    background-color: rgb(255,255,255,.9);
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, 
+                rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+                rgba(0, 0, 0, 0.09) 0px 8px 4px, 
+                rgba(0, 0, 0, 0.09) 0px 16px 8px, 
+                rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+h2 {
+    font-size: 22px;
 }
 
 .hotel--wrapper{
@@ -10,32 +31,47 @@
     display:flex;
     flex-direction: column;
     gap:10px;
+    
+}
 
+.hotel--images {
+    flex: 1;
+    height:420px;
+    object-fit: cover;
+    border-radius: 5px;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg");
+    background-position: center;
+    background-size:cover;
 }
 
 .hotel--header {
     display: flex;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px lightgrey solid;
+    padding: 15px 0px;
     justify-content: space-between;
+    border-bottom: 1px lightgrey solid;
 }
 
-    .hotel--name{
-        font-size: 26px;
+    .hotel--name {
+        display: flex;
+        gap: 10px;
     }
 
-    .hotel--shortdesc{
-        font-size: 14px;
-        color:grey;
+    .hotel--name > h1{
+        font-size: 26px;
     }
 
     .hotel--address{
         font-size: 15px;
+        font-weight: 500;
         display:flex;
         align-items: center;
         gap:10px;
-        padding: 5px 0px;
+        padding: 5px;
+    }
+
+    .hotel--categories {
+        color:brown;
+        font-weight: bold;
     }
 
     .hotel--price {
@@ -66,101 +102,134 @@
         font-weight: bold;
         border-radius: 5px;
         cursor:pointer;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, 
+                    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     }
+
+
+
+.desc-wrapper {
+    height: 300px;
+    padding-bottom: 30px;
+    overflow:hidden;
+    position: relative;
+    margin: 10px 0px;
+    border-bottom: 1px lightgrey solid;
+    
+}
+
+    .desc {
+        -webkit-column-width: 300px;
+        column-width: 300px;
+        height: 100%;
+    }
+
+    .show--more {
+        position: absolute;
+        bottom: 5px;
+        right: 0px;
+        color:cornflowerblue;
+        cursor: pointer;
+        user-select: none;
+    }
+
 
 
 .hotel--body {
     display: flex;
-    padding-bottom: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px lightgrey solid;
     align-items: flex-start;
+    padding-top: 10px;
 }
 
-    .hotel--images {
-        width:60%;
-        object-fit: cover;
-        border-radius: 5px;
+    .hotel--location {
+        margin: 10px 0px;
     }
-
-    .hotel--details {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        padding: 0px 20px;
-        gap:10px;
+    .map {
+        height: 300px;
+        width: auto;
     }
 
 
-    .hotel--location > img {
-        width: 100%;
-        object-fit: cover;
-        border-radius: 5px;
-    }
-
-    .hotel--state {
-        display:flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 15px;
-        font-weight: 500;
-        padding: 5px;
-        padding-bottom: 15px;
-        border-bottom: 1px lightgrey solid;
-    }
-
-    .hotel--rating {
-        padding-top: 10px;
-        display:flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .hotel--rating > span {
-        font-weight: bold;
-    }
-
-    .hotel--rating > span > button {
-        background-color: cornflowerblue;
-        color:white;
-        border: none;
-        font-weight: bold;
-        padding: 5px;
-        border-radius: 5px;
-        margin-right: 7px;
-    }
-
+.hotel--body2 {
+    display:flex;
+    align-items: flex-start;
+    padding-top: 10px;
+    gap:30px;
+}
 
 .hotel--description {
-    flex: 2;
+    flex: 1;
     font-size: 14px;
-    padding-right: 40px;
-}
-
-.hotel--details2 {
-    flex: 2;
-    display: flex;
     flex-direction: column;
-    padding: 0px 40px;
-    gap:10px;
-}
-
-.hotel--contact {
-    display: flex;
-    flex-direction: column;
-    font-size: 15px;
-    font-weight: 500;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    background-color: antiquewhite;
-    padding: 10px 15px;
-    gap:5px;
 }
 
 .hotel--amenities {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     padding-left: 10px;
+    padding-top: 5px;
+}
+
+    .hotel--amenities > li {
+        flex: 1 0 50%;
+        list-style: none;
+        margin: 5px 0px;
+    }
+
+    .hotel--amenities > li:before {
+        content: '✓';
+        padding-right: 8px;
+        color:cornflowerblue
+    }
+
+.amenities-wrapper {
+    height: 180px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+    overflow:hidden;
+    position: relative;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 20px -20px;
+}
+
+    .show--amenities {
+        position: absolute;
+        bottom: 0px;
+        left: 50%;
+        color:cornflowerblue;
+        cursor: pointer;
+        user-select: none;
+    }
+    .amenities--ratings {
+        margin-top: 5px;
+    }
+
+    .progress--title {
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    .progress {
+        background-color: #d8d8d8;
+        width: 250px;
+        border-radius: 20px;
+        position: relative;
+
+    }
+
+    .progress-done {
+        background: linear-gradient(to left, #F2709C, #FF9472);
+        box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+        border-radius: 20px;
+        justify-content: center;
+        height: 7px;
+    }
+
+.hotel--rooms {
+    border-top: 1px lightgrey solid;
+    padding-top: 10px;
 }
 
 

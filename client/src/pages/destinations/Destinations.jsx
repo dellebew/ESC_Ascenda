@@ -29,23 +29,6 @@ const Destinations = () => {
             .catch(console.error);
     }, []);
     
-    // fetch("/api/destination/hotels/WD0M").then(
-    //     response => response.json()
-    //     ).then(
-    //     data => {
-    //         setDestData(data)
-    //     })}, [])
-
-
-    // sample static api url fetch 
-    // useEffect(() => {
-    //     fetch("/api/destination/hotels/WD0M").then(
-    //     response => response.json()
-    //     ).then(
-    //     data => {
-    //         setDestData(data)
-    //     })}, [])
-    
     const hotelcards = destData.map(item => {
         return (
             <HotelCard
@@ -72,9 +55,11 @@ const Destinations = () => {
     ]);
 
     return (
-        <div>
-            <Navbar />
-            <SearchBar />
+        <>
+        <Navbar />
+        <SearchBar />
+        <div className="body">            
+            
             <div className="list--container">
                 <div className="list--wrapper">
                     <div className="list--search">
@@ -128,6 +113,7 @@ const Destinations = () => {
                 </div>
             </div>
         </div> 
+        </>
     )
 }
 

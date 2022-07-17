@@ -1,111 +1,197 @@
 import "./hotelPage.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faLocationDot, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import RoomCard from "../roomCard/RoomCard"
-import parse from "html-react-parser";
 import ReactStars from "react-rating-stars-component"
-
-// TODO: finish formatting hotel page with dynamic JSON elements
+import ImageSlider from "../imageSlider/ImageSlider";
+import { useState, useEffect } from "react"
+import { Map, Marker } from "pigeon-maps"
 
 export default function HotelPage(props) {
 
-    // formatter for 1dp
-    const formatter = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 1,      
-        maximumFractionDigits: 1,
-    });
+    const image_url = props.image_details?.prefix+0+props.image_details?.suffix
+    const imageCount = props.imageCount;
+    const mapCenter = [props.latitude, props.longitude]
+    const [imgData, setImgData] = useState([]);
+    const [showMore, setShowMore] = useState(false);
+    const [showAmenities, setShowAmenities] = useState(false);
 
-    // replace unfound images with placeholder
-    const handleImgError = e => {
-        e.target.onError = null;
-        e.target.src = "/image-not-found.png"
+    // check if image exists
+    const loadImg = (url) => {
+        const img = new Image();
+        return new Promise((resolve, reject) => {
+            img.src = url;
+            img.onload = () => resolve(true);
+            img.onerror = () => reject(false);
+        });
+    };
+
+    // sets image array if it exists
+    useEffect(() => {
+        const fetchData = async () => {
+          try { 
+            const res = await loadImg(image_url);
+            let imageArray = []
+            for (let i = 0; i < imageCount; i++) {
+                imageArray.push({image:props.image_details?.prefix
+                                        +i+props.image_details?.suffix})
+            }
+            setImgData(imageArray);
+          } catch(err) {
+          }
+        };
+
+        fetchData(); 
+    }, []);
+    
+    // show / hide description
+    const toggleDescription = () => {
+        setShowMore(!showMore)
+        const element = document.querySelector(".desc-wrapper")
+        element.style.height = showMore ? '300px' : 'fit-content';
     }
 
-    //Rating System
-    const overallRating = {
-        size: 25,
-        value: props.rating,
-        edit: false,
-        isHalf: true
-      };
+    // filter through amenities object
+    const filterAmenities = (amenities) => {
+        try {
+            const results = Object.keys(amenities).map((key) => {
+                if (key == "tVInRoom") return 'TV'                    
+                return key.split(/(?=[A-Z])/)
+                    .map(key => key = key.charAt(0).toUpperCase() + key.slice(1)) 
+                    .join(' ')
+                })
+            return results    
+        } catch(err) {
+            return []
+        }
+    }
+        
+    // filter through categories object
+    const category = () => {
+        try {
+            const data = Object.entries(props.categories)
+            const max = data.reduce(function(prev, current) {
+                return (prev[1].popularity < current[1].popularity) ? prev : current
+            })
+            if(Math.round(max[1].popularity) == 0) {max[1].popularity = 1}
+            if(max[1].name == "Overall") {max[1].name = "All Hotel"}
+            return ([Math.round(max[1].popularity), max[1].name]);
+        } catch(err) {
+            return []
+        }
+    }
 
-    // const amenitiesRating = props.amenities_ratings
-    // amenitiesRating.map(item )
+    // filter around amenities_ratings
+    const filterAmenitiesRating = (ratings) => {
+        try {
+            const data = Object.entries(ratings).map((key) => {
+                return ([key[1].name, key[1].score])
+            })
+            return data
+        } catch(err) {
+            console.log(err)
+            return []
+        }
+    }
+
+    // toggle amenities_ratings
+    const toggleAmenities = () => {
+        setShowAmenities(!showAmenities)
+        const element = document.querySelector(".amenities-wrapper")
+        element.style.height = showAmenities ? '180px' : 'fit-content';
+    }
+
 
     return (
-        <div>
+        <div className="body">
             <div key={props.id} className='hotel--container'>
                 <div className='hotel--wrapper'>
+                    
+                    <div className="hotel--body">
+                        <div className="hotel--images">
+                            <ImageSlider slides={imgData}/>
+                        </div>
+                    </div>
+
                     <div className="hotel--header">
                         <div className="hotel--summary">
-                            <h1 className='hotel--name'>{props.name}</h1>
-                            <div className='hotel--address'>
-                                <span>{props.address}</span>
+                            <div className='hotel--name'>
+                                <h1>{props.name}</h1>
+                                <ReactStars {...{value:props.rating, size:25}} />
                             </div>
-                            <ReactStars {...overallRating} />
+                            <div className='hotel--address'>
+                                <FontAwesomeIcon icon={faLocationDot}/>
+                                <span>{props.address}, {props.original_metadata?.city}, {props.original_metadata?.country}</span>
+                            </div>
+                            <span className="hotel--categories">Top {category()[0]} in {category()[1]}s</span>
                         </div>
                         <div className="hotel--price">
                             <span className="price">$123</span>
                             <span className="subtext">for 1 room for 1 night</span>
-                            <button className="hotel--choose">Choose Room</button>
+                            <button className="hotel--choose">View Deal</button>
                         </div>
                     </div>
                     
-                    <div className="hotel--body">
-                        <img className="hotel--images" 
-                            src={props.image_details?.prefix+props.default_image_index+props.image_details?.suffix}
-                            alt=""
-                            onError={handleImgError}
-                        />
-                        <div className='hotel--details'>
-                            <div className="hotel--location">
-                                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.wired.com%2Fphotos%2F5a6a61938c669c70314b300d%2Fmaster%2Fw_2400%2Cc_limit%2FGoogle-Map-US_10.jpg&f=1&nofb=1"/>
-                                <div>{props.original_metadata?.city}, {props.original_metadata?.country}</div>
-                                <div className="hotel--state">
-                                    <FontAwesomeIcon icon={faLocationDot}/>
-                                    <span> ({props.latitude + ', ' + props.longitude})</span>
+                    <div className='hotel--body2'>
+                        <div className='hotel--description'>
+                            <h2>About</h2>
+                            <div className="desc-wrapper">
+                                <div className="desc" dangerouslySetInnerHTML={ {__html: props.description} }/>
+                                <div className="show--more" onClick={toggleDescription}>
+                                    <span>{showMore ? "Show Less " : "Show More "}</span>
+                                    <FontAwesomeIcon icon={showMore ? faChevronUp : faChevronDown}/>
+                                </div>
+                            </div>
+                            <h2>Amenities</h2>
+                            <div className='hotel--amenities'>
+                                {filterAmenities(props.amenities).map((key, i) => {
+                                    return <li key={i}>{key}</li>
+                                })}
+                            </div>
+                        
+                        </div>
+                        
+                        <div className="hotel--description">
+                                
+                                <h2>Location</h2>
+                                <div className="hotel--location">
+                                    <Map className="map" 
+                                        height={300} 
+                                        loading={'lazy'}
+                                        defaultCenter={mapCenter}
+                                        defaultZoom={18}>
+                                        <Marker width={50} anchor={mapCenter}/>
+                                    </Map>
+                                </div>
+                                <h2>Ratings</h2>
+                            <div className='hotel--body'>
+                                <div className="amenities-wrapper">
+                                    <div className="show--amenities" onClick={toggleAmenities}>
+                                        <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
+                                    </div>     
+                                    {filterAmenitiesRating(props.amenities_ratings).map((key, i) => {
+                                        const roundedValue = Math.round(key[1]/5)/2
+                                        return (<div key={i} className="amenities--ratings"> 
+                                                    <div key={i} className="progress">
+                                                        <div className="progress-done" style={{width:`${key[1]}%`}}/>
+                                                    </div>
+                                                    <div className="progress--title"> 
+                                                        <p>{key[0]}</p>
+                                                        <p>{key[1]/10}</p>
+                                                    </div>
+                                                    
+                                                </div>)
+                                        })}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div className='hotel--body'>
-                        <div className='hotel--description'>
-                            <h2>About</h2>
-                            <div className="hotel--rating">       
-                                <span>
-                                    <button>{formatter.format(props.rating)}</button>
-                                    Excellent
-                                </span>
-                            </div>
-                            <p dangerouslySetInnerHTML={ {__html: props.description} }/>
-                        </div>
-
-                        <div className="hotel--details2">
-                            <h3>Contact Details</h3>
-                            <div className="hotel--contact">
-                                <span className='hotel--phone'><b>Telephone:</b> (country-code) 00000000</span>
-                                <span className='hotel--fax'><b>Fax:</b> (country-code) FAX</span>
-                                <span className='hotel--email'><b>Email:</b> loser@email.com</span>
-                            </div>
-                            <h3>Amenities</h3>
-                            <div className='hotel--amenities'>
-                                <span>Free WiFi</span>
-                                <span>Free parking</span>
-                                <span>Non-smoking</span>
-                                <span>Air Conditioning</span>
-                            </div>
-                        </div>
 
                     </div>
 
-                    <div className='hotel--body'> 
-                        
                     <div className='hotel--rooms'>
                         <h2>Room Choices</h2>
                         <RoomCard />
                         <RoomCard />
-                    </div>
                     </div>
                 </div>
             </div>
