@@ -11,13 +11,13 @@ var destinationPricesController = require("../controllers/destinationPricesContr
 router.get('/hotel/:id', hotelController.getOneHotel);
 
 // hotels belonging to a particular destination
-router.get('/destination/hotels/:id', destinationController.getDestinationHotelIds);
+router.get('/destination/hotels/:id/:page', destinationController.getDestinationHotelIds);
 
 // price for a given hotel (with filtering conditions)
 router.get('/hotel/price/:id', hotelPriceController.getHotelPrice);
 
 // hotel prices for a given destination (with filtering conditions)
-router.get('/destination/prices/:id', destinationPricesController.getDestinationHotelPrices);
+router.get('/destination/prices/:id/:page', destinationPricesController.getDestinationHotelPrices);
 
 
 

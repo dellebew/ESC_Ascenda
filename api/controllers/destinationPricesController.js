@@ -1,19 +1,20 @@
 var https = require('https')
 var { MongoClient } = require("mongodb");
+var axios = require("axios");
+const { PassThrough } = require('stream');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
 const dbName = "ascenda-hotel-booking"
 
-var query = require("../public/javascripts/dbops").query
 var update = require("../public/javascripts/dbops").update
 var sorted_query = require("../public/javascripts/dbops").sorted_query
 
 const coll_name = "destination_prices"
-
+const page_size = 10
 // hotel prices for a given destination (with filtering conditions)
-exports.getDestinationHotelPrices = function(req, resPage, next) {
-
+exports.getDestinationHotelPrices = async function(req, resPage, next){
+    const page_num = parseInt(req.params.page)
     let promise0 = client.connect();
     promise0.then(()=>{
         // 0. get filter data
@@ -24,65 +25,140 @@ exports.getDestinationHotelPrices = function(req, resPage, next) {
         // 1. check if it is in database
         // query by requirements = requirements
 
-        let promise = sorted_query(client,dbName,coll_name,{requirements:requirements})
-        promise.then((result)=>{
-            // console.log(result[0].hotels.length)
-            // 2. if so: display it
-            if (result != null && result.length != 0 && result[0].hotels.length != 0){
-                console.log("Found in database");
-                console.log(typeof(result[0]))
-                resPage.write(JSON.stringify(result));
-                resPage.end();
-                
-            }
-            // 3. if not: request api, display & store in database
-            else{
-                console.log("Not found in database")
-                const value = Array();
-                https.get(url,res => {
-                    let data = '';
-                    res.on('data', chunk => {
-                        data += chunk;
-                        });
-                    res.on('end', () => {
-                        data = JSON.parse(data);
+        let promise0 = client.connect();
+        promise0.then(()=>{
+            let promise = sorted_query(client,dbName,coll_name,{requirements:requirements})
+            promise.then((result)=>{
 
-                        if (data == ''){
-                            resPage.write("does not exist");
-                            resPage.end();
-                            return ;
+                // 2. if so: display it
+                if (result != null && result.length != 0 && result[0].hotels.length != 0){
+                    console.log("Found in database");
+                    result_cut = result.slice(page_num*page_size,(page_num+1)*page_size);
+                    console.log(result_cut)
+                    // get hotels static data
+                    // start **********************
+                    
+                    const promises = [];
+                    for (let i = 0; i < page_size; i++) {
+                        const hotel_id = result_cut[i].hotels.id
+                        promises.push(getOneStaticHotel(hotel_id));
                         }
+                        
+                    Promise.all(promises)
+                        .then((full_res) => {       
+                            for (let i = 0; i<full_res.length; i++){
+                                if (result_cut[i].hotels.id == full_res[i].data.id){
+                                    result_cut[i].hotels.hotel_data = full_res[i].data
+                                    resPage.write(JSON.stringify(result_cut[i].hotels));
+                                }
+                                else{
+                                    for (let j = 0; j<full_res.length; j++){
+                                        if (result_cut[j].hotels.id == full_res[i].data.id){
+                                            result_cut[j].hotels.hotel_data = full_res[i].data
+                                            resPage.write(JSON.stringify(result_cut[j].hotels));
+                                        }
+                                }
+                            }         
+                        }            
+                            resPage.end();
+                        }).catch((e) => {console.log(e)});
 
-                        
-                        value.push(data);
-                        // storing and displaying at the same time                    
-                        update(client,dbName,coll_name,value[0],{requirements:requirements},"set").catch(console.dir);
-                        resPage.write(JSON.stringify(value[0]));
-                        resPage.end();
-                        
+                        // end**********************
+
+                    
+                }
+                // 3. if not: request api, display & store in database
+                else{
+                    console.log("Not found in database")
+
+                    https.get(url,res => {
+                        let data = '';
+                        res.on('data', chunk => {
+                            data += chunk;
+                            });
+                        res.on('end', () => {
+                            const promise1 = new Promise((resolve, reject) => {
+                                resolve(JSON.parse(data));
+                              });
+                              
+                              promise1.then((data) => {
+                                if (data == ''){
+                                    resPage.write("does not exist");
+                                    resPage.end();
+                                    return null;
+                                }
+                                else{
+                                    console.log(data.hotels)
+                                    data.hotels.sort(GetSortOrder("searchRank"))
+                                    return data;}
+                                
+                              }).then((data)=>{
+                                if (data != null){
+                                    update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
+
+                                    // get hotels static data
+                                    // start **********************
+                                    const promises = [];
+                                    for (let i = 0; i < page_size; i++) {
+                                        const hotel_id = data.hotels[i].id
+                                        promises.push(getOneStaticHotel(hotel_id));
+                                        }
+                                        
+                                    Promise.all(promises)
+                                        .then((full_res) => {       
+                                            for (let i = 0; i<full_res.length; i++){
+                                                if (data.hotels[i].id == full_res[i].data.id){
+                                                    data.hotels[i].hotel_data = full_res[i].data
+                                                    resPage.write(JSON.stringify(data.hotels[i]));
+                                                }
+                                                else{
+                                                    for (let j = 0; j<full_res.length; j++){
+                                                        if (data.hotels[i].id == full_res[i].data.id){
+                                                            data.hotels[i].hotel_data = full_res[i].data
+                                                            resPage.write(JSON.stringify(data.hotels[i]));
+                                                        }
+                                                }
+                                            }         
+                                        }            
+                                            resPage.end();
+                                        }).catch((e) => {console.log(e)});
+                                        // end**********************
+                                }
+                              })
+                            })
                         })
-                    })
-                
-                
-                
-            
-                
-
             }
         })
     })
-   
-    
-    // let promise2 = client.close();
-    // promise2.then(()=>{
-    //     return;
-    // })
-  };
+  });
+  
+
+}
+
+
+//Comparator  
+function GetSortOrder(prop) {    
+    return function(a, b) {    
+        if (a[prop] > b[prop]) {    
+            return -1;    
+        } else if (a[prop] < b[prop]) {    
+            return 1;    
+        }    
+        return 0;    
+    }    
+}
+
+async function getOneStaticHotel(hotel_id){
+    const url = baseUrl+"hotels/"+hotel_id
+    const res = await axios(url);
+    return await res;
+}
+
   // TODO
 function getFilteredData(){
     // retrieve data from form
     // ...
-    requirements_tuple = [ "WD0M","2022-07-19","2022-07-20","en_US","SGD","SG","2"] //test
+    requirements_tuple = [ "WD0M","2022-07-26","2022-07-27","en_US","SGD","SG","2"] //test
     return requirements_tuple;
 }
 

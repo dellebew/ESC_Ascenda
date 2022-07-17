@@ -21,10 +21,9 @@ exports.getOneHotel = async function(req, resPage, next) {
         
         let promise = query(client,dbName,coll_name,{id:hotel_id})
         promise.then((result)=>{
-            // console.log("result: "+result)
 
             // 2. if so: display it
-            if (result != null && result.length != 0){
+            if (result != null && result.length >= 0 && result[0].hasOwnProperty("address")){
                 console.log("Found in database");
                 resPage.write(JSON.stringify(result[0]));
                 resPage.end();
@@ -44,7 +43,7 @@ exports.getOneHotel = async function(req, resPage, next) {
                     res.on('end', () => {
                         data = JSON.parse(data);
                         
-                        if (data == ''){
+                        if (JSON.stringify(data).length <=2 ){
                             resPage.write("does not exist");
                             resPage.end();
                             return ;
@@ -52,9 +51,9 @@ exports.getOneHotel = async function(req, resPage, next) {
                         
                         value.push(data);
                         // storing and displaying at the same time
-                        console.log("value"+value)
+                        console.log("value"+JSON.stringify(data).length)
                         update(client,dbName,coll_name,value[0],{id:hotel_id},"set").catch(console.dir);
-                        resPage.write(JSON.stringify(value));
+                        resPage.write(JSON.stringify(value[0]));
                         resPage.end();
                     })
                 })

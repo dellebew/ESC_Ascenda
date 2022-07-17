@@ -1,5 +1,6 @@
 var https = require('https')
 var { MongoClient } = require("mongodb");
+const { type } = require('os');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
@@ -11,6 +12,7 @@ var update = require("../public/javascripts/dbops").update
 
 const coll_name = "destination_hotels"
 const mid_url = "hotels?destination_id="
+const page_size = 10
 
 // hotels belonging to a particular destination
 exports.getDestinationHotelIds = async function(req, resPage, next) {
@@ -19,6 +21,7 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
         promise0.then(()=>{
             // 1. check if it is in database
             const destination_id = req.params.id;
+            const page_num = parseInt(req.params.page)
             
             let promise = query(client,dbName,coll_name,{id:destination_id})
             promise.then((result)=>{
@@ -27,7 +30,7 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                 // 2. if so: display it
                 if (result != null && result.length != 0){
                     console.log("Found in database");
-                    resPage.write(JSON.stringify(result[0].hotels[0]));
+                    resPage.write(JSON.stringify(result[0].hotels[0].slice(page_num*page_size,(page_num+1)*page_size)));
                     resPage.end();
                 
                 }
@@ -55,7 +58,8 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                             // storing and displaying at the same time
                             // console.log("value"+value)
                             update(client,dbName,coll_name,value[0],{id:destination_id},"addToSet").catch(console.dir);
-                            resPage.write(JSON.stringify(value[0]));
+                            console.log(value[0].length)
+                            resPage.write(JSON.stringify(value[0].slice(page_num*page_size,(page_num+1)*page_size)));
                             resPage.end();
                         })
                     })
