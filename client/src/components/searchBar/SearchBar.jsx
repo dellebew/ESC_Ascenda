@@ -120,6 +120,7 @@ const SearchBar = () => {
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
+                    daySize="100"
                 />)}
                 </div>
 
