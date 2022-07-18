@@ -1,44 +1,57 @@
 import "./destinations.css"
-import React, { useState, useEffect, Suspense, lazy } from 'react'
+import React, { useState, useEffect } from 'react'
+import ReactPaginate from 'react-paginate';
 import Navbar from "../../components/navbar/Navbar"
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
 import Loader from '../../components/loader/Loader'
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 const Destinations = () => {
 
-    const HotelCard = React.lazy(() => import("../../components/hotelCard/HotelCard"));
-
     const [openDate, setOpenDate] = useState(false);
 
-    const [destData, setDestData] = useState([{}])
-
+    const [items, setItems] = useState([{}])
+    const [pageCount, setPageCount] = useState(0);
     
+    let pageLimit = 10
+
     useEffect(() => {
         const getData = async() => {
-            const data = await fetch("/api/destination/hotels/WD0M");
-            const json = await data.json();
-            setDestData(json);
+            const res = await fetch("/api/destination/hotels/WD0M/1");
+            const data = await res.json();
+            setItems(data);
+            setPageCount(pageLimit);
         };
 
         getData()
             .catch(console.error);
-    }, []);
+    }, [pageLimit]);
     
-    const hotelcards = destData.map(item => {
+    const hotelcards = items.map(item => {
         return (
             <HotelCard
                 key={item.id}
                 {...item}
             />  
         )})
+
+    // function to handle request to another page.
+    const handlePageClick = async(data) => {
+        let currentPage = data.selected 
+        const newPageData = await fetchPage(currentPage);
+        setItems(newPageData);
+        window.scrollTo(0,0);
+        };
     
-    
-    
+    const fetchPage = async(currentPage) => {
+        const res = await fetch(`/api/destination/hotels/WD0M/${currentPage}`);
+        const data = await res.json();
+        return data;
+    }
 
 /** 
     const location = useLocation(); // retrieves data from home page
@@ -58,10 +71,10 @@ const Destinations = () => {
         <>
         <Navbar />
         <SearchBar />
-        <div className="body">            
-            
+        <div className="body">                        
             <div className="list--container">
                 <div className="list--wrapper">
+                    
                     <div className="list--search">
                         
                         <div className="search--title">
@@ -102,13 +115,22 @@ const Destinations = () => {
                         </div>
                         <button>Search</button>
                     </div> 
+
                     <div className="list--result">
-                        <React.Suspense fallback={<Loader/>}>
-                            {/* {destData.map(item => (
-                                <HotelCard key={item.id} {...item}/>  
-                            ))} */}
-                            {hotelcards}
-                        </React.Suspense> 
+                        {hotelcards}
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextLabel="next >"
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={2}
+                            marginPagesDisplayed={2}
+                            pageCount={pageCount}
+                            previousLabel="< prev"
+                            renderOnZeroPageCount={null}
+                            containerClassName={"pagination"}
+                            disabledClassName={"paginationDisabled"}
+                            activeClassName={"paginationActive"}
+                        />
                     </div>
                 </div>
             </div>
@@ -116,5 +138,6 @@ const Destinations = () => {
         </>
     )
 }
+
 
 export default Destinations
