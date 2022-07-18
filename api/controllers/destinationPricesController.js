@@ -103,22 +103,26 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                         }
                                         
                                     Promise.all(promises)
-                                        .then((full_res) => {       
-                                            for (let i = 0; i<full_res.length; i++){
-                                                if (data.hotels[i].id == full_res[i].data.id){
-                                                    data.hotels[i].hotel_data = full_res[i].data
-                                                    resPage.write(JSON.stringify(data.hotels[i]));
-                                                }
-                                                else{
-                                                    for (let j = 0; j<full_res.length; j++){
-                                                        if (data.hotels[i].id == full_res[i].data.id){
-                                                            data.hotels[i].hotel_data = full_res[i].data
-                                                            resPage.write(JSON.stringify(data.hotels[i]));
-                                                        }
-                                                }
-                                            }         
-                                        }            
-                                            resPage.end();
+                                        .then((full_res) => {   
+                                            const promises1 = [];
+                                            for (let i = 0; i < result_cut.length; i++) {
+                                                promises1.push(append_hotel(full_res,result_cut,i));
+                                            }    
+                                        //     for (let i = 0; i<full_res.length; i++){
+                                        //         if (data.hotels[i].id == full_res[i].data.id){
+                                        //             data.hotels[i].hotel_data = full_res[i].data
+                                        //             resPage.write(JSON.stringify(data.hotels[i]));
+                                        //         }
+                                        //         else{
+                                        //             for (let j = 0; j<full_res.length; j++){
+                                        //                 if (data.hotels[i].id == full_res[i].data.id){
+                                        //                     data.hotels[i].hotel_data = full_res[i].data
+                                        //                     resPage.write(JSON.stringify(data.hotels[i]));
+                                        //                 }
+                                        //         }
+                                        //     }         
+                                        // }            
+                                        //     resPage.end();
                                         }).catch((e) => {console.log(e)});
                                         // end**********************
                                 }
@@ -152,20 +156,26 @@ async function getOneStaticHotel(hotel_id){
     return await res;
 }
 
-async function append_hotel(full_res,result_cut,i){
-    
-    if (result_cut[i].hotels.id == full_res[i].data.id){
-        result_cut[i].hotels.hotel_data = full_res[i].data
-        return result_cut[i].hotels;
-    }
-    else{
-        for (let j = 0; j<full_res.length; j++){
-            if (result_cut[j].hotels.id == full_res[i].data.id){
-                result_cut[j].hotels.hotel_data = full_res[i].data
-                return result_cut[i].hotels
-            }
+async function append_hotel(full_res,result_cut,i,mode){
+    if (mode == "result_cut"){
+        if (result_cut[i].hotels.id == full_res[i].data.id){
+            result_cut[i].hotels.hotel_data = full_res[i].data
+            return result_cut[i].hotels;
         }
-    }         
+        else{
+            for (let j = 0; j<full_res.length; j++){
+                if (result_cut[j].hotels.id == full_res[i].data.id){
+                    result_cut[j].hotels.hotel_data = full_res[i].data
+                    return result_cut[i].hotels
+                }
+            }
+        } 
+    }
+    else if (mode == "data"){
+        
+    }
+    
+        
 }           
     
 
