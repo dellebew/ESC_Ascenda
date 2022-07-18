@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import useFetch from '../utils/useFetch.js'
 import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
-// var data = require("../../database/MOCK_DATA.json");
+var country_code = require("../../database/countries.json");
 
 const SearchBar = () => {
     
