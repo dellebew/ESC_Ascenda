@@ -144,12 +144,12 @@ body {
   
   .pagination a:hover {
     color: white;
-    background: linear-gradient(to left, #F2709C, #FF9472);
+    background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
   }
   
   .paginationActive a {
     color: white;
-    background: linear-gradient(to left, #F2709C, #FF9472);;
+    background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);;
   }
   
   .paginationDisabled a {

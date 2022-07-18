@@ -1,5 +1,5 @@
 import "./destinations.css"
-import React, { useState, useEffect, Suspense, lazy } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from "../../components/navbar/Navbar"
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
