@@ -72,7 +72,6 @@ input {
   color:grey;
   font-weight: 400;
   white-space: nowrap;
-  user-select: none;
 }
 
 .date {

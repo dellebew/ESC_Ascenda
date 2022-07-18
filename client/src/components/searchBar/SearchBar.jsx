@@ -1,28 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
-import { useEffect, useState } from "react";
-import { format } from "date-fns";
-import useFetch from '../utils/useFetch.js'
+import { useState } from "react";
+import { format } from "date-fns"
 import "./searchBar.css"
-import {useNavigate} from 'react-router-dom';
-var country_code = require("../../database/countries.json");
+var data = require("../../database/MOCK_DATA.json");
 
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
-    const navigate = useNavigate();
-    
 
     const onChange = (event) => {
       setValue(event.target.value);
     };
     
-    
-    const setText = (searchTerm) => {
+    const onSearch = (searchTerm) => {
         setValue(searchTerm);
+        // our api to fetch the search result
         console.log("search ", searchTerm);
-    }
+    };
 
     /** FOR FIXING SEARCH BAR */
     const [fixedBar, setFixedBar] = useState(false);
@@ -66,61 +62,14 @@ const SearchBar = () => {
     });
     };
 
-    const {data: datasets} = useFetch('https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU');
-
-    const onSearch = (searchTerm) => {
-        setValue(searchTerm);
-
-        // For dates of checkin and checkout
-        const startd = date[0].startDate
-        const endd = date[0].endDate;
-
-        //language
-        const language = "en_US"
-
-        //currecny
-        const currency = "SGD" //set later
-
-        // tempFilter either single object all multiple object depending on how vague search term is.
-        const tempFilter = datasets.filter((item) => {
-            return item.name.includes(searchTerm)
-        })
-
-        if (Object.keys(tempFilter).length > 1) {
-
-            //Array of destination Ids
-            const listOfIds = [];
-            tempFilter.forEach(element => {
-                listOfIds.push(element.id)
-            })
-
-
-            //country code
-            console.log(tempFilter)
-            console.log(startd)
-
-
-        } else if (Object.keys(tempFilter).length = 1) {
-
-            const identifier = 0;
-            tempFilter.forEach(element => {
-                identifier = element.id;
-            })
-
-            // let path = '/hotels' //need change this later
-            // navigate(path, {state: {id: 1, searchItem: searchTerm} });
-        } else {
-            ;
-        }
     
-        
-    };
-
-
     return (
         <div className="searchBar">
         <div className="search--wrapper">
             <div className="search--container">
+            {/*Work with this for now, considering slack API right now, google seacrh API apparently is only for places, perhaps
+            when create the places search bar, this can be implemented*/}
+
             <div className="search--item">
                 <FontAwesomeIcon icon={faBed} className="search--icon"/>
                 <input 
@@ -133,23 +82,25 @@ const SearchBar = () => {
                 
                 {/*Dropdown bar for suggestions*/}
                 <div className="dropdown"> 
-                    {datasets
+                    {data
                     .filter((item) => {
-                        const searchTerm = value;
+                        const searchTerm = value.toLowerCase();
+                        const fullName = item.full_name.toLowerCase();
 
                         return (
                         searchTerm &&
-                        item.name.includes(searchTerm)
+                        fullName.startsWith(searchTerm) &&
+                        fullName !== searchTerm
                         );
                     })
-                    .slice(0, 10)
+                    .slice(0, 10) // Displays top 10 in json file, can be mmodified to show more/less
                     .map((item) => (
                         <div
-                        onClick={() => setText(item.name)}
+                        onClick={() => onSearch(item.full_name)} // searches by item key
                         className="dropdown-row" 
-                        key={item.name}
+                        key={item.full_name}
                         >
-                        {item.name}
+                        {item.full_name}
                         </div>
                     ))}
                 </div>
@@ -169,7 +120,6 @@ const SearchBar = () => {
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
-                    daySize="100"
                 />)}
                 </div>
 
