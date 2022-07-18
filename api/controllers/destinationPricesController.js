@@ -1,7 +1,6 @@
 var https = require('https')
 var { MongoClient } = require("mongodb");
 var axios = require("axios");
-const { PassThrough } = require('stream');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
