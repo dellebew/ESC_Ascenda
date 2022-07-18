@@ -1,24 +1,20 @@
 import React, {Suspense, useEffect, useState} from 'react'
 import "./hotels.css"
-import Loader from '../../components/loader/Loader'
 import Navbar from '../../components/navbar/Navbar'
 import HotelPage from '../../components/hotelPage/HotelPage'
 
 const Hotels = () => {
 
-    const HotelPage = React.lazy(() => import("../../components/hotelPage/HotelPage"));
     const [hotelData, setHotelData] = useState([{}])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
-    const url = "/api/hotel/11fD";
-
-
 
     useEffect(() => {
       const fetchData = async () => {
+        setLoading(true);
         try { 
           // TODO: fix invalid res reqs
-          const res = await fetch(url);
+          const res = await fetch("/api/hotel/11fD");
           // console.log("res contains", res.ok);
           if (!res.ok) {
             throw Error("Unable to request data for this resource");
@@ -43,20 +39,20 @@ const Hotels = () => {
     }, []);
 
     return (
-        <>
-        {error && <h2>Module not found</h2>}
-        {loading && <Loader/>}
-        {!loading && !error && <div>
-            <Navbar />
-            <Suspense fallback={<Loader/>}> 
-                <HotelPage 
-                   key={hotelData._id}
-                    {...hotelData}
-                />
-            </Suspense>
-        </div>}
-        </>
-    )
+      <div className="container">
+        {/* {/* {error && <h2>Module not found</h2>} */}
+        {loading ? (
+          <div className="loader-container"/>
+        ) : (
+          <div className="main-content">
+            <Navbar /> 
+            <HotelPage 
+                key={hotelData._id}
+                {...hotelData}
+            />
+          </div>
+        )}
+      </div>) 
 }
 
 export default Hotels

@@ -7,12 +7,13 @@ import ReactPaginate from 'react-paginate';
 import SearchBar from "../../components/searchBar/SearchBar";
 import axios from "axios";
 import HotelCard from "../../components/hotelCard/HotelCard";
-import Loader from '../../components/loader/Loader'
 import { useLocation } from "react-router-dom";
+import useFetch from "../../components/utils/useFetch";
 
 
 const Destinations = () => {
 
+    const [loading, setLoading] = useState(false);
     const [items, setItems] = useState([{}])
     const [pageCount, setPageCount] = useState(0);
     
@@ -20,10 +21,11 @@ const Destinations = () => {
     
     useEffect(() => {
         const getData = async() => {
-            const res = await fetch("/api/destination/prices/WD0M/0");
+            setLoading(true);
+            const res = await fetch("/api/destination/hotels/C7r0/1");
             const data = await res.json();
-            setItems(data);
             setPageCount(pageLimit);
+            setLoading(false);
         };
 
         getData()
@@ -62,70 +64,75 @@ const Destinations = () => {
 
     return (
         <>
-        <Navbar />
-        <SearchBar />
-        <div className="body">            
-            
-            <div className="list--container">
-                <div className="list--wrapper">
-                    <div className="list--search">
-                        
-                        <div className="search--title">
-                            <h2>Filter By</h2>
+        {loading ? (
+          <div className="loader-container"/>
+        ) : (
+          <div className="main-content">
+            <Navbar />
+            <SearchBar />
+            <div className="body">            
+                
+                <div className="list--container">
+                    <div className="list--wrapper">
+                        <div className="list--search">
+                            
+                            <div className="search--title">
+                                <h2>Filter By</h2>
+                            </div>
+                            
+                            <div className="list--item">
+                                <div className="option--item">
+                                    <span className="option--text">
+                                        Min price <small> (per night) </small>
+                                    </span>
+                                    <input type='number' min={1} className="option--input" placeholder="WIP"></input>
+                                </div>
+                                <div className="option--item">
+                                    <span className="option--text">
+                                        Max price <small> (per night) </small>
+                                    </span>
+                                    <input type='number' min={1} className="option--input" placeholder="WIP"></input>
+                                </div>
+                                <div className="option--item">
+                                    <span className="option--text">
+                                        Adult 
+                                    </span>
+                                    <input type='number' min={1} className="option--input" placeholder="WIP"></input>
+                                </div>
+                                <div className="option--item">
+                                    <span className="option--text">
+                                        Children
+                                    </span>
+                                    <input type='number' min={0} className="option--input" placeholder="WIP"></input>
+                                </div>
+                                <div className="option--item">
+                                    <span className="option--text">
+                                        Rooms
+                                    </span>
+                                    <input type='number' min={1} className="option--input" placeholder="WIP"></input>
+                                </div>
+                            </div>
+                            <button>Search</button>
+                        </div> 
+                        <div className="list--result">
+                            {hotelcards}
+                            <ReactPaginate
+                                breakLabel="..."
+                                nextLabel="next >"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={2}
+                                marginPagesDisplayed={2}
+                                pageCount={pageCount}
+                                previousLabel="< prev"
+                                renderOnZeroPageCount={null}
+                                containerClassName={"pagination"}
+                                disabledClassName={"paginationDisabled"}
+                                activeClassName={"paginationActive"}/>  
                         </div>
-                        
-                        <div className="list--item">
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Min price <small> (per night) </small>
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Max price <small> (per night) </small>
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Adult 
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Children
-                                </span>
-                                <input type='number' min={0} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Rooms
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                        </div>
-                        <button>Search</button>
-                    </div> 
-                    <div className="list--result">
-                        {hotelcards}
-                        <ReactPaginate
-                            breakLabel="..."
-                            nextLabel="next >"
-                            onPageChange={handlePageClick}
-                            pageRangeDisplayed={2}
-                            marginPagesDisplayed={2}
-                            pageCount={pageCount}
-                            previousLabel="< prev"
-                            renderOnZeroPageCount={null}
-                            containerClassName={"pagination"}
-                            disabledClassName={"paginationDisabled"}
-                            activeClassName={"paginationActive"}/>  
                     </div>
                 </div>
             </div>
-        </div> 
+            </div> )}
         </>
     )
 }
