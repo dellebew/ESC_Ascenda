@@ -47,8 +47,8 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                         .then((full_res) => {   
 
                         const promises1 = [];
-                        for (let i = 0; i < result_cut.length; i++) {
-                            promises1.push(append_hotel(full_res,result_cut,i));
+                        for (let i = 0; i < full_res.length; i++) {
+                            promises1.push(append_hotel(full_res,result_cut,null,i));
                         }
 
                         Promise.all(promises1)
@@ -67,7 +67,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                 // 3. if not: request api, display & store in database
                 else{
                     console.log("Not found in database")
-
+                    
                     https.get(url,res => {
                         let data = '';
                         res.on('data', chunk => {
@@ -91,12 +91,16 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                 
                               }).then((data)=>{
                                 if (data != null){
-                                    update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
-
+                                    if (data.completed != false){
+                                        update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
+                                    };
+                                    // todo 
                                     // get hotels static data
                                     // start **********************
                                     const promises = [];
                                     for (let i = 0; i < page_size; i++) {
+                                        console.log(data.completed)
+                                        
                                         const hotel_id = data.hotels[i].id
                                         promises.push(getOneStaticHotel(hotel_id));
                                         }
@@ -104,9 +108,18 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                     Promise.all(promises)
                                         .then((full_res) => {   
                                             const promises1 = [];
-                                            for (let i = 0; i < result_cut.length; i++) {
-                                                promises1.push(append_hotel(full_res,result_cut,i));
+                                            for (let i = 0; i < full_res.length; i++) {
+                                                promises1.push(append_hotel(full_res,null,data,i));
                                             }    
+
+                                            Promise.all(promises1)
+                                            .then((write_array) => {  
+                                                console.log(write_array)
+                                                resPage.write(JSON.stringify(write_array))
+                                                resPage.end();
+                                        })
+                                            })                     
+                                            // .catch((e) => {console.log(e)});
                                         //     for (let i = 0; i<full_res.length; i++){
                                         //         if (data.hotels[i].id == full_res[i].data.id){
                                         //             data.hotels[i].hotel_data = full_res[i].data
@@ -122,13 +135,14 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                         //     }         
                                         // }            
                                         //     resPage.end();
-                                        }).catch((e) => {console.log(e)});
+                                     
                                         // end**********************
                                 }
                               })
                             })
                         })
-            }
+                    }
+            
         });
     })
   });
@@ -155,8 +169,8 @@ async function getOneStaticHotel(hotel_id){
     return await res;
 }
 
-async function append_hotel(full_res,result_cut,i,mode){
-    if (mode == "result_cut"){
+async function append_hotel(full_res,result_cut,data,i){
+    if (result_cut != null){
         if (result_cut[i].hotels.id == full_res[i].data.id){
             result_cut[i].hotels.hotel_data = full_res[i].data
             return result_cut[i].hotels;
@@ -170,12 +184,25 @@ async function append_hotel(full_res,result_cut,i,mode){
             }
         } 
     }
-    else if (mode == "data"){
+    else if (data != null){
+
+        if (data.hotels[i].id == full_res[i].data.id){
+            data.hotels[i].hotel_data = full_res[i].data
+            return data.hotels[i];
+        }
+        else{
+            for (let j = 0; j<full_res.length; j++){
+                if (data.hotels[i].id == full_res[i].data.id){
+                    data.hotels[i].hotel_data = full_res[i].data
+                    return data.hotels[i];
+                }
+        }
         
     }
     
         
-}           
+}     
+}      
     
 
 
@@ -183,7 +210,7 @@ async function append_hotel(full_res,result_cut,i,mode){
 function getFilteredData(){
     // retrieve data from form
     // ...
-    requirements_tuple = [ "WD0M","2022-07-26","2022-07-27","en_US","SGD","SG","2"] //test
+    requirements_tuple = [ "WD0M","2022-07-21","2022-07-29","en_US","SGD","SG","2"] //test
     return requirements_tuple;
 }
 
