@@ -7,7 +7,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
 import Loader from '../../components/loader/Loader'
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
 const Destinations = () => {
