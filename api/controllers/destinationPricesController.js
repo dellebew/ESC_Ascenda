@@ -11,7 +11,7 @@ var update = require("../public/javascripts/dbops").update
 var sorted_query = require("../public/javascripts/dbops").sorted_query
 
 const coll_name = "destination_prices"
-const page_size = 10
+const page_size = 3
 // hotel prices for a given destination (with filtering conditions)
 exports.getDestinationHotelPrices = async function(req, resPage, next){
     const page_num = parseInt(req.params.page)
@@ -34,39 +34,37 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                 if (result != null && result.length != 0 && result[0].hotels.length != 0){
                     console.log("Found in database");
                     result_cut = result.slice(page_num*page_size,(page_num+1)*page_size);
-                    console.log(result_cut)
+                    // console.log(result_cut)
                     // get hotels static data
                     // start **********************
                     
                     const promises = [];
-                    for (let i = 0; i < page_size; i++) {
+                    for (let i = 0; i < result_cut.length; i++) {
                         const hotel_id = result_cut[i].hotels.id
                         promises.push(getOneStaticHotel(hotel_id));
                         }
                         
                     Promise.all(promises)
-                        .then((full_res) => {       
-                            for (let i = 0; i<full_res.length; i++){
-                                if (result_cut[i].hotels.id == full_res[i].data.id){
-                                    result_cut[i].hotels.hotel_data = full_res[i].data
-                                    resPage.write(JSON.stringify(result_cut[i].hotels));
-                                }
-                                else{
-                                    for (let j = 0; j<full_res.length; j++){
-                                        if (result_cut[j].hotels.id == full_res[i].data.id){
-                                            result_cut[j].hotels.hotel_data = full_res[i].data
-                                            resPage.write(JSON.stringify(result_cut[j].hotels));
-                                        }
-                                }
-                            }         
-                        }            
+                        .then((full_res) => {   
+
+                        const promises1 = [];
+                        for (let i = 0; i < result_cut.length; i++) {
+                            promises1.push(append_hotel(full_res,result_cut,i));
+                        }
+
+                        Promise.all(promises1)
+                        .then((write_array) => {  
+                            console.log(write_array)
+                            resPage.write(JSON.stringify(write_array))
                             resPage.end();
-                        }).catch((e) => {console.log(e)});
+                    })
+                        })                     
+                        .catch((e) => {console.log(e)});
 
                         // end**********************
 
                     
-                }
+                    }
                 // 3. if not: request api, display & store in database
                 else{
                     console.log("Not found in database")
@@ -128,7 +126,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                             })
                         })
             }
-        })
+        });
     })
   });
   
@@ -153,6 +151,24 @@ async function getOneStaticHotel(hotel_id){
     const res = await axios(url);
     return await res;
 }
+
+async function append_hotel(full_res,result_cut,i){
+    
+    if (result_cut[i].hotels.id == full_res[i].data.id){
+        result_cut[i].hotels.hotel_data = full_res[i].data
+        return result_cut[i].hotels;
+    }
+    else{
+        for (let j = 0; j<full_res.length; j++){
+            if (result_cut[j].hotels.id == full_res[i].data.id){
+                result_cut[j].hotels.hotel_data = full_res[i].data
+                return result_cut[i].hotels
+            }
+        }
+    }         
+}           
+    
+
 
   // TODO
 function getFilteredData(){
