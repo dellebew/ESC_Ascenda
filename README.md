@@ -56,6 +56,20 @@ https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946
     E.g. https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=WD0M&checkin=2022-06-18&checkout=2022-06-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
     https://hotelapi.loyalty.dev/api/hotels/prices?destination_id="+<destination_id>+"&checkin="+<checkin_YYYY-MM-DD>+"&checkout="+<checkout_YYYY-MM-DD>+"&lang="+<lang>+"&currency="+<currency>+"&country_code="+<country_code2>+"&guests="+<guest_number>+"&partner_id=1"
 
+# Client Side
+
+1. Link up Destination / Check-in Date with previous user input
+
+## External Resources Used:
+
+React-Date-Range: https://hypeserver.github.io/react-date-range/
+
+FontAwesomeIcon: https://fontawesome.com/icons
+
+React-Rating-Stars: https://www.npmjs.com/package/react-rating-stars-component
+
+Pigeon-Maps: https://github.com/mariusandra/pigeon-maps
+
 
 
 
