@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import "./hotels.css"
 import Navbar from '../../components/navbar/Navbar'
 import HotelPage from '../../components/hotelPage/HotelPage'

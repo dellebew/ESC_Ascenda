@@ -22,7 +22,8 @@ const Destinations = () => {
     useEffect(() => {
         const getData = async() => {
             setLoading(true);
-            const res = await fetch("/api/destination/hotels/C7r0/1");
+            const res = await fetch("/api/destination/hotels/4FBY/1");
+            // const res = await axios.get("https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU");
             const data = await res.json();
             setPageCount(pageLimit);
             setLoading(false);
@@ -40,19 +41,19 @@ const Destinations = () => {
             />  
     )})
     
-    const handlePageClick = async(data) => {
-        let currentPage = data.selected 
-        const newPageData = await fetchPage(currentPage);
-        setItems(newPageData);
-        window.scrollTo(0,0);
-        };
+    // const handlePageClick = async(data) => {
+    //     let currentPage = data.selected 
+    //     const newPageData = await fetchPage(currentPage);
+    //     setItems(newPageData);
+    //     window.scrollTo(0,0);
+    //     };
     
     
-    const fetchPage = async(currentPage) => {
-        const res = await fetch(`/api/destination/hotels/WD0M/${currentPage}`);
-        const data = await res.json();
-        return data;
-    }
+    // const fetchPage = async(currentPage) => {
+    //     const res = await fetch(`/api/destination/hotels/WD0M/${currentPage}`);
+    //     const data = await res.json();
+    //     return data;
+    // }
     
 
 /** 
@@ -116,7 +117,7 @@ const Destinations = () => {
                         </div> 
                         <div className="list--result">
                             {hotelcards}
-                            <ReactPaginate
+                            {/* <ReactPaginate
                                 breakLabel="..."
                                 nextLabel="next >"
                                 onPageChange={handlePageClick}
@@ -127,7 +128,7 @@ const Destinations = () => {
                                 renderOnZeroPageCount={null}
                                 containerClassName={"pagination"}
                                 disabledClassName={"paginationDisabled"}
-                                activeClassName={"paginationActive"}/>  
+                                activeClassName={"paginationActive"}/>   */}
                         </div>
                     </div>
                 </div>
