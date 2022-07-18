@@ -1,24 +1,28 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
-import { useState } from "react";
-import { format } from "date-fns"
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
+import useFetch from '../utils/useFetch.js'
 import "./searchBar.css"
-var data = require("../../database/MOCK_DATA.json");
+import {useNavigate} from 'react-router-dom';
+var country_code = require("../../database/countries.json");
 
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
+    const navigate = useNavigate();
+    
 
     const onChange = (event) => {
       setValue(event.target.value);
     };
     
-    const onSearch = (searchTerm) => {
+    
+    const setText = (searchTerm) => {
         setValue(searchTerm);
-        // our api to fetch the search result
         console.log("search ", searchTerm);
-    };
+    }
 
     /** FOR FIXING SEARCH BAR */
     const [fixedBar, setFixedBar] = useState(false);
@@ -62,14 +66,43 @@ const SearchBar = () => {
     });
     };
 
-    
+    const {data: datasets} = useFetch('https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU');
+
+    const onSearch = (searchTerm) => {
+        setValue(searchTerm);
+        const identified = datasets.find(element => {
+            return element.name == searchTerm;
+        })
+
+        const country = identified.original_metadata.city
+
+        // For dates of checkin and checkout
+        const startd = date[0].startDate
+        const endd = date[0].endDate;
+
+        //language
+        const language = "en_US"
+
+        //currecny
+        const currency = "SGD" //set laters
+
+        //country code
+        const c_code = country_code.filter(element => {return(element.name == country)});
+        const codez = c_code[0].code
+
+        if (searchTerm.length > 1) {
+            let path = '/destinations/10' //need change this later
+            navigate(path, {state: {id: 1, searchItem: searchTerm} });
+        } else {
+            ;
+        }
+    };
+
+
     return (
         <div className="searchBar">
         <div className="search--wrapper">
             <div className="search--container">
-            {/*Work with this for now, considering slack API right now, google seacrh API apparently is only for places, perhaps
-            when create the places search bar, this can be implemented*/}
-
             <div className="search--item">
                 <FontAwesomeIcon icon={faBed} className="search--icon"/>
                 <input 
@@ -82,25 +115,23 @@ const SearchBar = () => {
                 
                 {/*Dropdown bar for suggestions*/}
                 <div className="dropdown"> 
-                    {data
+                    {datasets
                     .filter((item) => {
-                        const searchTerm = value.toLowerCase();
-                        const fullName = item.full_name.toLowerCase();
+                        const searchTerm = value;
 
                         return (
                         searchTerm &&
-                        fullName.startsWith(searchTerm) &&
-                        fullName !== searchTerm
+                        item.name.includes(searchTerm)
                         );
                     })
-                    .slice(0, 10) // Displays top 10 in json file, can be mmodified to show more/less
+                    .slice(0, 10)
                     .map((item) => (
                         <div
-                        onClick={() => onSearch(item.full_name)} // searches by item key
+                        onClick={() => setText(item.name)}
                         className="dropdown-row" 
-                        key={item.full_name}
+                        key={item.name}
                         >
-                        {item.full_name}
+                        {item.name}
                         </div>
                     ))}
                 </div>
@@ -120,6 +151,7 @@ const SearchBar = () => {
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
+                    daySize="100"
                 />)}
                 </div>
 

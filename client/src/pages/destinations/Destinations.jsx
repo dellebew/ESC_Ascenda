@@ -5,6 +5,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import ReactPaginate from 'react-paginate';
 import SearchBar from "../../components/searchBar/SearchBar";
+import axios from "axios";
 import HotelCard from "../../components/hotelCard/HotelCard";
 import Loader from '../../components/loader/Loader'
 import { useLocation } from "react-router-dom";
@@ -35,9 +36,8 @@ const Destinations = () => {
                 key={item.id}
                 {...item}
             />  
-        )})
+    )})
     
-    // function to handle request to another page.
     const handlePageClick = async(data) => {
         let currentPage = data.selected 
         const newPageData = await fetchPage(currentPage);
@@ -45,8 +45,9 @@ const Destinations = () => {
         window.scrollTo(0,0);
         };
     
+    
     const fetchPage = async(currentPage) => {
-        const res = await fetch(`/api/destination/prices/WD0M/${currentPage}`);
+        const res = await fetch(`/api/destination/hotels/WD0M/${currentPage}`);
         const data = await res.json();
         return data;
     }
