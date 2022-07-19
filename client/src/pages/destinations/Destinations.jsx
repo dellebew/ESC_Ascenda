@@ -16,12 +16,10 @@ const Destinations = () => {
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
     
-    let pageLimit = 10
-
     async function callApi(page){
         const response = await fetch(`/api/destination/prices/WD0M/${page}`);
         const data = await response.json()
-        console.log("data: " + data)
+        // console.log("data: " + data)
         return data
     }
 
@@ -29,8 +27,6 @@ const Destinations = () => {
         const getData = async() => {
             setLoading(true);
             const data = await callApi(0);
-            console.log("cards" + data[1])
-            // setTimeout(() => setItems(data[1]), 100);
             setItems(data[1])
             setPageCount(data[0]);
             setLoading(false);
@@ -40,12 +36,12 @@ const Destinations = () => {
             .catch(console.error);
     }, [pageCount]);
 
-    console.log("items: " + items);
+    // console.log("items: " + items);
 
     // function to handle request to another page.
     const handlePageClick = async(data) => {
         let currentPage = data.selected 
-        console.log(currentPage)
+        // console.log(currentPage)
         const newPageData = await callApi(currentPage);
         setItems(newPageData[1]);
         window.scrollTo(0,0);
@@ -116,14 +112,10 @@ const Destinations = () => {
                     </div> 
 
                     <div className="list--result">
-                    {/* {JSON.stringify(items.map((item, i) => {
-                        return {item, i}
-                    }))} */}
-                    {items.map((item) => 
-                    <HotelCard key={item.id}
-                            {...item}/>
-                    )}
-                    {/* {<HotelCard {...items}/>} */}
+                        {items.map((item) => 
+                        <HotelCard key={item.id}
+                                {...item}/>
+                        )}
                         
                         <ReactPaginate
                             breakLabel="..."
