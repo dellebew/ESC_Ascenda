@@ -1,7 +1,6 @@
-var https = require('https')
+var promiseWaterfall = require('promise.waterfall')
 var { MongoClient } = require("mongodb");
 var axios = require("axios");
-const { PassThrough } = require('stream');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
@@ -34,101 +33,102 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                 if (result != null && result.length != 0 && result[0].hotels.length != 0){
                     console.log("Found in database");
                     result_cut = result.slice(page_num*page_size,(page_num+1)*page_size);
-                    console.log(result_cut)
+                    
                     // get hotels static data
                     // start **********************
                     
                     const promises = [];
-                    for (let i = 0; i < page_size; i++) {
+                    for (let i = 0; i < result_cut.length; i++) {
                         const hotel_id = result_cut[i].hotels.id
                         promises.push(getOneStaticHotel(hotel_id));
                         }
                         
                     Promise.all(promises)
-                        .then((full_res) => {       
-                            for (let i = 0; i<full_res.length; i++){
-                                if (result_cut[i].hotels.id == full_res[i].data.id){
-                                    result_cut[i].hotels.hotel_data = full_res[i].data
-                                    resPage.write(JSON.stringify(result_cut[i].hotels));
-                                }
-                                else{
-                                    for (let j = 0; j<full_res.length; j++){
-                                        if (result_cut[j].hotels.id == full_res[i].data.id){
-                                            result_cut[j].hotels.hotel_data = full_res[i].data
-                                            resPage.write(JSON.stringify(result_cut[j].hotels));
-                                        }
-                                }
-                            }         
-                        }            
+                        .then((full_res) => {   
+
+                        const promises1 = [];
+                        for (let i = 0; i < full_res.length; i++) {
+                            promises1.push(append_hotel(full_res,result_cut,null,i));
+                        }
+
+                        Promise.all(promises1)
+                        .then((write_array) => {  
+                            // console.log(write_array)
+                            resPage.write(JSON.stringify(write_array))
                             resPage.end();
-                        }).catch((e) => {console.log(e)});
+                    })
+                        })                     
+                        .catch((e) => {console.log(e)});
 
                         // end**********************
 
                     
-                }
+                    }
                 // 3. if not: request api, display & store in database
                 else{
                     console.log("Not found in database")
 
-                    https.get(url,res => {
-                        let data = '';
-                        res.on('data', chunk => {
-                            data += chunk;
-                            });
-                        res.on('end', () => {
-                            const promise1 = new Promise((resolve, reject) => {
-                                resolve(JSON.parse(data));
-                              });
-                              
-                              promise1.then((data) => {
-                                if (data == ''){
-                                    resPage.write("does not exist");
-                                    resPage.end();
-                                    return null;
-                                }
-                                else{
-                                    console.log(data.hotels)
-                                    data.hotels.sort(GetSortOrder("searchRank"))
-                                    return data;}
+                    // waterfall
+                    promiseWaterfall([
+                        call_axios(url),
+                        setTimeout(()=>{call_axios(url).then((r)=>{
+                            if (r == null){
+                                resPage.write("does not exist");
+                                resPage.end();
+                                return null;
+                            }
+                            else{
+                                r.hotels.sort(GetSortOrder("searchRank"))
+                                return r
+                            }
+                            
+                        }).then((data)=>{
+                            console.log("data"+Object.keys(data))
+                            if (data.hotels != null){
+                                update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
                                 
-                              }).then((data)=>{
-                                if (data != null){
-                                    update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
-
-                                    // get hotels static data
-                                    // start **********************
-                                    const promises = [];
-                                    for (let i = 0; i < page_size; i++) {
+                                // get hotels static data
+                                // start **********************
+                                const promises = [];
+                                for (let i = 0; i < page_size; i++) {     
+                                    try{
                                         const hotel_id = data.hotels[i].id
                                         promises.push(getOneStaticHotel(hotel_id));
-                                        }
-                                        
-                                    Promise.all(promises)
-                                        .then((full_res) => {       
-                                            for (let i = 0; i<full_res.length; i++){
-                                                if (data.hotels[i].id == full_res[i].data.id){
-                                                    data.hotels[i].hotel_data = full_res[i].data
-                                                    resPage.write(JSON.stringify(data.hotels[i]));
-                                                }
-                                                else{
-                                                    for (let j = 0; j<full_res.length; j++){
-                                                        if (data.hotels[i].id == full_res[i].data.id){
-                                                            data.hotels[i].hotel_data = full_res[i].data
-                                                            resPage.write(JSON.stringify(data.hotels[i]));
-                                                        }
-                                                }
-                                            }         
-                                        }            
+                                    }   
+                                    catch{
+                                        console.log("error id")
+                                        // process.exit()
+                                        // setTimeout()
+                                    }                        
+                                    }
+                                    
+                                Promise.all(promises)
+                                    .then((full_res) => {   
+                                        const promises1 = [];
+                                        for (let i = 0; i < full_res.length; i++) {
+                                            promises1.push(append_hotel(full_res,null,data,i));
+                                        }    
+    
+                                        Promise.all(promises1)
+                                        .then((write_array) => {  
+                                            // console.log(write_array)
+                                            resPage.write(JSON.stringify(write_array))
                                             resPage.end();
-                                        }).catch((e) => {console.log(e)});
-                                        // end**********************
-                                }
-                              })
-                            })
+                                    })
+                                        })                     
+                            }
                         })
-            }
-        })
+                        },3000)
+                        
+                      ])
+
+                    
+
+
+
+
+                    }
+        });
     })
   });
   
@@ -154,11 +154,52 @@ async function getOneStaticHotel(hotel_id){
     return await res;
 }
 
+async function append_hotel(full_res,result_cut,data,i){
+    if (result_cut != null){
+        if (result_cut[i].hotels.id == full_res[i].data.id){
+            result_cut[i].hotels.hotel_data = full_res[i].data
+            return result_cut[i].hotels;
+        }
+        else{
+            for (let j = 0; j<full_res.length; j++){
+                if (result_cut[j].hotels.id == full_res[i].data.id){
+                    result_cut[j].hotels.hotel_data = full_res[i].data
+                    return result_cut[i].hotels
+                }
+            }
+        } 
+    }
+    else if (data != null){
+
+        if (data.hotels[i].id == full_res[i].data.id){
+            data.hotels[i].hotel_data = full_res[i].data
+            return data.hotels[i];
+        }
+        else{
+            for (let j = 0; j<full_res.length; j++){
+                if (data.hotels[i].id == full_res[i].data.id){
+                    data.hotels[i].hotel_data = full_res[i].data
+                    return data.hotels[i];
+                }
+        }
+        
+    }
+    
+        
+}     
+}      
+    
+async function call_axios(url){
+    const response = await axios.get(url)
+    console.log(response.data.completed)
+    return response.data
+}
+
   // TODO
 function getFilteredData(){
     // retrieve data from form
     // ...
-    requirements_tuple = [ "WD0M","2022-07-26","2022-07-27","en_US","SGD","SG","2"] //test
+    requirements_tuple = [ "WD0M","2022-08-28","2022-08-29","en_US","SGD","SG","2"] //test
     return requirements_tuple;
 }
 
@@ -171,7 +212,7 @@ function get_destination_prices_url(requirements_list){
     var currency = requirements_list[4]
     var country_code2 = requirements_list[5]
     var guest_number = requirements_list[6]
-    // https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=WD0M&checkin=2022-07-17&checkout=2022-07-18&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
+    // https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=WD0M&checkin=2022-07-20&checkout=2022-07-24&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
     const url = baseUrl+"hotels/prices?destination_id="+destination_id+"&checkin="+checkin+"&checkout="+checkout+"&lang="+lang+"&currency="+currency+"&country_code="+country_code2+"&guests="+guest_number+"&partner_id=1"
     console.log("url"+url)
     // return "https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=cm8g&checkin=2022-07-22&checkout=2022-07-25&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1"

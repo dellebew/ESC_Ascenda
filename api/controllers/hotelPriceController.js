@@ -1,4 +1,5 @@
-var https = require('https')
+var axios = require('axios')
+var promiseWaterfall = require('promise.waterfall')
 var { MongoClient } = require("mongodb");
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
@@ -27,7 +28,7 @@ exports.getHotelPrice = function(req, resPage, next) {
         promise.then((result)=>{
 
             // 2. if so: display it
-            if (result != null && result.length != 0){
+            if (result != null && result.length != 0 && result[0].completed != false){
                 console.log("Found in database");
                 resPage.write(JSON.stringify(result));
                 resPage.end();
@@ -36,48 +37,47 @@ exports.getHotelPrice = function(req, resPage, next) {
             // 3. if not: request api, display & store in database
             else{
                 console.log("Not found in database")
-                const value = Array();
-                // const hotel_id = req.params.id;
-                https.get(url, res => {
-                    let data = '';
-                    res.on('data', chunk => {
-                        data += chunk;
-                        });
-                    res.on('end', () => {
-                        data = JSON.parse(data);
-
-                        if (data == ''){
+                // waterfall
+                promiseWaterfall([
+                    call_axios(url),
+                    setTimeout(()=>{call_axios(url).then((r)=>{
+                        if (r == null){
                             resPage.write("does not exist");
                             resPage.end();
-                            return ;
+                            return null;
                         }
-                        value.push(data);
-                        // storing and displaying at the same time                    
-                        update(client,dbName,coll_name,value[0],{requirements:requirements},"set").catch(console.dir);
-                        resPage.write(JSON.stringify(value[0]));
-                        resPage.end();
+                        else{ return r}
+                    }).then((data)=>{
+                        if (data.rooms != null){
+                            update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
+                            resPage.write(JSON.stringify([data]))
+                            resPage.end();
+                            }
+                        })                     
                         
-                    })
-                })
+                   
+                    },2000)
+                    
+                  ])
 
             }
         })
     })
    
-    
-    // let promise2 = client.close();
-    // promise2.then(()=>{
-    //     return;
-    // })
   };
 
+  async function call_axios(url){
+    const response = await axios.get(url)
+    console.log(response.data.completed)
+    return response.data
+}
   // TODO
 function getFilteredData(){
     // retrieve data from form
     // ...
     // test: 
     ///diH7/price?destination_id=WD0M&checkin=2022-07-15&checkout=2022-07-16&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
-    requirements_list =["diH7", "WD0M","2022-07-15","2022-07-16","en_US","SGD","SG","2"]
+    requirements_list =["diH7", "WD0M","2022-07-25","2022-07-29","en_US","SGD","SG","2"]
 
     return requirements_list;
 }

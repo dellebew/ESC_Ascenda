@@ -1,6 +1,5 @@
 var https = require('https')
 var { MongoClient } = require("mongodb");
-const { type } = require('os');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
@@ -8,7 +7,6 @@ const dbName = "ascenda-hotel-booking"
 
 var query = require("../public/javascripts/dbops").query
 var update = require("../public/javascripts/dbops").update
-// var hotelController = require("../controllers/hotelController");
 
 const coll_name = "destination_hotels"
 const mid_url = "hotels?destination_id="
@@ -68,9 +66,5 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
             })
         })
         
-        // let promise2 = client.close();
-        // promise2.then(()=>{
-        //     return;
-        // })
       };
     
