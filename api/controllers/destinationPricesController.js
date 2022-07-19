@@ -17,7 +17,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
     let promise0 = client.connect();
     promise0.then(()=>{
         // 0. get filter data
-        requirements_model = getFilteredData();
+        requirements_model = getFilteredData(req.params);
         const url = get_destination_prices_url(requirements_model);
         const requirements = get_requirements(requirements_model);
 
@@ -197,7 +197,7 @@ async function call_axios(url){
 }
 
   // TODO
-function getFilteredData(){
+function getFilteredData(req){
     var destinationid = req.destinationid
     var checkin = req.checkin
     var checkout = req.checkout
