@@ -44,7 +44,7 @@ exports.getOneHotel = async function(req, resPage, next) {
                         data = JSON.parse(data);
                         
                         if (JSON.stringify(data).length <=2 ){
-                            resPage.write("does not exist");
+                            resPage.write("");
                             resPage.end();
                             return ;
                         }

@@ -47,7 +47,7 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                             data = JSON.parse(data);
                             
                             if (data == ''){
-                                resPage.write("does not exist");
+                                resPage.write("");
                                 resPage.end();
                                 return ;
                             }

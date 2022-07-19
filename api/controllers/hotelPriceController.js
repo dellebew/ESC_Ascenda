@@ -42,7 +42,7 @@ exports.getHotelPrice = function(req, resPage, next) {
                     call_axios(url),
                     setTimeout(()=>{call_axios(url).then((r)=>{
                         if (r == null){
-                            resPage.write("does not exist");
+                            resPage.write("");
                             resPage.end();
                             return null;
                         }
