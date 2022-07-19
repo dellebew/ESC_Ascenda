@@ -10,7 +10,7 @@ var update = require("../public/javascripts/dbops").update
 
 const coll_name = "destination_hotels"
 const mid_url = "hotels?destination_id="
-const page_size = 10
+const page_size = 20
 
 // hotels belonging to a particular destination
 exports.getDestinationHotelIds = async function(req, resPage, next) {
@@ -28,14 +28,14 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                 // 2. if so: display it
                 if (result != null && result.length != 0){
                     console.log("Found in database");
-                    resPage.write(JSON.stringify(result[0].hotels[0].slice(page_num*page_size,(page_num+1)*page_size)));
+                    resPage.write(JSON.stringify([parseInt(result[0].hotels[0].length/page_size),result[0].hotels[0].slice(page_num*page_size,(page_num+1)*page_size)]));
                     resPage.end();
                 
                 }
                 // 3. if not: request api, display & store in database
                 else{
                     console.log("Not found in database")
-                    const value = Array();
+
                     const url = baseUrl+mid_url+destination_id
                     
                     https.get(url, res => {
@@ -51,13 +51,10 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                                 resPage.end();
                                 return ;
                             }
-                            
-                            value.push(data);
-                            // storing and displaying at the same time
-                            // console.log("value"+value)
-                            update(client,dbName,coll_name,value[0],{id:destination_id},"addToSet").catch(console.dir);
-                            console.log(value[0].length)
-                            resPage.write(JSON.stringify(value[0].slice(page_num*page_size,(page_num+1)*page_size)));
+
+                            update(client,dbName,coll_name,data,{id:destination_id},"addToSet").catch(console.dir);
+                            console.log(Object.keys(data))
+                            resPage.write(JSON.stringify([parseInt(data.length/page_size),data.slice(page_num*page_size,(page_num+1)*page_size)]));       
                             resPage.end();
                         })
                     })

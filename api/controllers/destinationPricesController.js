@@ -33,14 +33,15 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                 if (result != null && result.length != 0 && result[0].hotels.length != 0){
                     console.log("Found in database");
                     result_cut = result.slice(page_num*page_size,(page_num+1)*page_size);
-                    
+                    total_page_count = parseInt(result.length/page_size)
+
                     // get hotels static data
                     // start **********************
                     
                     const promises = [];
                     for (let i = 0; i < result_cut.length; i++) {
-                        const hotel_id = result_cut[i].hotels.id
-                        promises.push(getOneStaticHotel(hotel_id));
+                            const hotel_id = result_cut[i].hotels.id
+                            promises.push(getOneStaticHotel(hotel_id));
                         }
                         
                     Promise.all(promises)
@@ -54,6 +55,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                         Promise.all(promises1)
                         .then((write_array) => {  
                             // console.log(write_array)
+                            write_array.unshift(total_page_count) 
                             resPage.write(JSON.stringify(write_array))
                             resPage.end();
                     })
@@ -86,20 +88,19 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                             console.log("data"+Object.keys(data))
                             if (data.hotels != null){
                                 update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
+                                const total_page_count = parseInt(data.hotels.length/page_size)
                                 
                                 // get hotels static data
                                 // start **********************
                                 const promises = [];
                                 for (let i = 0; i < page_size; i++) {     
                                     try{
-                                        const hotel_id = data.hotels[i].id
-                                        promises.push(getOneStaticHotel(hotel_id));
+                                            const hotel_id = data.hotels[i].id
+                                            promises.push(getOneStaticHotel(hotel_id));
                                     }   
                                     catch{
                                         console.log("error id")
-                                        // process.exit()
-                                        // setTimeout()
-                                    }                        
+                                        }                        
                                     }
                                     
                                 Promise.all(promises)
@@ -111,7 +112,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
     
                                         Promise.all(promises1)
                                         .then((write_array) => {  
-                                            // console.log(write_array)
+                                            write_array.unshift(total_page_count) 
                                             resPage.write(JSON.stringify(write_array))
                                             resPage.end();
                                     })
@@ -199,7 +200,7 @@ async function call_axios(url){
 function getFilteredData(){
     // retrieve data from form
     // ...
-    requirements_tuple = [ "WD0M","2022-08-28","2022-08-29","en_US","SGD","SG","2"] //test
+    requirements_tuple = [ "WD0M","2022-08-27","2022-08-31","en_US","SGD","SG","2"] //test
     return requirements_tuple;
 }
 
