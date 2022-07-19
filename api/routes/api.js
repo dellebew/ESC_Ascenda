@@ -15,9 +15,12 @@ router.get('/destination/hotels/:id/:page', destinationController.getDestination
 
 // price for a given hotel (with filtering conditions)
 router.get('/hotel/price/:id', hotelPriceController.getHotelPrice);
+// router.get('/hotel/price/:hotelid/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber', hotelPriceController.getHotelPrice);
+
 
 // hotel prices for a given destination (with filtering conditions)
 router.get('/destination/prices/:id/:page', destinationPricesController.getDestinationHotelPrices);
+// router.get('/destination/prices/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber/:page', destinationPricesController.getDestinationHotelPrices);
 
 
 

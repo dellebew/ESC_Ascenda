@@ -61,12 +61,7 @@ exports.getOneHotel = async function(req, resPage, next) {
             }
         })
     })
-    
-    
-    // let promise2 = client.close();
-    // promise2.then(()=>{
-    //     return;
-    // })
+
   };
 
 

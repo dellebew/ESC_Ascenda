@@ -198,10 +198,19 @@ async function call_axios(url){
 
   // TODO
 function getFilteredData(){
-    // retrieve data from form
-    // ...
-    requirements_tuple = [ "WD0M","2022-08-27","2022-08-31","en_US","SGD","SG","2"] //test
-    return requirements_tuple;
+    var destinationid = req.destinationid
+    var checkin = req.checkin
+    var checkout = req.checkout
+    var lang = req.lang
+    var currency = req.currency
+    var countrycode2 = req.countrycode2
+    var guestnumber = req.guestnumber
+
+    requirements_list = [destinationid,checkin,checkout,lang,currency,countrycode2,guestnumber]
+    console.log("requirements_list"+requirements_list)
+    
+    requirements_list = [ "WD0M","2022-08-27","2022-08-31","en_US","SGD","SG","2"] //test
+    return requirements_list;
 }
 
 
