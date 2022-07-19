@@ -54,9 +54,10 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
 
                         Promise.all(promises1)
                         .then((write_array) => {  
-                            // console.log(write_array)
-                            write_array.unshift(total_page_count) 
-                            resPage.write(JSON.stringify(write_array))
+                            const arr = Array()
+                            arr.push(total_page_count)
+                            arr.push(write_array)
+                            resPage.write(JSON.stringify(arr))
                             resPage.end();
                     })
                         })                     
@@ -112,8 +113,10 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
     
                                         Promise.all(promises1)
                                         .then((write_array) => {  
-                                            write_array.unshift(total_page_count) 
-                                            resPage.write(JSON.stringify(write_array))
+                                            const arr = Array()
+                                            arr.push(total_page_count)
+                                            arr.push(write_array)
+                                            resPage.write(JSON.stringify(arr))
                                             resPage.end();
                                     })
                                         })                     
