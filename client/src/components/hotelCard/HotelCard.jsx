@@ -3,12 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
 import { faLocationDot, faRoad,  } from "@fortawesome/free-solid-svg-icons";
 import ReactStars from "react-rating-stars-component"
-
-/**  
- *  TODO: finish implementation of dynamic JSON elements
- */
+import { useNavigate } from "react-router-dom";
 
 export default function HotelCard(props) {
+    
+    const navigate = useNavigate();
+
+    // navigate to corresponding hotel page
+    const onNavigatePageClick = (e) => {
+        e.preventDefault();
+    
+        navigate(`../hotels/${props.id}`, {
+          state: { id: props.id 
+                },
+        })
+    }
     
     // replace unfound images with placeholder
     const handleImgError = e => {
@@ -16,51 +25,54 @@ export default function HotelCard(props) {
         e.target.src = "/image-not-found.png"
     }
 
-    // star rating systems
-    const overallRating = {
-        size: 25,
-        value: props.rating,
-        edit: false,
-        isHalf: true,
-        activeColor:"#6495ED",
-      };
+    // return (
+    //     {props}
+    // )
 
     return (
-        <div key={props.id} className="searchItem">
+        <div key={props.hotel_data.id} className="searchItem">
             <img
-                src={props.image_details?.prefix+0+props.image_details?.suffix}
+                src={props.hotel_data.image_details?.prefix+0+props.hotel_data.image_details?.suffix}
                 alt=""
                 onError={handleImgError}
                 className="si--image"
             /> 
             <div className="si--desc">
-                <h1 className="si--name">{props.name}</h1>
+                <h1 className="si--name">{props.hotel_data.name}</h1>
                 <div className="si--small">
-                    <span className="si--address">{props.address}</span>
+                    <span className="si--address">{props.hotel_data.address}</span>
                     <div className="si--coordinates"> 
                         <FontAwesomeIcon icon={faLocationDot}/>
-                        <span> ({parseFloat(props.latitude).toFixed(5) + ', ' + parseFloat(props.longitude).toFixed(5)})</span>
+                        <span> ({parseFloat(props.hotel_data.latitude).toFixed(5) + ', ' + parseFloat(props.hotel_data.longitude).toFixed(5)})</span>
                     </div>
+                    {(props.hotel_data.distance !== undefined) && 
                     <div className="si--distance"> 
                         <FontAwesomeIcon icon={faRoad}/>
-                        <span> {Math.round(props.distance/1000).toFixed(1)} km away from city centre</span>
-                    </div>
+                        <span> {Math.round(props.hotel_data.distance/1000).toFixed(1)} km away from city centre</span>
+                    </div>}
                 </div>
 
                 <span className="si--description">
-                <div dangerouslySetInnerHTML={ {__html: props.description} } />
+                <div dangerouslySetInnerHTML={ {__html: props.hotel_data.description} } />
                 </span>
             </div>
             <div className="si--details">
                 <div className="si--rating"> 
-                    <button>{Math.round(props.rating).toFixed(1)}</button>
-                    <ReactStars {...overallRating} />
+                    <button>{Math.round(props.hotel_data.rating).toFixed(1)}</button>
+                    <ReactStars {...{size: 25,
+                                    value: props.hotel_data.rating,
+                                    edit: false,
+                                    isHalf: true,
+                                    activeColor:"#FFB75E",
+                                }}/>
                 </div>
-                {/* <div className="si--pricing"> 
+                <div className="si--pricing"> 
                     <span className="si--from">From</span>
-                    <span className="si--price">$123</span>
-                    <button className="si--check">Show Prices</button>
-                </div> */}
+                    <span className="si--price">S${props.lowest_converted_price.toFixed(2)}</span>
+                    <button className="si--showprices" onClick={onNavigatePageClick}>
+                        Show Prices
+                    </button>
+                </div>
             </div>
         </div>
     )

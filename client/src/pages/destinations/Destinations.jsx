@@ -6,52 +6,50 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
-import Loader from '../../components/loader/Loader'
 import { useLocation } from "react-router-dom";
 
 
 const Destinations = () => {
 
     const [openDate, setOpenDate] = useState(false);
-
-    const [items, setItems] = useState([{}])
+    const [loading, setLoading] = useState(false);
+    const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
     
     let pageLimit = 10
 
+    async function callApi(page){
+        const response = await fetch(`/api/destination/prices/WD0M/${page}`);
+        const data = await response.json()
+        console.log("data: " + data)
+        return data
+    }
+
     useEffect(() => {
         const getData = async() => {
-            const res = await fetch("/api/destination/hotels/WD0M/1");
-            const data = await res.json();
-            setItems(data);
-            setPageCount(pageLimit);
+            setLoading(true);
+            const data = await callApi(0);
+            console.log("cards" + data[1])
+            // setTimeout(() => setItems(data[1]), 100);
+            setItems(data[1])
+            setPageCount(data[0]);
+            setLoading(false);
         };
 
         getData()
             .catch(console.error);
-    }, [pageLimit]);
-    
-    const hotelcards = items.map(item => {
-        return (
-            <HotelCard
-                key={item.id}
-                {...item}
-            />  
-        )})
+    }, [pageCount]);
+
+    console.log("items: " + items);
 
     // function to handle request to another page.
     const handlePageClick = async(data) => {
         let currentPage = data.selected 
-        const newPageData = await fetchPage(currentPage);
-        setItems(newPageData);
+        console.log(currentPage)
+        const newPageData = await callApi(currentPage);
+        setItems(newPageData[1]);
         window.scrollTo(0,0);
         };
-    
-    const fetchPage = async(currentPage) => {
-        const res = await fetch(`/api/destination/hotels/WD0M/${currentPage}`);
-        const data = await res.json();
-        return data;
-    }
 
 /** 
     const location = useLocation(); // retrieves data from home page
@@ -70,8 +68,9 @@ const Destinations = () => {
     return (
         <>
         <Navbar />
-        <SearchBar />
-        <div className="body">                        
+        {/* <SearchBar /> */}
+        {loading && <div className="loader-container"></div>}
+        {!loading && (items !== undefined) &&  <div className="body">                        
             <div className="list--container">
                 <div className="list--wrapper">
                     
@@ -117,7 +116,15 @@ const Destinations = () => {
                     </div> 
 
                     <div className="list--result">
-                        {hotelcards}
+                    {/* {JSON.stringify(items.map((item, i) => {
+                        return {item, i}
+                    }))} */}
+                    {items.map((item) => 
+                    <HotelCard key={item.id}
+                            {...item}/>
+                    )}
+                    {/* {<HotelCard {...items}/>} */}
+                        
                         <ReactPaginate
                             breakLabel="..."
                             nextLabel="next >"
@@ -134,7 +141,7 @@ const Destinations = () => {
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>}
         </>
     )
 }

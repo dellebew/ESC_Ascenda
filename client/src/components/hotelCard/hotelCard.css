@@ -33,6 +33,10 @@
     font-weight: 500;
 }
 
+.si--address {
+    color:brown;
+}
+
 .si--distance {
     color:brown;
 }
@@ -68,7 +72,7 @@
 }
 
 .si--rating > button {
-    background-color: cornflowerblue;
+    background: linear-gradient(to right, #7474bf, #348ac7); 
     color:white;
     border: none;
     font-weight: bold;
@@ -95,8 +99,9 @@
     margin-bottom: 5px;
 }
 
-.si--check {
-    background-color: cornflowerblue;
+.si--showprices {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
     font-size: 15px;
     color:white;
     padding:7px 15px;
