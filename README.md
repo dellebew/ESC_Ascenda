@@ -75,4 +75,7 @@ React-Rating-Stars: https://www.npmjs.com/package/react-rating-stars-component
 Pigeon-Maps: https://github.com/mariusandra/pigeon-maps
 
 
-
+## Testing 
+1. prereq: 
+    `pip install webdriver-manager`
+    `pip install selenium`
