@@ -1,18 +1,19 @@
 import React, { useEffect, useState} from 'react'
 import "./hotels.css"
-import Loader from '../../components/loader/Loader'
 import Navbar from '../../components/navbar/Navbar'
 import HotelPage from '../../components/hotelPage/HotelPage'
 import { useLocation } from 'react-router-dom'
+import ErrorPage from '../../components/errorPage/ErrorPage'
 
 const Hotels = () => {
 
     const [hotelData, setHotelData] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
-    const url = "/api/hotel/11fD";
-    const location = useLocation();
-    console.log(location)
+    const location = useLocation().pathname;
+    
+    const id = location.split('/').at(-1)
+    console.log(id)
 
     async function callApi(id){
       const response = await fetch(`/api/hotel/${id}`);
@@ -25,10 +26,9 @@ const Hotels = () => {
       const fetchData = async () => {
         try { 
           setLoading(true);
-          const data = await callApi("11fd")
+          const data = await callApi(id)
           console.log("data" + data)
           if (data === null) {
-            console.log("found null")
             throw Error("Data not found");
           }
           setHotelData(data);
@@ -36,6 +36,7 @@ const Hotels = () => {
           setLoading(false);
         } catch(err) {
           setError(err.message);
+          setLoading(false);
         }
       };
 
@@ -44,10 +45,10 @@ const Hotels = () => {
 
     return (
         <>
-        {error && <h2>Module not found</h2>}
+        {error && <ErrorPage/>}
         {loading && <div className='loader-container'/>}
         {!loading && !error && <div>
-            <Navbar />
+            <Navbar/>
                 <HotelPage 
                    key={hotelData._id}
                     {...hotelData}

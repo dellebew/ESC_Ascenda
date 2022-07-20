@@ -47,8 +47,8 @@ export default function HotelPage(props) {
     // show / hide description
     const toggleDescription = () => {
         setShowMore(!showMore)
-        const element = document.querySelector(".desc-wrapper")
-        element.style.height = showMore ? '300px' : 'fit-content';
+        const element = document.querySelector(".desc")
+        element.style.maxHeight = showMore ? '300px' : 'fit-content';
     }
 
     // filter through amenities object
@@ -82,7 +82,7 @@ export default function HotelPage(props) {
     }
 
     // filter around amenities_ratings
-    const filterAmenitiesRating = (ratings) => {
+    const amenitiesRatings = (ratings) => {
         try {
             const data = Object.entries(ratings).map((key) => {
                 return ([key[1].name, key[1].score])
@@ -97,10 +97,10 @@ export default function HotelPage(props) {
     // toggle amenities_ratings
     const toggleAmenities = () => {
         setShowAmenities(!showAmenities)
-        const element = document.querySelector(".amenities-wrapper")
-        element.style.height = showAmenities ? '180px' : 'fit-content';
+        const element = document.querySelector(".amenities")
+        element.style.maxHeight = showAmenities ? '200px' : 'fit-content';
     }
-
+    
 
     return (
         <div className="body">
@@ -117,13 +117,13 @@ export default function HotelPage(props) {
                         <div className="hotel--summary">
                             <div className='hotel--name'>
                                 <h1>{props.name}</h1>
-                                <ReactStars {...{value:props.rating, size:25}} />
+                                <ReactStars {...{value:props.rating, size:25, edit:false}} />
                             </div>
                             <div className='hotel--address'>
                                 <FontAwesomeIcon icon={faLocationDot}/>
                                 <span>{props.address}, {props.original_metadata?.city}, {props.original_metadata?.country}</span>
                             </div>
-                            <span className="hotel--categories">Top {category()[0]} in {category()[1]}s</span>
+                            {category().length > 0 && <span className="hotel--categories">Top {category()[0]} in {category()[1]}s</span>}
                         </div>
                         <div className="hotel--price">
                             <span className="price">$123</span>
@@ -165,11 +165,12 @@ export default function HotelPage(props) {
                                 </div>
                                 <h2>Ratings</h2>
                             <div className='hotel--body'>
-                                <div className="amenities-wrapper">
+                                {amenitiesRatings(props.amenities_ratings).length > 0 && <div className="amenities-wrapper">
                                     <div className="show--amenities" onClick={toggleAmenities}>
                                         <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
-                                    </div>     
-                                    {filterAmenitiesRating(props.amenities_ratings).map((key, i) => {
+                                    </div>
+                                    <div className="amenities">
+                                    {amenitiesRatings(props.amenities_ratings).map((key, i) => {
                                         const roundedValue = Math.round(key[1]/5)/2
                                         return (<div key={i} className="amenities--ratings"> 
                                                     <div key={i} className="progress">
@@ -182,7 +183,8 @@ export default function HotelPage(props) {
                                                     
                                                 </div>)
                                         })}
-                                </div>
+                                    </div>
+                                </div>}
                             </div>
                         </div>
 

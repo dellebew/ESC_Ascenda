@@ -109,26 +109,22 @@ h2 {
 
 
 .desc-wrapper {
-    height: 300px;
-    padding-bottom: 30px;
-    overflow:hidden;
     position: relative;
     margin: 10px 0px;
-    border-bottom: 1px lightgrey solid;
-    
+    margin-bottom: 20px;
 }
 
     .desc {
-        -webkit-column-width: 300px;
-        column-width: 300px;
-        height: 100%;
+        height: fit-content;
+        max-height: 300px;
+        overflow: hidden;
     }
 
     .show--more {
         position: absolute;
-        bottom: 5px;
+        bottom: -25px;
         right: 0px;
-        color:cornflowerblue;
+        color:#348ac7;
         cursor: pointer;
         user-select: none;
     }
@@ -168,6 +164,7 @@ h2 {
     flex-wrap: wrap;
     padding-left: 10px;
     padding-top: 5px;
+    margin-bottom: 10px;
 }
 
     .hotel--amenities > li {
@@ -182,21 +179,23 @@ h2 {
         color:cornflowerblue
     }
 
-.amenities-wrapper {
-    height: 180px;
+.amenities-wrapper {    
     padding-left: 10px;
-    padding-bottom: 30px;
-    overflow:hidden;
     position: relative;
-    margin-bottom: 10px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 20px -20px;
+    margin-bottom: 20px;
 }
+
+    .amenities {
+        max-height: 200px;
+        height: fit-content;
+        overflow:hidden;
+    }
 
     .show--amenities {
         position: absolute;
-        bottom: 0px;
+        bottom: -25px;
         left: 50%;
-        color:cornflowerblue;
+        color:#348ac7;
         cursor: pointer;
         user-select: none;
     }
@@ -220,8 +219,8 @@ h2 {
     }
 
     .progress-done {
-        background: linear-gradient(to left, #F2709C, #FF9472);
-        box-shadow: 0 3px 3px -5px #F2709C, 0 2px 5px #F2709C;
+        background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
+        box-shadow: 0 3px 3px -5px #355c7d, 0 2px 5px #355c7d;
         border-radius: 20px;
         justify-content: center;
         height: 7px;

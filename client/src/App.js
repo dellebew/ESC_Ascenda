@@ -6,6 +6,7 @@ import {
 import Home from "./pages/home/Home"
 import Hotels from "./pages/hotels/Hotels"
 import Destinations from "./pages/destinations/Destinations";
+import ErrorPage from "./components/errorPage/ErrorPage";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path='/' element = {<Home />}/>
         <Route path='/destinations/:id' element = {<Destinations />}/>
         <Route path='/hotels/:id' element = {<Hotels />}/>
+        <Route path='*' element={<ErrorPage/>}> </Route>
       </Routes>
     </BrowserRouter>
   );
