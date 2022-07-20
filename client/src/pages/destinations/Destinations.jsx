@@ -1,7 +1,7 @@
 import "./destinations.css"
 import React, { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate';
-import NavBar from "../../components/navBar/NavBar"
+import NavBar from "../../components/navBar/Navbar"
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";

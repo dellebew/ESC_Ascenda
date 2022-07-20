@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react'
 import "./hotels.css"
-import NavBar from '../../components/navBar/NavBar'
+import NavBar from '../../components/navBar/Navbar'
 import HotelPage from '../../components/hotelPage/HotelPage'
 import { useLocation } from 'react-router-dom'
 import Error from '../error/Error'
