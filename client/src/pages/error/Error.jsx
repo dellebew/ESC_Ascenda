@@ -1,9 +1,9 @@
 import "./error.css"
 
-const ErrorPage = () => {
+const Error = () => {
     return (
         <div className="error-container"/>
     )
 }
 
-export default ErrorPage
+export default Error

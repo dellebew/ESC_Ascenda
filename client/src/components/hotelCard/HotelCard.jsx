@@ -14,8 +14,14 @@ export default function HotelCard(props) {
         e.preventDefault();
     
         navigate(`../hotels/${props.id}`, {
-          state: { id: props.id 
-                },
+          state: { hotelId: props.id, 
+            destId:"WD0M",
+            checkin:"2022-07-25",
+            checkout:"2022-07-29",
+            lang:"en_US",
+            currency:"SGD",
+            code:"SG",
+            guests:"2" },
         })
     }
     
@@ -24,10 +30,6 @@ export default function HotelCard(props) {
         e.target.onError = null;
         e.target.src = "/image-not-found.png"
     }
-
-    // return (
-    //     {props}
-    // )
 
     return (
         <div key={props.hotel_data.id} className="searchItem">

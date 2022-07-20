@@ -8,33 +8,45 @@ import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
 import { useLocation } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
-
-
+import callApi from "../../components/utils/callApi";
+import Error from "../error/Error";
 const Destinations = () => {
 
-    const [openDate, setOpenDate] = useState(false);
+/** 
+    const [destination, setDestination] = useState(location.state.destination)
+    const [date, setDate] = useState(location.state.date)
+*/
+
+    const location = useLocation();
+    
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);  
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
-    
-    async function callApi(page){
-        const response = await fetch(`/api/destination/prices/WD0M/${page}`);
-        const data = await response.json()
-        // console.log("data: " + data)
-        return data
-    }
+
+    const id = location.pathname.split('/').at(-1)
+    // const state = location.state
+    const state = {destId: id}
+    console.log(id);
 
     useEffect(() => {
-        const getData = async() => {
-            setLoading(true);
-            const data = await callApi(0);
-            setItems(data[1])
-            setPageCount(data[0]);
-            setLoading(false);
+        const fetchData = async() => {
+            try{
+                setLoading(true);
+                // TODO: determine actual number of pages
+                const data = await callApi('destination/prices', state, '0');
+                if (data === null) {
+                    throw Error("Data not found");
+                  }
+                setItems(data[1])
+                setPageCount(data[0]);
+                setLoading(false);  
+            } catch (err) {
+                setError(err.message);
+                setLoading(false);
+            }
         };
-
-        getData()
-            .catch(console.error);
+        fetchData()
     }, [pageCount]);
 
     // console.log("items: " + items);
@@ -43,28 +55,16 @@ const Destinations = () => {
     const handlePageClick = async(data) => {
         let currentPage = data.selected 
         // console.log(currentPage)
-        const newPageData = await callApi(currentPage);
+        const newPageData = await callApi('destination/prices', id, currentPage);
         setItems(newPageData[1]);
         window.scrollTo(0,0);
         };
 
-/** 
-    const location = useLocation(); // retrieves data from home page
-    const [destination, setDestination] = useState(location.state.destination)
-    const [date, setDate] = useState(location.state.date)
-    const [options, setOptions] = useState(location.state.option)
-*/
-    const [date, setDate] = useState([
-        {
-        startDate: new Date(),
-        endDate: null,
-        key: 'selection'
-        }
-    ]);
 
     return (
         <>
         <NavBar />
+        {error && <Error/>}
         {/* <SearchBar /> */}
         {loading && <Loader/>}
         {!loading && (items !== undefined) &&  <div className="body">                        

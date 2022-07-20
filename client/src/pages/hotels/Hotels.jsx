@@ -5,29 +5,23 @@ import HotelPage from '../../components/hotelPage/HotelPage'
 import { useLocation } from 'react-router-dom'
 import Error from '../error/Error'
 import Loader from '../../components/loader/Loader'
+import callApi from '../../components/utils/callApi'
 
 const Hotels = () => {
 
+    const location = useLocation(); 
     const [hotelData, setHotelData] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
-    const location = useLocation().pathname;
     
-    const id = location.split('/').at(-1)
-    console.log(id)
-
-    async function callApi(id){
-      const response = await fetch(`/api/hotel/${id}`);
-      const data = await response.json()
-      console.log("data: " + data)
-      return data
-  }
+    const id = location.pathname.split('/').at(-1)
+    console.log(location.state)
 
     useEffect(() => {
       const fetchData = async () => {
         try { 
           setLoading(true);
-          const data = await callApi(id)
+          const data = await callApi("hotel", location.state, null)
           console.log("data" + data)
           if (data === null) {
             throw Error("Data not found");
@@ -40,16 +34,15 @@ const Hotels = () => {
           setLoading(false);
         }
       };
-
         fetchData()
     }, []);
 
     return (
         <>
+        <NavBar/>
         {error && <Error/>}
         {loading && <Loader/>}
         {!loading && !error && <div>
-            <NavBar/>
                 <HotelPage 
                    key={hotelData._id}
                     {...hotelData}
