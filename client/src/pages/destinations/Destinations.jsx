@@ -1,12 +1,13 @@
 import "./destinations.css"
 import React, { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate';
-import Navbar from "../../components/navbar/Navbar"
+import NavBar from "../../components/navBar/NavBar"
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
 import { useLocation } from "react-router-dom";
+import Loader from "../../components/loader/Loader";
 
 
 const Destinations = () => {
@@ -63,9 +64,9 @@ const Destinations = () => {
 
     return (
         <>
-        <Navbar />
+        <NavBar />
         {/* <SearchBar /> */}
-        {loading && <div className="loader-container"></div>}
+        {loading && <Loader/>}
         {!loading && (items !== undefined) &&  <div className="body">                        
             <div className="list--container">
                 <div className="list--wrapper">

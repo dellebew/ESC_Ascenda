@@ -1,10 +1,9 @@
-import React from 'react';
+import './loader.css'
 
-export default function ShowDetail() {
+const Loader = () => {
   return (
-    <div className="loader center">
-      <i className="fa fa-cog fa-spin" />
-    </div>
+    <div className='loader-container'/>
   );
 }
 
+export default Loader

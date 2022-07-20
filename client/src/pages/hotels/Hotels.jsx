@@ -1,9 +1,10 @@
 import React, { useEffect, useState} from 'react'
 import "./hotels.css"
-import Navbar from '../../components/navbar/Navbar'
+import NavBar from '../../components/navBar/NavBar'
 import HotelPage from '../../components/hotelPage/HotelPage'
 import { useLocation } from 'react-router-dom'
-import ErrorPage from '../../components/errorPage/ErrorPage'
+import Error from '../error/Error'
+import Loader from '../../components/loader/Loader'
 
 const Hotels = () => {
 
@@ -45,10 +46,10 @@ const Hotels = () => {
 
     return (
         <>
-        {error && <ErrorPage/>}
-        {loading && <div className='loader-container'/>}
+        {error && <Error/>}
+        {loading && <Loader/>}
         {!loading && !error && <div>
-            <Navbar/>
+            <NavBar/>
                 <HotelPage 
                    key={hotelData._id}
                     {...hotelData}
