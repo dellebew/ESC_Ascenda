@@ -12,6 +12,7 @@ var router = express.Router();
 var request = require('request');
 
 router.get('/', function(req, res, next) {
+  
   res.send("test");
   res.end();
 });
