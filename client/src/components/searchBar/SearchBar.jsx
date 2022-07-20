@@ -6,12 +6,15 @@ import { format } from "date-fns";
 import useFetch from '../utils/useFetch.js'
 import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
+import { nextDay } from "date-fns/esm";
 var country_code = require("../../database/countries.json");
+var destination_ids = require("../../database/output.json");
 
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
     const navigate = useNavigate();
+    const [dest, setDest] = useState([destination_ids])
     
 
     const onChange = (event) => {
@@ -22,6 +25,7 @@ const SearchBar = () => {
     const setText = (searchTerm) => {
         setValue(searchTerm);
         console.log("search ", searchTerm);
+        onSearch(searchTerm)
     }
 
     /** FOR FIXING SEARCH BAR */
@@ -66,15 +70,11 @@ const SearchBar = () => {
     });
     };
 
-    const {data: datasets} = useFetch('https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU');
-
     const onSearch = (searchTerm) => {
         setValue(searchTerm);
-        const identified = datasets.find(element => {
-            return element.name == searchTerm;
-        })
 
-        const country = identified.original_metadata.city
+        //For destination uid side
+        const destination = searchTerm
 
         // For dates of checkin and checkout
         const startd = date[0].startDate
@@ -86,16 +86,12 @@ const SearchBar = () => {
         //currecny
         const currency = "SGD" //set laters
 
-        //country code
-        const c_code = country_code.filter(element => {return(element.name == country)});
-        const codez = c_code[0].code
+        // TODO: country code, need another output json file with the state information.
+        // const c_code = country_code.filter(element => {return(element.name == country)});
+        // const codez = c_code[0].code
 
-        if (searchTerm.length > 1) {
-            let path = '/destinations/10' //need change this later
-            navigate(path, {state: {id: 1, searchItem: searchTerm} });
-        } else {
-            ;
-        }
+        let path = '/destinations/10' //need change this later
+        navigate(path, {state: {id: 1, uid: searchTerm, start: startd, end: endd, lang: language, moneyType: currency} });
     };
 
 
@@ -115,23 +111,24 @@ const SearchBar = () => {
                 
                 {/*Dropdown bar for suggestions*/}
                 <div className="dropdown"> 
-                    {datasets
+                    {destination_ids
                     .filter((item) => {
                         const searchTerm = value;
 
+                        
                         return (
                         searchTerm &&
-                        item.name.includes(searchTerm)
+                        item.term.includes(searchTerm)
                         );
                     })
                     .slice(0, 10)
                     .map((item) => (
                         <div
-                        onClick={() => setText(item.name)}
+                        onClick={() => setText(item.uid)}
                         className="dropdown-row" 
-                        key={item.name}
+                        key={item.uid}
                         >
-                        {item.name}
+                        {item.term}
                         </div>
                     ))}
                 </div>

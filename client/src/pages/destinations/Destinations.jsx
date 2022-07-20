@@ -16,13 +16,19 @@ const Destinations = () => {
     const [loading, setLoading] = useState(false);
     const [items, setItems] = useState([{}])
     const [pageCount, setPageCount] = useState(0);
+    const location = useLocation(); // retrieves data from home page
+    const destination_id = location.state.uid
+    const startDate = location.state.start
+    const endDate = location.state.start.end
+    const language = location.state.lang
+    const curr = location.state.moneyType
     
     const pageLimit = 10
     
     useEffect(() => {
         const getData = async() => {
             setLoading(true);
-            const res = await fetch("/api/destination/hotels/C7r0/1");
+            const res = await fetch(`/api/destination/hotels/${destination_id}/1`);
             const data = await res.json();
             setPageCount(pageLimit);
             setLoading(false);
@@ -49,14 +55,13 @@ const Destinations = () => {
     
     
     const fetchPage = async(currentPage) => {
-        const res = await fetch(`/api/destination/hotels/WD0M/${currentPage}`);
+        const res = await fetch(`/api/destination/hotels/${destination_id}/${currentPage}`);
         const data = await res.json();
         return data;
     }
     
 
 /** 
-    const location = useLocation(); // retrieves data from home page
     const [destination, setDestination] = useState(location.state.destination)
     const [date, setDate] = useState(location.state.date)
     const [options, setOptions] = useState(location.state.option)
