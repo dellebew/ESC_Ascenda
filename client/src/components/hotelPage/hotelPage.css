@@ -165,8 +165,8 @@ body {
 
     .show--amenities {
         position: absolute;
-        bottom: -25px;
-        left: 50%;
+        bottom: -15px;
+        left: 26%;
         color:#348ac7;
         cursor: pointer;
         user-select: none;

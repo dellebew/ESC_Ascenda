@@ -163,7 +163,8 @@ export default function HotelPage(props) {
                             </div>
                             <h2>Ratings</h2>
                         <div className='hotel--body'>
-                            {amenitiesRatings(props.amenities_ratings).length > 0 && <div className="amenities-wrapper">
+                            {amenitiesRatings(props.amenities_ratings).length > 0 && <>
+                                <div className="amenities-wrapper">
                                 <div className="show--amenities" onClick={toggleAmenities}>
                                     <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
                                 </div>
@@ -182,7 +183,7 @@ export default function HotelPage(props) {
                                             </div>)
                                     })}
                                 </div>
-                            </div>}
+                            </div></>}
                         </div>
                     </div>
 

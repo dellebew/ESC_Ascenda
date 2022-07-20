@@ -1,13 +1,20 @@
 .ratesCard {
-    height:250px;
-    width:200px;
+    height:300px;
+    width:250px;
     border: 1px solid lightgrey;
     background-color: white;
+    opacity: 0.9;
     border-radius: 10px;
     display:flex;
     margin-bottom: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, 
+                rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    cursor: pointer;
 }
 
+.food-icon {
+    margin-right: 5px;
+}
 
 .rates--container {
     display:flex;
@@ -22,34 +29,43 @@
     text-align: left;
 }
 
-    .free-cancellation {
-        font-weight: bold;
-        color:brown;
-        font-size: 12px;
-    }
+.free-breakfast {
+    font-weight: bold;
+    color:brown;
+    font-size: 12px;
+    margin: 5px 0px;
+}
 
 .rates--pricing {
     display: flex;
     flex-direction: column;
-    align-items:flex-end;
     justify-content: right;
+    gap:5px;
 }
     
 
-    .rates--pricing > .price {
-        font-size: 24px;
-        font-weight: bold;
-    }
-    
-    .rates--pricing > .room {
-        font-size: 12px;
-        color:grey;
-    }
-
-    .rates--pricing > .website {
-        font-size: 30px;
-        color:crimson;
-        margin-bottom: 7px;
-    }
+.rates--pricing > .website {
+    font-size: 19px;
+    color:brown;
+    text-align: right;
+}
 
 
+.rates--pricing > .price {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.rates--pricing > .room {
+    font-size: 12px;
+    color:grey;
+    text-align: right;
+}
+
+
+img {
+    width: 200px;
+    height: 160px;
+    object-fit:cover;
+}

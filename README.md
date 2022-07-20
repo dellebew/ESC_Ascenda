@@ -62,7 +62,10 @@ https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946
 
 ## To-Do List:
 
-1. Link up Destination / Check-in Date with previous user input
+1. link up destination / check-in date with previous user input
+2. fix main room image card
+3. fix overflow of amentities
+4. fix hovering animation
 
 ## External Resources Used:
 

@@ -122,7 +122,7 @@ const SearchBar = () => {
         <div className="search--wrapper">
             <div className="search--container">
             <div className="search--item">
-                <FontAwesomeIcon icon={faBed} className="search--icon"/>
+                <FontAwesomeIcon icon={faBed} className="icon"/>
                 <input 
                     type="text" 
                     value={value} 
