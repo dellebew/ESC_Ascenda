@@ -8,7 +8,7 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 
 # test hotel page
 driver.get("http://localhost:3000/hotels/diH7")
-driver.implicitly_wait(5)
+driver.implicitly_wait(30)
 
 # test title
 print("title: ",driver.title)
@@ -20,7 +20,7 @@ assert (hotel_name.get_attribute("innerHTML") == "The Fullerton Hotel Singapore"
 heading = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div/div[1]/div[3]/div[1]/div[1]/div[1]/p[5]/b")
 assert (heading.get_attribute("innerHTML") == "Business, Other Amenities")
 
-driver.save_screenshot('screenie.png')
+driver.save_screenshot('./screenie.png')
 
 # test showmore button
 showmore = driver.find_element(By.XPATH,'/html/body/div/div[2]/div/div/div[1]/div[3]/div[1]/div[1]/div[2]/span')
