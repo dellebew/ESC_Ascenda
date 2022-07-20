@@ -31,7 +31,7 @@ async function insert(client,dbName,collection,docs) {
           res.push(e);
           // console.log("query: "+e);
       })
-
+      console.log("Number of documents queried: 1");
       return res;  
   }
 
@@ -60,7 +60,7 @@ async function insert(client,dbName,collection,docs) {
         res.push(e);
         // console.log("query: "+e);
     })
-
+    console.log("Number of documents sort_queried: 1");
     return res;  
 }
 
