@@ -21,9 +21,9 @@ exports.getOneHotel = async function(req, resPage, next) {
         
         let promise = query(client,dbName,coll_name,{id:hotel_id})
         promise.then((result)=>{
-
+            console.log(result)
             // 2. if so: display it
-            if (result != null && result.length >= 0 && result[0].hasOwnProperty("address")){
+            if (result != null && result.length > 0 && result[0].hasOwnProperty("address")){
                 console.log("Found in database");
                 resPage.write(JSON.stringify(result[0]));
                 resPage.end();
