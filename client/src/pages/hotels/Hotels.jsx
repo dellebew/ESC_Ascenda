@@ -11,22 +11,33 @@ const Hotels = () => {
 
     const location = useLocation(); 
     const [hotelData, setHotelData] = useState([])
+    const [pricesData, setPricesData] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
     
     const id = location.pathname.split('/').at(-1)
-    console.log(location.state)
+    const state = {hotelId: id,
+      destId: "WD0M",
+      checkin:"2022-07-25",
+      checkout:"2022-07-29",
+      lang:"en_US",
+      currency:"SGD",
+      code:"SG",
+      guests:"2"}
 
     useEffect(() => {
       const fetchData = async () => {
         try { 
           setLoading(true);
-          const data = await callApi("hotel", location.state, null)
-          console.log("data" + data)
-          if (data === null) {
-            throw Error("Data not found");
+          // TODO: consider error for not successful prices data pull
+          const hotelData = await callApi("hotel", state, null)
+          const pricesData = await callApi("hotel/price", state, null)
+          console.log("data" + pricesData)
+          if (hotelData === null) {
+            throw Error("hotelData not found");
           }
-          setHotelData(data);
+          setHotelData(hotelData);
+          setPricesData(pricesData)
           setError(null);
           setLoading(false);
         } catch(err) {
@@ -42,12 +53,19 @@ const Hotels = () => {
         <NavBar/>
         {error && <Error/>}
         {loading && <Loader/>}
-        {!loading && !error && <div>
+        {!loading && !error && pricesData.length > 0 &&
+          <div className='body'>
+            <div className='hotel--container'>
+              <div className='hotel--wrapper'>
                 <HotelPage 
-                   key={hotelData._id}
-                    {...hotelData}
-                />
-        </div>}
+                    key={hotelData._id}
+                    {...hotelData}/>
+                <div className='hotel--rooms'>
+                    <h2>Room Choices</h2>
+                </div>
+              </div>
+            </div>
+          </div>}
         </>
     )
 }

@@ -18,6 +18,7 @@ const Destinations = () => {
 */
 
     const location = useLocation();
+
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);  
@@ -26,7 +27,13 @@ const Destinations = () => {
 
     const id = location.pathname.split('/').at(-1)
     // const state = location.state
-    const state = {destId: id}
+    const state = {destId: id,
+        checkin:"2022-07-25",
+        checkout:"2022-07-29",
+        lang:"en_US",
+        currency:"SGD",
+        code:"SG",
+        guests:"2"}
     console.log(id);
 
     useEffect(() => {
@@ -35,7 +42,8 @@ const Destinations = () => {
                 setLoading(true);
                 // TODO: determine actual number of pages
                 const data = await callApi('destination/prices', state, '0');
-                if (data === null) {
+                console.log(data)
+                if (data[1] === undefined) {
                     throw Error("Data not found");
                   }
                 setItems(data[1])
@@ -47,9 +55,9 @@ const Destinations = () => {
             }
         };
         fetchData()
-    }, [pageCount]);
+    }, [id]);
 
-    // console.log("items: " + items);
+    console.log("items: " + items == undefined);
 
     // function to handle request to another page.
     const handlePageClick = async(data) => {
