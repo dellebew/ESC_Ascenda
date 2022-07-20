@@ -212,7 +212,7 @@ function getFilteredData(req){
     requirements_list = [destinationid,checkin,checkout,lang,currency,countrycode2,guestnumber]
     console.log("requirements_list"+requirements_list)
     
-    requirements_list = [ "WD0M","2022-08-27","2022-08-31","en_US","SGD","SG","2"] //test
+    // requirements_list = [ "WD0M","2022-08-27","2022-08-31","en_US","SGD","SG","2"] //test
     return requirements_list;
 }
 
@@ -227,7 +227,7 @@ function get_destination_prices_url(requirements_list){
     var guest_number = requirements_list[6]
     // https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=WD0M&checkin=2022-07-20&checkout=2022-07-24&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
     const url = baseUrl+"hotels/prices?destination_id="+destination_id+"&checkin="+checkin+"&checkout="+checkout+"&lang="+lang+"&currency="+currency+"&country_code="+country_code2+"&guests="+guest_number+"&partner_id=1"
-    console.log("url"+url)
+    console.log("url: "+url)
     // return "https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=cm8g&checkin=2022-07-22&checkout=2022-07-25&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1"
             //    https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=2022-07-19&checkin=2022-07-20&checkout=en_US&lang=SGD&currency=SG&country_code=2&guests=undefined&partner_id=1
     return url

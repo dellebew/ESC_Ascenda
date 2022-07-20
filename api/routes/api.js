@@ -14,14 +14,14 @@ router.get('/hotel/:id', hotelController.getOneHotel);
 router.get('/destination/hotels/:id/:page', destinationController.getDestinationHotelIds);
 
 // price for a given hotel (with filtering conditions)
-router.get('/hotel/price/:id', hotelPriceController.getHotelPrice);
-// router.get('/hotel/price/:hotelid/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber', hotelPriceController.getHotelPrice);
-
+// router.get('/hotel/price/:id', hotelPriceController.getHotelPrice);
+router.get('/hotel/price/:hotelid/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber', hotelPriceController.getHotelPrice);
+// e.g. http://localhost:8080/api/hotel/price/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2
 
 // hotel prices for a given destination (with filtering conditions)
-router.get('/destination/prices/:id/:page', destinationPricesController.getDestinationHotelPrices);
-// router.get('/destination/prices/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber/:page', destinationPricesController.getDestinationHotelPrices);
-
+// router.get('/destination/prices/:id/:page', destinationPricesController.getDestinationHotelPrices);
+router.get('/destination/prices/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber/:page', destinationPricesController.getDestinationHotelPrices);
+// e.g. http://localhost:8080/api/destination/prices/WD0M/2022-08-27/2022-08-31/en_US/SGD/SG/2/1
 
 
 module.exports = router;
