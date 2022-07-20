@@ -17,7 +17,7 @@ exports.getHotelPrice = function(req, resPage, next) {
     let promise0 = client.connect();
     promise0.then(()=>{
         // 0. get filter data
-        requirements_list = getFilteredData();
+        requirements_list = getFilteredData(req.params);
         const url = get_hotel_price_url(requirements_list);
         const requirements = get_requirements(requirements_list);
 
@@ -42,7 +42,7 @@ exports.getHotelPrice = function(req, resPage, next) {
                     call_axios(url),
                     setTimeout(()=>{call_axios(url).then((r)=>{
                         if (r == null){
-                            resPage.write("does not exist");
+                            resPage.write("");
                             resPage.end();
                             return null;
                         }
@@ -72,12 +72,21 @@ exports.getHotelPrice = function(req, resPage, next) {
     return response.data
 }
   // TODO
-function getFilteredData(){
-    // retrieve data from form
-    // ...
-    // test: 
+function getFilteredData(req){
+    var hotelid = req.hotelid
+    var destinationid = req.destinationid
+    var checkin = req.checkin
+    var checkout = req.checkout
+    var lang = req.lang
+    var currency = req.currency
+    var countrycode2 = req.countrycode2
+    var guestnumber = req.guestnumber
+
+    requirements_list = [hotelid,destinationid,checkin,checkout,lang,currency,countrycode2,guestnumber]
+    console.log("requirements_list"+requirements_list)
+
     ///diH7/price?destination_id=WD0M&checkin=2022-07-15&checkout=2022-07-16&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
-    requirements_list =["diH7", "WD0M","2022-07-25","2022-07-29","en_US","SGD","SG","2"]
+    // requirements_list =["diH7", "WD0M","2022-07-25","2022-07-29","en_US","SGD","SG","2"] // testing
 
     return requirements_list;
 }

@@ -229,7 +229,7 @@ function get_destination_prices_url(requirements_list){
     const url = baseUrl+"hotels/prices?destination_id="+destination_id+"&checkin="+checkin+"&checkout="+checkout+"&lang="+lang+"&currency="+currency+"&country_code="+country_code2+"&guests="+guest_number+"&partner_id=1"
     console.log("url"+url)
     // return "https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=cm8g&checkin=2022-07-22&checkout=2022-07-25&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1"
-               https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=2022-07-19&checkin=2022-07-20&checkout=en_US&lang=SGD&currency=SG&country_code=2&guests=undefined&partner_id=1
+            //    https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=2022-07-19&checkin=2022-07-20&checkout=en_US&lang=SGD&currency=SG&country_code=2&guests=undefined&partner_id=1
     return url
 
 }
