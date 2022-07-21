@@ -52,10 +52,7 @@ async function testdb(client) {
                                                 })
                                 })
                         })
-
-        }
-
-        )
+        })
 }
 
 testdb(client)

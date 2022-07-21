@@ -1,0 +1,212 @@
+[
+    97,
+    [
+        {
+            "id": "vSR5",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 81.27,
+            "coverted_max_cash_payment": 114.5,
+            "points": 2850,
+            "bonuses": 0,
+            "lowest_price": 81.27,
+            "price": 114.5,
+            "converted_price": 114.5,
+            "lowest_converted_price": 114.5,
+            "market_rates": [],
+            "hotel_data": {
+                "id": "vSR5",
+                "imageCount": 29,
+                "latitude": 1.491371,
+                "longitude": 103.910381,
+                "name": "OYO 432 My 7days Inn",
+                "address": "NO 33 Jalan Rusa 1, Taman Scientex",
+                "address1": "NO 33 Jalan Rusa 1, Taman Scientex",
+                "rating": 2,
+                "trustyou": {
+                    "id": null,
+                    "score": {
+                        "overall": null,
+                        "kaligo_overall": 0,
+                        "solo": null,
+                        "couple": null,
+                        "family": null,
+                        "business": null
+                    }
+                },
+                "categories": {},
+                "amenities_ratings": [],
+                "description": "Featured amenities include express check-in, express check-out, and complimentary newspapers in the lobby. Free self parking is available onsite.\n\nMake yourself at home in one of the 22 air-conditioned guestrooms. Complimentary wireless Internet access is available to keep you connected. Bathrooms with showers are provided. Conveniences include desks and complimentary bottled water.\n\nDistances are displayed to the nearest 0.1 mile and kilometer. <br /> <p>Kite Museum - 3.7 km / 2.3 mi <br /> Johor Circuit - 4.3 km / 2.7 mi <br /> Tanjung Puteri Golf Resort - 10.2 km / 6.3 mi <br /> Istana Pasir Pelangi - 18.7 km / 11.6 mi <br /> AEON Tebrau City - 19 km / 11.8 mi <br /> Sunway College Johor Bahru - 19.3 km / 12 mi <br /> Hospital Sultan Ismail - 20.1 km / 12.5 mi <br /> Holiday Plaza - 20.4 km / 12.7 mi <br /> Berjaya Waterfront Sdn. Bhd. - 20.6 km / 12.8 mi <br /> Austin Heights Water & Adventure Park - 21.3 km / 13.2 mi <br /> Austin Hills Country Club - 21.3 km / 13.2 mi <br /> KSL City Mall - 21.3 km / 13.3 mi <br /> Plaza Pelangi - 21.4 km / 13.3 mi <br /> Tan Sri Hassan Yunus Stadium - 22.4 km / 13.9 mi <br /> R&F Mall - 23.4 km / 14.5 mi <br /> </p><p>The nearest airports are:<br />Changi Airport (SIN) - 58.4 km / 36.3 mi<br /> Singapore (XSP-Seletar) - 41.7 km / 25.9 mi<br /> Johor Bahru (JHB-Senai Intl.) - 56.3 km / 35 mi<br /> </p><p></p>\n\nLocated in Pasir Gudang, OYO 432 My 7days Inn is within a 5-minute drive of Kite Museum and Johor Circuit.  This hotel is 11.8 mi (19 km) from AEON Tebrau City and 13.3 mi (21.3 km) from KSL City Mall.\n\nNear Johor Circuit",
+                "amenities": {
+                    "nonSmokingRooms": true
+                },
+                "original_metadata": {
+                    "name": null,
+                    "city": "Pasir Gudang",
+                    "state": null,
+                    "country": "MY"
+                },
+                "image_details": {
+                    "suffix": ".jpg",
+                    "count": 29,
+                    "prefix": "https://d2ey9sqrvkqdfs.cloudfront.net/vSR5/"
+                },
+                "number_of_images": 16,
+                "default_image_index": 1,
+                "imgix_url": "https://kaligo-web-old.imgix.net",
+                "cloudflare_image_url": "https://www.kaligo-staging.xyz/images/old"
+            }
+        },
+        {
+            "id": "lXJq",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 240.32,
+            "coverted_max_cash_payment": 338.58,
+            "points": 8450,
+            "bonuses": 0,
+            "lowest_price": 240.32,
+            "price": 338.58,
+            "converted_price": 338.58,
+            "lowest_converted_price": 338.58,
+            "market_rates": [],
+            "hotel_data": {
+                "id": "lXJq",
+                "imageCount": 17,
+                "latitude": 1.3119,
+                "longitude": 103.8814,
+                "name": "Hotel 81 Lucky",
+                "address": "23 Lorong 20 Geylang",
+                "address1": "23 Lorong 20 Geylang",
+                "rating": 1,
+                "trustyou": {
+                    "id": "bb024636-6419-4419-b03d-7e54593f0b00",
+                    "score": {
+                        "overall": 62,
+                        "kaligo_overall": 3.1,
+                        "solo": 62,
+                        "couple": 63,
+                        "family": 59,
+                        "business": 65
+                    }
+                },
+                "categories": {
+                    "overall": {
+                        "name": "Overall",
+                        "score": 62,
+                        "popularity": null
+                    }
+                },
+                "amenities_ratings": [
+                    {
+                        "name": "Food",
+                        "score": 94
+                    },
+                    {
+                        "name": "Service",
+                        "score": 91
+                    },
+                    {
+                        "name": "Location",
+                        "score": 87
+                    },
+                    {
+                        "name": "WiFi",
+                        "score": 79
+                    },
+                    {
+                        "name": "Room",
+                        "score": 44
+                    },
+                    {
+                        "name": "Comfort",
+                        "score": 35
+                    },
+                    {
+                        "name": "Breakfast",
+                        "score": 0
+                    }
+                ],
+                "description": "<p><b>Property Location</b> <br />With a stay at Hotel 81 Lucky in Singapore (Geylang), you'll be close to Old Airport Road Food Centre and Singapore Flyer.  This hotel is within close proximity of Singapore Sports Hub and Singapore National Stadium.</p><p><b>Rooms</b> <br />Make yourself at home in one of the 77 air-conditioned guestrooms. Complimentary wireless Internet access is available to keep you connected. Private bathrooms with showers feature complimentary toiletries and hair dryers. Conveniences include phones and coffee/tea makers.</p><p><b>Business, Other Amenities</b> <br />Featured amenities include a 24-hour front desk, luggage storage, and a safe deposit box at the front desk. Free self parking is available onsite.</p>",
+                "amenities": {
+                    "airConditioning": true,
+                    "dataPorts": true,
+                    "hairDryer": true,
+                    "parkingGarage": true
+                },
+                "original_metadata": {
+                    "name": null,
+                    "city": "Singapore",
+                    "state": null,
+                    "country": "SG"
+                },
+                "image_details": {
+                    "suffix": ".jpg",
+                    "count": 17,
+                    "prefix": "https://d2ey9sqrvkqdfs.cloudfront.net/lXJq/"
+                },
+                "hires_image_index": "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16",
+                "number_of_images": 14,
+                "default_image_index": 1,
+                "imgix_url": "https://kaligo-web-expedia.imgix.net",
+                "cloudflare_image_url": "https://www.kaligo-staging.xyz/images/new"
+            }
+        },
+        {
+            "id": "kJO2",
+            "searchRank": 2,
+            "price_type": "multi",
+            "max_cash_payment": 60.63,
+            "coverted_max_cash_payment": 85.42,
+            "points": 2125,
+            "bonuses": 0,
+            "lowest_price": 60.63,
+            "price": 85.42,
+            "converted_price": 85.42,
+            "lowest_converted_price": 85.42,
+            "market_rates": [],
+            "hotel_data": {
+                "id": "kJO2",
+                "imageCount": 15,
+                "latitude": 1.532226,
+                "longitude": 103.808338,
+                "name": "OYO 44027 Golden Horse Hotel",
+                "address": "1A & 3A, Jalan Keembong 22",
+                "address1": "1A & 3A, Jalan Keembong 22",
+                "rating": 2,
+                "trustyou": {
+                    "id": null,
+                    "score": {
+                        "overall": null,
+                        "kaligo_overall": 0,
+                        "solo": null,
+                        "couple": null,
+                        "family": null,
+                        "business": null
+                    }
+                },
+                "categories": {},
+                "amenities_ratings": [],
+                "description": "Take advantage of the hotel's room service (during limited hours).\n\nFeatured amenities include express check-in, express check-out, and a 24-hour front desk. Free self parking is available onsite.\n\nMake yourself at home in one of the 16 air-conditioned rooms featuring flat-screen televisions. Complimentary wireless Internet access keeps you connected, and cable programming is available for your entertainment. Bathrooms have showers and complimentary toiletries. Conveniences include complimentary bottled water, and housekeeping is provided daily.\n\nDistances are displayed to the nearest 0.1 mile and kilometer. <br /> <p>AEON Tebrau City - 3 km / 1.9 mi <br /> Toppen Shopping Centre - 3.1 km / 1.9 mi <br /> Hospital Sultan Ismail - 4.2 km / 2.6 mi <br /> Sunway College Johor Bahru - 5.7 km / 3.5 mi <br /> Austin Heights Water & Adventure Park - 6.9 km / 4.3 mi <br /> Austin Hills Country Club - 7.7 km / 4.8 mi <br /> The Mall - 10.4 km / 6.5 mi <br /> Tiram Indoor Water Park - 10.8 km / 6.7 mi <br /> Tan Sri Hassan Yunus Stadium - 11.6 km / 7.2 mi <br /> KSL City Mall - 11.7 km / 7.3 mi <br /> Plaza Pelangi - 11.8 km / 7.4 mi <br /> Istana Pasir Pelangi - 11.9 km / 7.4 mi <br /> Holiday Plaza - 12 km / 7.5 mi <br /> Angry Birds Activity Park Johor Bahru - 13.8 km / 8.6 mi <br /> Berjaya Waterfront Sdn. Bhd. - 14.1 km / 8.8 mi <br /> </p><p>The nearest airports are:<br />Changi Airport (SIN) - 50.7 km / 31.5 mi<br /> Singapore (XSP-Seletar) - 34 km / 21.1 mi<br /> Johor Bahru (JHB-Senai Intl.) - 34.7 km / 21.6 mi<br /> </p><p></p>\n\nWith a stay at OYO 44027 Golden Horse Hotel in Johor Bahru (Taman Johor Jaya), you'll be within a 15-minute drive of Hospital Sultan Ismail and AEON Tebrau City.  This hotel is 7.3 mi (11.7 km) from KSL City Mall and 9.1 mi (14.6 km) from Johor Bahru City Square.\n\nIn Johor Bahru (Taman Johor Jaya)",
+                "amenities": {
+                    "nonSmokingRooms": true
+                },
+                "original_metadata": {
+                    "name": null,
+                    "city": "Johor Bahru",
+                    "state": null,
+                    "country": "MY"
+                },
+                "image_details": {
+                    "suffix": ".jpg",
+                    "count": 15,
+                    "prefix": "https://d2ey9sqrvkqdfs.cloudfront.net/kJO2/"
+                },
+                "number_of_images": 15,
+                "default_image_index": 1,
+                "imgix_url": "https://kaligo-web-old.imgix.net",
+                "cloudflare_image_url": "https://www.kaligo-staging.xyz/images/old"
+            }
+        }
+    ]
+]
