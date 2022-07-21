@@ -14,8 +14,8 @@ function App() {
     <BrowserRouter> 
       <Routes>
         <Route path='/' element = {<Home />}/>
-        <Route path='/destinations/:id' element = {<Destinations />}/>
-        <Route path='/hotels/:id' element = {<Hotels />}/>
+        <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:guests/:page' element = {<Destinations />}/>
+        <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:guests' element = {<Hotels />}/>
         <Route path='*' element={<Error/>}> </Route>
       </Routes>
     </BrowserRouter>
