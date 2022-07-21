@@ -27,16 +27,16 @@ const Destinations = () => {
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
 
-    // const location = useLocation();
-    // const id = location.pathname.split('/').at(-1)
-    // const state = location.state
-    // const state = {destId: "11fD",
-    //     checkin:"2022-07-25",
-    //     checkout:"2022-07-29",
-    //     lang:"en_US",
-    //     currency:"SGD",
-    //     code:"SG",
-    //     guests:"2"}
+    const location = useLocation();
+    const searchBar = location.state;
+    const destination_id = searchBar.uid;
+    const country_code = searchBar.c_id;
+    const start_date = searchBar.start;
+    const end_date = searchBar.end;
+    const language = searchBar.lang;
+    const currency = searchBar.moneyType;
+    const total_no_of_guests = searchBar.people;
+    const number_of_rooms = searchBar.rooms;
 
     useEffect(() => {
         const fetchData = async() => {
