@@ -235,13 +235,13 @@ function get_destination_prices_url(requirements_list){
 }
 
 function get_requirements(requirements_list){
-    var destination_id = requirements_list[1]
-    var checkin = requirements_list[2]
-    var checkout = requirements_list[3]
-    var lang = requirements_list[4]
-    var currency = requirements_list[5]
-    var country_code2 = requirements_list[6]
-    var guest_number = requirements_list[7]
+    var destination_id = requirements_list[0]
+    var checkin = requirements_list[1]
+    var checkout = requirements_list[2]
+    var lang = requirements_list[3]
+    var currency = requirements_list[4]
+    var country_code2 = requirements_list[5]
+    var guest_number = requirements_list[6]
     const requirements = destination_id+"-"+checkin+"-"+checkout+"-"+lang+"-"+currency+"-"+country_code2+"-"+guest_number
     return requirements;
 }
