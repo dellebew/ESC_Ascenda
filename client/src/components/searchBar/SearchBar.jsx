@@ -20,13 +20,6 @@ const SearchBar = () => {
     const onChange = (event) => {
       setValue(event.target.value);
     };
-    
-    
-    const setText = (searchTerm) => {
-        setValue(searchTerm);
-        console.log("search ", searchTerm);
-        onSearch(searchTerm)
-    }
 
     /** FOR FIXING SEARCH BAR */
     const [fixedBar, setFixedBar] = useState(false);
@@ -70,28 +63,51 @@ const SearchBar = () => {
     });
     };
 
-    const onSearch = (searchTerm) => {
+    const setText = (id, searchTerm) => {
+        setValue(searchTerm);
+        console.log("search ", searchTerm);
+        onSearch(id, searchTerm)
+    }
+
+    const onSearch = (id, searchTerm) => {
         setValue(searchTerm);
 
-        //For destination uid side
-        const destination = searchTerm
+        //For destination name and uid side
+        const destination_name = searchTerm
+        const destination_uid = id
 
         // For dates of checkin and checkout
-        const startd = date[0].startDate
-        const endd = date[0].endDate;
+        const startd = JSON.stringify(date[0].startDate).slice(1,11)
+        const endd = JSON.stringify(date[0].endDate).slice(1,11)
 
         //language
         const language = "en_US"
 
-        //currecny
-        const currency = "SGD" //set laters
+        //currency
+        const currency = "SGD"
 
-        // TODO: country code, need another output json file with the state information.
-        // const c_code = country_code.filter(element => {return(element.name == country)});
-        // const codez = c_code[0].code
+        // total number of guests
+        const adults = options.adult
+        const children = options.children
+        const no_of_rooms = options.room
+        const total_ppl = adults + children
 
-        let path = '/destinations/10' //need change this later
-        navigate(path, {state: {id: 1, uid: searchTerm, start: startd, end: endd, lang: language, moneyType: currency} });
+        // c_code is the country code
+        const c_code = country_code.filter(element => {
+            const destination_title = destination_name;
+
+            if (destination_title.includes(element.name) || destination_title == element.name) {
+                return element.code
+            } else {
+                return 0
+            }
+        })[0].code;
+
+        //http://localhost:3000/destinations/11fD/2022-07-25/2022-07-29/en_US/SGD/SG/2/0
+
+        let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adults}/${children}`
+        navigate(path, {state: {id: 1, uid: destination_uid, c_id: c_code, start: startd, end: endd, lang: language,
+             moneyType: currency, people: total_ppl,rooms: no_of_rooms} });
     };
 
 
@@ -124,7 +140,7 @@ const SearchBar = () => {
                     .slice(0, 10)
                     .map((item) => (
                         <div
-                        onClick={() => setText(item.uid)}
+                        onClick={() => setText(item.uid, item.term)}
                         className="dropdown-row" 
                         key={item.uid}
                         >
@@ -195,7 +211,7 @@ const SearchBar = () => {
                 {/*Button onClick needs to call out display page, clear this comment after doing it*/}
                 <div className="search--item">
                     <button className="search--button"
-                        onClick={() => onSearch(value)}> Search </button>
+                        onClick={() => onSearch(value, 0)}> Search </button>
                 </div>
             </div>
 

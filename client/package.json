@@ -15,6 +15,7 @@
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.1",
     "cors": "^2.8.5",
+    "chromedriver": "^103.0.0",
     "date-fns": "^2.28.0",
     "fs": "^0.0.1-security",
     "html-react-parser": "^3.0.1",
@@ -53,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "selenium-webdriver": "^4.3.1"
   }
 }

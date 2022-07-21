@@ -3,25 +3,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import parse from "html-react-parser";
 import { faLocationDot, faRoad,  } from "@fortawesome/free-solid-svg-icons";
 import ReactStars from "react-rating-stars-component"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function HotelCard(props) {
     
     const navigate = useNavigate();
+    const state = useParams();
+    // console.log(state)
 
     // navigate to corresponding hotel page
     const onNavigatePageClick = (e) => {
         e.preventDefault();
     
-        navigate(`../hotels/${props.id}`, {
-          state: { hotelId: props.id, 
-            destId:"WD0M",
-            checkin:"2022-07-25",
-            checkout:"2022-07-29",
-            lang:"en_US",
-            currency:"SGD",
-            code:"SG",
-            guests:"2" },
+        navigate(`../hotels/${props.id}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.guests}`, {
+        //   state: { hotelId: props.id, 
+        //     destId:"WD0M",
+        //     checkin:"2022-07-25",
+        //     checkout:"2022-07-29",
+        //     lang:"en_US",
+        //     currency:"SGD",
+        //     code:"SG",
+        //     guests:"2" },
         })
     }
     
@@ -70,7 +72,7 @@ export default function HotelCard(props) {
                 </div>
                 <div className="si--pricing"> 
                     <span className="si--from">From</span>
-                    <span className="si--price">S${props.lowest_converted_price.toFixed(2)}</span>
+                    <span className="si--price">S${props.lowest_converted_price.toFixed(0)}</span>
                     <button className="si--showprices" onClick={onNavigatePageClick}>
                         Show Prices
                     </button>

@@ -103,103 +103,91 @@ export default function HotelPage(props) {
     
 
     return (
-        <>
-        <div className="body">
-            <div key={props.id} className='hotel--container'>
-                <div className='hotel--wrapper'>
-                    
-                    <div className="hotel--body">
-                        <div className="hotel--images">
-                            <ImageSlider slides={imgData}/>
-                        </div>
-                    </div>
-
-                    <div className="hotel--header">
-                        <div className="hotel--summary">
-                            <div className='hotel--name'>
-                                <h1>{props.name}</h1>
-                                <ReactStars {...{value:props.rating, size:25, edit:false}} />
-                            </div>
-                            <div className='hotel--address'>
-                                <FontAwesomeIcon icon={faLocationDot}/>
-                                <span>{props.address}, {props.original_metadata?.city}, {props.original_metadata?.country}</span>
-                            </div>
-                            {category().length > 0 && <span className="hotel--categories">Top {category()[0]} in {category()[1]}s</span>}
-                        </div>
-                        <div className="hotel--price">
-                            <span className="price">$123</span>
-                            <span className="subtext">for 1 room for 1 night</span>
-                            <button className="hotel--choose">View Deal</button>
-                        
-                        </div>
-                    </div>
-                    
-                    <div className='hotel--body2'>
-                        <div className='hotel--description'>
-                            <h2>About</h2>
-                            <div className="desc-wrapper">
-                                <div className="desc" dangerouslySetInnerHTML={ {__html: props.description} }/>
-                                <div className="show--more" onClick={toggleDescription}>
-                                    <span>{showMore ? "Show Less " : "Show More "}</span>
-                                    <FontAwesomeIcon icon={showMore ? faChevronUp : faChevronDown}/>
-                                </div>
-                            </div>
-                            <h2>Amenities</h2>
-                            <div className='hotel--amenities'>
-                                {filterAmenities(props.amenities).map((key, i) => {
-                                    return <li key={i}>{key}</li>
-                                })}
-                            </div>
-                        
-                        </div>
-                        
-                        <div className="hotel--description">
-                                
-                                <h2>Location</h2>
-                                <div className="hotel--location">
-                                    <Map className="map" 
-                                        height={300} 
-                                        loading={'lazy'}
-                                        defaultCenter={mapCenter}
-                                        defaultZoom={18}>
-                                        <Marker width={50} anchor={mapCenter}/>
-                                    </Map>
-                                </div>
-                                <h2>Ratings</h2>
-                            <div className='hotel--body'>
-                                {amenitiesRatings(props.amenities_ratings).length > 0 && <div className="amenities-wrapper">
-                                    <div className="show--amenities" onClick={toggleAmenities}>
-                                        <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
-                                    </div>
-                                    <div className="amenities">
-                                    {amenitiesRatings(props.amenities_ratings).map((key, i) => {
-                                        const roundedValue = Math.round(key[1]/5)/2
-                                        return (<div key={i} className="amenities--ratings"> 
-                                                    <div key={i} className="progress">
-                                                        <div className="progress-done" style={{width:`${key[1]}%`}}/>
-                                                    </div>
-                                                    <div className="progress--title"> 
-                                                        <p>{key[0]}</p>
-                                                        <p>{key[1]/10}</p>
-                                                    </div>
-                                                    
-                                                </div>)
-                                        })}
-                                    </div>
-                                </div>}
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div className='hotel--rooms'>
-                        <h2>Room Choices</h2>
-                        <RoomCard />
-                        <RoomCard />
+        <div key={props.id} className='container'>
+                
+                <div className="hotel--body">
+                    <div className="hotel--images">
+                        <ImageSlider slides={imgData}/>
                     </div>
                 </div>
-            </div>
+
+                <div className="hotel--header">
+                    <div className="hotel--summary">
+                        <div className='hotel--name'>
+                            <h1>{props.name}</h1>
+                            <ReactStars {...{value:props.rating, size:25, edit:false}} />
+                        </div>
+                        <div className='hotel--address'>
+                            <FontAwesomeIcon icon={faLocationDot}/>
+                            <span>{props.address}, {props.original_metadata?.city}, {props.original_metadata?.country}</span>
+                        </div>
+                        {category().length > 0 && <span className="hotel--categories">Top {category()[0]} in {category()[1]}s</span>}
+                    </div>
+                    <div className="hotel--price">
+                        <span className="price">$123</span>
+                        <span className="subtext">for 1 room for 1 night</span>
+                        <button className="hotel--choose">View Deal</button>
+                    </div>
+                </div>
+                
+                <div className='hotel--body2'>
+                    <div className='hotel--description'>
+                        <h2>About</h2>
+                        <div className="desc-wrapper">
+                            <div className="desc" dangerouslySetInnerHTML={ {__html: props.description} }/>
+                            <div className="show--more" onClick={toggleDescription}>
+                                <span>{showMore ? "Show Less " : "Show More "}</span>
+                                <FontAwesomeIcon icon={showMore ? faChevronUp : faChevronDown}/>
+                            </div>
+                        </div>
+                        <h2>Amenities</h2>
+                        <div className='hotel--amenities'>
+                            {filterAmenities(props.amenities).map((key, i) => {
+                                return <li key={i}>{key}</li>
+                            })}
+                        </div>
+                    
+                    </div>
+                    
+                    <div className="hotel--description">
+                        
+                            <h2>Location</h2>
+                            <div className="hotel--location">
+                                <Map className="map" 
+                                    height={300} 
+                                    loading={'lazy'}
+                                    defaultCenter={mapCenter}
+                                    defaultZoom={18}>
+                                    <Marker width={50} anchor={mapCenter}/>
+                                </Map>
+                            </div>
+                            <h2>Ratings</h2>
+                        <div className='hotel--body'>
+                            {amenitiesRatings(props.amenities_ratings).length > 0 && <>
+                                <div className="amenities-wrapper">
+                                <div className="show--amenities" onClick={toggleAmenities}>
+                                    <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
+                                </div>
+                                <div className="amenities">
+                                {amenitiesRatings(props.amenities_ratings).map((key, i) => {
+                                    const roundedValue = Math.round(key[1]/5)/2
+                                    return (<div key={i} className="amenities--ratings"> 
+                                                <div key={i} className="progress">
+                                                    <div className="progress-done" style={{width:`${key[1]}%`}}/>
+                                                </div>
+                                                <div className="progress--title"> 
+                                                    <p>{key[0]}</p>
+                                                    <p>{key[1]/10}</p>
+                                                </div>
+                                                
+                                            </div>)
+                                    })}
+                                </div>
+                            </div></>}
+                        </div>
+                    </div>
+
+                </div>
         </div>
-        </>
     )
 }

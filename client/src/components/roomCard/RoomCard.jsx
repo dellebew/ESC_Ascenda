@@ -1,41 +1,93 @@
 import RatesCard from "../ratesCard/RatesCard"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import "./roomCard.css"
+import { useState, useEffect } from "react";
+import ImageSlider from "../imageSlider/ImageSlider";
 
-const RoomCard = () => {
+export default function RoomCard(props) {
+    
+    const [imgData, setImgData] = useState([]);
+    const [showAmenities, setShowAmenities] = useState(false);
+
+    useEffect(() => {
+        const images = props.images.map((item) => {return item.url})
+        if(images.length > 0) {
+            setImgData(images)
+        }
+    }, []);
+    console.log(imgData)
+
+    // filter through prices
+    const prices = () => {
+        try {
+            const data = Object.entries(props.categories)
+            const max = data.reduce(function(prev, current) {
+                return (prev[1].popularity < current[1].popularity) ? prev : current
+            })
+            if(Math.round(max[1].popularity) == 0) {max[1].popularity = 1}
+            if(max[1].name == "Overall") {max[1].name = "All Hotel"}
+            return ([Math.round(max[1].popularity), max[1].name]);
+        } catch(err) {
+            return []
+        }
+    }
+
+    const rates = props.data.map((item, id) => {
+        // console.log(item, id);
+        return(
+            <RatesCard key={id}
+                {...item}/>
+        )})
+    
+    // toggle amenities_ratings
+    const toggleAmenities = () => {
+        setShowAmenities(!showAmenities)
+        const element = document.querySelector(".room--amenities")
+        element.style.maxHeight = showAmenities ? '150px' : 'fit-content';
+    }
+
+
     return (
-        <div className="roomCard">
+        <div key="props.key" className="roomCard">
             <div className="room--container">
                 <div className="room-body">
-                    <img
-                        src="https://t-cf.bstatic.com/xdata/images/hotel/max1024x768/78478012.jpg?k=3d82d2321cf8e1c9de658b7720a1d835f015d7ac55fa782be05d69db0a97c8b5&o=&hp=1"
-                        alt=""
-                        className="room--image"
-                    />
-                    <div className="room--details">
-                        <h3 className="room--normalized">Deluxe Room, 1 King Bed</h3>
-                        <span className="free-cancellation">Free Cancellation</span>
-                        <p className="description">This is a very long description of the room.</p> 
+                    <div className="room--images">
+                        {imgData.length > 0  && 
+                        <img
+                            src={imgData[0]}
+                            alt="room image"
+                        /> }
+                        {imgData.length == 0 && <img
+                            src="/image-unavaliable.png"
+                            alt="room image"
+                        /> }
                     </div>
-                </div>
-                <div className="room--pricing"> 
-                        <span className="website">EAN</span>
-                        <span className="price">$123</span>
-                        <span className="room">for 1 room for 1 night</span>
-                        <button className="reserve">Reserve</button>
+                    <div className="room--details">
+                        <h3 className="room--normalized">{props.desc}</h3>
+                        {props.cancellation && <div className="free-cancellation"> ✓ Free Cancellation</div>}
+                        <h3>Amenities</h3>
+                        <div className="wrapper">
+                            {/* <div className="toggle--amenities" onClick={toggleAmenities}>
+                                <span>{showAmenities ? "Show Less " : "Show More "}</span>
+                                <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
+                            </div> */}
+                            <div className='room--amenities'>
+                                {props.amenities.map((key, i) => {
+                                    return <li key={i}>{key}</li>
+                                })}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="room--options">
                 <div className="room--header">Market Rates</div>
                 <div className="room--body">
-                    <RatesCard />
-                    <RatesCard />
-                    <RatesCard />
-                    <RatesCard />
+                    {rates}
                 </div>
 
             </div>
         </div>
     )
 }
-
-export default RoomCard

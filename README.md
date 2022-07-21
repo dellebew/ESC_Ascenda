@@ -58,7 +58,10 @@ https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946
 
 # Client Side
 
-1. Link up Destination / Check-in Date with previous user input
+1. link up destination / check-in date with previous user input
+2. fix main room image card
+3. fix overflow of amentities
+4. fix hovering animation
 
 ## External Resources Used:
 
@@ -73,3 +76,7 @@ Pigeon-Maps: https://github.com/mariusandra/pigeon-maps
 
 
 
+## Testing 
+1. prereq: 
+    `pip install webdriver-manager`
+    `pip install selenium`
