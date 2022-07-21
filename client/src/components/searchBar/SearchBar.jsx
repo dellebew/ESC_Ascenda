@@ -103,11 +103,11 @@ const SearchBar = () => {
             }
         })[0].code;
 
-        //http://localhost:3000/destinations/11fD/2022-07-25/2022-07-29/en_US/SGD/SG/2/0
+        let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
 
-        let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adults}/${children}`
-        navigate(path, {state: {id: 1, uid: destination_uid, c_id: c_code, start: startd, end: endd, lang: language,
-             moneyType: currency, people: total_ppl,rooms: no_of_rooms} });
+        // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}`
+        // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
+        navigate(path);
     };
 
 
@@ -211,7 +211,7 @@ const SearchBar = () => {
                 {/*Button onClick needs to call out display page, clear this comment after doing it*/}
                 <div className="search--item">
                     <button className="search--button"
-                        onClick={() => onSearch(value, 0)}> Search </button>
+                        onClick={() => onSearch(value, "")}> Search </button>
                 </div>
             </div>
 
