@@ -6,23 +6,20 @@ import { format } from "date-fns";
 import useFetch from '../utils/useFetch.js'
 import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
+import { nextDay } from "date-fns/esm";
 var country_code = require("../../database/countries.json");
+var destination_ids = require("../../database/output.json");
 
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
     const navigate = useNavigate();
+    const [dest, setDest] = useState([destination_ids])
     
 
     const onChange = (event) => {
       setValue(event.target.value);
     };
-    
-    
-    const setText = (searchTerm) => {
-        setValue(searchTerm);
-        console.log("search ", searchTerm);
-    }
 
     /** FOR FIXING SEARCH BAR */
     const [fixedBar, setFixedBar] = useState(false);
@@ -66,54 +63,51 @@ const SearchBar = () => {
     });
     };
 
-    const {data: datasets} = useFetch('https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU');
+    const setText = (id, searchTerm) => {
+        setValue(searchTerm);
+        console.log("search ", searchTerm);
+        onSearch(id, searchTerm)
+    }
 
-    const onSearch = (searchTerm) => {
+    const onSearch = (id, searchTerm) => {
         setValue(searchTerm);
 
+        //For destination name and uid side
+        const destination_name = searchTerm
+        const destination_uid = id
+
         // For dates of checkin and checkout
-        const startd = date[0].startDate
-        const endd = date[0].endDate;
+        const startd = JSON.stringify(date[0].startDate).slice(1,11)
+        const endd = JSON.stringify(date[0].endDate).slice(1,11)
 
         //language
         const language = "en_US"
 
-        //currecny
-        const currency = "SGD" //set later
+        //currency
+        const currency = "SGD"
 
-        // tempFilter either single object all multiple object depending on how vague search term is.
-        const tempFilter = datasets.filter((item) => {
-            return item.name.includes(searchTerm)
-        })
+        // total number of guests
+        const adults = options.adult
+        const children = options.children
+        const no_of_rooms = options.room
+        const total_ppl = adults + children
 
-        if (Object.keys(tempFilter).length > 1) {
+        // c_code is the country code
+        const c_code = country_code.filter(element => {
+            const destination_title = destination_name;
 
-            //Array of destination Ids
-            const listOfIds = [];
-            tempFilter.forEach(element => {
-                listOfIds.push(element.id)
-            })
+            if (destination_title.includes(element.name) || destination_title == element.name) {
+                return element.code
+            } else {
+                return 0
+            }
+        })[0].code;
 
+        //http://localhost:3000/destinations/11fD/2022-07-25/2022-07-29/en_US/SGD/SG/2/0
 
-            //country code
-            console.log(tempFilter)
-            console.log(startd)
-
-
-        } else if (Object.keys(tempFilter).length = 1) {
-
-            const identifier = 0;
-            tempFilter.forEach(element => {
-                identifier = element.id;
-            })
-
-            // let path = '/hotels' //need change this later
-            // navigate(path, {state: {id: 1, searchItem: searchTerm} });
-        } else {
-            ;
-        }
-    
-        
+        let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adults}/${children}`
+        navigate(path, {state: {id: 1, uid: destination_uid, c_id: c_code, start: startd, end: endd, lang: language,
+             moneyType: currency, people: total_ppl,rooms: no_of_rooms} });
     };
 
 
@@ -122,7 +116,7 @@ const SearchBar = () => {
         <div className="search--wrapper">
             <div className="search--container">
             <div className="search--item">
-                <FontAwesomeIcon icon={faBed} className="icon"/>
+                <FontAwesomeIcon icon={faBed} className="search--icon"/>
                 <input 
                     type="text" 
                     value={value} 
@@ -133,23 +127,24 @@ const SearchBar = () => {
                 
                 {/*Dropdown bar for suggestions*/}
                 <div className="dropdown"> 
-                    {datasets
+                    {destination_ids
                     .filter((item) => {
                         const searchTerm = value;
 
+                        
                         return (
                         searchTerm &&
-                        item.name.includes(searchTerm)
+                        item.term.includes(searchTerm)
                         );
                     })
                     .slice(0, 10)
                     .map((item) => (
                         <div
-                        onClick={() => setText(item.name)}
+                        onClick={() => setText(item.uid, item.term)}
                         className="dropdown-row" 
-                        key={item.name}
+                        key={item.uid}
                         >
-                        {item.name}
+                        {item.term}
                         </div>
                     ))}
                 </div>
@@ -216,7 +211,7 @@ const SearchBar = () => {
                 {/*Button onClick needs to call out display page, clear this comment after doing it*/}
                 <div className="search--item">
                     <button className="search--button"
-                        onClick={() => onSearch(value)}> Search </button>
+                        onClick={() => onSearch(value, 0)}> Search </button>
                 </div>
             </div>
 
