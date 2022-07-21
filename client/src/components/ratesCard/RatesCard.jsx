@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import ImageSlider from "../imageSlider/ImageSlider";
 
 export default function RatesCard(props) {
-   
-    const [image, setImage] = useState();
 
     const hasBreakfast = props.roomAdditionalInfo.breakfastInfo == "hotel_detail_breakfast_included"
     // const hasSupplier = props.market_rates.supplier
@@ -15,14 +13,6 @@ export default function RatesCard(props) {
     return (
         <div className="ratesCard">
              <div className="rates--container">
-                {props.images[0] != undefined && <img
-                    src={props.images[0].url}
-                    alt="room image"
-                /> }
-                {props.images[0] == undefined && <img
-                    src="/image-not-found.png"
-                    alt="room image"
-                /> }
                 <div className="rates--pricing"> 
                     <div className="rates--details">
                         {hasBreakfast && 

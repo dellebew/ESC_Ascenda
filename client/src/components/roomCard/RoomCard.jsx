@@ -1,4 +1,6 @@
 import RatesCard from "../ratesCard/RatesCard"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import "./roomCard.css"
 import { useState, useEffect } from "react";
 import ImageSlider from "../imageSlider/ImageSlider";
@@ -6,43 +8,15 @@ import ImageSlider from "../imageSlider/ImageSlider";
 export default function RoomCard(props) {
     
     const [imgData, setImgData] = useState([]);
-    const [data, setData] = useState(props.data)
+    const [showAmenities, setShowAmenities] = useState(false);
 
-    // //replace unfound images with placeholder
-    // const handleImgError = e => {
-    //     e.target.onError = null;
-    //     e.target.src = "/image-not-found.png"
-    // }
-
-
-      
-    // check if image exists
-    // const loadImg = (url) => {
-    //     const img = new Image();
-    //     return new Promise((resolve, reject) => {
-    //         img.src = url;
-    //         img.onload = () => resolve(true);
-    //         img.onerror = () => reject(false);
-    //     });
-    // };
-
-    // // sets image array if it exists
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         let imageArray = []
-    //         try { 
-    //             props.images.forEach(function(image) {
-    //                 const res = loadImg(image.url);
-    //                 imageArray.push(image.url)
-    //             })
-    //             setImgData(imageArray);
-    //         } catch(err) {
-    //         }
-    //     };
-
-    //     fetchData(); 
-    // }, []);
-    // console.log(imgData)
+    useEffect(() => {
+        const images = props.images.map((item) => {return item.url})
+        if(images.length > 0) {
+            setImgData(images)
+        }
+    }, []);
+    console.log(imgData)
 
     // filter through prices
     const prices = () => {
@@ -60,33 +34,49 @@ export default function RoomCard(props) {
     }
 
     const rates = props.data.map((item, id) => {
-        console.log(item, id);
+        // console.log(item, id);
         return(
             <RatesCard key={id}
                 {...item}/>
         )})
+    
+    // toggle amenities_ratings
+    const toggleAmenities = () => {
+        setShowAmenities(!showAmenities)
+        const element = document.querySelector(".room--amenities")
+        element.style.maxHeight = showAmenities ? '150px' : 'fit-content';
+    }
 
 
     return (
         <div key="props.key" className="roomCard">
             <div className="room--container">
                 <div className="room-body">
-
-                    {/* <div className="images"> 
-                        {<img src="null"
-                            alt=""
-                            onError={handleImgError}
-                            className="room--image"
-                        />} 
-                    </div> */}
-
+                    <div className="room--images">
+                        {imgData.length > 0  && 
+                        <img
+                            src={imgData[0]}
+                            alt="room image"
+                        /> }
+                        {imgData.length == 0 && <img
+                            src="/image-unavaliable.png"
+                            alt="room image"
+                        /> }
+                    </div>
                     <div className="room--details">
                         <h3 className="room--normalized">{props.desc} Room</h3>
-                        {props.cancellation && <div className="free-cancellation">Free Cancellation</div>}
-                        <div className='amenities'>
-                            {props.amenities.map((key, i) => {
-                                return <li key={i}>{key}</li>
-                            })}
+                        {props.cancellation && <div className="free-cancellation"> ✓ Free Cancellation</div>}
+                        <h3>Amenities</h3>
+                        <div className="wrapper">
+                            {/* <div className="toggle--amenities" onClick={toggleAmenities}>
+                                <span>{showAmenities ? "Show Less " : "Show More "}</span>
+                                <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
+                            </div> */}
+                            <div className='room--amenities'>
+                                {props.amenities.map((key, i) => {
+                                    return <li key={i}>{key}</li>
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>

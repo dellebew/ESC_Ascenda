@@ -51,9 +51,9 @@ const Hotels = () => {
     }, []);
 
     // group priceData based on room type
-    const groups = pricesData.reduce((r, {type, amenities, free_cancellation, roomNormalizedDescription, ...rest}) => {
+    const groups = pricesData.reduce((r, {type, images, amenities, free_cancellation, roomNormalizedDescription, ...rest}) => {
       if(!r[type]) {
-        r[type] = {type, amenities, free_cancellation, roomNormalizedDescription, data: [rest]}
+        r[type] = {type, images, amenities, free_cancellation, roomNormalizedDescription, data: [rest]}
       }
       else {
         r[type].data.push(rest);
@@ -63,13 +63,14 @@ const Hotels = () => {
 
     // render different room rates
     const rendered = Object.values(groups).map((item, id) => {
-      console.log(item.type, item.roomNormalizedDescription, item.data);
+      console.log(item.roomNormalizedDescription, item.images)
       return(
         <RoomCard key={id} 
           type={item.type} 
           amenities={item.amenities}
           cancellation={item.free_cancellation}
           desc={item.roomNormalizedDescription}
+          images={item.images}
           data={item.data}/>
       )
     }) 
