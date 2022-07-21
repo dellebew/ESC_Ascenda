@@ -11,6 +11,9 @@
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
+.room--normalized {
+    color:#355c7d;
+}
 
 .room--container {
     display:flex;

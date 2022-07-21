@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: none;
 }
@@ -63,21 +67,6 @@ body {
         color:grey;
         margin-bottom: 5px;
     }
-    
-    .hotel--choose {
-        background-color: cornflowerblue;
-        font-size: 15px;
-        color:white;
-        padding:7px 15px;
-        border:none;
-        width:fit-content;
-        font-weight: bold;
-        border-radius: 5px;
-        cursor:pointer;
-        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, 
-                    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    }
-
 
 
 .desc-wrapper {
@@ -166,7 +155,7 @@ body {
     .show--amenities {
         position: absolute;
         bottom: -15px;
-        left: 26%;
+        left: 50%;
         color:#348ac7;
         cursor: pointer;
         user-select: none;
@@ -202,7 +191,6 @@ body {
         border-top: 1px lightgrey solid;
         padding-top: 10px;
     }
-
 
 
 

@@ -151,21 +151,22 @@ const SearchBar = () => {
             </div>
 
             <div className="search--item2">
-                <div className="search--item">
+                <div className="search--item" >
                 <FontAwesomeIcon icon={faCalendarDays} className="search--icon"/>
-                <span 
-                    onClick={()=>setOpenDate(!openDate)} 
-                    className="search--text">
+                <div className="date-wrapper">
+                <span className="search--text" onClick={()=>setOpenDate(!openDate)}>
                     {format(date[0].startDate, "MM/dd/yyyy")} to {format(date[0].endDate, "MM/dd/yyyy")}
                 </span>
-                {openDate && (<DateRange
+                {openDate && (<span onMouseLeave={()=>setOpenDate(!openDate)}>
+                    <DateRange
                     editableDateInputs={true}
                     onChange={item => setDate([item.selection])}
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
                     daySize="100"
-                />)}
+                /></span>)}
+                </div>
                 </div>
 
                 <div className="search--item">
@@ -173,7 +174,7 @@ const SearchBar = () => {
                 <span className="search--text" onClick={() => setOpenOptions(!openOptions)}>
                     {`${options.adult} adults ${options.children} children ${options.room} room`}
                 </span>
-                {openOptions && (<div className="options">
+                {openOptions && (<div className="options" onMouseLeave={() => setOpenOptions(!openOptions)}>
                     <div className="options--item">
                         <span className="options--text">Adult</span>
                         <div className="options--counter">
@@ -181,7 +182,8 @@ const SearchBar = () => {
                                 onClick={() => handleOption("adult", "d")}
                                 disabled={options.adult<=1}>-</button>
                             <span>{options.adult}</span>
-                            <button onClick={() => handleOption("adult", "i")}>+</button>
+                            <button onClick={() => handleOption("adult", "i")}
+                                     disabled={options.adult>=6}>+</button>
                         </div>
                         
                     </div>
@@ -192,7 +194,8 @@ const SearchBar = () => {
                                 onClick={() => handleOption("children", "d")}
                                 disabled={options.children<=0}>-</button>
                             <span>{options.children}</span>
-                            <button onClick={() => handleOption("children", "i")}>+</button>
+                            <button onClick={() => handleOption("children", "i")}
+                                    disabled={options.children>=6}>+</button>
                         </div>
                     </div>
                     <div className="options--item">

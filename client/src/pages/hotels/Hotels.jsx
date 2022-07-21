@@ -65,11 +65,13 @@ const Hotels = () => {
       return r;
     }, {});
 
+  
     // render different room rates
     const rendered = Object.values(groups).map((item, id) => {
       console.log(item.roomNormalizedDescription, item.images)
       return(
-        <RoomCard key={id} 
+        <RoomCard  
+          key={id} 
           type={item.type} 
           amenities={item.amenities}
           cancellation={item.free_cancellation}

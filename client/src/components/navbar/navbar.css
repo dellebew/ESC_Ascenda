@@ -31,6 +31,7 @@
 .navbar--items {
     display:flex;
     align-items: center;
+    justify-content: center;
 }
 
 .navbar--currency {
@@ -42,15 +43,9 @@
     cursor:pointer;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
 }
 
-.navbar--button {
-    margin-left:20px;
-    border: 1px white double;
-    padding: 5px 10px;
-    cursor:pointer;
-    background: none;
-    color: whitesmoke;
-    font-size: 15px;
-    border-radius:4px;
+img {
+    height:30px;
 }

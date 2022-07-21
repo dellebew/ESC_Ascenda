@@ -123,11 +123,6 @@ export default function HotelPage(props) {
                         </div>
                         {category().length > 0 && <span className="hotel--categories">Top {category()[0]} in {category()[1]}s</span>}
                     </div>
-                    <div className="hotel--price">
-                        <span className="price">$123</span>
-                        <span className="subtext">for 1 room for 1 night</span>
-                        <button className="hotel--choose">View Deal</button>
-                    </div>
                 </div>
                 
                 <div className='hotel--body2'>
@@ -140,7 +135,7 @@ export default function HotelPage(props) {
                                 <FontAwesomeIcon icon={showMore ? faChevronUp : faChevronDown}/>
                             </div>
                         </div>
-                        <h2>Amenities</h2>
+                        <h2 className='title'>Amenities</h2>
                         <div className='hotel--amenities'>
                             {filterAmenities(props.amenities).map((key, i) => {
                                 return <li key={i}>{key}</li>
@@ -175,11 +170,10 @@ export default function HotelPage(props) {
                                                 <div key={i} className="progress">
                                                     <div className="progress-done" style={{width:`${key[1]}%`}}/>
                                                 </div>
-                                                <div className="progress--title"> 
+                                                <div className="progress--title" id="test"> 
                                                     <p>{key[0]}</p>
                                                     <p>{key[1]/10}</p>
                                                 </div>
-                                                
                                             </div>)
                                     })}
                                 </div>

@@ -47,7 +47,6 @@ export default function RoomCard(props) {
         element.style.maxHeight = showAmenities ? '150px' : 'fit-content';
     }
 
-
     return (
         <div key="props.key" className="roomCard">
             <div className="room--container">

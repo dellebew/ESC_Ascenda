@@ -55,6 +55,11 @@ input {
   padding-left:25px;
 }
 
+.date-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .search--item2 {
   display: flex;
   flex:2;

@@ -9,9 +9,8 @@ const NavBar = () => {
                     <button className="navbar--logo">AscendaBooking</button>
                 </Link>
                 <div className="navbar--items">
+                    <img src="/singapore.png"/>
                     <button className="navbar--currency">SGD</button>
-                    <button className="navbar--button">Register</button>
-                    <button className="navbar--button">Login</button>
                 </div>
             </div>
         </div>
