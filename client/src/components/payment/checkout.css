@@ -1,0 +1,142 @@
+.body {
+    min-width: 1024px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.hotel--container {
+    display:flex;
+    margin-top: 20px;
+    padding:20px;
+    width: 100%;
+    border-radius: 5px;
+    max-width:1024px;
+    justify-content: center;
+    background-color: rgb(255,255,255,.9);
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, 
+                rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+                rgba(0, 0, 0, 0.09) 0px 8px 4px, 
+                rgba(0, 0, 0, 0.09) 0px 16px 8px, 
+                rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.hotel--wrapper{
+    width:100%;
+    max-width: 1024px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    
+}
+
+.hotel--body {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+  .hotel--location {
+      margin: 10px 0px;
+  }
+  .map {
+      height: 300px;
+      width: auto;
+  }
+
+
+.hotel--body2 {
+  display:flex;
+  align-items: flex-start;
+  padding-top: 10px;
+  gap:30px;
+}
+
+/* For SearchBar related css */
+/* Namely: dates and qtys */
+
+.date {
+    position:absolute;
+    top: 50px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  
+  .options {
+    position: absolute;
+    top:50px;
+    background-color: white;
+    color:grey;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  
+  .options--item {
+    width:200px;
+    display:flex;
+    justify-content: space-between;
+    margin: 10px 15px;
+    padding-top: 10px;
+    gap:30px;
+  }
+  
+  .options--counter {
+    display:flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 12px;
+    color: black;
+  }
+  
+  .options--counter > button {
+    background-color: white;
+    border: 1px grey solid;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .options--counter > button:disabled {
+    cursor:not-allowed;
+  }
+  
+  .search--button {
+    padding:5px 20px;
+    border:none;
+    font-size: 16px;
+    background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
+    color:white;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor:pointer;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+  
+  .dropdown {
+    z-index:1;
+    position: absolute;
+    width: 100%;
+    max-width: 250px;
+    top: 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    padding: 5px 0px 5px 10px;
+    font-weight: 500;
+  }
+  
+  /*Need modify .dropdown, realised I fuggin hate the color*/
+  
+  .dropdown:empty {
+    border: none;
+    box-shadow: none;
+    background: none;
+  }
+  
+  .dropdown-row {
+    cursor: pointer;
+    text-align: start;
+    margin: 2px 0;
+  }
+  

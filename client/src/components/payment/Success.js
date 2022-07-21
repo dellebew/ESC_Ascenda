@@ -12,6 +12,7 @@ const Success = () => {
         await fetch('/checkout-session?sessionId=' + sessionId).then((res) =>
           res.json()
         )
+        //also send back passedProps like the rtn passes
       );
     }
     fetchSession();
@@ -31,39 +32,12 @@ const Success = () => {
           <div className="sr-callout">
             <pre>{JSON.stringify(session, null, 2)}</pre>
           </div>
-          <Link to="/">Restart demo</Link>
+          <Link to="/">back to homepage</Link>
         </div>
       </div>
-      <div className="sr-content">
-        <div className="pasha-image-stack">
-          <img
-            alt=""
-            src="https://picsum.photos/280/320?random=1"
-            width="140"
-            height="160"
-          />
-          <img
-            alt=""
-            src="https://picsum.photos/280/320?random=2"
-            width="140"
-            height="160"
-          />
-          <img
-            alt=""
-            src="https://picsum.photos/280/320?random=3"
-            width="140"
-            height="160"
-          />
-          <img
-            alt=""
-            src="https://picsum.photos/280/320?random=4"
-            width="140"
-            height="160"
-          />
-        </div>
-      </div>
+      
     </div>
   );
 };
 
-export default Success;s
+export default Success;

@@ -3,8 +3,10 @@ const express = require('express');
 const app = express();
 var router = express.Router();
 const { resolve } = require('path');
-// Copy the .env.example in the root into a .env file in this folder
+var setSuccessfulPayments = require("../controllers/successfulPaymentController");
+var setIncompletePayments = require("../controllers/incompletePaymentController");
 
+// Copy the .env.example in the root into a .env file in this folder
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 // const stripe = require('stripe')("sk_test_51L8fUrGixach2Gt0nSb6scQ4G0WmYn65wkKwgErUmTO6jmg4vOshQI5PjbCnjIeZoVcUq9cgeVZU8HDv4u00ryId00mEgUt1Oa");
@@ -24,18 +26,63 @@ router.get('/config', async (req, res) => {
 router.get('/checkout-session', async (req, res) => {
     const { sessionId } = req.query;
     const session = await stripe.checkout.sessions.retrieve(sessionId);
+  
+    // retrieve payment id, product id for product name
+    paymentRetrieve = stripe.prices.retrieve(session.paymentid);
+    productRetrieve = stripe.products.retrieve(paymentRetrieve.product);
+    
+    // retrieve pre-saved data using sessionid
+
+    const rtnProps = {
+      id: session.id,
+      name: session.name,
+      email: session.email,
+      address: session.address,
+      paymentid: session.paymentid,
+      hotelName: productRetrieve.name,
+    }
+
+    const inputData = setSuccessfulPayments(session);
+    inputData;
+
     res.send(session);
 });
 
+
 router.post('/create-checkout-session', async (req, res) => {
   
-  const { quantity } = req.body;
-
+  // const { quantity } = req.body;
+  // const { state } = req.body;
+  const { date, message, roomType, options } = req.body;
   console.log("here");
+
+  console.log(date);
+
+  //state looks like this: 
+  const state = {
+    start: date.startDate, 
+    end: date.endDate,
+    message: message,
+    roomType: roomType,
+    adultQuantity: options.adult, 
+    childrenQuality: options.children,
+  }
+
+  // calculations for Number of Nights:
+  const diffInMs = Math.abs(state.end - state.start);
+  const numOfNights = diffInMs / (1000 * 60 * 60 * 24);
+
+  const description = "Number of Nights: " + 
+  numOfNights + "\nStart Date: " + state.start
+  + "\nEnd Date: " + state.end + "\nNumber of Adults: "
+  + state.adultQuantity + "\nNumber of Children: "
+  + state.childrenQuantity + "\nRoom Type: " + state.roomType
+  + "\nComments for hotel: " + state.message
 
   const product = await stripe.products.create({
     name: 'Hotel Name',
-    description: "Contains: Number of nights, start date, end date, adults, children, message to hotel, room types",
+    // description: "Contains: Number of nights, start date, end date, adults, children, message to hotel, room types",
+    description: description
   });
 
   console.log(product.id);
@@ -61,17 +108,25 @@ router.post('/create-checkout-session', async (req, res) => {
     ],
     mode: 'payment',
     customer_creation: "always",
-    success_url: `${process.env.CLIENT_URL}?success=true`,
-    cancel_url: `${process.env.CLIENT_URL}?canceled=true`,
+    success_url: `${process.env.CLIENT_URL}/checkout/success`,
+    cancel_url: `${process.env.CLIENT_URL}/checkout/canceled`,
     billing_address_collection: 'required',
     phone_number_collection: {"enabled": true},
   });
-  
-  console.log("Redirecting to 303")
-  res.redirect(303, session.url);
 
-  //temporarily store in sessionStorage or localStorage
-  console.log(session.id)
+  // add the state info to database with the session id as key first
+  const pre_payment_inp = {
+    id: session.id,
+    state: state,
+  }
+  const store = setIncompletePayments(pre_payment_inp);
+  store()
+
+
+
+  console.log("Redirecting to 303")
+  res.redirect(303, session.url);  
+
 });
 
 router.post('/webhook', async (req, res) => {

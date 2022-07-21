@@ -8,6 +8,9 @@ import Hotels from "./pages/hotels/Hotels"
 import Destinations from "./pages/destinations/Destinations";
 // import Payment from "./components/payment/PaymentJSX";
 import Checkout from "./components/payment/Checkout";
+import Success from "./components/payment/Success";
+import Canceled from "./components/payment/Canceled";
+
 
 function App() {
   return (
@@ -17,6 +20,9 @@ function App() {
         <Route path='/destinations/:id' element = {<Destinations />}/>
         <Route path='/hotels/:id' element = {<Hotels />}/>
         <Route path= "/checkout" element= {<Checkout />} />
+        <Route path= '/checkout/success' element = {<Success />}/>
+        <Route path= '/checkout/canceled' element = {<Canceled />}/>
+
       </Routes>
     </BrowserRouter>
   );

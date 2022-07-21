@@ -1,0 +1,70 @@
+Merge branch 'react-express' of https://github.com/dellebew/ESC_Ascenda into react-express
+
+# Conflicts:
+#	api/app.js
+#	client/package-lock.json
+#	client/package.json
+#	package-lock.json
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please run
+#	git update-ref -d MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch react-express
+# Your branch and 'origin/react-express' have diverged,
+# and have 1 and 15 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   README.md
+#	renamed:    .gitignore -> api/.gitignore
+#	modified:   api/controllers/destinationPricesController.js
+#	modified:   api/routes/users.js
+#	renamed:    client/drafts/rooms-sample.json -> client/drafts/room-sample.json
+#	modified:   client/package-lock.json
+#	modified:   client/package.json
+#	modified:   client/public/index.html
+#	new file:   client/public/loader.gif
+#	modified:   client/src/components/header/header.css
+#	modified:   client/src/components/hotelCard/HotelCard.jsx
+#	deleted:    client/src/components/loader/Loader.jsx
+#	deleted:    client/src/components/loader/loader.css
+#	modified:   client/src/components/navbar/navbar.css
+#	modified:   client/src/components/searchBar/SearchBar.jsx
+#	modified:   client/src/components/searchBar/searchBar.css
+#	modified:   client/src/components/utils/useFetch.js
+#	deleted:    client/src/database/MOCK_DATA.json
+#	new file:   client/src/database/countries.json
+#	new file:   client/src/database/destinations.json
+#	new file:   client/src/database/output.json
+#	modified:   client/src/pages/destinations/Destinations.jsx
+#	modified:   client/src/pages/destinations/destinations.css
+#	modified:   client/src/pages/hotels/Hotels.jsx
+#	modified:   client/src/pages/hotels/hotels.css
+#	deleted:    controllers/destinationController.js
+#	deleted:    controllers/destinationPricesController.js
+#	deleted:    controllers/hotelController.js
+#	deleted:    controllers/hotelPriceController.js
+#	deleted:    package.json
+#	deleted:    public/javascripts/dbops.js
+#	deleted:    views/error.jade
+#	deleted:    views/index.jade
+#	deleted:    views/layout.jade
+#
+# Changes not staged for commit:
+#	modified:   api/package-lock.json
+#	modified:   api/routes/api.js
+#	modified:   client/src/components/hotelPage/HotelPage.jsx
+#
+# Untracked files:
+#	client/src/components/payment/.env
+#	node_modules/
+#
+W

@@ -6,6 +6,8 @@ var hotelController = require("../controllers/hotelController");
 var destinationController = require("../controllers/destinationController");
 var hotelPriceController = require("../controllers/hotelPriceController");
 var destinationPricesController = require("../controllers/destinationPricesController");
+// var paymentController = require("../stripe/server")
+//var successfulPayments = require("../controllers/successfulPaymentController");
 
 // static details for a given hotel
 router.get('/hotel/:id', hotelController.getOneHotel);
@@ -19,6 +21,6 @@ router.get('/hotel/price/:id', hotelPriceController.getHotelPrice);
 // hotel prices for a given destination (with filtering conditions)
 router.get('/destination/prices/:id/:page', destinationPricesController.getDestinationHotelPrices);
 
-
-
+// Payment Services
+// router.get('/stripe/', paymentController);
 module.exports = router;
