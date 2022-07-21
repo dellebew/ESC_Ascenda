@@ -16,9 +16,11 @@ print("title: ",driver.title)
 # test hotel data retrival
 first_hotel_name = driver.find_element(By.XPATH, '/html/body/div/div[2]/div/div/div[2]/div[1]/div[1]/h1')
 assert (first_hotel_name.get_attribute("innerHTML") == "OYO 432 My 7days Inn")
+print("test 1 passed")
 
 point = driver.find_element(By.XPATH, "/html/body/div/div[2]/div/div/div[2]/div[6]/div[2]/div[1]/button")
 assert (point.get_attribute("innerHTML") == "2.0")
+print("test 2 passed")
 
 driver.save_screenshot('./client/testing/screen_desti_hotels1.png')
 
@@ -37,6 +39,7 @@ answers = ["OYO 432 My 7days Inn",
 names = driver.find_elements(By.CLASS_NAME,"si--name")
 for idx,name in enumerate(names):
     assert (name.get_attribute("innerHTML") == answers[idx])
+print("test 3 passed")
 
 # test show price button
 show_price = driver.find_element(By.XPATH,'/html/body/div/div[2]/div/div/div[2]/div[5]/div[2]/div[2]/button')
@@ -45,6 +48,6 @@ driver.implicitly_wait(30)
 hotel_name = driver.find_elements(By.XPATH, '/html/body/div/div[2]/div/div/div[1]/div[2]/div[1]/div[1]/h1')
 assert (hotel_name.get_attribute("innerHTML") == "V Hotel Bencoolen")
 assert (driver.current_url.split('/')[-1] == "cETW")
-
+print("test 4 passed")
 
 driver.close()
