@@ -13,7 +13,6 @@ export default function RatesCard(props) {
     return (
         <div className="ratesCard">
              <div className="rates--container">
-                <div className="rates--pricing"> 
                     <div className="rates--details">
                         {hasBreakfast && 
                             <div className="free-breakfast">
@@ -21,10 +20,11 @@ export default function RatesCard(props) {
                                 Free Breakfast Included
                             </div>}
                     </div>
-                    <span className="price">S${(props.price).toFixed(2)}</span>
-                    <span className="room">/ night (w taxes & fees)</span>
-                    <h2 className="website">Expedia</h2>
-                </div>
+                    <div className="rates--pricing"> 
+                        <span className="price">S${(props.price).toFixed(2)}</span>
+                        <span className="room">/ night (w taxes & fees)</span>
+                        <h2 className="website">Expedia</h2>
+                    </div>  
             </div>
         </div>
     )

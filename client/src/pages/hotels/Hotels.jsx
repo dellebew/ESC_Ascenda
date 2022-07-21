@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react'
 import "./hotels.css"
 import NavBar from '../../components/navBar/Navbar'
 import HotelPage from '../../components/hotelPage/HotelPage'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import Error from '../error/Error'
 import Loader from '../../components/loader/Loader'
 import callApi from '../../components/utils/callApi'
@@ -11,21 +11,25 @@ import HotelCard from '../../components/hotelCard/HotelCard'
 
 const Hotels = () => {
 
-    const location = useLocation(); 
+    
     const [hotelData, setHotelData] = useState([])
     const [pricesData, setPricesData] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
     
-    const id = location.pathname.split('/').at(-1)
-    const state = {hotelId: id,
-      destId: "11fD",
-      checkin:"2022-07-25",
-      checkout:"2022-07-29",
-      lang:"en_US",
-      currency:"SGD",
-      code:"SG",
-      guests:"2"}
+    const state = useParams();
+    console.log(state);
+
+    // const location = useLocation(); 
+    // const id = location.pathname.split('/').at(-1)
+    // const state = {hotelId: "ZcNS",
+    //   destId: "11fD",
+    //   checkin:"2022-07-25",
+    //   checkout:"2022-07-29",
+    //   lang:"en_US",
+    //   currency:"SGD",
+    //   code:"SG",
+    //   guests:"2"}
 
     useEffect(() => {
       const fetchData = async () => {

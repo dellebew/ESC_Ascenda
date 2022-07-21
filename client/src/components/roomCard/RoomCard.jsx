@@ -64,7 +64,7 @@ export default function RoomCard(props) {
                         /> }
                     </div>
                     <div className="room--details">
-                        <h3 className="room--normalized">{props.desc} Room</h3>
+                        <h3 className="room--normalized">{props.desc}</h3>
                         {props.cancellation && <div className="free-cancellation"> ✓ Free Cancellation</div>}
                         <h3>Amenities</h3>
                         <div className="wrapper">

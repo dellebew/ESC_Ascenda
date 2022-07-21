@@ -6,7 +6,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
 import callApi from "../../components/utils/callApi";
 import Error from "../error/Error";
@@ -17,31 +17,33 @@ const Destinations = () => {
     const [date, setDate] = useState(location.state.date)
 */
 
-    const location = useLocation();
-
+    const state = useParams();
+    const navigate = useNavigate();
+    console.log(state);
     
+    const [page, setPage] = useState(state.page)
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);  
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
 
-    const id = location.pathname.split('/').at(-1)
+    // const location = useLocation();
+    // const id = location.pathname.split('/').at(-1)
     // const state = location.state
-    const state = {destId: id,
-        checkin:"2022-07-25",
-        checkout:"2022-07-29",
-        lang:"en_US",
-        currency:"SGD",
-        code:"SG",
-        guests:"2"}
-    console.log(id);
+    // const state = {destId: "11fD",
+    //     checkin:"2022-07-25",
+    //     checkout:"2022-07-29",
+    //     lang:"en_US",
+    //     currency:"SGD",
+    //     code:"SG",
+    //     guests:"2"}
 
     useEffect(() => {
         const fetchData = async() => {
             try{
                 setLoading(true);
                 // TODO: determine actual number of pages
-                const data = await callApi('destination/prices', state, '0');
+                const data = await callApi('destination/prices', state);
                 console.log(data)
                 if (data[1] === undefined) {
                     throw Error("Data not found");
@@ -55,18 +57,25 @@ const Destinations = () => {
             }
         };
         fetchData()
-    }, [id]);
+    }, [page]);
 
-    console.log("items: " + items == undefined);
+    const handlePageClick = (data) => {
+        let currentPage = data.selected 
+        state.page = currentPage;
+        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.guests}/${state.page}`, {
+        })
+        setPage(currentPage)
+    }
 
     // function to handle request to another page.
-    const handlePageClick = async(data) => {
-        let currentPage = data.selected 
-        // console.log(currentPage)
-        const newPageData = await callApi('destination/prices', id, currentPage);
-        setItems(newPageData[1]);
-        window.scrollTo(0,0);
-        };
+    // const handlePageClick = async(data) => {
+    //     let currentPage = data.selected 
+    //     state.page = currentPage;
+    //     // console.log(currentPage)
+    //     const newPageData = await callApi('destination/prices', state);
+    //     setItems(newPageData[1]);
+    //     window.scrollTo(0,0);
+    //     };
 
 
     return (
@@ -133,6 +142,7 @@ const Destinations = () => {
                             pageRangeDisplayed={2}
                             marginPagesDisplayed={2}
                             pageCount={pageCount}
+                            initialPage={parseInt(page)}
                             previousLabel="< prev"
                             renderOnZeroPageCount={null}
                             containerClassName={"pagination"}
