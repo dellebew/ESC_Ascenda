@@ -33,7 +33,7 @@
 .hotel--body {
   display: flex;
   align-items: flex-start;
-  padding-top: 10px;
+  padding-top: 30px;
 }
 
   .hotel--location {
@@ -48,7 +48,7 @@
 .hotel--body2 {
   display:flex;
   align-items: flex-start;
-  padding-top: 10px;
+  padding-top: 30px;
   gap:30px;
 }
 

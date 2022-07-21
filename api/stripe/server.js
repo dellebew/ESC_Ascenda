@@ -32,8 +32,7 @@ router.get('/checkout-session', async (req, res) => {
     productRetrieve = stripe.products.retrieve(paymentRetrieve.product);
     
     // retrieve pre-saved data using sessionid
-
-    const rtnProps = {
+    const billingInfo = {
       id: session.id,
       name: session.name,
       email: session.email,
@@ -42,7 +41,7 @@ router.get('/checkout-session', async (req, res) => {
       hotelName: productRetrieve.name,
     }
 
-    const inputData = setSuccessfulPayments(session);
+    const inputData = setSuccessfulPayments(billingInfo);
     inputData;
 
     res.send(session);
@@ -52,14 +51,18 @@ router.get('/checkout-session', async (req, res) => {
 router.post('/create-checkout-session', async (req, res) => {
   
   // WIP for data to be added to database.
-  // // const { quantity } = req.body;
-  // // const { state } = req.body;
+  // const { quantity } = req.body;
+  console.log("here");
+  //console.log(req.body);
+
+  // const state = JSON.stringify(req.body);
+  const state = (req.body);
+
+  console.log(JSON.stringify(state));
   // const { date, message, roomType, options } = req.body;
-  // console.log("here");
+  console.log("here");
 
-  // console.log(date);
-
-  // //state looks like this: 
+  //state looks like this: 
   // const state = {
   //   start: date.startDate, 
   //   end: date.endDate,
@@ -69,21 +72,21 @@ router.post('/create-checkout-session', async (req, res) => {
   //   childrenQuality: options.children,
   // }
 
-  // // calculations for Number of Nights:
-  // const diffInMs = Math.abs(state.end - state.start);
-  // const numOfNights = diffInMs / (1000 * 60 * 60 * 24);
+  // calculations for Number of Nights:
+  const diffInMs = Math.abs(state.end - state.start);
+  const numOfNights = diffInMs / (1000 * 60 * 60 * 24);
 
-  // const description = "Number of Nights: " + 
-  // numOfNights + "\nStart Date: " + state.start
-  // + "\nEnd Date: " + state.end + "\nNumber of Adults: "
-  // + state.adultQuantity + "\nNumber of Children: "
-  // + state.childrenQuantity + "\nRoom Type: " + state.roomType
-  // + "\nComments for hotel: " + state.message
+  const description = "Number of Nights: " + 
+  numOfNights + "\nStart Date: " + state.start
+  + "\nEnd Date: " + state.end + "\nNumber of Adults: "
+  + state.adultQuantity + "\nNumber of Children: "
+  + state.childrenQuantity + "\nRoom Type: " + state.roomType
+  + "\nComments for hotel: " + state.message
 
   const product = await stripe.products.create({
     name: 'Hotel Name',
-    description: "Contains: Number of nights, start date, end date, adults, children, message to hotel, room types",
-    // description: description
+    // description: "Contains: Number of nights, start date, end date, adults, children, message to hotel, room types",
+    description: description
   });
 
   console.log(product.id);

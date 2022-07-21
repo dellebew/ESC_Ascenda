@@ -7,7 +7,6 @@ import { format } from "date-fns";
 import {useNavigate} from 'react-router-dom';
 import "./checkout.css"
 
-
 // const [quantity, setQuantity] = useState(1);
 // const [amount, setAmount] = useState(0);
 // const [currency, setCurrency] = useState('SGD');
@@ -67,17 +66,90 @@ const Checkout = () => {
       };
       });
   };
+  // const [inputs, setInputs] = useState({});
+  const [state, setState] = useState({
+    start: "", 
+    end: "",
+    message: "",
+    roomType: "Single Room",
+    adultQuantity: 2,
+    childrenQuantity: 0,
+  });
+
+  // const handleChange = (event) => {
+  //   const name = event.target.name;
+  //   const value = event.target.value;
+  //   setInputs(values => ({...values, [name]: value}))
+  // }
 
   // handle message to hotel
   const [message, setMessage] = useState("");
 
   // choose room type
-  const [roomType, setRoomType] = useState("");
+  const [roomType, setRoomType] = useState("single room");
 
-  const handleSubmit = (messageTyped) => {
-    setMessage(messageTyped);
+  async function handleSubmit(event)  {
+
+    event.preventDefault();
     const startd = date[0].startDate
     const endd = date[0].endDate;
+
+    // setState({
+    //   start: startd,
+    //   end: endd,
+    //   message: message,
+    //   roomType: roomType,
+    //   adultQuantity: options.adults,
+    //   childrenQuantity: options.children
+    // });
+
+    const state = {
+      start: startd, 
+      end: endd,
+      message: message,
+      roomType: roomType,
+      adultQuantity: options.adults,
+      childrenQuantity: options.children,
+    }
+
+    // const state = {
+    //   start: startd, 
+    //   end: endd,
+    //   message: message,
+    //   roomType: roomType,
+    //   adultQuantity: 2,
+    //   childrenQuantity: 0,
+    // }
+
+    console.log(typeof state);
+
+    console.log(JSON.stringify(state));
+
+    try {
+      // const { checkoutSession } = fetch('stripe/create-checkout-session', {
+      //   method: 'POST',
+      //   mode: 'cors',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify(state)
+      //   }).then(function(response){
+      //       console.log(response)
+      //       return response.json();
+      //   });
+
+      // const session = <CheckoutSession key={hotelData._id}
+      // {...hotelData}/> ;
+      
+      
+      //console.log("before running checkoutsession")
+      //checkoutSession();
+      
+    }
+    catch (error){
+        console.log(error);
+    }
+  }
 
     // let path = '../stripe/create-checkout-session' //need change this later
     // // navigate(path, {state: {id: 1, uid: searchTerm, start: startd, end: endd, lang: language, moneyType: currency} });
@@ -91,7 +163,7 @@ const Checkout = () => {
     //   childrenQuantity: options.children,
     // }})
     // add the link thing
-  };
+  
 
 
   useEffect(() => {
@@ -112,15 +184,45 @@ const Checkout = () => {
   }, []);
 
   return (
-    <>
+    
     <div className="body">
       <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
       <script src="https://js.stripe.com/v3/"></script>
-      <div className="hotel--container">
-        <div className="hotel--wrapper">
+      <div className="hotel--wrapper">
+        
           <h2>Book Room</h2>
-          {/* <form onSubmit={handleSubmit}> */}
-          <form action="stripe/create-checkout-session" method="POST">
+          <form onSubmit={handleSubmit}>
+          {/* <form onSubmit={handleSubmit} action="stripe/create-checkout-session" method="POST" body={JSON.stringify(state)}> */}
+          
+
+          <div className="hotel--container">
+            <label>Insert Your complaints here
+              <input className="options--item"
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Message for the hotel"
+                name="custMessage"
+                type = "text"
+              />
+              
+            </label>
+
+
+            <select className="form-control"
+            onChange={(e) => setRoomType(e.target.value)}
+            name="roomType"
+            >
+              <option>Single Room</option>
+              <option>Double Room</option>
+              <option>Delux</option>
+            </select>
+
+            <button role="link" id="submit" type="submit">
+              buy now
+            </button>
+        </div>
+
+          <div className="hotel--container">
+          {/* <form action="stripe/create-checkout-session" method="POST"> */}
 
             <div className="hotel--body2">
                 <FontAwesomeIcon icon={faCalendarDays} className="search--icon"/>
@@ -177,32 +279,13 @@ const Checkout = () => {
                     </div>
                 </div>)}
               </div>
-
-            <input class="options--item"
-              onChange={e => setMessage(e.target.value)}
-              placeholder="Message for the hotel"
-              name="Message for the hotel"
-              type = "text"
-              required
-            />
-
-            <select class="form-control"
-            onChange={e => setRoomType(e.target.value)}
-            name="Room Type"
-            >
-              <option>Single Room</option>
-              <option>Double Room</option>
-              <option>Delux</option>
-            </select>
-
-            <button role="link" id="submit" type="submit">
-              buy now
-            </button>
+          </div>
+          
           </form>
-        </div>
+        
       </div>
     </div>
-    </>
+    
   );
 };
 
