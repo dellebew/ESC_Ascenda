@@ -6,12 +6,15 @@ import { format } from "date-fns";
 import useFetch from '../utils/useFetch.js'
 import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
+import { nextDay } from "date-fns/esm";
 var country_code = require("../../database/countries.json");
+var destination_ids = require("../../database/output.json");
 
 const SearchBar = () => {
     
     const [value, setValue] = useState("");
     const navigate = useNavigate();
+    const [dest, setDest] = useState([destination_ids])
     
 
     const onChange = (event) => {
@@ -22,6 +25,7 @@ const SearchBar = () => {
     const setText = (searchTerm) => {
         setValue(searchTerm);
         console.log("search ", searchTerm);
+        onSearch(searchTerm)
     }
 
     /** FOR FIXING SEARCH BAR */
@@ -66,10 +70,11 @@ const SearchBar = () => {
     });
     };
 
-    const {data: datasets} = useFetch('https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU');
-
     const onSearch = (searchTerm) => {
         setValue(searchTerm);
+
+        //For destination uid side
+        const destination = searchTerm
 
         // For dates of checkin and checkout
         const startd = date[0].startDate
@@ -79,41 +84,14 @@ const SearchBar = () => {
         const language = "en_US"
 
         //currecny
-        const currency = "SGD" //set later
+        const currency = "SGD" //set laters
 
-        // tempFilter either single object all multiple object depending on how vague search term is.
-        const tempFilter = datasets.filter((item) => {
-            return item.name.includes(searchTerm)
-        })
+        // TODO: country code, need another output json file with the state information.
+        // const c_code = country_code.filter(element => {return(element.name == country)});
+        // const codez = c_code[0].code
 
-        if (Object.keys(tempFilter).length > 1) {
-
-            //Array of destination Ids
-            const listOfIds = [];
-            tempFilter.forEach(element => {
-                listOfIds.push(element.id)
-            })
-
-
-            //country code
-            console.log(tempFilter)
-            console.log(startd)
-
-
-        } else if (Object.keys(tempFilter).length = 1) {
-
-            const identifier = 0;
-            tempFilter.forEach(element => {
-                identifier = element.id;
-            })
-
-            // let path = '/hotels' //need change this later
-            // navigate(path, {state: {id: 1, searchItem: searchTerm} });
-        } else {
-            ;
-        }
-    
-        
+        let path = '/destinations/10' //need change this later
+        navigate(path, {state: {id: 1, uid: searchTerm, start: startd, end: endd, lang: language, moneyType: currency} });
     };
 
 
@@ -133,23 +111,24 @@ const SearchBar = () => {
                 
                 {/*Dropdown bar for suggestions*/}
                 <div className="dropdown"> 
-                    {datasets
+                    {destination_ids
                     .filter((item) => {
                         const searchTerm = value;
 
+                        
                         return (
                         searchTerm &&
-                        item.name.includes(searchTerm)
+                        item.term.includes(searchTerm)
                         );
                     })
                     .slice(0, 10)
                     .map((item) => (
                         <div
-                        onClick={() => setText(item.name)}
+                        onClick={() => setText(item.uid)}
                         className="dropdown-row" 
-                        key={item.name}
+                        key={item.uid}
                         >
-                        {item.name}
+                        {item.term}
                         </div>
                     ))}
                 </div>

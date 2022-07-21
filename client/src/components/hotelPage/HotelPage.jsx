@@ -103,6 +103,7 @@ export default function HotelPage(props) {
     
 
     return (
+        <>
         <div className="body">
             <div key={props.id} className='hotel--container'>
                 <div className='hotel--wrapper'>
@@ -129,6 +130,7 @@ export default function HotelPage(props) {
                             <span className="price">$123</span>
                             <span className="subtext">for 1 room for 1 night</span>
                             <button className="hotel--choose">View Deal</button>
+                        
                         </div>
                     </div>
                     
@@ -198,5 +200,6 @@ export default function HotelPage(props) {
                 </div>
             </div>
         </div>
+        </>
     )
 }

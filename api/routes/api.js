@@ -6,6 +6,8 @@ var hotelController = require("../controllers/hotelController");
 var destinationController = require("../controllers/destinationController");
 var hotelPriceController = require("../controllers/hotelPriceController");
 var destinationPricesController = require("../controllers/destinationPricesController");
+// var paymentController = require("../stripe/server")
+//var successfulPayments = require("../controllers/successfulPaymentController");
 
 // static details for a given hotel
 router.get('/hotel/:id', hotelController.getOneHotel);
