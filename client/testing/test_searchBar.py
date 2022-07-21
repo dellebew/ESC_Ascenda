@@ -21,10 +21,13 @@ print("title: ",driver.title)
 input_box = driver.find_element(By.XPATH, '/html/body/div/div/div[2]/div/div/div/div/div/div[1]/input')
 input_box.clear()
 input_box.send_keys('Ja')
-# auto_complete = driver.find_element(By.XPATH, "")
-# auto_complete[0].click()
-# assert True
+auto_complete = driver.find_elements(By.CLASS_NAME, "dropdown-row")
+auto_complete[0].click()
+assert driver.current_url == "http://localhost:3000/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
 
+driver.get("http://localhost:3000/")
+driver.implicitly_wait(10)
+wait = WebDriverWait(driver, 10)
 # test date select
 searchText = driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div/div/div/div/div/div[2]/div[1]/span")
 searchText.click()
@@ -80,7 +83,7 @@ assert (acr_input.get_attribute("innerHTML") == "3 adults 1 children 2 room")
 print("test 4 passed")
 
 # test search redirect
-search_button = driver.find_element("/html/body/div/div/div[2]/div/div/div/div/div/div[2]/div[3]/button")
+search_button = driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div/div/div/div/div/div[2]/div[3]/button")
 search_button.click()
 
 driver.close()
