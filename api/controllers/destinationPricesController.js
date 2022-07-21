@@ -61,7 +61,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                             resPage.end();
                     })
                         })                     
-                        .catch((e) => {console.log(e)});
+                        // .catch((e) => {console.log(e)});
 
                         // end**********************
 
@@ -122,7 +122,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                         })                     
                             }
                         })
-                        },3000)
+                        },3500)
                         
                       ])
 
