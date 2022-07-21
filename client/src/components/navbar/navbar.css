@@ -1,0 +1,56 @@
+.navbar {
+    height:60px;
+    min-width:1024px;
+    background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
+    display: flex;
+    justify-content: center;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.navbar--container {
+    width: 100%;
+    max-width:1024px;
+    color:white;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar--logo {
+    font-family:'Square Peg';
+    font-size: 38px;
+    padding: 10px;
+    cursor:pointer;
+    color:white;
+    background: none;
+    border: none;
+    text-decoration: none;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+}
+
+.navbar--items {
+    display:flex;
+    align-items: center;
+}
+
+.navbar--currency {
+    margin-right:5px;
+    background: none;
+    color:white;
+    border: none;
+    padding: 5px 10px;
+    cursor:pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.navbar--button {
+    margin-left:20px;
+    border: 1px white double;
+    padding: 5px 10px;
+    cursor:pointer;
+    background: none;
+    color: whitesmoke;
+    font-size: 15px;
+    border-radius:4px;
+}
