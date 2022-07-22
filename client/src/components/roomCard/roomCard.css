@@ -62,7 +62,7 @@
     justify-content: left;
     gap: 20px;
     margin:0px 5px 10px 5px;
-    padding: 0px 15px 10px 15px;
+    padding: 10px 15px 10px 15px;
     overflow-x: scroll;
     width: 95%;
 }
@@ -78,15 +78,15 @@
 .wrapper {    
     padding-left: 10px;
     position: relative;
-    margin-bottom: 10px;
     width: 100%;
 }
     .room--amenities {
-        max-height: 150px;
+        max-height: 130px;
         height: fit-content;
         overflow-y: scroll;
         display: flex;
         flex-wrap: wrap;
+        font-size: 14px;
     }
 
     .room--amenities  > li {

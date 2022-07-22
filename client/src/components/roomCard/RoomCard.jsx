@@ -65,7 +65,7 @@ export default function RoomCard(props) {
                     <div className="room--details">
                         <h3 className="room--normalized">{props.desc}</h3>
                         {props.cancellation && <div className="free-cancellation"> ✓ Free Cancellation</div>}
-                        <h3>Amenities</h3>
+                        <h4>Amenities</h4>
                         <div className="wrapper">
                             {/* <div className="toggle--amenities" onClick={toggleAmenities}>
                                 <span>{showAmenities ? "Show Less " : "Show More "}</span>

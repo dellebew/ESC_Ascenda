@@ -10,6 +10,13 @@
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, 
                 rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ratesCard:hover {
+    background: #DBF9F0;
+    transform: scale(1.05);
+    transform: translateY(-2px);
 }
 
 .food-icon {
@@ -30,6 +37,13 @@
 }
 
 .free-breakfast {
+    font-weight: bold;
+    color:green;
+    font-size: 12px;
+    margin: 5px 0px;
+}
+
+.no-breakfast {
     font-weight: bold;
     color:brown;
     font-size: 12px;
