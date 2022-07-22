@@ -12,6 +12,9 @@ const NavBar = () => {
                     <img src="/singapore.png"/>
                     <button className="navbar--currency">SGD</button>
                 </div>
+                <div className="navbar--items2">
+                    <button className="navbar--type">Services</button>
+                </div>
             </div>
         </div>
     )

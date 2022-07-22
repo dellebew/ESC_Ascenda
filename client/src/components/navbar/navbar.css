@@ -35,6 +35,9 @@
     border: 1px white solid;
     border-radius: 5px;
     padding-left: 15px;
+    position: absolute;
+    top: 1.8%;
+    right: 25%
 }
 
 .navbar--currency {
@@ -48,6 +51,32 @@
     font-weight: bold;
     text-align: center;
 }
+
+.navbar--items2 {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px white solid;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+
+
+.navbar--currency, .navbar--type {
+    display:inline-block;
+    margin-right:5px;
+    background: none;
+    color:white;
+    border: none;
+    padding: 5px 10px;
+    cursor:pointer;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    
+}
+
 
 img {
     height:30px;

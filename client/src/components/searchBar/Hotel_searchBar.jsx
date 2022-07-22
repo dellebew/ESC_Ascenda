@@ -5,19 +5,17 @@ import { DateRange} from 'react-date-range';
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import useFetch from '../utils/useFetch.js'
-import "./searchBar.css"
+import "./Hotel_searchBar.css"
 import {useNavigate} from 'react-router-dom';
 import { nextDay } from "date-fns/esm";
 var country_code = require("../../database/countries.json");
-var destination_ids = require("../../database/output.json");
-var test1 = require("../../database/uids.json");
+var hotel_uids = require("../../database/trial_destination.json");
 
 
-const SearchBar = () => {
+const Hotel_SearchBar = () => {
     
     const [value, setValue] = useState("");
     const navigate = useNavigate();
-    const [dest, setDest] = useState([destination_ids])
     
 
     const onChange = (event) => {
@@ -72,69 +70,13 @@ const SearchBar = () => {
         onSearch(id, searchTerm)
     }
 
-    var uids = [];
-    test1.forEach((element) => {
-        uids.push(element.uid)
-    })
-
-    // `https://hotelapi.loyalty.dev/api/hotels?destination_id=${item.id}`
-
-    async function massFetch(isync) {
-        const response = await fetch(`https://hotelapi.loyalty.dev/api/hotels?destination_id=${isync}`)
-            .then(function(response){ return response.json(); })
-            .then(function(data) {
-                var nide = []
-                data.forEach((ele)=> {
-                    var obj = {}
-                    obj["name"] = ele.name;
-                    obj["id"] = ele.id
-                    nide.push(obj)
-                })
-
-                return nide
-            })
-        
-        const update = JSON.stringify(response);
-        
-        return update
-    }
-
-
-    
-    
-
-    // uids.forEach((item)=> {
-        
-    // })
-
-    // const x = massFetch("A6Dz")
-    // x.then(async function(response) {
-    //     const tell = JSON.parse(response)
-    //     const fileName = "my-file";
-    //     const json = JSON.stringify(tell, null, 2);
-    //     const blob = new Blob([json], { type: "application/json" });
-    //     const href = URL.createObjectURL(blob);
-
-    //     // create "a" HTLM element with href to file
-    //     const link = document.createElement("a");
-    //     link.href = href;
-    //     link.download = fileName + ".json";
-    //     document.body.appendChild(link);
-    //     link.click();
-
-    //     // clean up "a" element & remove ObjectURL
-    //     document.body.removeChild(link);
-    //     URL.revokeObjectURL(href);
-
-    // })
-
 
     const onSearch = (id, searchTerm) => {
         setValue(searchTerm);
 
         //For destination name and uid side
-        const destination_name = searchTerm
-        const destination_uid = id
+        const hotel_name = searchTerm
+        const hotel_uid = id
 
         // For dates of checkin and checkout
         const startd = JSON.stringify(date[0].startDate).slice(1,11)
@@ -153,29 +95,24 @@ const SearchBar = () => {
         const total_ppl = adults + children
 
         // c_code is the country code
-        const c_code = country_code.filter(element => {
-            const destination_title = destination_name;
+        // const c_code = country_code.filter(element => {
+        //     const destination_title = hotel_name;
 
-            if (destination_title.includes(element.name) || destination_title == element.name) {
-                return element.code
-            } else {
-                return 0
-            }
-        })[0].code;
+        //     if (hotel_name.includes(element.name) || hotel_name == element.name) {
+        //         return element.code
+        //     } else {
+        //         return 0
+        //     }
+        // })[0].code;
+
+        const c_code = "IT"
 
         // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
         // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
-
-        let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}/0`
-        
-        navigate(path);
-    };
-
-    function ontest() {
-        let path = "/hotels"
+        let path = `/hotels/${hotel_uid}/A6Dz/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}`
         navigate(path)
-    }
 
+    };
 
 
     return (
@@ -194,24 +131,24 @@ const SearchBar = () => {
                 
                 {/*Dropdown bar for suggestions*/}
                 <div className="dropdown"> 
-                    {destination_ids
+                    {hotel_uids
                     .filter((item) => {
                         const searchTerm = value;
 
                         
                         return (
                         searchTerm &&
-                        item.term.includes(searchTerm)
+                        item.name.includes(searchTerm)
                         );
                     })
                     .slice(0, 10)
                     .map((item) => (
                         <div
-                        onClick={() => setText(item.uid, item.term)}
+                        onClick={() => setText(item.id, item.name)}
                         className="dropdown-row" 
-                        key={item.uid}
+                        key={item.id}
                         >
-                        {item.term}
+                        {item.name}
                         </div>
                     ))}
                 </div>
@@ -291,4 +228,4 @@ const SearchBar = () => {
     )
 }
 
-export default SearchBar
+export default Hotel_SearchBar
