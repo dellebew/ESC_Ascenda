@@ -11,6 +11,7 @@
                 rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     cursor: pointer;
     transition: all 0.2s ease;
+    user-select: none;
 }
 
 .ratesCard:hover {
