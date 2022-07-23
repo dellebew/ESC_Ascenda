@@ -5,9 +5,13 @@ import { useState, useEffect } from "react";
 import ImageSlider from "../imageSlider/ImageSlider";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { useParams } from "react-router-dom";
 
 
 export default function RatesCard(props) {
+
+    const state = useParams();
+    // console.log(state);
 
     const hasBreakfast = props.roomAdditionalInfo.breakfastInfo == "hotel_detail_breakfast_included"
     const hasSupplier = props.market_rates

@@ -58,6 +58,9 @@ https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946
 
 # Client Side
 
+## Todo:
+1. Clean up console.log code
+
 ## External Resources Used:
 
 React-Date-Range: https://hypeserver.github.io/react-date-range/
