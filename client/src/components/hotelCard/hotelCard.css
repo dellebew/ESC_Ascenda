@@ -19,6 +19,7 @@
     display:flex;
     flex-direction: column;
     flex: 2;
+    padding-right: 10px;
 }
 
 .si--name {
@@ -48,8 +49,7 @@
 }
 
 .si--description > div {
-    -webkit-column-width: 195px;
-    column-width: 195px;
+    column-width: 250px;
     height: 100%;
 }
 
@@ -100,7 +100,6 @@
 }
 
 .si--showprices {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
     font-size: 15px;
     color:white;
@@ -110,4 +109,12 @@
     font-weight: bold;
     border-radius: 5px;
     cursor:pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, 
+                rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.si--showprices:hover {
+    transform: scale(1.5);
+    transform: translateY(-2px);
+    opacity: 0.8;
 }
