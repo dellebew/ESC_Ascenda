@@ -17,7 +17,7 @@ const SearchBar = () => {
     
     const [value, setValue] = useState("");
     const navigate = useNavigate();
-    const [dest, setDest] = useState([destination_ids])
+    const [dest, setDest] = useState(0)
     
 
     const onChange = (event) => {
@@ -68,73 +68,18 @@ const SearchBar = () => {
 
     const setText = (id, searchTerm) => {
         setValue(searchTerm);
+        setDest(id)
+        
         console.log("search ", searchTerm);
-        onSearch(id, searchTerm)
     }
 
-    var uids = [];
-    test1.forEach((element) => {
-        uids.push(element.uid)
-    })
-
-    // `https://hotelapi.loyalty.dev/api/hotels?destination_id=${item.id}`
-
-    async function massFetch(isync) {
-        const response = await fetch(`https://hotelapi.loyalty.dev/api/hotels?destination_id=${isync}`)
-            .then(function(response){ return response.json(); })
-            .then(function(data) {
-                var nide = []
-                data.forEach((ele)=> {
-                    var obj = {}
-                    obj["name"] = ele.name;
-                    obj["id"] = ele.id
-                    nide.push(obj)
-                })
-
-                return nide
-            })
-        
-        const update = JSON.stringify(response);
-        
-        return update
-    }
-
-
-    
-    
-
-    // uids.forEach((item)=> {
-        
-    // })
-
-    // const x = massFetch("A6Dz")
-    // x.then(async function(response) {
-    //     const tell = JSON.parse(response)
-    //     const fileName = "my-file";
-    //     const json = JSON.stringify(tell, null, 2);
-    //     const blob = new Blob([json], { type: "application/json" });
-    //     const href = URL.createObjectURL(blob);
-
-    //     // create "a" HTLM element with href to file
-    //     const link = document.createElement("a");
-    //     link.href = href;
-    //     link.download = fileName + ".json";
-    //     document.body.appendChild(link);
-    //     link.click();
-
-    //     // clean up "a" element & remove ObjectURL
-    //     document.body.removeChild(link);
-    //     URL.revokeObjectURL(href);
-
-    // })
-
-
-    const onSearch = (id, searchTerm) => {
+    const onSearch = (searchTerm) => {
         setValue(searchTerm);
 
         //For destination name and uid side
         const destination_name = searchTerm
-        const destination_uid = id
+        const destination_uid = dest;
+
 
         // For dates of checkin and checkout
         const startd = JSON.stringify(date[0].startDate).slice(1,11)
@@ -152,30 +97,60 @@ const SearchBar = () => {
         const no_of_rooms = options.room
         const total_ppl = adults + children
 
-        // c_code is the country code
-        const c_code = country_code.filter(element => {
-            const destination_title = destination_name;
+        if (destination_uid != 0) {
 
-            if (destination_title.includes(element.name) || destination_title == element.name) {
-                return element.code
-            } else {
-                return 0
-            }
-        })[0].code;
+            // c_code is the country code
+            const c_code = country_code.filter(element => {
+                const destination_title = destination_name;
+    
+                if (destination_title.includes(element.name) || destination_title == element.name) {
+                    return element.code
+                } else {
+                    return 0
+                }
+            })[0].code;
 
-        // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
-        // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
+            // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
+            // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
 
-        let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}/0`
-        
-        navigate(path);
+            let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}/0`
+            navigate(path);
+
+        } else {
+            
+            const incompleteSearch = destination_ids.filter((item) => {
+                let searchTerm = value.toLowerCase();
+                let modified = item.term.toLowerCase();
+
+                
+                return (
+                searchTerm &&
+                modified.includes(searchTerm)
+                );
+            }).slice(0,1)
+            const incomplete_name = incompleteSearch[0].term
+            const incomplete_uid = incompleteSearch[0].uid;
+
+            const incomplete_country_code = country_code.filter(element => {
+                const destination_title = incomplete_name;
+    
+                if (destination_title.includes(element.name) || destination_title == element.name) {
+                    return element.code
+                } else {
+                    return 0
+                }
+            })[0].code;
+
+            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${total_ppl}/0`
+            navigate(path);
+
+        }
     };
 
     function ontest() {
         let path = "/hotels"
         navigate(path)
     }
-
 
 
     return (
@@ -196,12 +171,13 @@ const SearchBar = () => {
                 <div className="dropdown"> 
                     {destination_ids
                     .filter((item) => {
-                        const searchTerm = value;
+                        let searchTerm = value.toLowerCase();
+                        let modified = item.term.toLowerCase();
 
                         
                         return (
                         searchTerm &&
-                        item.term.includes(searchTerm)
+                        modified.includes(searchTerm)
                         );
                     })
                     .slice(0, 10)
@@ -281,7 +257,7 @@ const SearchBar = () => {
                 {/*Button onClick needs to call out display page, clear this comment after doing it*/}
                 <div className="search--item">
                     <button className="search--button"
-                        onClick={() => onSearch(value, "")}> Search </button>
+                        onClick={() => onSearch(value)}> Search </button>
                 </div>
             </div>
 
