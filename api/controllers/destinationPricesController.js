@@ -10,7 +10,7 @@ var update = require("../public/javascripts/dbops").update
 var sorted_query = require("../public/javascripts/dbops").sorted_query
 
 const coll_name = "destination_prices"
-const page_size = 3
+const page_size = 10
 // hotel prices for a given destination (with filtering conditions)
 exports.getDestinationHotelPrices = async function(req, resPage, next){
     const page_num = parseInt(req.params.page)
