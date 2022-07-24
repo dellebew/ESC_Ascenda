@@ -10,8 +10,6 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
 import callApi from "../../components/utils/callApi";
 import Error from "../error/Error";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 const Destinations = () => {
 
 /** 
@@ -23,11 +21,8 @@ const Destinations = () => {
     const navigate = useNavigate();
     console.log(state);
     
-    const filters = ["Popularity", "Price", "Rating"]
     const [page, setPage] = useState(state.page)
     const [loading, setLoading] = useState(false);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [filter, setFilter] = useState(filters[0])
     const [error, setError] = useState(null);  
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
@@ -97,32 +92,13 @@ const Destinations = () => {
         <>
         <NavBar />
         {error && <Error/>}
-        {/* <SearchBar /> */}
         {loading && <Loader/>}
         {!loading && (items !== undefined) &&  <div className="body">                        
+            <SearchBar />
             <div className="list--container">
                 <div className="list--wrapper">
                     
                         <div className="list--result">
-                            <div className="dropdown--container">
-                                    <div className="dropdown--button" onClick={(e) => setShowDropdown(!showDropdown)}>
-                                        {filter}
-                                        <FontAwesomeIcon icon={showDropdown ? faChevronUp : faChevronDown}/>
-                                    </div>
-                                    <p className="dropdown--title">Sort by</p>
-                                    {showDropdown && (
-                                        <div className="dropdown--content" onMouseLeave={(e) =>setShowDropdown(false)}>
-                                            {filters.map((option) => (
-                                                <div onClick={(e) => {
-                                                    setFilter(option)
-                                                    setShowDropdown(false)}}
-                                                    className="dropdown--item">
-                                                    {option}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                            </div>
                         {items.map((item) => 
                         <HotelCard key={item.id}
                                 {...item}/>

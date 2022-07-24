@@ -1,5 +1,5 @@
 .searchItem {
-    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
     padding:10px;
     display:flex;
     justify-content: space-between;

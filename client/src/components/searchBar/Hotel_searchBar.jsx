@@ -125,7 +125,7 @@ const Hotel_SearchBar = () => {
                     type="text" 
                     value={value} 
                     onChange={onChange}
-                    placeholder="e.g. Singapore"
+                    placeholder="e.g. Fullerton Hotel"
                     className="search--input" 
                 />
                 
