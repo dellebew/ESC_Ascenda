@@ -141,8 +141,12 @@ const SearchBar = () => {
                 }
             })[0].code;
 
+<<<<<<< Updated upstream
             let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${total_ppl}/0`
             navigate(path);
+=======
+        let path = "/destinations/cm8g/2022-07-28/2022-07-29/en_US/SGD/SG/3/0"
+>>>>>>> Stashed changes
 
         }
     };

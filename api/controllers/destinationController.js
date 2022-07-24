@@ -37,30 +37,37 @@ exports.getDestinationHotelIds = async function(req, resPage, next) {
                     console.log("Not found in database")
                     const value = Array();
                     const url = baseUrl+mid_url+destination_id
-                    
-                    https.get(url, res => {
-                        let data = '';
-                        res.on('data', chunk => {
-                            data += chunk;
-                            });
-                        res.on('end', () => {
-                            data = JSON.parse(data);
-                            
-                            if (data == ''){
-                                resPage.write("does not exist");
+                    try{
+                        https.get(url, res => {
+                            let data = '';
+                            res.on('data', chunk => {
+                                data += chunk;
+                                });
+                            res.on('end', () => {
+                                data = JSON.parse(data);
+                                
+                                if (data == ''){
+                                    resPage.sendStatus(404);
+                                    resPage.end();
+                                    return ;
+                                }
+                                
+                                value.push(data);
+                                // storing and displaying at the same time
+                                // console.log("value"+value)
+                                update(client,dbName,coll_name,value[0],{id:destination_id},"addToSet").catch(console.dir);
+                                console.log(value[0].length)
+                                resPage.write(JSON.stringify(value[0].slice(page_num*page_size,(page_num+1)*page_size)));
                                 resPage.end();
-                                return ;
-                            }
-                            
-                            value.push(data);
-                            // storing and displaying at the same time
-                            // console.log("value"+value)
-                            update(client,dbName,coll_name,value[0],{id:destination_id},"addToSet").catch(console.dir);
-                            console.log(value[0].length)
-                            resPage.write(JSON.stringify(value[0].slice(page_num*page_size,(page_num+1)*page_size)));
-                            resPage.end();
+                            })
                         })
-                    })
+                    }
+                    catch(e){
+                        console.log("error"+e);
+                        resPage.sendStatus(404);
+                        resPage.end();
+                    }
+
     
                 }
             })

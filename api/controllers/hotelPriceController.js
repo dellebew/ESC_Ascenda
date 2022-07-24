@@ -12,7 +12,7 @@ var update = require("../public/javascripts/dbops").update
 const coll_name = "hotel_price"
 
 // price for a given hotel (with filtering conditions)
-exports.getHotelPrice = function(req, resPage, next) {
+exports.getHotelPrice = async function(req, resPage, next) {
 
     let promise0 = client.connect();
     promise0.then(()=>{
@@ -37,28 +37,92 @@ exports.getHotelPrice = function(req, resPage, next) {
             // 3. if not: request api, display & store in database
             else{
                 console.log("Not found in database")
+                try{
                 // waterfall
                 promiseWaterfall([
                     call_axios(url),
                     setTimeout(()=>{call_axios(url).then((r)=>{
                         if (r == null){
-                            resPage.write("");
+                            resPage.sendStatus(404);
                             resPage.end();
                             return null;
                         }
-                        else{ return r}
-                    }).then((data)=>{
-                        if (data.rooms != null){
-                            update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
-                            resPage.write(JSON.stringify([data]))
-                            resPage.end();
-                            }
-                        })                     
+                        else{
+                            r.hotels.sort(GetSortOrder("searchRank"))
+                            return r
+                        }
                         
-                   
-                    },2000)
+                    }).then((data)=>{
+                        console.log("data"+Object.keys(data))
+                        if (data.hotels != null){
+                            update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
+                            const total_page_count = parseInt(data.hotels.length/page_size)
+                            
+                            // get hotels static data
+                            // start **********************
+                            const promises = [];
+                            for (let i = 0; i < page_size; i++) {     
+                                try{
+                                        const hotel_id = data.hotels[i].id
+                                        promises.push(getOneStaticHotel(hotel_id));
+                                }   
+                                catch{
+                                    resPage.sendStatus(404);
+                                    resPage.end();
+                                    console.log("error id")
+                                    }                        
+                                }
+                                
+                            Promise.all(promises)
+                                .then((full_res) => {   
+                                    const promises1 = [];
+                                    for (let i = 0; i < full_res.length; i++) {
+                                        promises1.push(append_hotel(full_res,null,data,i));
+                                    }    
+
+                                    Promise.all(promises1)
+                                    .then((write_array) => {  
+                                        const arr = Array()
+                                        arr.push(total_page_count)
+                                        arr.push(write_array)
+                                        resPage.write(JSON.stringify(arr))
+                                        resPage.end();
+                                })
+                                    })                     
+                        }
+                    })
+                    },3500)
                     
                   ])
+            // waterfall
+            promiseWaterfall([
+                call_axios(url),
+                setTimeout(()=>{call_axios(url).then((r)=>{
+                    if (r == null){
+                        resPage.sendStatus(404);
+                        resPage.end();
+                        return null;
+                    }
+                    else{ return r}
+                }).then((data)=>{
+                    if (data.rooms != null){
+                        update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
+                        resPage.write(JSON.stringify([data]))
+                        resPage.end();
+                        }
+                    })                     
+                    
+               
+                },2000)
+                
+              ])
+                }
+                catch(err){
+                    console.log("error"+err);
+                    resPage.sendStatus(404);
+                    resPage.end();
+                }                    
+
 
             }
         })

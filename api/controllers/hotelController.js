@@ -32,31 +32,36 @@ exports.getOneHotel = async function(req, resPage, next) {
             // 3. if not: request api, display & store in database
             else{
                 console.log("Not found in database")
-                const value = Array();
                 const url = baseUrl+mid_url+hotel_id
-                
-                https.get(url, res => {
-                    let data = '';
-                    res.on('data', chunk => {
-                        data += chunk;
-                        });
-                    res.on('end', () => {
-                        data = JSON.parse(data);
-                        
-                        if (JSON.stringify(data).length <=2 ){
-                            resPage.write("");
+                try{
+                    https.get(url, res => {
+                        let data = '';
+                        res.on('data', chunk => {
+                            data += chunk;
+                            });
+                        res.on('end', () => {
+                            data = JSON.parse(data);
+                            
+                            if (JSON.stringify(data).length <=2 ){
+                                resPage.sendStatus(404);
+                                resPage.end();
+                                return ;
+                            }
+                            
+                            // storing and displaying at the same time
+                            console.log("value"+JSON.stringify(data).length)
+                            update(client,dbName,coll_name,data,{id:hotel_id},"set").catch(console.dir);
+                            resPage.write(JSON.stringify(data));
                             resPage.end();
-                            return ;
-                        }
-                        
-                        value.push(data);
-                        // storing and displaying at the same time
-                        console.log("value"+JSON.stringify(data).length)
-                        update(client,dbName,coll_name,value[0],{id:hotel_id},"set").catch(console.dir);
-                        resPage.write(JSON.stringify(value[0]));
-                        resPage.end();
+                        })
                     })
-                })
+                }
+                catch(e){
+                    console.log("error"+e);
+                    resPage.sendStatus(404);
+                    resPage.end();
+                }
+
 
             }
         })
