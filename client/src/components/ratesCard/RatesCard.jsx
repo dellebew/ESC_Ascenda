@@ -5,25 +5,54 @@ import { useState, useEffect } from "react";
 import ImageSlider from "../imageSlider/ImageSlider";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import Checkout from "../payment/Checkout";
 
 export default function RatesCard(props) {
 
     const state = useParams();
-    // console.log(state);
 
+    // what I need for navigations
+    const [newState, setnewState] = useState({
+      //from nicholas's side
+      startDate: state.checkin,
+      endDate: state.checkout,
+      roomQty: 2, //need information
+      adultQty: state.quantity,
+      childQty: 0, //need information
+      // from px's side
+      price: props.price,
+      roomName: "Resorts World", //need information
+      roomType: props.description,
+    });
+    // console.log(state);
+    // to navigate to checkout
+    let navigate = useNavigate();
+
+    console.log("Rates Card State")
+    console.log(JSON.stringify(state));
+
+    // async function handleSubmit(event) {
+    //   event.preventDefault();
+    //   // await submitForm(event.target);
+    //   navigate("../payment/Checkout", { replace: true }, {state: newState});
+    // }
+
+    // RateCard props
     const hasBreakfast = props.roomAdditionalInfo.breakfastInfo == "hotel_detail_breakfast_included"
     const hasSupplier = props.market_rates
 
     const submit = () => {
+
         confirmAlert({
           title: 'We are redirecting you to the booking page.',
           message: 'Would you like to proceed with payment?',
           buttons: [
             {
               label: 'Yes',
-              onClick: () => alert('Fix Request!')
+              onClick: () => {
+                navigate("../checkout", { replace: true }, {state: newState});
+              }
             },
             {
               label: 'No',

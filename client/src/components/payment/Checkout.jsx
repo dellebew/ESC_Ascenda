@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from 'react'
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
 import { format } from "date-fns";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import "./checkout.css"
-// import { setIncompletePayments } from './IntermediateDB';
-
-// const [quantity, setQuantity] = useState(1);
-// const [amount, setAmount] = useState(0);
-// const [currency, setCurrency] = useState('SGD');
-
-// const [qty, setRoomQty] = useState(1);
-// const [start, setStart] = useState("");
-// const [end, setEnd] = useState("");
-// const [adults, setAdults] = useState(1);
-// const [children, setChildren] = useState(0);
-// const [message, setMessage] = useState("");
-// const [roomType, setRoomType] = useState("");
 
 // const Checkout = ({ route, navigation }) => {
 const Checkout = () => {
+  const params = useParams();
 
   const navigate = useNavigate();
 
@@ -31,60 +18,68 @@ const Checkout = () => {
   // what I need for navigations
   // const params = {
   //   //from nicholas's side
-  //   startDate: "",
-  //   endDate: "",
-  //   roomQty: "",
-  //   adultQty: "",
-  //   childQty: "",
-  //   // from px's side
-  //   price: "",
-  //   roomName: "",
-  //   roomQty: "",
-  //   roomType: "",
+    // startDate: "",
+    // endDate: "",
+    // roomQty: "",
+    // adultQty: "",
+    // childQty: "",
+    // // from px's side
+    // price: "",
+    // roomName: "",
+    // roomQty: "",
+    // roomType: "",
   // }
 
-  // const data = {
-  //   start: params.startDate, 
-  //   end: params.endDate,
-  //   roomType: params.roomType,
-  //   roomQty: params.roomQty,
-  //   adultQty: params.adultQty,
-  //   childQty: params.childQty,
-  //   message: "",
-  // };
+  console.log("in Checkout");
 
-  // const billing = {
-  //   unit_amount: params.price,
-  //   hotelName: params.roomName,
-  //   roomQty: params.roomQty,
-  // }
+  const startTimeArr = params.startDate.split('-');
+  const endTimeArr = params.startDate.split('-');
+  let startTime = new Date(startTimeArr[0], startTimeArr[1], startTimeArr[2]);
+  let endTime = new Date(endTimeArr[0], endTimeArr[1], endTimeArr[2]);
+
+  const data = {
+    start: startTime, 
+    end: endTime,
+    roomType: params.roomType,
+    roomQty: params.roomQty,
+    adultQty: params.adultQty,
+    childQty: params.childQty,
+    message: "",
+  };
+
+  const billing = {
+    unit_amount: params.price,
+    hotelName: params.roomName,
+    roomQty: params.roomQty,
+  }
+  
 
   // handle message to hotel
   const [message, setMessage] = useState("");
 
-  const startTime = new Date();
-  let endTime = new Date();
-  endTime.setTime(startTime.getTime() + 1000*60*60*24*5)
-  const endTime2 = endTime.getTime();
-  const startTime2 = startTime.getTime();
+  // const startTime = new Date();
+  // let endTime = new Date();
+  // endTime.setTime(startTime.getTime() + 1000*60*60*24*5)
+  // const endTime2 = endTime.getTime();
+  // const startTime2 = startTime.getTime();
 
-  const data = {
-    // start: new Date(2022, 7, 22), 
-    // end: new Date(2022, 7, 28),
-    start: startTime2,
-    end: endTime2,
-    message: message,
-    roomQty: 3,
-    roomType: "Single Room",
-    adultQuantity: 2,
-    childrenQuantity: 0,
-  };
+  // const data = {
+  //   // start: new Date(2022, 7, 22), 
+  //   // end: new Date(2022, 7, 28),
+  //   start: startTime2,
+  //   end: endTime2,
+  //   message: message,
+  //   roomQty: 3,
+  //   roomType: "Single Room",
+  //   adultQuantity: 2,
+  //   childrenQuantity: 0,
+  // };
 
-  const billing = {
-    unit_amount: 20*100,
-    name: "Hotel Name",
-    destination: "location",
-  }
+  // const billing = {
+  //   unit_amount: 20*100,
+  //   name: "Hotel Name",
+  //   destination: "location",
+  // }
 
   const currentTime = new Date();
   const currentTime2 = currentTime.getTime();
@@ -99,7 +94,13 @@ const Checkout = () => {
 
   // add to intermediate database
   // setIncompletePayments(intermediateData)
-  
+  const startTimeNum = new Date();  
+  startTimeNum.setTime(data.start);
+  const startTimeText = startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getUTCFullYear();
+
+  const endTimeNum = new Date();  
+  endTimeNum.setTime(data.end);
+  const endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + endTimeNum.getUTCFullYear();
   
   // choose room type
   const [roomType, setRoomType] = useState("single room");
@@ -116,15 +117,35 @@ const Checkout = () => {
           <form action="../stripe/create-checkout-session/" method="POST">
           
           <div className="hotel--container">
-            <label>Insert Your complaints here
-              <input className="options--item"
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Message for the hotel"
-                name="message"
-                type = "text"
-              />
-            </label>
+            <div className="hotelName">
+              <p>
+              <b>startDate: </b>{startTimeText},<br />
+              <b>endDate: </b>{endTimeText},<br />
+              <b>adultQty: </b>{data.adultQuantity},<br />
+              <b>childQty: </b>{data.childrenQuantity},<br />
+              </p>
+              <br />
+              <p>
+              <b>price: </b>{billing.unit_amount/100},<br />
+              <b>roomName: </b>{billing.name},<br />
+              <b>destination: </b>{billing.destination},<br />
+              <b>roomQty: </b>{data.roomQty},<br />
+              <b>roomType: </b>{data.roomType},<br />
+              </p>
+            </div>
 
+          </div>
+
+          <div className="hotel--container">
+            
+            <div className="hotelName">Message for the Hotel</div>
+            <input className="options--item"
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Message for the hotel"
+              name="message"
+              type = "text"
+            />
+            
             <input hidden={true} 
             encType="application/json"
             defaultValue={JSON.stringify(data)}
