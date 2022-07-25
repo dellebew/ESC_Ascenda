@@ -7,7 +7,7 @@ const Header = () => {
             <div className="header--container">
                 <h1 className="header--title">Find your next stay</h1>
                 <p className="header--desc">
-                    Search deals on hotels, homes, and much more... 
+                    Search deals at your destinations... 
                     Get rewarded for your travels!
                 </p>
                 <SearchBar/>
