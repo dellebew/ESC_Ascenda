@@ -58,10 +58,8 @@ https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946
 
 # Client Side
 
-1. link up destination / check-in date with previous user input
-2. fix main room image card
-3. fix overflow of amentities
-4. fix hovering animation
+## Todo:
+1. Clean up console.log code
 
 ## External Resources Used:
 
@@ -73,8 +71,7 @@ React-Rating-Stars: https://www.npmjs.com/package/react-rating-stars-component
 
 Pigeon-Maps: https://github.com/mariusandra/pigeon-maps
 
-
-
+React-Confirm-Alert: https://github.com/GA-MO/react-confirm-alert
 
 ## Testing 
 1. prereq: 

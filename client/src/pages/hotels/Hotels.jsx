@@ -18,7 +18,7 @@ const Hotels = () => {
     const [error, setError] = useState(null);   
     
     const state = useParams();
-    console.log(state);
+    // console.log(state);
 
     // const location = useLocation(); 
     // const id = location.pathname.split('/').at(-1)
@@ -65,11 +65,13 @@ const Hotels = () => {
       return r;
     }, {});
 
+  
     // render different room rates
     const rendered = Object.values(groups).map((item, id) => {
-      console.log(item.roomNormalizedDescription, item.images)
+      // console.log(item.roomNormalizedDescription, item.images)
       return(
-        <RoomCard key={id} 
+        <RoomCard  
+          key={id} 
           type={item.type} 
           amenities={item.amenities}
           cancellation={item.free_cancellation}

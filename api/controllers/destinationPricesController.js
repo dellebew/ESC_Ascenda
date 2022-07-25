@@ -1,6 +1,7 @@
 var promiseWaterfall = require('promise.waterfall')
 var { MongoClient } = require("mongodb");
 var axios = require("axios");
+const { forEach } = require('async');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
@@ -10,7 +11,7 @@ var update = require("../public/javascripts/dbops").update
 var sorted_query = require("../public/javascripts/dbops").sorted_query
 
 const coll_name = "destination_prices"
-const page_size = 3
+const page_size = 10
 // hotel prices for a given destination (with filtering conditions)
 exports.getDestinationHotelPrices = async function(req, resPage, next){
     const page_num = parseInt(req.params.page)
@@ -61,22 +62,25 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                             resPage.end();
                     })
                         })                     
-                        // .catch((e) => {console.log(e)});
+                        .catch((e) => {
+                            resPage.sendStatus(404);
+                            resPage.end();
+                            console.log(e)});
 
                         // end**********************
 
-                    
                     }
                 // 3. if not: request api, display & store in database
                 else{
                     console.log("Not found in database")
-
+                    try{
                     // waterfall
                     promiseWaterfall([
                         call_axios(url),
                         setTimeout(()=>{call_axios(url).then((r)=>{
                             if (r == null){
-                                resPage.write("");
+                                console.log("r == null")
+                                resPage.sendStatus(404);
                                 resPage.end();
                                 return null;
                             }
@@ -101,6 +105,9 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                     }   
                                     catch{
                                         console.log("error id")
+                                        resPage.sendStatus(404);
+                                        resPage.end();
+                                        return null;
                                         }                        
                                     }
                                     
@@ -125,11 +132,12 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                         },3500)
                         
                       ])
-
-                    
-
-
-
+                    }                    
+                    catch(e){
+                        console.log("error"+e);
+                        resPage.sendStatus(404);
+                        resPage.end();
+                    }
 
                     }
         });
@@ -150,6 +158,18 @@ function GetSortOrder(prop) {
         }    
         return 0;    
     }    
+}
+
+async function filterAppend(full_res,result_cut,data,i,req){
+    const minprice = parseInt(req.params.minprice)
+    const maxprice = parseInt(req.params.maxprice)
+    const minrate = parseInt(req.params.minrate)
+    const maxrate = parseInt(req.params.maxrate)
+    if (full_res[i].data.rating > minrate && full_res[i].data.rating < maxrate){
+        if (full_res[i].price > minprice && full_res[i].price < maxprice){
+            return await append_hotel(full_res,result_cut,data,i)
+        }
+    }
 }
 
 async function getOneStaticHotel(hotel_id){

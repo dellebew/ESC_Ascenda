@@ -31,7 +31,7 @@ async function testdb(client) {
                                                                                                 .then(res => test.assert(JSON.stringify(res) == '[]'))
                                                                                                 .then(() => {
                                                                                                         setTimeout(() => {
-                                                                                                                sorted_query(client, dbName, "destination_prices", { requirements: "2022-07-29-2022-07-30-en_US-SGD-SG-2-undefined" })
+                                                                                                                sorted_query(client, dbName, "destination_prices", { requirements: "A6Dz-2022-07-25-2022-07-29-en_US-SGD-IT-2" })
                                                                                                                         .then(res => test.assert(res[0].hotels.searchRank == 2))
                                                                                                                         .then(() => {
                                                                                                                                 setTimeout(() => {

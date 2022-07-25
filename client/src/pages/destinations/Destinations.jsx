@@ -92,54 +92,13 @@ const Destinations = () => {
         <>
         <NavBar />
         {error && <Error/>}
-        {/* <SearchBar /> */}
         {loading && <Loader/>}
         {!loading && (items !== undefined) &&  <div className="body">                        
+            <SearchBar />
             <div className="list--container">
                 <div className="list--wrapper">
                     
-                    <div className="list--search">
-                        
-                        <div className="search--title">
-                            <h2>Filter By</h2>
-                        </div>
-                        
-                        <div className="list--item">
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Min price <small> (per night) </small>
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Max price <small> (per night) </small>
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Adult 
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Children
-                                </span>
-                                <input type='number' min={0} className="option--input" placeholder="WIP"></input>
-                            </div>
-                            <div className="option--item">
-                                <span className="option--text">
-                                    Rooms
-                                </span>
-                                <input type='number' min={1} className="option--input" placeholder="WIP"></input>
-                            </div>
-                        </div>
-                        <button>Search</button>
-                    </div> 
-
-                    <div className="list--result">
+                        <div className="list--result">
                         {items.map((item) => 
                         <HotelCard key={item.id}
                                 {...item}/>

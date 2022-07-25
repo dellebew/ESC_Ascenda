@@ -1,0 +1,19 @@
+.header {
+    height:250px;
+    min-width: 1024px;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.header--container {
+    width: 100%;
+    background-color: rgb(0,0,0,.5);
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+    max-width: 1024px;
+    color:white;
+    font-weight:bolder;
+    padding: 30px 20px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}

@@ -16,7 +16,6 @@ export default function RoomCard(props) {
             setImgData(images)
         }
     }, []);
-    console.log(imgData)
 
     // filter through prices
     const prices = () => {
@@ -34,7 +33,6 @@ export default function RoomCard(props) {
     }
 
     const rates = props.data.map((item, id) => {
-        // console.log(item, id);
         return(
             <RatesCard key={id}
                 {...item}/>
@@ -46,7 +44,6 @@ export default function RoomCard(props) {
         const element = document.querySelector(".room--amenities")
         element.style.maxHeight = showAmenities ? '150px' : 'fit-content';
     }
-
 
     return (
         <div key="props.key" className="roomCard">
@@ -66,12 +63,8 @@ export default function RoomCard(props) {
                     <div className="room--details">
                         <h3 className="room--normalized">{props.desc}</h3>
                         {props.cancellation && <div className="free-cancellation"> ✓ Free Cancellation</div>}
-                        <h3>Amenities</h3>
+                        <h4>Amenities</h4>
                         <div className="wrapper">
-                            {/* <div className="toggle--amenities" onClick={toggleAmenities}>
-                                <span>{showAmenities ? "Show Less " : "Show More "}</span>
-                                <FontAwesomeIcon icon={showAmenities ? faChevronUp : faChevronDown}/>
-                            </div> */}
                             <div className='room--amenities'>
                                 {props.amenities.map((key, i) => {
                                     return <li key={i}>{key}</li>
