@@ -1,7 +1,7 @@
 import "./destinations.css"
 import React, { useState, useEffect } from 'react'
 import ReactPaginate from 'react-paginate';
-import NavBar from "../../components/navBar/Navbar"
+import NavBar from "../../components/navbar/Navbar"
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import SearchBar from "../../components/searchBar/SearchBar";
@@ -27,16 +27,27 @@ const Destinations = () => {
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
 
-    const location = useLocation();
-    const searchBar = location.state;
-    const destination_id = searchBar.uid;
-    const country_code = searchBar.c_id;
-    const start_date = searchBar.start;
-    const end_date = searchBar.end;
-    const language = searchBar.lang;
-    const currency = searchBar.moneyType;
-    const total_no_of_guests = searchBar.people;
-    const number_of_rooms = searchBar.rooms;
+    // const location = useLocation();
+    // const searchBar = location.state;
+    // const destination_id = searchBar.uid;
+    // const country_code = searchBar.c_id;
+    // const start_date = searchBar.start;
+    // const end_date = searchBar.end;
+    // const language = searchBar.lang;
+    // const currency = searchBar.moneyType;
+    // const total_no_of_guests = searchBar.people;
+    // const number_of_rooms = searchBar.rooms;
+
+    // const location = useLocation();
+    // const id = location.pathname.split('/').at(-1)
+    // const state = location.state
+    // const state = {destId: "11fD",
+    //     checkin:"2022-07-25",
+    //     checkout:"2022-07-29",
+    //     lang:"en_US",
+    //     currency:"SGD",
+    //     code:"SG",
+    //     guests:"2"}
 
     useEffect(() => {
         const fetchData = async() => {
@@ -62,8 +73,7 @@ const Destinations = () => {
     const handlePageClick = (data) => {
         let currentPage = data.selected 
         state.page = currentPage;
-        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.guests}/${state.page}`, {
-        })
+        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.guests}/${state.page}`)
         setPage(currentPage)
     }
 

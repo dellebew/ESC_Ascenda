@@ -15,9 +15,9 @@ async function backend_test1(){
 
         //To send a search query by passing the value in searchString.
         // await driver.findElement(By.name("q")).sendKeys(searchString,Key.RETURN);
-        driver.findElements(By.tagName('head'))
+        driver.findElement(By.xpath("/html/body/pre"))
         .then((e)=>{
-           console.log(e[0])
+           console.log(e.getAttribute("innerHTML"))
 
         })
         // driver.getPageSource().then(console.log)

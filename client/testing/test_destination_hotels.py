@@ -52,7 +52,7 @@ print("test 3 passed")
 base_xpath = '/html/body/div/div[2]/div/div/div[2]/div[2]/'
 hotel_name = driver.find_element(By.XPATH,base_xpath+"div[1]/h1").get_attribute("innerHTML")
 lowest_price = int(driver.find_element(By.XPATH,base_xpath+"div[2]/div[2]/span[2]").text[2:])
-print(lowest_price)
+
 show_price = driver.find_element(By.XPATH,base_xpath+'div[2]/div[2]/button')
 show_price.click()
 

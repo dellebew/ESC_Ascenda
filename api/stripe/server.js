@@ -1,52 +1,51 @@
-require("dotenv").config()
+require("dotenv").config();
 const express = require('express');
 const app = express();
 var router = express.Router();
 const { resolve } = require('path');
-var setSuccessfulPayments = require("../controllers/successfulPaymentController");
-var setIncompletePayments = require("../controllers/incompletePaymentController");
+var successController = require("../controllers/successfulPaymentController.js");
+// import {default as setSuccessfulPayments, queryData} from "../controllers/successfulPaymentController.js"
+var incompleteController = require("../controllers/incompletePaymentController.js");
 
 // Copy the .env.example in the root into a .env file in this folder
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
-// const stripe = require('stripe')("sk_test_51L8fUrGixach2Gt0nSb6scQ4G0WmYn65wkKwgErUmTO6jmg4vOshQI5PjbCnjIeZoVcUq9cgeVZU8HDv4u00ryId00mEgUt1Oa");
 
-router.get('/config', async (req, res) => {
-    // const price = await stripe.prices.retrieve(process.env.PRICE);
-    res.send({
-      publicKey: process.env.STRIPE_PUBLISHABLE_KEY,
-      // unitAmount: price.unit_amount,
-      // currency: price.currency,
-      unitAmount: 200*100,
-      currency: "SGD",
-    });
-});
-  
   // Fetch the Checkout Session to display the JSON result on the success page
-router.get('/checkout-session', async (req, res) => {
-    const { sessionId } = req.query;
-    const session = await stripe.checkout.sessions.retrieve(sessionId);
-  
-    // retrieve payment id, product id for product name
-    paymentRetrieve = stripe.prices.retrieve(session.paymentid);
-    productRetrieve = stripe.products.retrieve(paymentRetrieve.product);
+router.get('/checkout-session/:id', async (req, res) => {
     
-    // retrieve pre-saved data using sessionid
-    const billingInfo = {
-      id: session.id,
-      name: session.name,
-      email: session.email,
-      address: session.address,
-      paymentid: session.paymentid,
-      hotelName: productRetrieve.name,
-    }
+  // const sessionId = location.search.replace('?session_id=', '');
+  const sessionId = req.params.id;
+  //const sessionId = req.query.sessionId;
+  
+  const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-    const inputData = setSuccessfulPayments(billingInfo);
-    inputData;
+  console.log(sessionId);
 
-    res.send(session);
+  // retrieve payment id, product id for product name
+  const paymentRetrieve = stripe.paymentIntents.retrieve(session.payment_intent);
+  const price = paymentRetrieve.amount/100;
+  //productRetrieve = stripe.products.retrieve(paymentRetrieve.product);
+  
+  // retrieve pre-saved data using sessionid
+  const billingInfo = {
+    sessionId: session.id,
+    name: session.customer_details.name,
+    email: session.customer_details.email,
+    address: session.customer_details.address,
+    paymentid: session.payment_intent,
+  }
+
+  // const deleteData = deleteIntermediatePayments();
+  // deleteData;
+
+  console.log("here");
+
+  const inputData = successController.setSuccessfulPayments(billingInfo);
+  
+  console.log("sending data back")
+  res.send(inputData);
 });
-
 
 router.post('/create-checkout-session', async (req, res) => {
   
@@ -55,77 +54,86 @@ router.post('/create-checkout-session', async (req, res) => {
   console.log("here");
   //console.log(req.body);
 
-  // const state = JSON.stringify(req.body);
-  const state = (req.body);
+  const state = JSON.stringify(req.body);
+  // const {billing, body, roomType, message} = (req.body);
+  console.log(state);
+  console.log(req.body.billing);
+  // console.log(JSON.stringify(req.body.billing));
 
-  console.log(JSON.stringify(state));
+  const billing = JSON.parse(req.body.billing);
+  const info = JSON.parse(req.body.info);
+  //console.log(state.info);
+
   // const { date, message, roomType, options } = req.body;
   console.log("here");
 
-  //state looks like this: 
-  // const state = {
-  //   start: date.startDate, 
-  //   end: date.endDate,
-  //   message: message,
-  //   roomType: roomType,
-  //   adultQuantity: options.adult, 
-  //   childrenQuality: options.children,
-  // }
+  const diffInMs = Math.abs(info.end - info.start);
+  // console.log("start" + info.start + " "+ info.end+" "+diffInMs);
+  
+  const numOfNights = Math.ceil(diffInMs/(1000 * 60 * 60 * 24));
 
-  // calculations for Number of Nights:
-  const diffInMs = Math.abs(state.end - state.start);
-  const numOfNights = diffInMs / (1000 * 60 * 60 * 24);
+  const setStart = new Date(info.start);
+  const setEnd = new Date(info.start);
+
+  const startDate = setStart.getDate() + "/"+setStart.getMonth() + "/" + setStart.getYear();
+  const endDate = setEnd.getDate() + "/"+setEnd.getMonth() + "/" + setEnd.getYear();
 
   const description = "Number of Nights: " + 
-  numOfNights + "\nStart Date: " + state.start
-  + "\nEnd Date: " + state.end + "\nNumber of Adults: "
-  + state.adultQuantity + "\nNumber of Children: "
-  + state.childrenQuantity + "\nRoom Type: " + state.roomType
-  + "\nComments for hotel: " + state.message
+  numOfNights + "\n" + "Start Date: " + startDate
+  + "\nEnd Date: " + endDate + "\nNumber of Adults: "
+  + info.adultQuantity + "\nNumber of Children: "
+  + info.childrenQuantity + "\nRoom Type: " + info.roomType
+  + "\nComments for hotel: " + info.message
+
+  const nameStr = billing.name + billing.destination;
 
   const product = await stripe.products.create({
-    name: 'Hotel Name',
+    name: nameStr,
     // description: "Contains: Number of nights, start date, end date, adults, children, message to hotel, room types",
     description: description
   });
 
   console.log(product.id);
+  console.log(billing.unit_amount);
 
   const price = await stripe.prices.create({
-      unit_amount: 20*100,
+      unit_amount: billing.unit_amount,
       currency: 'sgd',
       // product: 'prod_M0kZOf836DEs60',
       product: product.id,
   });
 
   console.log(price.id);
+  console.log(numOfNights);
+  console.log(info.roomQty);
 
   const session = await stripe.checkout.sessions.create({
     
       line_items: [
       {
-        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
         // price: 'price_1LIj48Gixach2Gt0JfKGc1wS',
         price: price.id,
-        quantity: 2,
-        // quantity: quantity
+        quantity: numOfNights * info.roomQty,
       },
     ],
     mode: 'payment',
     customer_creation: "always",
-    success_url: `${process.env.CLIENT_URL}/checkout/success`,
+    success_url: `${process.env.CLIENT_URL}/checkout/success/{CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.CLIENT_URL}/checkout/canceled`,
     billing_address_collection: 'required',
     phone_number_collection: {"enabled": true},
   });
 
   // add the state info to database with the session id as key first
-  // const pre_payment_inp = {
-  //   id: session.id,
-  //   state: state,
-  // }
-  // const store = setIncompletePayments(pre_payment_inp);
-  // store()
+  const pre_payment_inp = {
+    sessionId: session.id,
+    billing: billing,
+    info: info,
+    curTime: req.body.currentTime
+  }
+
+  const store = incompleteController.setIncompletePayments(pre_payment_inp);
+  store;
 
   console.log("Redirecting to 303")
   res.redirect(303, session.url);  

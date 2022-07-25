@@ -6,6 +6,7 @@ import { DateRange} from 'react-date-range';
 import { format } from "date-fns";
 import {useNavigate} from 'react-router-dom';
 import "./checkout.css"
+// import { setIncompletePayments } from './IntermediateDB';
 
 // const [quantity, setQuantity] = useState(1);
 // const [amount, setAmount] = useState(0);
@@ -19,169 +20,89 @@ import "./checkout.css"
 // const [message, setMessage] = useState("");
 // const [roomType, setRoomType] = useState("");
 
-// rtnProps = {
-//     qty: children+adults,
-//     start: start,
-//     end: end,
-//     adults: adults,
-//     children: children,
-//     message: message,
-//     roomType: roomType
-// }
-
-
-  
-
-//handle name, 
-
+// const Checkout = ({ route, navigation }) => {
 const Checkout = () => {
 
   const navigate = useNavigate();
 
-  /** FOR DATE-RANGE */
-  const [openDate, setOpenDate] = useState(false);
+  // get information from previous page
+  // const { params } = route.params;
 
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection'
-    }
-  ]);
+  // what I need for navigations
+  // const params = {
+  //   //from nicholas's side
+  //   startDate: "",
+  //   endDate: "",
+  //   roomQty: "",
+  //   adultQty: "",
+  //   childQty: "",
+  //   // from px's side
+  //   price: "",
+  //   roomName: "",
+  //   roomQty: "",
+  //   roomType: "",
+  // }
 
-  /** FOR PEOPLE DROPDOWN */
-  const [openOptions, setOpenOptions] = useState(false);
+  // const data = {
+  //   start: params.startDate, 
+  //   end: params.endDate,
+  //   roomType: params.roomType,
+  //   roomQty: params.roomQty,
+  //   adultQty: params.adultQty,
+  //   childQty: params.childQty,
+  //   message: "",
+  // };
 
-  const [options, setOptions] = useState(
-      {
-        adult: 2,
-        children: 0,
-        room: 1,
-      });
-
-  const handleOption = (name, operation) => {
-      setOptions(prev=> {return {
-          ...prev, 
-          [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
-      };
-      });
-  };
-  // const [inputs, setInputs] = useState({});
-  const [state, setState] = useState({
-    start: "", 
-    end: "",
-    message: "",
-    roomType: "Single Room",
-    adultQuantity: 2,
-    childrenQuantity: 0,
-  });
-
-  // const handleChange = (event) => {
-  //   const name = event.target.name;
-  //   const value = event.target.value;
-  //   setInputs(values => ({...values, [name]: value}))
+  // const billing = {
+  //   unit_amount: params.price,
+  //   hotelName: params.roomName,
+  //   roomQty: params.roomQty,
   // }
 
   // handle message to hotel
   const [message, setMessage] = useState("");
 
-  // choose room type
-  const [roomType, setRoomType] = useState("single room");
+  const startTime = new Date();
+  let endTime = new Date();
+  endTime.setTime(startTime.getTime() + 1000*60*60*24*5)
+  const endTime2 = endTime.getTime();
+  const startTime2 = startTime.getTime();
 
-  async function handleSubmit(event)  {
+  const data = {
+    // start: new Date(2022, 7, 22), 
+    // end: new Date(2022, 7, 28),
+    start: startTime2,
+    end: endTime2,
+    message: message,
+    roomQty: 3,
+    roomType: "Single Room",
+    adultQuantity: 2,
+    childrenQuantity: 0,
+  };
 
-    event.preventDefault();
-    const startd = date[0].startDate
-    const endd = date[0].endDate;
-
-    // setState({
-    //   start: startd,
-    //   end: endd,
-    //   message: message,
-    //   roomType: roomType,
-    //   adultQuantity: options.adults,
-    //   childrenQuantity: options.children
-    // });
-
-    const state = {
-      start: startd, 
-      end: endd,
-      message: message,
-      roomType: roomType,
-      adultQuantity: options.adults,
-      childrenQuantity: options.children,
-    }
-
-    // const state = {
-    //   start: startd, 
-    //   end: endd,
-    //   message: message,
-    //   roomType: roomType,
-    //   adultQuantity: 2,
-    //   childrenQuantity: 0,
-    // }
-
-    console.log(typeof state);
-
-    console.log(JSON.stringify(state));
-
-    try {
-      // const { checkoutSession } = fetch('stripe/create-checkout-session', {
-      //   method: 'POST',
-      //   mode: 'cors',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify(state)
-      //   }).then(function(response){
-      //       console.log(response)
-      //       return response.json();
-      //   });
-
-      // const session = <CheckoutSession key={hotelData._id}
-      // {...hotelData}/> ;
-      
-      
-      //console.log("before running checkoutsession")
-      //checkoutSession();
-      
-    }
-    catch (error){
-        console.log(error);
-    }
+  const billing = {
+    unit_amount: 20*100,
+    name: "Hotel Name",
+    destination: "location",
   }
 
-    // let path = '../stripe/create-checkout-session' //need change this later
-    // // navigate(path, {state: {id: 1, uid: searchTerm, start: startd, end: endd, lang: language, moneyType: currency} });
-    // //action="stripe/create-checkout-session" method="POST"
-    // navigate(path, {state: {
-    //   start: startd, 
-    //   end: endd,
-    //   message: message,
-    //   roomType: roomType,
-    //   adultQuantity: options.adults,
-    //   childrenQuantity: options.children,
-    // }})
-    // add the link thing
+  const currentTime = new Date();
+  const currentTime2 = currentTime.getTime();
+
+  const intermediateData = {
+    currentTime: currentTime2, 
+    billing: billing,
+    data: data,
+  }
+
+  console.log(JSON.stringify(intermediateData));
+
+  // add to intermediate database
+  // setIncompletePayments(intermediateData)
   
-
-
-  useEffect(() => {
-    async function fetchConfig() {
-      // Fetch config from our backend.
-      const {
-        // unitAmount,
-        // currency
-        rtnValue,
-        
-      } = await fetch('stripe/config').then(r => r.json());
-      // setAmount(unitAmount);
-      // setCurrency(currency);
-      console.log("rtned from config")
-    }
-    fetchConfig();
-
-  }, []);
+  
+  // choose room type
+  const [roomType, setRoomType] = useState("single room");
 
   return (
     
@@ -191,21 +112,32 @@ const Checkout = () => {
       <div className="hotel--wrapper">
         
           <h2>Book Room</h2>
-          <form onSubmit={handleSubmit}>
-          {/* <form onSubmit={handleSubmit} action="stripe/create-checkout-session" method="POST" body={JSON.stringify(state)}> */}
+          {/* <form onSubmit={handleSubmit}> */}
+          <form action="../stripe/create-checkout-session/" method="POST">
           
-
           <div className="hotel--container">
             <label>Insert Your complaints here
               <input className="options--item"
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Message for the hotel"
-                name="custMessage"
+                name="message"
                 type = "text"
               />
-              
             </label>
 
+            <input hidden={true} 
+            encType="application/json"
+            defaultValue={JSON.stringify(data)}
+            name="info"></input>
+
+            <input hidden={true} 
+            encType="application/json"
+            defaultValue={JSON.stringify(billing)}
+            name="billing"></input>
+            
+            <input hidden={true} 
+            defaultValue={currentTime}
+            name="currentTime"></input>
 
             <select className="form-control"
             onChange={(e) => setRoomType(e.target.value)}
@@ -220,66 +152,6 @@ const Checkout = () => {
               buy now
             </button>
         </div>
-
-          <div className="hotel--container">
-          {/* <form action="stripe/create-checkout-session" method="POST"> */}
-
-            <div className="hotel--body2">
-                <FontAwesomeIcon icon={faCalendarDays} className="search--icon"/>
-                <span 
-                    onClick={()=>setOpenDate(!openDate)} 
-                    className="search--text">
-                    {format(date[0].startDate, "MM/dd/yyyy")} to {format(date[0].endDate, "MM/dd/yyyy")}
-                </span>
-                {openDate && (<DateRange
-                    editableDateInputs={true}
-                    onChange={item => setDate([item.selection])}
-                    moveRangeOnFirstSelection={false}
-                    ranges={date}
-                    className="date"
-                    daySize="100"
-              />)}
-            </div>
-            <div className="hotel--body2">
-                <FontAwesomeIcon icon={faPerson} className="search--icon"/>
-                <span className="search--text" onClick={() => setOpenOptions(!openOptions)}>
-                    {`${options.adult} adults ${options.children} children ${options.room} room`}
-                </span>
-                {openOptions && (<div className="options">
-                    <div className="options--item">
-                        <span className="options--text">Adult</span>
-                        <div className="options--counter">
-                            <button 
-                                onClick={() => handleOption("adult", "d")}
-                                disabled={options.adult<=1}>-</button>
-                            <span>{options.adult}</span>
-                            <button onClick={() => handleOption("adult", "i")}>+</button>
-                        </div>
-                        
-                    </div>
-                    <div className="options--item">
-                        <span className="options--text">Children</span>
-                        <div className="options--counter">
-                            <button 
-                                onClick={() => handleOption("children", "d")}
-                                disabled={options.children<=0}>-</button>
-                            <span>{options.children}</span>
-                            <button onClick={() => handleOption("children", "i")}>+</button>
-                        </div>
-                    </div>
-                    <div className="options--item">
-                        <span className="options--text">Room</span>
-                        <div className="options--counter">
-                            <button 
-                                onClick={() => handleOption("room", "d")}
-                                disabled={options.room<=1}>-</button>
-                            <span>{options.room}</span>
-                            <button onClick={() => handleOption("room", "i")}>+</button>
-                        </div>
-                    </div>
-                </div>)}
-              </div>
-          </div>
           
           </form>
         
