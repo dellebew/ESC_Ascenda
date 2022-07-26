@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import Loader from "../loader/Loader";
-import Error from "../../pages/error/Error";
+import Error from "../../components/error/Error";
 import NavBar from "../../components/navbar/Navbar";
 
 import "./checkout.css"

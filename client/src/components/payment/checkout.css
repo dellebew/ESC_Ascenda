@@ -5,164 +5,120 @@
     flex-direction: column;
 }
 
-.title {
-    font-size: large;
-    font-weight: 200;
-    align-items: flex-start;
-}
 
-.hotel--container {
-    display:flex;
-    align-self: flex-start;
-    font-size: medium;
-    margin-top: 20px;
-    padding:20px;
-    width: 50%;
-    border-radius: 5px;
-    max-width:1024px;
-    justify-content: center;
-    background-color: rgb(255,255,255,.9);
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, 
-                rgba(0, 0, 0, 0.09) 0px 4px 2px, 
-                rgba(0, 0, 0, 0.09) 0px 8px 4px, 
-                rgba(0, 0, 0, 0.09) 0px 16px 8px, 
-                rgba(0, 0, 0, 0.09) 0px 32px 16px;
-}
-
-.hotel--wrapper{
-    width:100%;
-    max-width: 1024px;
-    display:flex;
-    flex-direction: column;
-    gap:10px;
-    
-}
-
-.hotel--name {
+.checkout--container {
+  width: 100%;
+  margin-top: 60px;
+  max-width: 800px;
   display: flex;
-  gap: 10px;
-}
-
-.hotel--name > h1{
-  font-size: 26px;
-}
-
-.hotel--address{
-  font-size: 15px;
-  font-weight: 500;
-  display:flex;
   align-items: center;
-  gap:10px;
-  padding: 5px;
+  justify-content: center;
+  padding: 30px 0px;
+  border-radius: 5px;
+  background-color: rgb(255,255,255, 0.8);
+  -webkit-box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
+  box-shadow: 9px 13px 25px 0px rgba(0, 0, 0, 0.18);
+  animation: slideUp 2000ms ease;
 }
 
-.hotel--body {
+
+.checkout--wrapper {
+  width: 100%;
+  max-width: 800px;
   display: flex;
-  align-items: flex-start;
-  padding-top: 30px;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-  .hotel--location {
-      margin: 10px 0px;
-  }
-  .map {
-      height: 300px;
-      width: auto;
-  }
-
-
-.hotel--body2 {
-  display:flex;
-  align-items: flex-start;
-  padding-top: 30px;
-  gap:30px;
+.checkout--form {
+  width: 80%;
 }
 
-/* For SearchBar related css */
-/* Namely: dates and qtys */
+i {
+  margin-right: 10px;
+}
 
-.date {
-    position:absolute;
-    top: 50px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
+.checkout-title {
+  align-self: center;
+  font-size: 26px;
+  line-height: 10px;
+  margin: 10px 0px;
+}
+
+label {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-right: 10px;
+}
+
+.room-info {
+  display: flex;
+  gap: 40px;
+  margin: 20px 40px;
+}
+
+.address-info {
+  display: flex;
+  gap: 40px;
+  margin: 20px 40px;
+}
+
+.billing-info {
+  display: flex;
+  gap: 20px;
+  margin: 20px 40px;
+  text-transform: uppercase;
+}
+
+/* input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid grey;
+  font-size: 1rem;
+  letter-spacing: .15rem;
+  margin-top: 5px;
+  border-radius: 4px;
+} */
+
+.hotel-message {
+  margin: 10px 0px;
+  width: 100%;
+  height: 50px;
+  border: 0.5px solid grey;
+  background: none;
+  font-size: 1rem;
+  letter-spacing: .15rem;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.checkout-button {
+    margin: 3px 0;
+    height: 30px;
+    width: 40%;
+    color: #cfc9e1;
+    background: linear-gradient(45deg, #355c7d, #6c5b7b, #c06c84);
+    text-transform: uppercase;
+    border: 0;
+    border-radius: .3rem;
+    letter-spacing: 2px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, 
+              rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; 
+}
   
-  .options {
-    position: absolute;
-    top:50px;
-    background-color: white;
-    color:grey;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
-  
-  .options--item {
-    width:200px;
-    display:flex;
-    justify-content: space-between;
-    margin: 10px 15px;
-    padding-top: 10px;
-    gap:30px;
-  }
-  
-  .options--counter {
-    display:flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 12px;
-    color: black;
-  }
-  
-  .options--counter > button {
-    background-color: white;
-    border: 1px grey solid;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .options--counter > button:disabled {
-    cursor:not-allowed;
-  }
-  
-  .search--button {
-    padding:5px 20px;
-    border:none;
-    font-size: 16px;
-    background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
-    color:white;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor:pointer;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  }
-  
-  .dropdown {
-    z-index:1;
-    position: absolute;
-    width: 100%;
-    max-width: 250px;
-    top: 40px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    border: none;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    padding: 5px 0px 5px 10px;
-    font-weight: 500;
-  }
-  
-  /*Need modify .dropdown, realised I fuggin hate the color*/
-  
-  .dropdown:empty {
-    border: none;
-    box-shadow: none;
-    background: none;
-  }
-  
-  .dropdown-row {
-    cursor: pointer;
-    text-align: start;
-    margin: 2px 0;
-  }
-  
+.checkout-button:hover {
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  transform: scale(1.05);
+}
