@@ -35,7 +35,11 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                     console.log("Found in database");
                     result_cut = result.slice(page_num*page_size,(page_num+1)*page_size);
                     total_page_count = parseInt(result.length/page_size)
-
+                    if (page_num > total_page_count){
+                        resPage.sendStatus(404);
+                        resPage.end();
+                        return null
+                    }
                     // get hotels static data
                     // start **********************
                     
