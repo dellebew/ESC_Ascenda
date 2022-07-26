@@ -24,7 +24,7 @@ function App() {
         <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:guests' element = {<Hotels />}/>
         <Route path='*' element={<Error/>}> </Route>
         <Route path= "/checkout" element= {<Checkout />} />
-        <Route path= '/checkout/success' element = {<Success />}/>
+        <Route path= '/checkout/success/:sessionId' element = {<Success />}/>
         <Route path= '/checkout/canceled' element = {<Canceled />}/>
 
       </Routes>

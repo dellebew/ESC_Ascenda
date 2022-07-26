@@ -30,10 +30,28 @@
     
 }
 
+.hotel--name {
+  display: flex;
+  gap: 10px;
+}
+
+.hotel--name > h1{
+  font-size: 26px;
+}
+
+.hotel--address{
+  font-size: 15px;
+  font-weight: 500;
+  display:flex;
+  align-items: center;
+  gap:10px;
+  padding: 5px;
+}
+
 .hotel--body {
   display: flex;
   align-items: flex-start;
-  padding-top: 10px;
+  padding-top: 30px;
 }
 
   .hotel--location {
@@ -48,7 +66,7 @@
 .hotel--body2 {
   display:flex;
   align-items: flex-start;
-  padding-top: 10px;
+  padding-top: 30px;
   gap:30px;
 }
 

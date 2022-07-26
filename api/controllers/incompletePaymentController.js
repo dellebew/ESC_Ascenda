@@ -11,7 +11,7 @@ const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const fin_coll_name = "successful_payments";
 const mid_coll_name = "incomplete_payments";
 
-exports.setIncompletePayments = async function createDocument(newListing){
+module.exports.setIncompletePayments = async function (newListing){
     
     try {
         await client.connect();

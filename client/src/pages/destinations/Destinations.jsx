@@ -9,7 +9,7 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
 import callApi from "../../components/utils/callApi";
 import Error from "../error/Error";
-const Destinations = () => {
+const Destinations = () => { 
 
 /** 
     const [destination, setDestination] = useState(location.state.destination)
