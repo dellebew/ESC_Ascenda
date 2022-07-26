@@ -77,7 +77,8 @@ const Hotels = () => {
           cancellation={item.free_cancellation}
           desc={item.roomNormalizedDescription}
           images={item.images}
-          data={item.data}/>
+          data={item.data}
+          address={hotelData.address}/>
       )
     }) 
 

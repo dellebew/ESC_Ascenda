@@ -12,28 +12,29 @@ export default function RatesCard(props) {
 
     const state = useParams();
 
-    console.log(state);
-    console.log(props);
+    // console.log(state);
+    // console.log(props);
 
     // what I need for navigations
     const newState = {
       //from nicholas's side
       startDate: state.checkin,
       endDate: state.checkout,
-      roomQty: 2, //need information
-      adultQty: state.quantity,
-      childQty: 0, //need information
+      roomQty: state.roomQty, //need information
+      adultQty: state.adultsQty,
+      childQty: state.childrenQty, //need information
       // from px's side
       price: props.price,
       roomName: "Resorts World", //need information
       roomType: props.description,
+      destination: props.address //need information
     };
-    console.log(state);
+    // console.log(state);
     // to navigate to checkout
     let navigate = useNavigate();
 
-    console.log("Rates Card State")
-    console.log(JSON.stringify(state));
+    // console.log("Rates Card State")
+    // console.log(JSON.stringify(state));
 
     // async function handleSubmit(event) {
     //   event.preventDefault();

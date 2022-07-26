@@ -113,11 +113,10 @@ const SearchBar = () => {
             // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
             // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
 
-            let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}/0`
+            let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adults}/${children}/${no_of_rooms}/0`
             navigate(path);
 
         } else {
-            
             const incompleteSearch = destination_ids.filter((item) => {
                 let searchTerm = value.toLowerCase();
                 let modified = item.term.toLowerCase();

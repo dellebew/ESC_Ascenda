@@ -33,9 +33,11 @@ export default function RoomCard(props) {
     }
 
     const rates = props.data.map((item, id) => {
+        //add address variable
+        item["address"] = props.address;
         return(
             <RatesCard key={id}
-                {...item}/>
+                {...item} />
         )})
     
     // toggle amenities_ratings

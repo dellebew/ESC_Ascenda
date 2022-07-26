@@ -68,7 +68,7 @@ router.post('/create-checkout-session', async (req, res) => {
   console.log("here");
 
   const diffInMs = Math.abs(info.end - info.start);
-  // console.log("start" + info.start + " "+ info.end+" "+diffInMs);
+  console.log("start: " + info.start + " end: "+ info.end+" "+diffInMs);
   
   const numOfNights = Math.ceil(diffInMs/(1000 * 60 * 60 * 24));
 
@@ -97,7 +97,7 @@ router.post('/create-checkout-session', async (req, res) => {
   console.log(billing.unit_amount);
 
   const price = await stripe.prices.create({
-      unit_amount: billing.unit_amount,
+      unit_amount: billing.unit_amount*100,
       currency: 'sgd',
       // product: 'prod_M0kZOf836DEs60',
       product: product.id,

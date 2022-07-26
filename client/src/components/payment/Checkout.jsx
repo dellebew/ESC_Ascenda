@@ -14,7 +14,7 @@ const Checkout = () => {
   // const state = useParams();
   const location = useLocation();
   const state = location.state;
-  console.log(state);
+  // console.log(state);
 
   // const route.params
   // console.log((params));
@@ -50,19 +50,19 @@ const Checkout = () => {
   let endTime = new Date(endTimeArr[0], endTimeArr[1], endTimeArr[2]);
 
   const data = {
-    start: startTime, 
-    end: endTime,
+    start: startTime.getTime(), 
+    end: endTime.getTime(),
     roomType: state.roomType,
     roomQty: state.roomQty,
-    adultQty: state.adultQty,
-    childQty: state.childQty,
-    message: "",
+    adultQuantity: state.adultQty,
+    childrenQuantity: state.childQty,
+    message: message,
   };
 
   const billing = {
     unit_amount: state.price,
-    hotelName: state.roomName,
-    roomQty: state.roomQty,
+    name: state.roomName,
+    destination: state.address,
   }
   
 
@@ -138,8 +138,8 @@ const Checkout = () => {
               </p>
               <br />
               <p>
-              <b>price: </b>{billing.unit_amount/100},<br />
-              <b>roomName: </b>{billing.name},<br />
+              <b>price: </b>{billing.unit_amount},<br />
+              <b>hotelName: </b>{billing.name},<br />
               <b>destination: </b>{billing.destination},<br />
               <b>roomQty: </b>{data.roomQty},<br />
               <b>roomType: </b>{data.roomType},<br />

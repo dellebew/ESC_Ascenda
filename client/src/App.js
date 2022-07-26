@@ -20,8 +20,8 @@ function App() {
       <Routes>
         <Route path='/' element = {<Home />}/>
         <Route path='/hotels' element = {<HotelsSearch />}/>
-        <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:guests/:page' element = {<Destinations />}/>
-        <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:guests' element = {<Hotels />}/>
+        <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/:page' element = {<Destinations />}/>
+        <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/' element = {<Hotels />}/>
         <Route path='*' element={<Error/>}> </Route>
         <Route path= "/checkout" element= {<Checkout />} />
         <Route path= '/checkout/success/:sessionId' element = {<Success />}/>

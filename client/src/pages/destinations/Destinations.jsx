@@ -47,6 +47,7 @@ const Destinations = () => {
     //     currency:"SGD",
     //     code:"SG",
     //     guests:"2"}
+    console.log("in destinations");
 
     useEffect(() => {
         const fetchData = async() => {
@@ -72,7 +73,7 @@ const Destinations = () => {
     const handlePageClick = (data) => {
         let currentPage = data.selected 
         state.page = currentPage;
-        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.guests}/${state.page}`)
+        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}/${state.page}`)
         setPage(currentPage)
     }
 

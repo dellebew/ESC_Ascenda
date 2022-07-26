@@ -109,7 +109,7 @@ const Hotel_SearchBar = () => {
 
         // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
         // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
-        let path = `/hotels/${hotel_uid}/A6Dz/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}`
+        let path = `/hotels/${hotel_uid}/A6Dz/${startd}/${endd}/${language}/${currency}/${c_code}/${adults}/${children}/${no_of_rooms}`
         navigate(path)
 
     };
