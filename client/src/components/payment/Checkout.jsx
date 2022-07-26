@@ -25,22 +25,6 @@ const Checkout = () => {
 
   // get information from previous page
   
-  // const state = param.state;
-
-  // what I need for navigations
-  // const params = {
-  //   //from nicholas's side
-    // startDate: "",
-    // endDate: "",
-    // roomQty: "",
-    // adultQty: "",
-    // childQty: "",
-    // // from px's side
-    // price: "",
-    // roomName: "",
-    // roomQty: "",
-    // roomType: "",
-  // }
 
   console.log("in Checkout");
 
@@ -48,6 +32,9 @@ const Checkout = () => {
   const endTimeArr = state.endDate.split('-');
   let startTime = new Date(startTimeArr[0], startTimeArr[1], startTimeArr[2]);
   let endTime = new Date(endTimeArr[0], endTimeArr[1], endTimeArr[2]);
+  
+  // handle message to hotel
+  const [message, setMessage] = useState("");
 
   const data = {
     start: startTime.getTime(), 
@@ -56,18 +43,18 @@ const Checkout = () => {
     roomQty: state.roomQty,
     adultQuantity: state.adultQty,
     childrenQuantity: state.childQty,
+    cust_name: "Group6_client0",
     message: message,
+    hotelName: state.hotelName,
   };
+
 
   const billing = {
     unit_amount: state.price,
     name: state.roomName,
-    destination: state.address,
+    destination: state.destination,
+    hotel_id: state.hotelId,
   }
-  
-
-  // handle message to hotel
-  const [message, setMessage] = useState("");
 
   // const startTime = new Date();
   // let endTime = new Date();
@@ -85,11 +72,13 @@ const Checkout = () => {
   //   roomType: "Single Room",
   //   adultQuantity: 2,
   //   childrenQuantity: 0,
+  //   cust_name: "",
   // };
 
   // const billing = {
   //   unit_amount: 20*100,
   //   name: "Hotel Name",
+  //   hotel_id: "",
   //   destination: "location",
   // }
 
@@ -108,15 +97,12 @@ const Checkout = () => {
   // setIncompletePayments(intermediateData)
   const startTimeNum = new Date();  
   startTimeNum.setTime(data.start);
-  const startTimeText = startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getUTCFullYear();
+  const startTimeText = startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear();
 
   const endTimeNum = new Date();  
   endTimeNum.setTime(data.end);
-  const endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + endTimeNum.getUTCFullYear();
+  const endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + (endTimeNum.getFullYear());
   
-  // choose room type
-  const [roomType, setRoomType] = useState("single room");
-
   return (
     
     <div className="body">
@@ -128,29 +114,36 @@ const Checkout = () => {
           {/* <form onSubmit={handleSubmit}> */}
           <form action="../stripe/create-checkout-session/" method="POST">
           
+          <div className="title">Confirm Booking</div>
           <div className="hotel--container">
-            <div className="hotelName">
+            
               <p>
+              <div className="title">Dates Of Stay</div>
               <b>startDate: </b>{startTimeText},<br />
               <b>endDate: </b>{endTimeText},<br />
+              <div className="title">Number of Guests</div>
               <b>adultQty: </b>{data.adultQuantity},<br />
               <b>childQty: </b>{data.childrenQuantity},<br />
-              </p>
-              <br />
-              <p>
-              <b>price: </b>{billing.unit_amount},<br />
-              <b>hotelName: </b>{billing.name},<br />
-              <b>destination: </b>{billing.destination},<br />
               <b>roomQty: </b>{data.roomQty},<br />
+              </p>
+          </div>
+
+          <div className="hotel--container">
+              <p>
+              <div className="title">Total Amount Paid</div>
+              <b>price: </b>{billing.unit_amount},<br />
+              <div className="title">Hotel Details</div>
+              <b>hotelName: </b>{data.hotelName},<br />
+              <b>destination: </b>{billing.destination},<br />
               <b>roomType: </b>{data.roomType},<br />
               </p>
-            </div>
+            
 
           </div>
 
           <div className="hotel--container">
             
-            <div className="hotelName">Message for the Hotel</div>
+            {/* <div className="Title">Message for the Hotel</div> */}
             <input className="options--item"
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Message for the hotel"
@@ -171,15 +164,6 @@ const Checkout = () => {
             <input hidden={true} 
             defaultValue={currentTime}
             name="currentTime"></input>
-
-            <select className="form-control"
-            onChange={(e) => setRoomType(e.target.value)}
-            name="roomType"
-            >
-              <option>Single Room</option>
-              <option>Double Room</option>
-              <option>Delux</option>
-            </select>
 
             <button role="link" id="submit" type="submit">
               buy now

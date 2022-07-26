@@ -5,11 +5,19 @@
     flex-direction: column;
 }
 
+.title {
+    font-size: large;
+    font-weight: 200;
+    align-items: flex-start;
+}
+
 .hotel--container {
     display:flex;
+    align-self: flex-start;
+    font-size: medium;
     margin-top: 20px;
     padding:20px;
-    width: 100%;
+    width: 50%;
     border-radius: 5px;
     max-width:1024px;
     justify-content: center;

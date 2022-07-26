@@ -78,7 +78,10 @@ const Hotels = () => {
           desc={item.roomNormalizedDescription}
           images={item.images}
           data={item.data}
-          address={hotelData.address}/>
+          address={hotelData.address}
+          name={hotelData.name}
+          hotel_id={state.hotelId}
+          />
       )
     }) 
 

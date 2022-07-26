@@ -25,9 +25,10 @@ export default function RatesCard(props) {
       childQty: state.childrenQty, //need information
       // from px's side
       price: props.price,
-      roomName: "Resorts World", //need information
+      hotelName: props.hotelName, 
       roomType: props.description,
-      destination: props.address //need information
+      destination: props.address,
+      hotelId: props.hotelId,
     };
     // console.log(state);
     // to navigate to checkout

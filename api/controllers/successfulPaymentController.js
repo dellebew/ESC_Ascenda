@@ -17,7 +17,7 @@ const mid_coll_name = "incomplete_payments";
 module.exports.setSuccessfulPayments = async function (newListing){
 // const setSuccessfulPayments = async function (newListing){
     
-    let finJSON = {};
+    var finJSON = {};
     try {
         await client.connect();
         const dbo = client.db(dbName);
@@ -25,23 +25,25 @@ module.exports.setSuccessfulPayments = async function (newListing){
         const mid_collec = dbo.collection(mid_coll_name);
         // console.log("in successful controller");
 
-        console.log('sessionID = '+newListing.sessionId)
+        console.log('sessionID = '+ newListing.sessionId)
 
-        const oldListingQuery = await mid_collec.find({sessionId: newListing.sessionId});
+        const oldListingQuery = await mid_collec.find({"id": newListing.sessionId});
         const oldListing = await oldListingQuery.toArray();
+        console.log(oldListing);
         // console.log("finished old listing");
         // console.log(oldListing[0]);
         // console.log(JSON.stringify(oldListing[0].info));
         // console.log(JSON.stringify(newListing));
 
-        const finJSON = {
+        finJSON = {
             id: newListing.sessionId,
             state: oldListing[0].info,
             billing: newListing,
         }
         // console.log("succesfully created new json: ");
         // console.log(JSON.stringify(finJSON));
-        // console.log((finJSON));
+        console.log("finJSON");
+        console.log(finJSON);
 
         // const session = await stripe.checkout.sessions.retrieve(sessionId);
         const result = await collec.insertOne(finJSON);
@@ -60,8 +62,8 @@ module.exports.setSuccessfulPayments = async function (newListing){
         // client.close()
     }
 
-    console.log("print rtn function");
-    // console.log(finJSON);
+    console.log("print finJSON");
+    console.log(finJSON);
     return finJSON;
 }
 
@@ -74,7 +76,7 @@ async function deleteDocument(){
         
 
         console.log(maxTime);
-        const output = await mid_collec.deleteMany({ "curTime": { $lt: maxTime } });
+        await mid_collec.deleteMany({ "curTime": { $lt: maxTime } });
         console.log("maxTime deleted");
 
     } finally { // closing connection no matter what

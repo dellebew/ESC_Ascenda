@@ -35,6 +35,8 @@ export default function RoomCard(props) {
     const rates = props.data.map((item, id) => {
         //add address variable
         item["address"] = props.address;
+        item["hotelId"] = props.hotelId;
+        item["hotelName"] = props.name;
         return(
             <RatesCard key={id}
                 {...item} />

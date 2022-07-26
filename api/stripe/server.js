@@ -13,7 +13,8 @@ const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
   // Fetch the Checkout Session to display the JSON result on the success page
 router.get('/checkout-session/:id', async (req, res) => {
-    
+  
+  console.log("in server side checkout-session");
   // const sessionId = location.search.replace('?session_id=', '');
   const sessionId = req.params.id;
   //const sessionId = req.query.sessionId;
@@ -21,6 +22,7 @@ router.get('/checkout-session/:id', async (req, res) => {
   const session = await stripe.checkout.sessions.retrieve(sessionId);
 
   console.log(sessionId);
+  console.log(session);
 
   // retrieve payment id, product id for product name
   const paymentRetrieve = stripe.paymentIntents.retrieve(session.payment_intent);
@@ -32,19 +34,27 @@ router.get('/checkout-session/:id', async (req, res) => {
     sessionId: session.id,
     name: session.customer_details.name,
     email: session.customer_details.email,
-    address: session.customer_details.address,
+    // address: session.customer_details.address,
     paymentid: session.payment_intent,
   }
 
   // const deleteData = deleteIntermediatePayments();
   // deleteData;
-
-  console.log("here");
-
+  
+  console.log(billingInfo);
+  const loading = true;
   const inputData = successController.setSuccessfulPayments(billingInfo);
   
-  console.log("sending data back")
-  res.send(inputData);
+
+  while(loading){
+    if (inputData !== null){
+      loading = false;
+      console.log("sending data back")
+      console.log(inputData)
+      res.send(inputData);
+    }
+  };
+  
 });
 
 router.post('/create-checkout-session', async (req, res) => {
@@ -75,17 +85,17 @@ router.post('/create-checkout-session', async (req, res) => {
   const setStart = new Date(info.start);
   const setEnd = new Date(info.start);
 
-  const startDate = setStart.getDate() + "/"+setStart.getMonth() + "/" + setStart.getYear();
-  const endDate = setEnd.getDate() + "/"+setEnd.getMonth() + "/" + setEnd.getYear();
+  const startDate = setStart.getDate() + "/"+setStart.getMonth() + "/" + setStart.getFullYear();
+  const endDate = setEnd.getDate() + "/"+setEnd.getMonth() + "/" + setEnd.getFullYear();
 
   const description = "Number of Nights: " + 
-  numOfNights + "\n" + "Start Date: " + startDate
-  + "\nEnd Date: " + endDate + "\nNumber of Adults: "
-  + info.adultQuantity + "\nNumber of Children: "
-  + info.childrenQuantity + "\nRoom Type: " + info.roomType
-  + "\nComments for hotel: " + info.message
+  numOfNights + "<br>" + "Start Date: " + startDate
+  + "<br>End Date: " + endDate + "<br>Number of Adults: "
+  + info.adultQuantity + "<br>Number of Children: "
+  + info.childrenQuantity + "<br>Room Type: " + info.roomType
+  + "<br>Comments for hotel: " + info.message
 
-  const nameStr = billing.name + billing.destination;
+  const nameStr = info.hotelName + "" + billing.destination;
 
   const product = await stripe.products.create({
     name: nameStr,
