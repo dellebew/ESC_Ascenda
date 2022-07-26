@@ -81,9 +81,20 @@ input {
   user-select: none;
 }
 
-.date {
+.search--date {
+  display: flex;
+  flex:1;
+  justify-content: left;
+  align-items: center;
+  gap:10px;
+  padding-left:25px;
+  position: relative;
+}
+
+.date-range {
   position:absolute;
-  top: 50px;
+  top: 30px;
+  left:-5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 

@@ -29,8 +29,7 @@ driver.get("http://localhost:3000/")
 driver.implicitly_wait(10)
 wait = WebDriverWait(driver, 10)
 # test date select
-# searchText = driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div/div/div/div/div/div[2]/div[1]/span")
-searchText = driver.find_element(By.CLASS_NAME,"search--input")
+searchText = driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div/div/div/div/div/div[2]/div[1]/span")
 searchText.click()
 
 month_back = driver.find_element(By.XPATH,"/html/body/div/div/div[2]/div/div/div/div/div/div[2]/div[1]/div/div[2]/button[1]/i").click()
