@@ -1,14 +1,14 @@
 import NavBar from "../../components/navbar/Navbar"
-import Header from "../../components/header/Header"
+import Error from '../../components/error/Error'
 
-const Home = () => {
+const ErrorPage = () => {
     
     return (
         <div>
             <div><NavBar/></div>
-            <div><Header/></div>
+            <div><Error/></div>
         </div>
     )
 }
 
-export default Home
+export default ErrorPage

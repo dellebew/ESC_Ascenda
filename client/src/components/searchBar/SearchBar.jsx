@@ -1,10 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios"
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
 import { useEffect, useState } from "react";
 import { format, addDays } from "date-fns";
-import useFetch from '../utils/useFetch.js'
 import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
 var country_code = require("../../database/countries.json");

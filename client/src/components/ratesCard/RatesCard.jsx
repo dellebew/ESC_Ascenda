@@ -70,6 +70,7 @@ export default function RatesCard(props) {
       };
 
     return (
+        <div className="rainbow--gradient">
         <div className="ratesCard">
              <div className="rates--container" onClick={submit}>
                     <div className="rates--details">
@@ -92,6 +93,7 @@ export default function RatesCard(props) {
                         </h2>)}
                     </div>  
             </div>
+        </div>
         </div>
     )
 }

@@ -50,7 +50,7 @@ export default function RoomCard(props) {
     return (
         <div key="props.key" className="roomCard">
             <div className="room--container">
-                <div className="room-body">
+                <div className="room--body">
                     <div className="room--images">
                         {imgData.length > 0  && 
                         <img
@@ -69,7 +69,9 @@ export default function RoomCard(props) {
                         <div className="wrapper">
                             <div className='room--amenities'>
                                 {props.amenities.map((key, i) => {
-                                    return <li key={i}>{key}</li>
+                                    if (!key.includes("sqm")) {
+                                        return <li key={i}>{key}</li>
+                                    }
                                 })}
                             </div>
                         </div>
@@ -78,7 +80,7 @@ export default function RoomCard(props) {
             </div>
             <div className="room--options">
                 <div className="room--header">Market Rates</div>
-                <div className="room--body">
+                <div className="room--rates">
                     {rates}
                 </div>
 
