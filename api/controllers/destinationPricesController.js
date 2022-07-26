@@ -73,11 +73,18 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                 // 3. if not: request api, display & store in database
                 else{
                     console.log("Not found in database")
-                    try{
+                    
                     // waterfall
                     promiseWaterfall([
-                        call_axios(url),
+                        call_axios(url).catch(error => {
+                            if (error.response) {
+                                console.log("axios1");
+                                //   console.log(error.response);
+                                resPage.sendStatus(404);
+                                resPage.end();
+                            }}),
                         setTimeout(()=>{call_axios(url).then((r)=>{
+                            console.log("r"+r)
                             if (r == null){
                                 console.log("r == null")
                                 resPage.sendStatus(404);
@@ -90,7 +97,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                             }
                             
                         }).then((data)=>{
-                            console.log("data"+Object.keys(data))
+                            console.log("data"+data)
                             if (data.hotels != null){
                                 update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
                                 const total_page_count = parseInt(data.hotels.length/page_size)
@@ -125,22 +132,25 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                             arr.push(write_array)
                                             resPage.write(JSON.stringify(arr))
                                             resPage.end();
-                                    })
-                                        })                     
+                                    }).catch(console.log)
+                                        }).catch(console.log)                     
                             }
-                        })
-                        },3500)
+                        }).catch(error => {
+                            if (error.response) {
+                                console.log("axios2");
+                                // console.log(error.response);
+                                resPage.sendStatus(404);
+                                resPage.end();
+                             
+                            }})
+                        },4000).catch(console.log("timeout"))
                         
-                      ])
-                    }                    
-                    catch(e){
-                        console.log("error"+e);
-                        resPage.sendStatus(404);
-                        resPage.end();
-                    }
+                      ]).catch(console.log)
+                                        
+                  
 
                     }
-        });
+        }).catch(console.log("sorted_query"));
     })
   });
   

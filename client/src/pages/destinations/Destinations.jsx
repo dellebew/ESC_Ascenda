@@ -4,7 +4,6 @@ import ReactPaginate from 'react-paginate';
 import NavBar from "../../components/navbar/Navbar"
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import SearchBar from "../../components/searchBar/SearchBar";
 import HotelCard from "../../components/hotelCard/HotelCard";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Loader from "../../components/loader/Loader";
@@ -94,7 +93,6 @@ const Destinations = () => {
         {error && <Error/>}
         {loading && <Loader/>}
         {!loading && (items !== undefined) &&  <div className="body">                        
-            <SearchBar />
             <div className="list--container">
                 <div className="list--wrapper">
                     
