@@ -3,11 +3,10 @@ import axios from "axios"
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 import useFetch from '../utils/useFetch.js'
 import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
-import { nextDay } from "date-fns/esm";
 var country_code = require("../../database/countries.json");
 var destination_ids = require("../../database/output.json");
 var test1 = require("../../database/uids.json");
@@ -43,7 +42,7 @@ const SearchBar = () => {
     const [date, setDate] = useState([
         {
           startDate: new Date(),
-          endDate: new Date(),
+          endDate: addDays(new Date(), 1),
           key: 'selection'
         }
       ]);
@@ -193,7 +192,7 @@ const SearchBar = () => {
             </div>
 
             <div className="search--item2">
-                <div className="search--item" >
+                <div className="search--date" >
                 <FontAwesomeIcon icon={faCalendarDays} className="search--icon"/>
                 <div className="date-wrapper">
                 <span className="search--text" onClick={()=>setOpenDate(!openDate)}>
@@ -201,12 +200,12 @@ const SearchBar = () => {
                 </span>
                 {openDate && (<span onMouseLeave={()=>setOpenDate(!openDate)}>
                     <DateRange
-                    editableDateInputs={true}
+                    editableDateInputs={false}
+                    minDate={new Date()}
                     onChange={item => setDate([item.selection])}
-                    moveRangeOnFirstSelection={false}
+                    moveRangeOnFirstSelection={true}
                     ranges={date}
-                    className="date"
-                    daySize="100"
+                    className="date-range"
                 /></span>)}
                 </div>
                 </div>
