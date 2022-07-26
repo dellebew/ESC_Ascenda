@@ -1,5 +1,5 @@
 html { 
-  background: url(./change.gif) repeat center center fixed #000; 
+  background: url(/public/change.gif) repeat center center fixed #000; 
   width: 100%;
   height:100%;
   position: relative;
