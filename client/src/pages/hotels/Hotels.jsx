@@ -3,7 +3,7 @@ import "./hotels.css"
 import NavBar from '../../components/navbar/Navbar'
 import HotelPage from '../../components/hotelPage/HotelPage'
 import { useLocation, useParams } from 'react-router-dom'
-import Error from '../error/Error'
+import Error from '../../components/error/Error'
 import Loader from '../../components/loader/Loader'
 import callApi from '../../components/utils/callApi'
 import RoomCard from '../../components/roomCard/RoomCard'
@@ -18,18 +18,7 @@ const Hotels = () => {
     const [error, setError] = useState(null);   
     
     const state = useParams();
-    // console.log(state);
-
-    // const location = useLocation(); 
-    // const id = location.pathname.split('/').at(-1)
-    // const state = {hotelId: "ZcNS",
-    //   destId: "11fD",
-    //   checkin:"2022-07-25",
-    //   checkout:"2022-07-29",
-    //   lang:"en_US",
-    //   currency:"SGD",
-    //   code:"SG",
-    //   guests:"2"}
+    console.log(pricesData);
 
     useEffect(() => {
       const fetchData = async () => {

@@ -7,11 +7,13 @@ import Home from "./pages/home/Home"
 import HotelsSearch from "./pages/hotelSearch/hsearch"
 import Hotels from "./pages/hotels/Hotels"
 import Destinations from "./pages/destinations/Destinations";
-import Error from "./pages/error/Error";
+import CheckDestinations from "./components/utils/checkDestinations";
 // import Payment from "./components/payment/PaymentJSX";
 import Checkout from "./components/payment/Checkout";
 import Success from "./components/payment/Success";
 import Canceled from "./components/payment/Canceled";
+import ErrorPage from "./pages/errorPage/ErrorPage";
+import CheckHotels from "./components/utils/checkHotels";
 
 
 function App() {
@@ -20,9 +22,19 @@ function App() {
       <Routes>
         <Route path='/' element = {<Home />}/>
         <Route path='/hotels' element = {<HotelsSearch />}/>
-        <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/:page' element = {<Destinations />}/>
-        <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/' element = {<Hotels />}/>
-        <Route path='*' element={<Error/>}> </Route>
+        <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/:page' 
+              element = {(
+              <CheckDestinations>
+                <Destinations />
+              </CheckDestinations>
+              )}/>
+        <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/' 
+              element = {(
+              <CheckHotels>
+                <Hotels />
+              </CheckHotels>
+              )}/>
+        <Route path='*' element={<ErrorPage/>}> </Route>
         <Route path= "/checkout" element= {<Checkout />} />
         <Route path= '/checkout/success/:sessionId' element = {<Success />}/>
         <Route path= '/checkout/canceled' element = {<Canceled />}/>

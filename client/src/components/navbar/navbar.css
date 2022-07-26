@@ -16,14 +16,10 @@
           flex: 1;
           padding: 0.5rem 0; }
           .menu > ol > .menu-item:after {
-            content: '';
+            content: url('/public/ghost (1).png');
             position: absolute;
-            width: 40px;
-            height: 2px;
-            border-radius: 3px;
-            bottom: 25%;
-            left: calc(43%);
-            background: #FECEAB;
+            bottom: 2%;
+            left: 27%;
             will-change: transform;
             transform: scale(0);
             transition: transform 0.2s ease; }

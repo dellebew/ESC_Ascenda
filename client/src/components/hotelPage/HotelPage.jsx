@@ -157,7 +157,7 @@ export default function HotelPage(props) {
                                 </Map>
                             </div>
                             <h2>Ratings</h2>
-                        <div className='hotel--body'>
+                        <div className='hotel--ratings'>
                             {amenitiesRatings(props.amenities_ratings).length > 0 && <>
                                 <div className="amenities-wrapper">
                                 <div className="show--amenities" onClick={toggleAmenities}>
