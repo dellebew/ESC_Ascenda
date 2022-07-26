@@ -12,8 +12,11 @@ export default function RatesCard(props) {
 
     const state = useParams();
 
+    console.log(state);
+    console.log(props);
+
     // what I need for navigations
-    const [newState, setnewState] = useState({
+    const newState = {
       //from nicholas's side
       startDate: state.checkin,
       endDate: state.checkout,
@@ -24,8 +27,8 @@ export default function RatesCard(props) {
       price: props.price,
       roomName: "Resorts World", //need information
       roomType: props.description,
-    });
-    // console.log(state);
+    };
+    console.log(state);
     // to navigate to checkout
     let navigate = useNavigate();
 
@@ -51,7 +54,11 @@ export default function RatesCard(props) {
             {
               label: 'Yes',
               onClick: () => {
-                navigate("../checkout", { replace: true }, {state: newState});
+                navigate("../checkout", { state: newState });
+                // return(
+                //   <Checkout key={props.id}
+                //         {...newState}/>
+                // )
               }
             },
             {

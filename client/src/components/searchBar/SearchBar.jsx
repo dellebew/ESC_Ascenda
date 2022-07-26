@@ -110,13 +110,6 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-<<<<<<< HEAD
-        // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
-
-        let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${total_ppl}/0`
-        // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
-        navigate(path);
-=======
             // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
             // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
 
@@ -152,7 +145,6 @@ const SearchBar = () => {
             navigate(path);
 
         }
->>>>>>> df8b97e9b1eeadf5ae511097e37ef464c72f1b90
     };
 
     function ontest() {

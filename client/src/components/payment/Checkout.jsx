@@ -3,17 +3,29 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
 import { format } from "date-fns";
-import {useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams, useLocation} from 'react-router-dom';
 import "./checkout.css"
 
 // const Checkout = ({ route, navigation }) => {
 const Checkout = () => {
-  const params = useParams();
 
-  const navigate = useNavigate();
+  // const state = route.params;
+
+  // const state = useParams();
+  const location = useLocation();
+  const state = location.state;
+  console.log(state);
+
+  // const route.params
+  // console.log((params));
+  // const state = params.newState;
+  // console.log(JSON.stringify(state));
+
+  // const navigate = useNavigate();
 
   // get information from previous page
-  // const { params } = route.params;
+  
+  // const state = param.state;
 
   // what I need for navigations
   // const params = {
@@ -32,25 +44,25 @@ const Checkout = () => {
 
   console.log("in Checkout");
 
-  const startTimeArr = params.startDate.split('-');
-  const endTimeArr = params.startDate.split('-');
+  const startTimeArr = state.startDate.split('-');
+  const endTimeArr = state.endDate.split('-');
   let startTime = new Date(startTimeArr[0], startTimeArr[1], startTimeArr[2]);
   let endTime = new Date(endTimeArr[0], endTimeArr[1], endTimeArr[2]);
 
   const data = {
     start: startTime, 
     end: endTime,
-    roomType: params.roomType,
-    roomQty: params.roomQty,
-    adultQty: params.adultQty,
-    childQty: params.childQty,
+    roomType: state.roomType,
+    roomQty: state.roomQty,
+    adultQty: state.adultQty,
+    childQty: state.childQty,
     message: "",
   };
 
   const billing = {
-    unit_amount: params.price,
-    hotelName: params.roomName,
-    roomQty: params.roomQty,
+    unit_amount: state.price,
+    hotelName: state.roomName,
+    roomQty: state.roomQty,
   }
   
 
