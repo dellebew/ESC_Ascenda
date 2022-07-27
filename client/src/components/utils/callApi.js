@@ -11,6 +11,12 @@ export default async function callApi(type, state) {
     else if (type == "destination/prices") {
             response = await fetch(`/api/${type}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.page}`);
         }
+
+    console.log(response)
+
+    if (response.status === 429) {
+        return []
+    }
     
     const data = await response.json()
     console.log("data: " + data)

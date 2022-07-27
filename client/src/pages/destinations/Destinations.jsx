@@ -27,11 +27,7 @@ const Destinations = () => {
             try{
                 setLoading(true);
                 console.log(state)
-                // if (state.adultsQty < 1 || state.childrenQty < 0 || state.roomQty < 0 || state.page < 0) {
-                //     throw Error("URL is not valid");
-                // }
                 const data = await callApi('destination/prices', state);
-                console.log(data[1].length < 1)
                 if (data[1] === undefined) {
                     throw Error("Data not found");
                 } 
@@ -53,22 +49,12 @@ const Destinations = () => {
         setPage(currentPage)
     }
 
-    // function to handle request to another page.
-    // const handlePageClick = async(data) => {
-    //     let currentPage = data.selected 
-    //     state.page = currentPage;
-    //     // console.log(currentPage)
-    //     const newPageData = await callApi('destination/prices', state);
-    //     setItems(newPageData[1]);
-    //     window.scrollTo(0,0);
-    //     };
-
-
     return (
         <>
         <NavBar />
         {error && <Error {...{img:"/404-invalid-dest.png"}}/>}
         {loading && <Loader/>}
+        {!loading && items === undefined && <Error {...{img:"/404-429-error.png"}}/>}
         {!loading && (items !== undefined) &&  <div className="body">                        
             <div className="list--container">
                 <div className="list--wrapper">

@@ -186,6 +186,14 @@ function GetSortOrder(prop) {
 //     }
 // }
 
+function getMillisToSleep (retryHeaderString) {
+    let millisToSleep = Math.round(parseFloat(retryHeaderString) * 1000)
+    if (isNaN(millisToSleep)) {
+      millisToSleep = Math.max(0, new Date(retryHeaderString) - new Date())
+    }
+    return millisToSleep
+  }
+
 async function getOneStaticHotel(hotel_id,resPage){
     const url = baseUrl+"hotels/"+hotel_id
     try{
@@ -196,6 +204,10 @@ async function getOneStaticHotel(hotel_id,resPage){
         resPage.sendStatus(429);
         resPage.end();
         console.log(429);
+        // const retryAfter = response.headers.get('retry-after')
+        // const millisToSleep = getMillisToSleep(retryAfter)
+        // await sleep(millisToSleep)
+        // return getOneStaticHotel(hotel_id,resPage)
     }
     
     
