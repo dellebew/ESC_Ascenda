@@ -34,6 +34,7 @@ function App() {
                 <Hotels />
               </CheckHotels>
               )}/>
+        <Route path='invalid-url' element={<ErrorPage {...{img:"/404-invalid-url.png"}}/>}> </Route>
         <Route path='*' element={<ErrorPage/>}> </Route>
         <Route path= "/checkout" element= {<Checkout />} />
         <Route path= '/checkout/success/:sessionId' element = {<Success />}/>

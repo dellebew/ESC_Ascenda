@@ -2,9 +2,6 @@
     width: 100%;
     height: 100vh;
     position: fixed;
-    background: rgba(0, 0, 0, 0.834)
-        url("/public/404-error.png") center
-        no-repeat;
     z-index: 0;
     background-size: 60vh;
     }

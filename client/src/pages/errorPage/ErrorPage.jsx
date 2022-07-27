@@ -1,14 +1,12 @@
 import NavBar from "../../components/navbar/Navbar"
 import Error from '../../components/error/Error'
 
-const ErrorPage = () => {
-    
+export default function ErrorPage(props) {
+
     return (
         <div>
             <div><NavBar/></div>
-            <div><Error/></div>
+            <div><Error {...props}/></div>
         </div>
     )
 }
-
-export default ErrorPage
