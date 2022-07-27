@@ -1,7 +1,6 @@
 var promiseWaterfall = require('promise.waterfall')
 var { MongoClient } = require("mongodb");
 var axios = require("axios");
-const { forEach } = require('async');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 const baseUrl = 'https://hotelapi.loyalty.dev/api/'
@@ -46,8 +45,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                     const promises = [];
                     for (let i = 0; i < result_cut.length; i++) {
                             const hotel_id = result_cut[i].hotels.id
-                            promises.push(getOneStaticHotel(hotel_id));
-                        }
+                            promises.push(getOneStaticHotel(hotel_id,resPage));}
                         
                     Promise.all(promises)
                         .then((full_res) => {   
@@ -88,7 +86,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                 resPage.end();
                             }}),
                         setTimeout(()=>{call_axios(url).then((r)=>{
-                            console.log("r"+r)
+                            // console.log("r"+r)
                             if (r == null){
                                 console.log("r == null")
                                 resPage.sendStatus(404);
@@ -101,7 +99,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                             }
                             
                         }).then((data)=>{
-                            console.log("data"+data)
+                            // console.log("data"+data)
                             if (data.hotels != null){
                                 update(client,dbName,coll_name,data,{requirements:requirements},"set").catch(console.dir);
                                 const total_page_count = parseInt(data.hotels.length/page_size)
@@ -112,7 +110,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                 for (let i = 0; i < page_size; i++) {     
                                     try{
                                             const hotel_id = data.hotels[i].id
-                                            promises.push(getOneStaticHotel(hotel_id));
+                                            promises.push(getOneStaticHotel(hotel_id,resPage));
                                     }   
                                     catch{
                                         console.log("error id")
@@ -149,14 +147,16 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                             }})
                         },4000).catch(console.log("timeout"))
                         
-                      ]).catch(console.log)
+                      ]).catch(e=>{
+                        console.log("promiseWaterfall")
+                    })
                                         
                   
 
                     }
-        }).catch(console.log("sorted_query"));
+        }).catch(console.log("sorted_query error"));
     })
-  });
+  }).catch(console.log("db connection error"));
   
 
 }
@@ -174,22 +174,31 @@ function GetSortOrder(prop) {
     }    
 }
 
-async function filterAppend(full_res,result_cut,data,i,req){
-    const minprice = parseInt(req.params.minprice)
-    const maxprice = parseInt(req.params.maxprice)
-    const minrate = parseInt(req.params.minrate)
-    const maxrate = parseInt(req.params.maxrate)
-    if (full_res[i].data.rating > minrate && full_res[i].data.rating < maxrate){
-        if (full_res[i].price > minprice && full_res[i].price < maxprice){
-            return await append_hotel(full_res,result_cut,data,i)
-        }
-    }
-}
+// async function filterAppend(full_res,result_cut,data,i,req){
+//     const minprice = parseInt(req.params.minprice)
+//     const maxprice = parseInt(req.params.maxprice)
+//     const minrate = parseInt(req.params.minrate)
+//     const maxrate = parseInt(req.params.maxrate)
+//     if (full_res[i].data.rating > minrate && full_res[i].data.rating < maxrate){
+//         if (full_res[i].price > minprice && full_res[i].price < maxprice){
+//             return await append_hotel(full_res,result_cut,data,i)
+//         }
+//     }
+// }
 
-async function getOneStaticHotel(hotel_id){
+async function getOneStaticHotel(hotel_id,resPage){
     const url = baseUrl+"hotels/"+hotel_id
-    const res = await axios(url);
-    return await res;
+    try{
+        const res = await axios(url);
+        return await res;
+    }
+    catch{
+        resPage.sendStatus(429);
+        resPage.end();
+        console.log(429);
+    }
+    
+    
 }
 
 async function append_hotel(full_res,result_cut,data,i){
@@ -229,6 +238,7 @@ async function append_hotel(full_res,result_cut,data,i){
     
 async function call_axios(url){
     const response = await axios.get(url)
+    response.catch(console.log("call_axiosAxiosError"))
     console.log(response.data.completed)
     return response.data
 }
