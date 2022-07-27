@@ -14,7 +14,7 @@ const fin_coll_name = "successful_payments";
 const mid_coll_name = "incomplete_payments";
 
 
-module.exports.setSuccessfulPayments = async function (newListing){
+module.exports.setSuccessfulPayments = async function (newListing, resPage){
 // const setSuccessfulPayments = async function (newListing){
     
     var finJSON = {};
@@ -27,9 +27,9 @@ module.exports.setSuccessfulPayments = async function (newListing){
 
         console.log('sessionID = '+ newListing.sessionId)
 
-        const oldListingQuery = await mid_collec.find({"id": newListing.sessionId});
+        const oldListingQuery = await mid_collec.find({"sessionId": newListing.sessionId});
         const oldListing = await oldListingQuery.toArray();
-        console.log(oldListing);
+        console.log(oldListing[0]);
         // console.log("finished old listing");
         // console.log(oldListing[0]);
         // console.log(JSON.stringify(oldListing[0].info));
@@ -42,8 +42,8 @@ module.exports.setSuccessfulPayments = async function (newListing){
         }
         // console.log("succesfully created new json: ");
         // console.log(JSON.stringify(finJSON));
-        console.log("finJSON");
-        console.log(finJSON);
+        // console.log("finJSON");
+        // console.log(finJSON);
 
         // const session = await stripe.checkout.sessions.retrieve(sessionId);
         const result = await collec.insertOne(finJSON);
@@ -64,6 +64,18 @@ module.exports.setSuccessfulPayments = async function (newListing){
 
     console.log("print finJSON");
     console.log(finJSON);
+
+    // return(JSON.stringify(finJSON))
+    while(finJSON == null || finJSON.length == 0){
+        console.log("waiting for finJSON");
+    };
+
+    // if (finJSON != null && finJSON.length != 0){
+    //     console.log("Found in database");
+    //     resPage.write(JSON.stringify(result));
+    //     resPage.end();
+    // }
+
     return finJSON;
 }
 

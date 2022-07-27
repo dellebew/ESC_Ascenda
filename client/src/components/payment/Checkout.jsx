@@ -44,7 +44,6 @@ const Checkout = () => {
     roomQty: state.roomQty,
     adultQuantity: state.adultQty,
     childrenQuantity: state.childQty,
-    cust_name: "Group6_client0",
     message: message,
     hotelName: state.hotelName,
   };

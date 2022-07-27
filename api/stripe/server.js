@@ -43,17 +43,23 @@ router.get('/checkout-session/:id', async (req, res) => {
   
   console.log(billingInfo);
   const loading = true;
-  const inputData = successController.setSuccessfulPayments(billingInfo);
+  const inputData = await successController.setSuccessfulPayments(billingInfo);
+
+  console.log("inputData");
+  console.log(inputData);
   
 
-  while(loading){
-    if (inputData !== null){
-      loading = false;
-      console.log("sending data back")
-      console.log(inputData)
-      res.send(inputData);
-    }
-  };
+  // while(loading){
+  //   if (inputData !== null){
+  //     loading = false;
+  //     console.log("sending data back from while loop");
+  //     console.log(inputData);
+  //     res.send(inputData);
+  //   }
+  // };
+  console.log("sending data back outside while loop");
+  res.send(JSON.stringify(inputData));
+  // res.send(inputData);
   
 });
 
@@ -89,11 +95,11 @@ router.post('/create-checkout-session', async (req, res) => {
   const endDate = setEnd.getDate() + "/"+setEnd.getMonth() + "/" + setEnd.getFullYear();
 
   const description = "Number of Nights: " + 
-  numOfNights + "<br>" + "Start Date: " + startDate
-  + "<br>End Date: " + endDate + "<br>Number of Adults: "
-  + info.adultQuantity + "<br>Number of Children: "
-  + info.childrenQuantity + "<br>Room Type: " + info.roomType
-  + "<br>Comments for hotel: " + info.message
+  numOfNights + " Start Date: " + startDate
+  + " End Date: " + endDate + " Number of Adults: "
+  + info.adultQuantity + " Number of Children: "
+  + info.childrenQuantity + " Room Type: " + info.roomType
+  + " Comments for hotel: " + info.message
 
   const nameStr = info.hotelName + "" + billing.destination;
 

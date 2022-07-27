@@ -11,7 +11,7 @@ const Success = () => {
   const [session, setSession] = useState({});
   const [error, setError] = useState(null);  
   const [loading, setLoading] = useState(true); 
-  const location = useLocation();
+  // const location = useLocation();
   //const sessionId = location.search.replace('?session_id=', '');
   
   let { sessionId } = useParams();
@@ -20,80 +20,145 @@ const Success = () => {
   //sessionId printed here
   console.log(sessionId);
   console.log("in checkout success");
+  console.log(loading);
 
-  const startTimeText = "";
-  const endTimeText = "";
+  const [startTimeText, setStartTimeText] = useState("");
+  const [endTimeText, setEndTimeText] = useState("");
 
-  if (!loading && (session !== undefined)) {
-    console.log(JSON.stringify(session));
-    const startTimeNum = new Date(); 
-    startTimeNum.setTime(session.info.start);
-    startTimeText = startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear();
-  
-    const endTimeNum = new Date();  
-    endTimeNum.setTime(session.info.end);
-    endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + (endTimeNum.getFullYear());
-    console.log("after effect");
-  };
+  console.log(loading);
+  console.log(JSON.stringify(session));
 
   useEffect(() => {
     const fetchSession = async() => {
-      console.log("in async function");
-        // await fetch('stripe/checkout-session?sessionId=' + sessionId).then((res) =>
-        //also send back passedProps like the rtn passes
+      // await fetch('stripe/checkout-session?sessionId=' + sessionId).then((res) =>
+      //also send back passedProps like the rtn passes
       try{
-          setLoading(true);
+        
+        setLoading(true);
           // TODO: determine actual number of pages
           console.log("in async function");
-          const temp_sess = await fetch(`../../stripe/checkout-session/${sessionId}`);
+          const response = await fetch(`../../stripe/checkout-session/${sessionId}`);
           // .then((res) =>res.json());
+          if (response === null) {
+            throw Error("hotelData not found");
+          }
+          const temp_sess = await response.json()
+          console.log("finish fetching");
+          console.log(temp_sess);
+
           setSession(temp_sess);
-          setLoading(false);  
+          setError(null);
+          setLoading(false);
       } catch (err) {
+          console.log("error retrieving");
           setError(err.message);
           setLoading(false);
-      }
-    }
+      } 
+      
+    };
     fetchSession();
+
+    const fetchTime = async() => { 
+      if (!loading && (session !== undefined)) {
+        setLoading(false);
+        console.log("setting start and end times");
+        var startTimeNum = new Date(); 
+        // console.log(session.state.start);
+        startTimeNum.setTime(session.state.start);
+        let startTimeText = (startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear());
+        // console.log(startTimeText);
+        setStartTimeText(startTimeText);
     
+        var endTimeNum = new Date();  
+        endTimeNum.setTime(session.state.end);
+        let endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + endTimeNum.getFullYear();
+        // console.log(endTimeText);
+        setEndTimeText(endTimeText);
+        // console.log("after effect");
+      };
+    };
+    fetchTime();
   }, []);
+  
 
   return (
     <>
     <NavBar />
         {error && <Error/>}
         {loading && <Loader/>}
-        {!loading && (session !== undefined) && <div className="body">    
-      <div className="title">Booking Successful</div>
-      <div className="hotel--container">
-          <p>
-          <div className="title">{session.billing.name}</div>
-          <b>email: </b>{session.billing.email},<br />
-          </p>
-      </div>
+        {!loading && (session !== undefined) && 
+      <div className="body">    
 
-      <div className="hotel--container">
-          <p>
-          <div className="title">Dates Of Stay</div>
-          <b>startDate: </b>{startTimeText},<br />
-          <b>endDate: </b>{endTimeText},<br />
-          <div className="title">Number of Guests</div>
-          <b>adultQty: </b>{session.info.adultQuantity},<br />
-          <b>childQty: </b>{session.info.childrenQuantity},<br />
-          <b>roomQty: </b>{session.info.roomQty},<br />
-          </p>
-      </div>
-      <div className="hotel--container">
-          <p>
-          <div className="title">Total Amount Paid</div>
-          <b>price: </b>{session.billing.unit_amount},<br />
-          <div className="title">Hotel Details</div>
-          <b>hotelName: </b>{session.billing.hotelName},<br />
-          <b>destination: </b>{session.billing.destination},<br />
-          <b>roomType: </b>{session.info.roomType},<br />
-          <Link to="/">Find another vacation destination</Link>
-          </p>
-      </div>
+      <div className="checkout--container">
+        <div className="checkout--wrapper">
+          <h1 className='checkout-title'>
+            <i className="fas fa-bed"></i>
+            Booking Successful
+          </h1>
+          <div className="room-info">
+              <div>
+                  <label me>Full Name:</label>
+                  <span>{session.billing.name}</span>
+              </div>
+              <div>
+                  <label me>Email:</label>
+                      <span>{session.billing.email}</span>
+              </div>
+          </div>
+          
+          <h1 className='checkout-title'>
+            <i className="fas fa-bed"></i>
+            Dates Of Stay
+          </h1>
+          <div className="room-info">
+              <div>
+                  <label me>Start Date:</label>
+                  <span>{startTimeText}</span>
+              </div>
+              <div>
+                  <label me>End Date:</label>
+                      <span>{endTimeText}</span>
+              </div>
+          </div>
+          <div className="address-info">
+              <div>
+                  <label>Adults:</label>
+                  <span>{session.state.adultQuantity}</span>
+              </div>
+              <div>
+                  <label >Children:</label>
+                  <span>{session.state.childrenQuantity}</span>
+              </div>
+              <div>
+                  <label >Rooms:</label>
+                  <span>{session.state.roomQty}</span>
+              </div>
+          </div>
+
+          <h1 className='checkout-title'>
+                  <i className="far fa-credit-card"></i> 
+                  Payment Information
+              </h1>
+                <div className="billing-info">
+                    <label>Total Amount Paid:</label>
+                    <span>S${session.billing.unit_amount}</span>
+                </div>
+                <div className="billing-info">
+                    <label>Hotel Name:</label>
+                    <span>{session.billing.hotelName}</span>
+                </div>
+                <div className="billing-info">
+                    <label>Destination:</label>
+                    <span>{session.billing.destination}</span>
+                </div>
+                <div className="billing-info">
+                    <label>Room Type:</label>
+                    <span>{session.state.roomType}</span>
+                </div>
+                <Link to="/">Find another vacation destination</Link>
+    
+          </div>
+        </div>
       </div>};
     </>
   );
