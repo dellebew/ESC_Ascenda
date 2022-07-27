@@ -58,26 +58,26 @@ const Success = () => {
     };
     fetchSession();
 
-    const fetchTime = async() => { 
-      if (!loading && (session !== undefined)) {
-        setLoading(false);
-        console.log("setting start and end times");
-        var startTimeNum = new Date(); 
-        // console.log(session.state.start);
-        startTimeNum.setTime(session.state.start);
-        let startTimeText = (startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear());
-        // console.log(startTimeText);
-        setStartTimeText(startTimeText);
+    // const fetchTime = async() => { 
+    //   if (!loading && (session !== undefined)) {
+    //     setLoading(false);
+    //     console.log("setting start and end times");
+    //     var startTimeNum = new Date(); 
+    //     // console.log(session.state.start);
+    //     startTimeNum.setTime(session.state.start);
+    //     let startTimeText = (startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear());
+    //     // console.log(startTimeText);
+    //     setStartTimeText(startTimeText);
     
-        var endTimeNum = new Date();  
-        endTimeNum.setTime(session.state.end);
-        let endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + endTimeNum.getFullYear();
-        // console.log(endTimeText);
-        setEndTimeText(endTimeText);
-        // console.log("after effect");
-      };
-    };
-    fetchTime();
+    //     var endTimeNum = new Date();  
+    //     endTimeNum.setTime(session.state.end);
+    //     let endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + endTimeNum.getFullYear();
+    //     // console.log(endTimeText);
+    //     setEndTimeText(endTimeText);
+    //     // console.log("after effect");
+    //   };
+    // };
+    // fetchTime();
   }, []);
   
 
@@ -113,11 +113,11 @@ const Success = () => {
           <div className="room-info">
               <div>
                   <label me>Start Date:</label>
-                  <span>{startTimeText}</span>
+                  <span>{session.state.startDate}</span>
               </div>
               <div>
                   <label me>End Date:</label>
-                      <span>{endTimeText}</span>
+                      <span>{session.state.endDate}</span>
               </div>
           </div>
           <div className="address-info">
@@ -141,15 +141,15 @@ const Success = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span>S${session.billing.unit_amount}</span>
+                    <span>S${session.state.unit_amount}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>
-                    <span>{session.billing.hotelName}</span>
+                    <span>{session.state.hotelName}</span>
                 </div>
                 <div className="billing-info">
                     <label>Destination:</label>
-                    <span>{session.billing.destination}</span>
+                    <span>{session.state.destination}</span>
                 </div>
                 <div className="billing-info">
                     <label>Room Type:</label>

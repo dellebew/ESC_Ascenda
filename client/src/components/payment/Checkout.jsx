@@ -176,12 +176,7 @@ const Checkout = () => {
                     name="message"
                     type = "text"
                 /> */}
-                <div className='btn'>
-                  <button className="checkout-button" role="link" id="submit" type="submit">
-                    Confirm Purchase
-                  </button>
-                </div>
-                
+
                 <input hidden={true} 
                 encType="application/json"
                 defaultValue={JSON.stringify(data)}
@@ -193,8 +188,16 @@ const Checkout = () => {
                 name="billing"></input>
                 
                 <input hidden={true} 
-                defaultValue={currentTime}
+                defaultValue={currentTime2}
                 name="currentTime"></input>
+                
+                <div className='btn'>
+                  <button className="checkout-button" role="link" id="submit" type="submit">
+                    Confirm Purchase
+                  </button>
+                </div>
+                
+                
 
                 {/* <button role="link" id="submit" type="submit">
                   Buy Now

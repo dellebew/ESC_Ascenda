@@ -78,6 +78,9 @@ router.post('/create-checkout-session', async (req, res) => {
 
   const billing = JSON.parse(req.body.billing);
   const info = JSON.parse(req.body.info);
+  info.message = req.body.paragraph_text;
+  info["destination"] = billing.destination;
+  info["unit_amount"] = billing.unit_amount;
   //console.log(state.info);
 
   // const { date, message, roomType, options } = req.body;
@@ -101,7 +104,10 @@ router.post('/create-checkout-session', async (req, res) => {
   + info.childrenQuantity + " Room Type: " + info.roomType
   + " Comments for hotel: " + info.message
 
-  const nameStr = info.hotelName + "" + billing.destination;
+  info["startDate"] = startDate;
+  info["endDate"] = endDate;
+
+  const nameStr = info.hotelName;
 
   const product = await stripe.products.create({
     name: nameStr,
@@ -113,7 +119,7 @@ router.post('/create-checkout-session', async (req, res) => {
   console.log(billing.unit_amount);
 
   const price = await stripe.prices.create({
-      unit_amount: billing.unit_amount*100,
+      unit_amount: billing.unit_amount *100,
       currency: 'sgd',
       // product: 'prod_M0kZOf836DEs60',
       product: product.id,
