@@ -179,7 +179,7 @@ const SearchBar = () => {
                 <span className="search--text" id="search--date" onClick={()=>setOpenDate(!openDate)}>
                     {format(date[0].startDate, "MM/dd/yyyy")} to {format(date[0].endDate, "MM/dd/yyyy")}
                 </span>
-                {openDate && (<span >
+                {openDate && (<span onMouseLeave={() => setOpenDate(!openDate)}>
                     <DateRange
                     editableDateInputs={true}
                     minDate={new Date()}
@@ -200,35 +200,45 @@ const SearchBar = () => {
                 {openOptions && (<div className="options" onMouseLeave={() => setOpenOptions(!openOptions)}>
                     <div className="options--item">
                         <span className="options--text">Adult</span>
-                        <div className="options--counter">
+                        <div className="options--counter adult">
                             <button 
+                                className="decrease"
                                 onClick={() => handleOption("adult", "d")}
                                 disabled={options.adult<=1}>-</button>
                             <span>{options.adult}</span>
-                            <button onClick={() => handleOption("adult", "i")}
-                                     disabled={options.adult>=6}>+</button>
+                            <button 
+                                className="increase"
+                                onClick={() => handleOption("adult", "i")}
+                                disabled={options.adult>=6}>+</button>
                         </div>
                         
                     </div>
                     <div className="options--item">
                         <span className="options--text">Children</span>
-                        <div className="options--counter">
+                        <div className="options--counter children">
                             <button 
+                                className="decrease"   
                                 onClick={() => handleOption("children", "d")}
                                 disabled={options.children<=0}>-</button>
                             <span>{options.children}</span>
-                            <button onClick={() => handleOption("children", "i")}
-                                    disabled={options.children>=6}>+</button>
+                            <button 
+                                className="increase"
+                                onClick={() => handleOption("children", "i")}
+                                disabled={options.children>=6}>+</button>
                         </div>
                     </div>
                     <div className="options--item">
                         <span className="options--text">Room</span>
-                        <div className="options--counter">
+                        <div className="options--counter room">
                             <button 
+                                className="decrease"
                                 onClick={() => handleOption("room", "d")}
                                 disabled={options.room<=1}>-</button>
                             <span>{options.room}</span>
-                            <button onClick={() => handleOption("room", "i")}>+</button>
+                            <button 
+                                className="increase"
+                                onClick={() => handleOption("room", "i")}
+                                disabled={options.room>=6}>+</button>
                         </div>
                     </div>
                 </div>)}
