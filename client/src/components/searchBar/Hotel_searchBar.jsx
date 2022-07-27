@@ -18,19 +18,6 @@ const Hotel_SearchBar = () => {
     const onChange = (event) => {
       setValue(event.target.value);
     };
-
-    /** FOR FIXING SEARCH BAR */
-    const [fixedBar, setFixedBar] = useState(false);
-
-    const fixNav = (nav) => {
-        if (window.scrollY >= nav.offsetTop) {
-            document.body.style.paddingTop = nav.offsetHeight + 'px';
-            document.body.classList.add('fixed-nav');
-        } else {
-            document.body.style.paddingTop = 0;
-            document.body.classList.remove('fixed-nav');
-        }
-    }
     
     /** FOR DATE-RANGE */
     const [openDate, setOpenDate] = useState(false);
@@ -76,8 +63,12 @@ const Hotel_SearchBar = () => {
         const hotel_uid = id
 
         // For dates of checkin and checkout
-        const startd = JSON.stringify(date[0].startDate).slice(1,11)
-        const endd = JSON.stringify(date[0].endDate).slice(1,11)
+        const extractDates = (oldDate) => {
+            const newDate = addDays(oldDate, 1)
+            return (JSON.stringify(newDate).slice(1,11))
+        } 
+        const startd = extractDates(date[0].startDate)
+        const endd = extractDates(date[0].endDate)      
 
         //language
         const language = "en_US"
@@ -85,11 +76,8 @@ const Hotel_SearchBar = () => {
         //currency
         const currency = "SGD"
 
-        // total number of guests
-        const adults = options.adult
-        const children = options.children
-        const no_of_rooms = options.room
-        const total_ppl = adults + children
+        // number of guests & rooms
+        const {adult, children,  room} = options
 
         // c_code is the country code
         // const c_code = country_code.filter(element => {
@@ -106,7 +94,7 @@ const Hotel_SearchBar = () => {
 
         // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
         // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
-        let path = `/hotels/${hotel_uid}/A6Dz/${startd}/${endd}/${language}/${currency}/${c_code}/${adults}/${children}/${no_of_rooms}`
+        let path = `/hotels/${hotel_uid}/A6Dz/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}/${room}`
         navigate(path)
 
     };
@@ -124,6 +112,7 @@ const Hotel_SearchBar = () => {
                     onChange={onChange}
                     placeholder="e.g. Fullerton Hotel"
                     className="search--input" 
+                    id="search--hotels"
                 />
                 
                 {/*Dropdown bar for suggestions*/}
@@ -160,7 +149,7 @@ const Hotel_SearchBar = () => {
                 </span>
                 {openDate && (<span onMouseLeave={()=>setOpenDate(!openDate)}>
                     <DateRange
-                    editableDateInputs={false}
+                    editableDateInputs={true}
                     minDate={new Date()}
                     onChange={item => setDate([item.selection])}
                     moveRangeOnFirstSelection={true}

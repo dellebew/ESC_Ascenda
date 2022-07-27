@@ -20,23 +20,9 @@ const SearchBar = () => {
     const onChange = (event) => {
       setValue(event.target.value);
     };
-
-    /** FOR FIXING SEARCH BAR */
-    const [fixedBar, setFixedBar] = useState(false);
-
-    const fixNav = (nav) => {
-        if (window.scrollY >= nav.offsetTop) {
-            document.body.style.paddingTop = nav.offsetHeight + 'px';
-            document.body.classList.add('fixed-nav');
-        } else {
-            document.body.style.paddingTop = 0;
-            document.body.classList.remove('fixed-nav');
-        }
-    }
     
     /** FOR DATE-RANGE */
     const [openDate, setOpenDate] = useState(false);
-
     const [date, setDate] = useState([
         {
           startDate: new Date(),
@@ -77,22 +63,22 @@ const SearchBar = () => {
         const destination_name = searchTerm
         const destination_uid = dest;
 
+        // For dates of checkin and checkout  
+        const extractDates = (oldDate) => {
+            const newDate = addDays(oldDate, 1)
+            return (JSON.stringify(newDate).slice(1,11))
+        } 
+        const startd = extractDates(date[0].startDate)
+        const endd = extractDates(date[0].endDate)
 
-        // For dates of checkin and checkout
-        const startd = JSON.stringify(date[0].startDate).slice(1,11)
-        const endd = JSON.stringify(date[0].endDate).slice(1,11)
-
-        //language
+        // language
         const language = "en_US"
 
-        //currency
+        // currency
         const currency = "SGD"
 
-        // total number of guests
-        const adults = options.adult
-        const children = options.children
-        const no_of_rooms = options.room
-        const total_ppl = adults + children
+        // number of guests & rooms
+        const {adult, children,  room} = options
 
         if (destination_uid != 0) {
 
@@ -107,23 +93,19 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-            // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
-            // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
-
-            let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adults}/${children}/${no_of_rooms}/0`
+            const path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}/${room}/0`
             navigate(path);
 
         } else {
             const incompleteSearch = destination_ids.filter((item) => {
                 let searchTerm = value.toLowerCase();
                 let modified = item.term.toLowerCase();
-
-                
+     
                 return (
-                searchTerm &&
-                modified.includes(searchTerm)
-                );
-            }).slice(0,1)
+                    searchTerm &&
+                    modified.includes(searchTerm)
+                    );
+                }).slice(0,1)
             const incomplete_name = incompleteSearch[0].term
             const incomplete_uid = incompleteSearch[0].uid;
 
@@ -137,7 +119,7 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${total_ppl}/0`
+            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/${room}/0`
             navigate(path);
 
         }
@@ -160,7 +142,8 @@ const SearchBar = () => {
                     value={value} 
                     onChange={onChange}
                     placeholder="e.g. Singapore"
-                    className="search--input" 
+                    className="search--input"
+                    id="search--destinations" 
                 />
                 
                 {/*Dropdown bar for suggestions*/}
@@ -179,9 +162,9 @@ const SearchBar = () => {
                     .slice(0, 10)
                     .map((item) => (
                         <div
-                        onClick={() => setText(item.uid, item.term)}
-                        className="dropdown-row" 
-                        key={item.uid}
+                            onClick={() => setText(item.uid, item.term)}
+                            className="dropdown-row" 
+                            key={item.uid}
                         >
                         {item.term}
                         </div>
@@ -193,16 +176,17 @@ const SearchBar = () => {
                 <div className="search--date" >
                 <FontAwesomeIcon icon={faCalendarDays} className="search--icon"/>
                 <div className="date-wrapper">
-                <span className="search--text" onClick={()=>setOpenDate(!openDate)}>
+                <span className="search--text" id="search--date" onClick={()=>setOpenDate(!openDate)}>
                     {format(date[0].startDate, "MM/dd/yyyy")} to {format(date[0].endDate, "MM/dd/yyyy")}
                 </span>
-                {openDate && (<span onMouseLeave={()=>setOpenDate(!openDate)}>
+                {openDate && (<span onMouseLeave={() => setOpenDate(!openDate)}>
                     <DateRange
-                    editableDateInputs={false}
+                    editableDateInputs={true}
                     minDate={new Date()}
                     onChange={item => setDate([item.selection])}
                     moveRangeOnFirstSelection={true}
                     ranges={date}
+                    
                     className="date-range"
                 /></span>)}
                 </div>
@@ -210,41 +194,51 @@ const SearchBar = () => {
 
                 <div className="search--item">
                 <FontAwesomeIcon icon={faPerson} className="search--icon"/>
-                <span className="search--text" onClick={() => setOpenOptions(!openOptions)}>
+                <span className="search--text" id="search--people" onClick={() => setOpenOptions(!openOptions)}>
                     {`${options.adult} adults ${options.children} children ${options.room} room`}
                 </span>
                 {openOptions && (<div className="options" onMouseLeave={() => setOpenOptions(!openOptions)}>
                     <div className="options--item">
                         <span className="options--text">Adult</span>
-                        <div className="options--counter">
+                        <div className="options--counter adult">
                             <button 
+                                className="decrease"
                                 onClick={() => handleOption("adult", "d")}
                                 disabled={options.adult<=1}>-</button>
                             <span>{options.adult}</span>
-                            <button onClick={() => handleOption("adult", "i")}
-                                     disabled={options.adult>=6}>+</button>
+                            <button 
+                                className="increase"
+                                onClick={() => handleOption("adult", "i")}
+                                disabled={options.adult>=6}>+</button>
                         </div>
                         
                     </div>
                     <div className="options--item">
                         <span className="options--text">Children</span>
-                        <div className="options--counter">
+                        <div className="options--counter children">
                             <button 
+                                className="decrease"   
                                 onClick={() => handleOption("children", "d")}
                                 disabled={options.children<=0}>-</button>
                             <span>{options.children}</span>
-                            <button onClick={() => handleOption("children", "i")}
-                                    disabled={options.children>=6}>+</button>
+                            <button 
+                                className="increase"
+                                onClick={() => handleOption("children", "i")}
+                                disabled={options.children>=6}>+</button>
                         </div>
                     </div>
                     <div className="options--item">
                         <span className="options--text">Room</span>
-                        <div className="options--counter">
+                        <div className="options--counter room">
                             <button 
+                                className="decrease"
                                 onClick={() => handleOption("room", "d")}
                                 disabled={options.room<=1}>-</button>
                             <span>{options.room}</span>
-                            <button onClick={() => handleOption("room", "i")}>+</button>
+                            <button 
+                                className="increase"
+                                onClick={() => handleOption("room", "i")}
+                                disabled={options.room>=6}>+</button>
                         </div>
                     </div>
                 </div>)}

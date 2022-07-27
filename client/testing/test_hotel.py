@@ -7,7 +7,7 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 
 
 # test hotel page
-driver.get("http://localhost:3000/hotels/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2")
+driver.get("http://localhost:3000/hotels/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2/0/1")
 driver.implicitly_wait(30)
 
 # test title

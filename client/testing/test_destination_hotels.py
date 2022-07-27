@@ -13,7 +13,7 @@ driver = webdriver.Chrome(ChromeDriverManager().install())
 
 
 # test hotel page
-driver.get("http://localhost:3000/destinations/P4FZ/2022-07-24/2022-07-29/en_US/SGD/SG/2/0")
+driver.get("http://localhost:3000/destinations/P4FZ/2022-07-24/2022-07-29/en_US/SGD/SG/2/0/1/0")
 # ignored_exceptions=(NoSuchElementException,StaleElementReferenceException)
 wait = WebDriverWait(driver, 20, 0.5 )
 driver.implicitly_wait(30)

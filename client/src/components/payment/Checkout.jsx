@@ -5,6 +5,7 @@ import { DateRange} from 'react-date-range';
 import { format } from "date-fns";
 import {useNavigate, useParams, useLocation} from 'react-router-dom';
 import "./checkout.css"
+import NavBar from '../navbar/Navbar';
 
 // const Checkout = ({ route, navigation }) => {
 const Checkout = () => {
@@ -104,77 +105,106 @@ const Checkout = () => {
   const endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + (endTimeNum.getFullYear());
   
   return (
-    
+    <>
+    <NavBar/>
     <div className="body">
       <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
       <script src="https://js.stripe.com/v3/"></script>
-      <div className="hotel--wrapper">
-        
-          <h2>Book Room</h2>
-          {/* <form onSubmit={handleSubmit}> */}
-          <form action="../stripe/create-checkout-session/" method="POST">
-          
-          <div className="title">Confirm Booking</div>
-          <div className="hotel--container">
-            
-              <p>
-              <div className="title">Dates Of Stay</div>
-              <b>startDate: </b>{startTimeText},<br />
-              <b>endDate: </b>{endTimeText},<br />
-              <div className="title">Number of Guests</div>
-              <b>adultQty: </b>{data.adultQuantity},<br />
-              <b>childQty: </b>{data.childrenQuantity},<br />
-              <b>roomQty: </b>{data.roomQty},<br />
-              </p>
-          </div>
+      <div className="checkout--container">
+        <div className="checkout--wrapper">
+            {/* <form onSubmit={handleSubmit}> */}
+            <form className="checkout--form" action="../stripe/create-checkout-session/" method="POST">
+              <h1 className='checkout-title'>
+                <i className="fas fa-bed"></i>
+                Room Booking Information
+              </h1>
+              <div className="room-info">
+                  <div>
+                      <label me>Start Date:</label>
+                      <span>{startTimeText}</span>
+                  </div>
+                  <div>
+                      <label me>End Date:</label>
+                          <span>{endTimeText}</span>
+                  </div>
+              </div>
+              <div className="address-info">
+                  <div>
+                      <label>Adults:</label>
+                      <span>{data.adultQuantity}</span>
+                  </div>
+                  <div>
+                      <label >Children:</label>
+                      <span>{data.childrenQuantity}</span>
+                  </div>
+                  <div>
+                      <label >Rooms:</label>
+                      <span>{data.roomQty}</span>
+                  </div>
+              </div>
+              <h1 className='checkout-title'>
+                  <i className="far fa-credit-card"></i> 
+                  Payment Information
+              </h1>
+                <div className="billing-info">
+                    <label>Total Amount Paid:</label>
+                    <span>S${billing.unit_amount}</span>
+                </div>
+                <div className="billing-info">
+                    <label>Hotel Name:</label>
+                    <span>{data.hotelName}</span>
+                </div>
+                <div className="billing-info">
+                    <label>Destination:</label>
+                    <span>{billing.destination}</span>
+                </div>
+                <div className="billing-info">
+                    <label>Room Type:</label>
+                    <span>{data.roomType}</span>
+                </div>
+              <h1 className='checkout-title'>
+                  <i className="fas fa-hotel"></i> 
+                  Hotel Message
+              </h1>
+              <textarea name="paragraph_text" cols="50" rows="10"
+                        className="hotel-message"
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Leave your message here"
+                        type = "text"/>
+                {/* <input className="options--item"
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Leave your message here"
+                    name="message"
+                    type = "text"
+                /> */}
+                <div className='btn'>
+                  <button className="checkout-button" role="link" id="submit" type="submit">
+                    Confirm Purchase
+                  </button>
+                </div>
+                
+                <input hidden={true} 
+                encType="application/json"
+                defaultValue={JSON.stringify(data)}
+                name="info"></input>
 
-          <div className="hotel--container">
-              <p>
-              <div className="title">Total Amount Paid</div>
-              <b>price: </b>{billing.unit_amount},<br />
-              <div className="title">Hotel Details</div>
-              <b>hotelName: </b>{data.hotelName},<br />
-              <b>destination: </b>{billing.destination},<br />
-              <b>roomType: </b>{data.roomType},<br />
-              </p>
-            
+                <input hidden={true} 
+                encType="application/json"
+                defaultValue={JSON.stringify(billing)}
+                name="billing"></input>
+                
+                <input hidden={true} 
+                defaultValue={currentTime}
+                name="currentTime"></input>
 
-          </div>
-
-          <div className="hotel--container">
-            
-            {/* <div className="Title">Message for the Hotel</div> */}
-            <input className="options--item"
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Message for the hotel"
-              name="message"
-              type = "text"
-            />
-            
-            <input hidden={true} 
-            encType="application/json"
-            defaultValue={JSON.stringify(data)}
-            name="info"></input>
-
-            <input hidden={true} 
-            encType="application/json"
-            defaultValue={JSON.stringify(billing)}
-            name="billing"></input>
-            
-            <input hidden={true} 
-            defaultValue={currentTime}
-            name="currentTime"></input>
-
-            <button role="link" id="submit" type="submit">
-              buy now
-            </button>
+                {/* <button role="link" id="submit" type="submit">
+                  Buy Now
+                </button> */}
+            </form>
         </div>
-          
-          </form>
-        
       </div>
     </div>
-    
+  </>
   );
 };
 
