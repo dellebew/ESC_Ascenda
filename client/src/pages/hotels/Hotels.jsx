@@ -77,7 +77,7 @@ const Hotels = () => {
     return (
         <>
         <NavBar/>
-        {error && <Error/>}
+        {error && <Error {...{img:"/404-invalid-hotel.png"}}/>}
         {loading && <Loader/>}
         {!loading && !error &&
           <div className='body'>

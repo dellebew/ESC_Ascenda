@@ -67,7 +67,7 @@ const Destinations = () => {
     return (
         <>
         <NavBar />
-        {error && <Error/>}
+        {error && <Error {...{img:"/404-invalid-dest.png"}}/>}
         {loading && <Loader/>}
         {!loading && (items !== undefined) &&  <div className="body">                        
             <div className="list--container">
