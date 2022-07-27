@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import Loader from "../loader/Loader";
-import Error from "../../pages/error/Error";
+import Error from "../../components/error/Error";
 import NavBar from "../../components/navbar/Navbar";
 
 import "./checkout.css"
@@ -11,7 +11,7 @@ const Success = () => {
   const [session, setSession] = useState({});
   const [error, setError] = useState(null);  
   const [loading, setLoading] = useState(true); 
-  const location = useLocation();
+  // const location = useLocation();
   //const sessionId = location.search.replace('?session_id=', '');
   
   let { sessionId } = useParams();
@@ -20,50 +20,74 @@ const Success = () => {
   //sessionId printed here
   console.log(sessionId);
   console.log("in checkout success");
+  console.log(loading);
 
-  const startTimeText = "";
-  const endTimeText = "";
+  const [startTimeText, setStartTimeText] = useState("");
+  const [endTimeText, setEndTimeText] = useState("");
 
-  if (!loading && (session !== undefined)) {
-    console.log(JSON.stringify(session));
-    const startTimeNum = new Date(); 
-    startTimeNum.setTime(session.info.start);
-    startTimeText = startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear();
-  
-    const endTimeNum = new Date();  
-    endTimeNum.setTime(session.info.end);
-    endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + (endTimeNum.getFullYear());
-    console.log("after effect");
-  };
+  console.log(loading);
+  console.log(JSON.stringify(session));
 
   useEffect(() => {
     const fetchSession = async() => {
-      console.log("in async function");
-        // await fetch('stripe/checkout-session?sessionId=' + sessionId).then((res) =>
-        //also send back passedProps like the rtn passes
+      // await fetch('stripe/checkout-session?sessionId=' + sessionId).then((res) =>
+      //also send back passedProps like the rtn passes
       try{
-          setLoading(true);
+        
+        setLoading(true);
           // TODO: determine actual number of pages
           console.log("in async function");
-          const temp_sess = await fetch(`../../stripe/checkout-session/${sessionId}`);
+          const response = await fetch(`../../stripe/checkout-session/${sessionId}`);
           // .then((res) =>res.json());
+          if (response === null) {
+            throw Error("hotelData not found");
+          }
+          const temp_sess = await response.json()
+          console.log("finish fetching");
+          console.log(temp_sess);
+
           setSession(temp_sess);
-          setLoading(false);  
+          setError(null);
+          setLoading(false);
       } catch (err) {
+          console.log("error retrieving");
           setError(err.message);
           setLoading(false);
-      }
-    }
+      } 
+      
+    };
     fetchSession();
+
+    const fetchTime = async() => { 
+      if (!loading && (session !== undefined)) {
+        setLoading(false);
+        console.log("setting start and end times");
+        var startTimeNum = new Date(); 
+        // console.log(session.state.start);
+        startTimeNum.setTime(session.state.start);
+        let startTimeText = (startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear());
+        // console.log(startTimeText);
+        setStartTimeText(startTimeText);
     
+        var endTimeNum = new Date();  
+        endTimeNum.setTime(session.state.end);
+        let endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + endTimeNum.getFullYear();
+        // console.log(endTimeText);
+        setEndTimeText(endTimeText);
+        // console.log("after effect");
+      };
+    };
+    fetchTime();
   }, []);
+  
 
   return (
     <>
     <NavBar />
         {error && <Error/>}
         {loading && <Loader/>}
-        {!loading && (session !== undefined) && <div className="body">    
+        {!loading && (session !== undefined) && 
+      <div className="body">    
       <div className="title">Booking Successful</div>
       <div className="hotel--container">
           <p>
@@ -78,9 +102,9 @@ const Success = () => {
           <b>startDate: </b>{startTimeText},<br />
           <b>endDate: </b>{endTimeText},<br />
           <div className="title">Number of Guests</div>
-          <b>adultQty: </b>{session.info.adultQuantity},<br />
-          <b>childQty: </b>{session.info.childrenQuantity},<br />
-          <b>roomQty: </b>{session.info.roomQty},<br />
+          <b>adultQty: </b>{session.state.adultQuantity},<br />
+          <b>childQty: </b>{session.state.childrenQuantity},<br />
+          <b>roomQty: </b>{session.state.roomQty},<br />
           </p>
       </div>
       <div className="hotel--container">
@@ -90,7 +114,7 @@ const Success = () => {
           <div className="title">Hotel Details</div>
           <b>hotelName: </b>{session.billing.hotelName},<br />
           <b>destination: </b>{session.billing.destination},<br />
-          <b>roomType: </b>{session.info.roomType},<br />
+          <b>roomType: </b>{session.state.roomType},<br />
           <Link to="/">Find another vacation destination</Link>
           </p>
       </div>
