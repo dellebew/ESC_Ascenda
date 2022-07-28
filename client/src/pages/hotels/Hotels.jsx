@@ -2,41 +2,36 @@ import React, { useEffect, useState} from 'react'
 import "./hotels.css"
 import NavBar from '../../components/navbar/Navbar'
 import HotelPage from '../../components/hotelPage/HotelPage'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Error from '../../components/error/Error'
 import Loader from '../../components/loader/Loader'
 import callApi from '../../components/utils/callApi'
 import RoomCard from '../../components/roomCard/RoomCard'
-import HotelCard from '../../components/hotelCard/HotelCard'
 
 const Hotels = () => {
 
     
-    const [hotelData, setHotelData] = useState([])
-    const [pricesData, setPricesData] = useState([])
+    const [hotelData, setHotelData] = useState()
+    const [pricesData, setPricesData] = useState()
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);   
     
     const state = useParams();
-    console.log(pricesData);
 
     useEffect(() => {
       const fetchData = async () => {
         try { 
           setLoading(true);
-          // TODO: consider error for not successful prices data pull
+          // TODO: fix 404 and 429 error catching for hotel prices
           const hotelData = await callApi("hotel", state, null)
           const pricesData = await callApi("hotel/price", state, null)
           // console.log("data" + pricesData)
-          if (hotelData === null) {
-            throw Error("hotelData not found");
-          }
           setHotelData(hotelData);
           setPricesData(pricesData[0].rooms)
-          setError(null);
+          // setError(null);
           setLoading(false);
         } catch(err) {
-          setError(err.message);
+          // setError(err.message);
           setLoading(false);
         }
       };
@@ -44,7 +39,11 @@ const Hotels = () => {
     }, []);
 
     // group priceData based on room type
-    const groups = pricesData.reduce((r, {type, images, amenities, free_cancellation, roomNormalizedDescription, ...rest}) => {
+    const groups = () => {
+      if(pricesData === undefined) {
+        return null
+      } 
+      pricesData.reduce((r, {type, images, amenities, free_cancellation, roomNormalizedDescription, ...rest}) => {
       if(!r[type]) {
         r[type] = {type, images, amenities, free_cancellation, roomNormalizedDescription, data: [rest]}
       }
@@ -53,7 +52,7 @@ const Hotels = () => {
       }
       return r;
     }, {});
-
+    }
   
     // render different room rates
     const rendered = Object.values(groups).map((item, id) => {
@@ -74,13 +73,19 @@ const Hotels = () => {
       )
     }) 
 
+    console.log(loading)
+    console.log(hotelData)
+    console.log(pricesData)
+
     return (
         <>
-        <div class = "bg-container2">
+        <div className="bg-container2">
         <NavBar/>
-        {error && <Error {...{img:"/404-invalid-hotel.png"}}/>}
         {loading && <Loader/>}
-        {!loading && !error &&
+        {!loading && hotelData === "404" && <Error {...{img:"/404-invalid-hotel.png"}}/>}
+        {!loading && hotelData === "429" && <Error {...{img:"/404-429-error.png"}}/>}
+        {!loading && hotelData !== undefined && hotelData !== "429" && hotelData !== "404" 
+          && pricesData !== undefined &&
           <div className='body'>
             <div className='hotel--container'>
               <div className='hotel--wrapper'>
@@ -89,10 +94,10 @@ const Hotels = () => {
                     {...hotelData}/>
                 <div className='hotel--rooms'>
                     <h2>Room Choices</h2>
-                    {(pricesData == undefined) && <div className='not-avaliable'>
+                    {(pricesData === undefined) && <div className='not-avaliable'>
                       No avaliable rooms at the moment.
                     </div>}
-                    {(pricesData != undefined) && <div className='hotel--prices'> 
+                    {(pricesData !== undefined) && <div className='hotel--prices'> 
                       {rendered}
                     </div>}
                 </div>

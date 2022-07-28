@@ -18,7 +18,6 @@ const Destinations = () => {
     
     const [page, setPage] = useState(state.page)
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);  
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
 
@@ -28,14 +27,10 @@ const Destinations = () => {
                 setLoading(true);
                 console.log(state)
                 const data = await callApi('destination/prices', state);
-                // if (data[1] === undefined) {
-                //     throw Error("Data not found");
-                // } 
                 setItems(data[1])
                 setPageCount(data[0]);
                 setLoading(false);  
             } catch (err) {
-                setError(err.message);
                 setLoading(false);
             }
         };

@@ -11,12 +11,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 # test destinations page: /destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/:page
 try:    
-    driver.get("http://localhost:3000/destinations/RsBU/2022-08-03/2022-08-04/en_US/SGD/SG/3/1/1/0")
-    time.sleep(2)
-    print("Test 0 Passed, valid destinations page: " + driver.current_url)
-
     # Try to access invalid page number
-    driver.switch_to.new_window('tab')
     driver.get("http://localhost:3000/destinations/RsBU/2022-08-03/2022-08-04/en_US/SGD/SG/3/1/1/-1")
     time.sleep(2)
     assert(driver.current_url == "http://localhost:3000/invalid-url")
