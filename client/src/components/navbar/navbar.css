@@ -1,9 +1,16 @@
 .menu {
     height:60px;
     min-width:1024px;
-    background: linear-gradient(45deg, #355c7d, #6c5b7b, #c06c84);
-    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, 
-                rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; }
+    background-color: black;
+    opacity: 0.3;
+    filter: alpha(opacity=50);}
+    .menu:hover {
+      opacity: 0.3;
+      filter: alpha(opacity=50);
+      animation: fadeInNew 0.2s ease forwards;
+      animation-duration: 0.5s;
+      animation-delay: 0.1s; 
+    }
     .menu ol {
       list-style-type: none;
       margin: 0 auto;
@@ -46,13 +53,11 @@
           white-space: nowrap;
           text-overflow: ellipsis;
           display: block;
-          color: #FFF; }
+          color: white; }
         .sub-menu .menu-item {
           padding: 0.5rem 0;
           margin: 0px 3rem;
-          background: linear-gradient(to right, #355c7d, #6c5b7b, #c06c84);
-          box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, 
-                    rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; 
+          background-color: black; opacity: 0.5; filter: alpha(opacity=50);  
           opacity: 0;
           transform-origin: bottom;
           animation: enter 0.2s ease forwards; }
@@ -90,7 +95,7 @@
             flex-direction: column;
             justify-content: center;
             height: 100vh;
-            animation: fade 0.2s ease-out; }
+            animation: fadein 0.2s ease-out; }
             .menu > ol > .menu-item {
               flex: 0;
               opacity: 0;
@@ -146,10 +151,19 @@
         opacity: 1;
         transform: none; } }
     
-    @keyframes fade {
+    @keyframes fadein {
       from {
         opacity: 0; }
       to {
         opacity: 1; } }
+
+    @keyframes fadeInNew {
+      from {
+        opacity: 0.3; }
+      to {
+        opacity: 1; } }
+
+
+
 
         
