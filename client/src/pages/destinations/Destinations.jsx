@@ -52,6 +52,7 @@ const Destinations = () => {
     return (
         <>
         <NavBar />
+        <div class = "bg-container">
         {error && <Error {...{img:"/404-invalid-dest.png"}}/>}
         {loading && <Loader/>}
         {!loading && items === undefined && <Error {...{img:"/404-429-error.png"}}/>}
@@ -82,7 +83,9 @@ const Destinations = () => {
                     </div>
                 </div>
             </div>
+            
         </div>}
+        </div>
         </>
     )
 }

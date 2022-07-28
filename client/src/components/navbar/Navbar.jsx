@@ -6,7 +6,7 @@ const NavBar = () => {
         <nav className="menu">
             <ol>
                 <li className="menu-item"><a href="/" >Home</a></li>
-                <li className="menu-item"><a href="#/">About</a></li>
+                <li className="menu-item"><a href="/About">About</a></li>
                 <li className="menu-item"><a href="#/">Services</a>
                 <ol className="sub-menu">
                 <li className="menu-item"><a href="/">Destination Search</a></li>

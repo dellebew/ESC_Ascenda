@@ -76,6 +76,7 @@ const Hotels = () => {
 
     return (
         <>
+        <div class = "bg-container2">
         <NavBar/>
         {error && <Error {...{img:"/404-invalid-hotel.png"}}/>}
         {loading && <Loader/>}
@@ -98,6 +99,7 @@ const Hotels = () => {
               </div>
             </div>
           </div>}
+          </div>
         </>
     )
 }
