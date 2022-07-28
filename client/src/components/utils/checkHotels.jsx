@@ -3,7 +3,7 @@ import Hotels from "../../pages/hotels/Hotels"
 import { Navigate } from "react-router-dom";
 
 const CheckHotels = () => {
-  const {childrenQty, roomQty, 
+  const {adultsQty, childrenQty, roomQty, 
     checkout, checkin} = useParams();
 
   function isValidDate(s) {
@@ -17,7 +17,8 @@ const CheckHotels = () => {
     return d.getMonth() === parts[1] && d.getDate() === parts[2] && d.getFullYear() === parts[0];
   }
     
-    return Number(childrenQty) >= 0 && Number(childrenQty) <= 6
+    return Number(adultsQty) > 0 && Number(adultsQty) <= 6
+        && Number(childrenQty) >= 0 && Number(childrenQty) <= 6
         && Number(roomQty) > 0 && Number(roomQty) <= 6
         && isValidDate(checkout) && isValidDate(checkin)
       ? <Hotels />
