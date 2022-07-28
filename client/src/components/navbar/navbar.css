@@ -3,7 +3,10 @@
     min-width:1024px;
     background-color: black;
     opacity: 0.3;
-    filter: alpha(opacity=50);}
+    filter: alpha(opacity=50);
+    animation: fadeOutNew 0.2s ease backwards;
+    animation-duration: 0.5s;
+    animation-delay: 0.1s; ;}
     .menu:hover {
       opacity: 0.3;
       filter: alpha(opacity=50);
@@ -162,6 +165,12 @@
         opacity: 0.3; }
       to {
         opacity: 1; } }
+
+    @keyframes fadeOutNew {
+      from {
+        opacity: 1; }
+      to {
+        opacity: 0.3; } }
 
 
 
