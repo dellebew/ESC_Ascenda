@@ -1,7 +1,6 @@
 import "./hotelPage.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
-import RoomCard from "../roomCard/RoomCard"
 import ReactStars from "react-rating-stars-component"
 import ImageSlider from "../imageSlider/ImageSlider";
 import { useState, useEffect } from "react"
@@ -16,7 +15,7 @@ export default function HotelPage(props) {
     const [showMore, setShowMore] = useState(false);
     const [showAmenities, setShowAmenities] = useState(false);
 
-    // check if image exists
+    // check if image exists, else replace with placeholder
     const loadImg = (url) => {
         const img = new Image();
         return new Promise((resolve, reject) => {
@@ -30,7 +29,7 @@ export default function HotelPage(props) {
     useEffect(() => {
         const fetchData = async () => {
           try { 
-            const res = await loadImg(image_url);
+            const imageExists = await loadImg(image_url);
             let imageArray = []
             for (let i = 0; i < imageCount; i++) {
                 imageArray.push({image:props.image_details?.prefix
@@ -55,7 +54,7 @@ export default function HotelPage(props) {
     const filterAmenities = (amenities) => {
         try {
             const results = Object.keys(amenities).map((key) => {
-                if (key == "tVInRoom") return 'TV'                    
+                if (key === "tVInRoom") return 'TV'                    
                 return key.split(/(?=[A-Z])/)
                     .map(key => key = key.charAt(0).toUpperCase() + key.slice(1)) 
                     .join(' ')
@@ -73,8 +72,8 @@ export default function HotelPage(props) {
             const max = data.reduce(function(prev, current) {
                 return (prev[1].popularity < current[1].popularity) ? prev : current
             })
-            if(Math.round(max[1].popularity) == 0) {max[1].popularity = 1}
-            if(max[1].name == "Overall") {max[1].name = "All Hotel"}
+            if(Math.round(max[1].popularity) === 0) {max[1].popularity = 1}
+            if(max[1].name === "Overall") {max[1].name = "All Hotel"}
             return ([Math.round(max[1].popularity), max[1].name]);
         } catch(err) {
             return []
@@ -89,7 +88,6 @@ export default function HotelPage(props) {
             })
             return data
         } catch(err) {
-            console.log(err)
             return []
         }
     }
@@ -100,7 +98,6 @@ export default function HotelPage(props) {
         const element = document.querySelector(".amenities")
         element.style.maxHeight = showAmenities ? '200px' : 'fit-content';
     }
-    
 
     return (
         <div key={props.id} className='container'>
@@ -114,12 +111,12 @@ export default function HotelPage(props) {
                 <div className="hotel--header">
                     <div className="hotel--summary">
                         <div className='hotel--name'>
-                            <h1>{props.name}</h1>
+                            <h1 id="hotelName">{props.name}</h1>
                             <ReactStars {...{value:props.rating, size:25, edit:false}} />
                         </div>
                         <div className='hotel--address'>
                             <FontAwesomeIcon icon={faLocationDot}/>
-                            <span>{props.address}, {props.original_metadata?.city}, {props.original_metadata?.country}</span>
+                            <span id="hotelAddress">{props.address}, {props.original_metadata?.city}, {props.original_metadata?.country}</span>
                         </div>
                         {category().length > 0 && <span className="hotel--categories">Top {category()[0]} in {category()[1]}s</span>}
                     </div>
@@ -136,11 +133,16 @@ export default function HotelPage(props) {
                             </div>
                         </div>
                         <h2 className='title'>Amenities</h2>
-                        <div className='hotel--amenities'>
-                            {filterAmenities(props.amenities).map((key, i) => {
-                                return <li key={i}>{key}</li>
-                            })}
-                        </div>
+                        {filterAmenities(props.amenities).length == 0 &&
+                            <span className="no-amenities">No additional amenities information avaliable at the moment.</span>
+                        }
+                        {filterAmenities(props.amenities).length > 0 && <>
+                            <div className='hotel--amenities'>
+                                {filterAmenities(props.amenities).map((key, i) => {
+                                    return <li key={i}>{key}</li>
+                                })}
+                            </div>
+                        </>}
                     
                     </div>
                     
@@ -148,7 +150,7 @@ export default function HotelPage(props) {
                         
                             <h2>Location</h2>
                             <div className="hotel--location">
-                                <Map className="map" 
+                                <Map 
                                     height={300} 
                                     loading={'lazy'}
                                     defaultCenter={mapCenter}
@@ -156,8 +158,11 @@ export default function HotelPage(props) {
                                     <Marker width={50} anchor={mapCenter}/>
                                 </Map>
                             </div>
+                            <h4 className="location">{`(${props.latitude}, ${props.longitude})`}</h4>
                             <h2>Ratings</h2>
                         <div className='hotel--ratings'>
+                            {amenitiesRatings(props.amenities_ratings).length === 0 && 
+                                <span className="no-ratings"> No ratings avaliable at the moment. </span>}
                             {amenitiesRatings(props.amenities_ratings).length > 0 && <>
                                 <div className="amenities-wrapper">
                                 <div className="show--amenities" onClick={toggleAmenities}>
@@ -165,7 +170,6 @@ export default function HotelPage(props) {
                                 </div>
                                 <div className="amenities">
                                 {amenitiesRatings(props.amenities_ratings).map((key, i) => {
-                                    const roundedValue = Math.round(key[1]/5)/2
                                     return (<div key={i} className="amenities--ratings"> 
                                                 <div key={i} className="progress">
                                                     <div className="progress-done" style={{width:`${key[1]}%`}}/>
@@ -177,7 +181,8 @@ export default function HotelPage(props) {
                                             </div>)
                                     })}
                                 </div>
-                            </div></>}
+                                </div>
+                            </>}
                         </div>
                     </div>
 

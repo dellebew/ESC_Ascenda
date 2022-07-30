@@ -9,6 +9,7 @@ export default function RoomCard(props) {
     
     const [imgData, setImgData] = useState([]);
     const [showAmenities, setShowAmenities] = useState(false);
+    
 
     useEffect(() => {
         const images = props.images.map((item) => {return item.url})
@@ -31,16 +32,6 @@ export default function RoomCard(props) {
             return []
         }
     }
-
-    const rates = props.data.map((item, id) => {
-        //add address variable
-        item["address"] = props.address;
-        item["hotelId"] = props.hotelId;
-        item["hotelName"] = props.name;
-        return(
-            <RatesCard key={id}
-                {...item} />
-        )})
     
     // toggle amenities_ratings
     const toggleAmenities = () => {
@@ -67,25 +58,34 @@ export default function RoomCard(props) {
                     <div className="room--details">
                         <h3 className="room--normalized">{props.desc}</h3>
                         {props.cancellation && <div className="free-cancellation"> ✓ Free Cancellation</div>}
+                        {props.amenities.length > 0 && <>
                         <h4>Amenities</h4>
-                        <div className="wrapper">
-                            <div className='room--amenities'>
-                                {props.amenities.map((key, i) => {
-                                    if (!key.includes("sqm")) {
-                                        return <li key={i}>{key}</li>
-                                    }
-                                })}
+                            <div className="wrapper">
+                                <div className='room--amenities'>
+                                    {props.amenities.map((key, i) => {
+                                        if (!key.includes("sqm")) {
+                                            return <li key={i}>{key}</li>
+                                        }
+                                    })}
+                                </div>
                             </div>
-                        </div>
+                        </>}
                     </div>
                 </div>
             </div>
             <div className="room--options">
                 <div className="room--header">Market Rates</div>
-                <div className="room--rates">
-                    {rates}
-                </div>
-
+                {props.data.length === 0 && 
+                    <span> No rooms avaliable at the moment </span>}
+                {props.data.length > 0 && 
+                    <div className="room--rates">
+                        {props.data.map((item, id) => {
+                            item["address"] = props.address;
+                            return(
+                                <RatesCard key={id}
+                                    {...item} />
+                        )})}
+                    </div>}
             </div>
         </div>
     )

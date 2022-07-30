@@ -18,6 +18,7 @@ body {
     background-image: url("https://static.vecteezy.com/system/resources/previews/004/141/669/original/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg");
     background-position: center;
     background-size:cover;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .hotel--header {
@@ -100,10 +101,12 @@ body {
 
     .hotel--location {
         margin: 10px 0px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
-    .map {
-        height: 300px;
-        width: auto;
+
+    .location {
+        text-align: center;
+        color: #c06c84;
     }
 
 

@@ -66,7 +66,9 @@ export default function RatesCard(props) {
             {
               label: 'No',
             }
-          ]
+          ],
+          closeOnEscape: true,
+          closeOnClickOutside: true,
         });
       };
 

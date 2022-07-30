@@ -25,9 +25,9 @@ const Hotels = () => {
           // TODO: fix 404 and 429 error catching for hotel prices
           const hotelData = await callApi("hotel", state, null)
           const pricesData = await callApi("hotel/price", state, null)
-          // console.log("data" + pricesData)
           setHotelData(hotelData);
-          setPricesData(pricesData[0].rooms)
+          setPricesData(pricesData)
+          // setPricesData(pricesData[0].rooms)
           // setError(null);
           setLoading(false);
         } catch(err) {
@@ -38,68 +38,69 @@ const Hotels = () => {
         fetchData()
     }, []);
 
-    // group priceData based on room type
-    const groups = () => {
-      if(pricesData === undefined) {
+    // filter priceData based on room type
+    const filterRooms = (pricesData) => {
+      try {
+        const results = pricesData.reduce((r, {type, images, amenities, free_cancellation, roomNormalizedDescription, ...rest}) => {
+              if(!r[type]) {
+                console.log(roomNormalizedDescription)
+              r[type] = {type, images, amenities, free_cancellation, roomNormalizedDescription, data: [rest]}
+            }
+            else {
+              r[type].data.push(rest);
+            }
+            return r;
+        }, {});
+        return results
+      } catch (err) {
         return null
-      } 
-      pricesData.reduce((r, {type, images, amenities, free_cancellation, roomNormalizedDescription, ...rest}) => {
-      if(!r[type]) {
-        r[type] = {type, images, amenities, free_cancellation, roomNormalizedDescription, data: [rest]}
       }
-      else {
-        r[type].data.push(rest);
-      }
-      return r;
-    }, {});
     }
-  
-    // render different room rates
-    const rendered = Object.values(groups).map((item, id) => {
-      // console.log(item.roomNormalizedDescription, item.images)
-      return(
-        <RoomCard  
-          key={id} 
-          type={item.type} 
-          amenities={item.amenities}
-          cancellation={item.free_cancellation}
-          desc={item.roomNormalizedDescription}
-          images={item.images}
-          data={item.data}
-          address={hotelData.address}
-          name={hotelData.name}
-          hotel_id={state.hotelId}
-          />
-      )
-    }) 
 
     console.log(loading)
     console.log(hotelData)
     console.log(pricesData)
+    console.log(filterRooms(pricesData))
+    console.log(filterRooms(pricesData) !== null)
 
     return (
         <>
         <div className="bg-container2">
         <NavBar/>
         {loading && <Loader/>}
-        {!loading && hotelData === "404" && <Error {...{img:"/404-invalid-hotel.png"}}/>}
-        {!loading && hotelData === "429" && <Error {...{img:"/404-429-error.png"}}/>}
-        {!loading && hotelData !== undefined && hotelData !== "429" && hotelData !== "404" 
-          && pricesData !== undefined &&
-          <div className='body'>
+        {!loading && hotelData === "404" && pricesData === "404" && <Error {...{img:"/404-invalid-hotel.png"}}/>}
+        {!loading && (hotelData === "429" || pricesData === "429") && <Error {...{img:"/404-429-error.png"}}/>}
+        {!loading
+          && <div className='body'>
             <div className='hotel--container'>
               <div className='hotel--wrapper'>
-                <HotelPage 
+                {hotelData !== undefined && hotelData !== "429" && hotelData !== "404" 
+                 && <HotelPage 
                     key={hotelData._id}
-                    {...hotelData}/>
+                    {...hotelData}/>}
                 <div className='hotel--rooms'>
                     <h2>Room Choices</h2>
-                    {(pricesData === undefined) && <div className='not-avaliable'>
+                    {(filterRooms(pricesData) === null) && <div className='not-avaliable'>
                       No avaliable rooms at the moment.
                     </div>}
-                    {(pricesData !== undefined) && <div className='hotel--prices'> 
-                      {rendered}
-                    </div>}
+                    {filterRooms(pricesData) !== null
+                      && <div className='hotel--prices'> 
+                        {Object.values(filterRooms(pricesData)).map((item, id) => {
+                          return(
+                            <RoomCard  
+                                  key={id} 
+                                  type={item.type} 
+                                  amenities={item.amenities}
+                                  cancellation={item.free_cancellation}
+                                  desc={item.roomNormalizedDescription}
+                                  images={item.images}
+                                  data={item.data}
+                                  address={hotelData.address}
+                                  name={hotelData.name}
+                                  hotel_id={state.hotelId}
+                                />
+                          )})} 
+                      </div>}
                 </div>
               </div>
             </div>
