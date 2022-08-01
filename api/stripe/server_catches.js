@@ -1,8 +1,8 @@
 
-function checkInputData(data){
+module.exports.checkInputData = async function (data, resPage){
     
     try {
-        if (data !== null) {throw ExceptionNotFound()};
+        if (data !== null || data == undefined) {throw ExceptionNotFound()};
         console.log("There is input data here");
         return true;
     } catch (e) {
@@ -12,4 +12,4 @@ function checkInputData(data){
     
 }
 
-export {checkInputData}
+// export {checkInputData}

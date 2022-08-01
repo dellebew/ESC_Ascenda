@@ -6,7 +6,7 @@ const { resolve } = require('path');
 var successController = require("../controllers/successfulPaymentController.js");
 // import {default as setSuccessfulPayments, queryData} from "../controllers/successfulPaymentController.js"
 var incompleteController = require("../controllers/incompletePaymentController.js");
-// import checkInputData from "./server_catches.js"
+var stripe_testing = require("./server_catches.js");
 
 // Copy the .env.example in the root into a .env file in this folder
 
@@ -15,37 +15,30 @@ router.get('/failed-checkout-session/:curTime', async (req, res) => {
   
   console.log("in failed server side checkout-session");
   console.log(JSON.stringify(req.params));
-
+  let link = {link: "/"};
   try{
     const curTime = req.params.curTime;
     // const sessionId = useLocation();
     // retrieve from intermediatePayment
-    const queryData = incompleteController.setIncompletePayments(curTime, false);
-    let link = "";
+    const queryDataRaw = await incompleteController.setIncompletePayments(curTime, false);
+    // if (!stripe_testing.checkInputData(JSON.parse(queryDataRaw))){throw new Error('no link created')}
+    
+    link = JSON.parse(queryDataRaw);
+    
+    console.log(link.link); 
+    res.send(JSON.stringify(link));
 
-    if (queryData.length === 0){
-      // if queryData returns false (because it has been deleted) return to main page
-      // link = process.env.CLIENT_URL;
-      link = "/";
-    } else {
-      // else return send back link
-      link = (JSON.stringify(queryData)).pageURL;
-      console.log(JSON.stringify(queryData));
-    }
-
-    if (!checkInputData(link)){throw new Error('no link created')}
-
-  } catch (e){
-    console.log("error"+ e);
-    res.sendStatus(404);
+  } catch {
+    console.log("error");
+    // res.sendStatus(404);
+    res.send({link: "/"})
     res.end();
   }
-  
-  console.log(link);
-  res.send(link)
+
+
 });
   // Fetch the Checkout Session to display the JSON result on the success page
-router.get('/checkout-session/', async (req, res) => {
+router.get('/checkout-session/:id', async (req, res) => {
   
   try{
     console.log("in server side checkout-session");
@@ -76,7 +69,7 @@ router.get('/checkout-session/', async (req, res) => {
     // const loading = true;
     const inputData = await successController.setSuccessfulPayments(billingInfo);
     
-    if (!checkInputData(inputData)){throw new Error('Your 15min has passed. Please try again.')}
+    if (!stripe_testing.checkInputData(inputData)){throw new Error('Your 15min has passed. Please try again.')}
 
     res.send(JSON.stringify(inputData));
     // res.send(inputData);
@@ -97,8 +90,8 @@ router.post('/create-checkout-session', async (req, res) => {
 
   const state = JSON.stringify(req.body);
   // const {billing, body, roomType, message} = (req.body);
-  console.log(state);
-  console.log(req.body.billing);
+  // console.log(state);
+  // console.log(req.body.billing);
   // console.log(JSON.stringify(req.body.billing));
 
   const billing = JSON.parse(req.body.billing);

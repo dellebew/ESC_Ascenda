@@ -29,6 +29,7 @@ export default function RatesCard(props) {
       roomType: props.description,
       destination: props.address,
       hotelId: props.hotelId,
+      currentURL: window.location.pathname,
     };
     // console.log(state);
     // to navigate to checkout

@@ -26,11 +26,13 @@ module.exports.setSuccessfulPayments = async function (newListing, resPage){
         const mid_collec = dbo.collection(mid_coll_name);
         // console.log("in successful controller");
 
-        // console.log('sessionID = '+ newListing.sessionId)
+        console.log('sessionID = '+ newListing.sessionId)
 
-        const insertExists = await collec.find({"id": newListing.sessionId});
+        const insertExistsRaw = await collec.find({"id": newListing.sessionId});
+        const insertExists = await insertExistsRaw.toArray();
+        // console.log("insertExists: "+ JSON.stringify(insertExists[0]))
 
-        if (insertExists.length === 0){
+        if (insertExists[0] == null){
             const oldListingQuery = await mid_collec.find({"sessionId": newListing.sessionId});
             const oldListing = await oldListingQuery.toArray();
             console.log(oldListing[0]);
@@ -44,7 +46,7 @@ module.exports.setSuccessfulPayments = async function (newListing, resPage){
             console.log("inserting")
             const result = await collec.insertOne(finJSON);
             result;
-            // console.log("complete insertion into succesful collection");
+            console.log("complete insertion into succesful collection");
         }
 
         await deleteDocument();
@@ -52,7 +54,9 @@ module.exports.setSuccessfulPayments = async function (newListing, resPage){
 
         // const rtn = await queryData(newListing.sessionId);
         // console.log(rtn);
-
+        finJSON = insertExists[0];
+        console.log(JSON.stringify(finJSON));
+        console.log(finJSON.length);
         while(finJSON == null || finJSON.length == 0){
             console.log("waiting for finJSON");
         };
@@ -65,7 +69,7 @@ module.exports.setSuccessfulPayments = async function (newListing, resPage){
     }
 
     // console.log("print finJSON");
-    // console.log(finJSON);
+    console.log(finJSON);
 
     return finJSON;
 }

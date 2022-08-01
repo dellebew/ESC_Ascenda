@@ -53,9 +53,9 @@ const Checkout = () => {
     data: data,
   }
 
-  const currentURL = window.location.href
-
-  console.log(JSON.stringify(intermediateData));
+  const currentURL = state.currentURL;
+  // const currentURL = window.location.href
+  // console.log(JSON.stringify(intermediateData));
 
   // add to intermediate database
   // setIncompletePayments(intermediateData)

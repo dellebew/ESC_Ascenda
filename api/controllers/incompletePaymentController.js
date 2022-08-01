@@ -13,7 +13,7 @@ const mid_coll_name = "incomplete_payments";
 
 module.exports.setIncompletePayments = async function (newListing, set){
     
-   
+    let rtnStatement = {link: "/"};
     try {
         await client.connect();
         const dbo = client.db(dbName);
@@ -25,13 +25,15 @@ module.exports.setIncompletePayments = async function (newListing, set){
             const result = await collec.insertOne(newListing);
         } else {
             // newListing = sessionID
-            console.log(newListing);
-            const oldListingQuery = await collec.find({curTime: newListing});
+            console.log("newListing: "+ newListing);
+            const oldListingQuery = await collec.find({"curTime": parseInt(newListing)});
+            // const oldListingQuery = await collec.find({});
             const oldListing = await oldListingQuery.toArray();
-            console.log(oldListing[0]);
-
-            return oldListing[0];
-        }
+            
+            console.log("the queried listing: ", oldListing[0]);
+            const rtnStatementlink = await oldListing[0].pageURL;
+            rtnStatement = {link: rtnStatementlink}
+        }   
         
 
     } catch(e) { // closing connection no matter what
@@ -39,4 +41,7 @@ module.exports.setIncompletePayments = async function (newListing, set){
         console.log("mid payment cannot be accessed");
         console.log(e);
     }
+    
+    console.log(JSON.stringify(rtnStatement));
+    return JSON.stringify(rtnStatement);
 }
