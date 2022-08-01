@@ -1,6 +1,6 @@
 import "./ratesCard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBowlFood, faCross, faSquareXmark, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBowlFood, faCheck, faCross, faListCheck, faSquareXmark, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from "react";
 import ImageSlider from "../imageSlider/ImageSlider";
 import { confirmAlert } from 'react-confirm-alert';
@@ -13,7 +13,7 @@ export default function RatesCard(props) {
     const state = useParams();
 
     // console.log(state);
-    // console.log(props);
+    console.log(props);
 
     // what I need for navigations
     const newState = {
@@ -46,6 +46,8 @@ export default function RatesCard(props) {
     // RateCard props
     const hasBreakfast = props.roomAdditionalInfo.breakfastInfo == "hotel_detail_breakfast_included"
     const hasSupplier = props.market_rates
+    const freeCancellation = props.free_cancellation
+
 
     const submit = () => {
 
@@ -80,12 +82,22 @@ export default function RatesCard(props) {
                         {hasBreakfast && 
                             <div className="free-breakfast">
                             <FontAwesomeIcon className="food-icon" icon={faBowlFood}/>
-                                Free Breakfast Included
+                                Free Breakfast
                             </div>}
                         {!hasBreakfast && 
                             <div className="no-breakfast">
                             <FontAwesomeIcon className="food-icon" icon={faSquareXmark}/>
-                                No Breakfast Included
+                                No Breakfast
+                            </div>}
+                        {freeCancellation && 
+                            <div className="free--cancellation">
+                            <FontAwesomeIcon className="food-icon" icon={faCheck}/>
+                                Free Cancellation
+                            </div>}
+                        {!freeCancellation && 
+                            <div className="no-cancellation">
+                            <FontAwesomeIcon className="food-icon" icon={faSquareXmark}/>
+                                No Free Cancellation
                             </div>}
                     </div>
                     <div className="rates--pricing"> 

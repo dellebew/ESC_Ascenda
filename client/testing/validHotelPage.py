@@ -3,12 +3,15 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+options = webdriver.ChromeOptions()
+options.add_argument('--enable-javascript')
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 try:
     # test valid hotel page based on backend: http://localhost:8080/api/hotel/price/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2
@@ -21,6 +24,8 @@ try:
     hotelName = driver.find_element(By.ID, "hotelName")
     assert(hotelName.get_attribute("textContent") == "The Fullerton Hotel Singapore")
     print("Test 1 Passed, correct hotel name:", hotelName.get_attribute("textContent"))
+
+    driver.save_screenshot('./client/testing/screen_hotel_1.png')
 
     # check valid hotel static elements
     hotelAddress = driver.find_element(By.ID, "hotelAddress")
@@ -52,15 +57,20 @@ try:
     print("Test 7 Passed, {} ratings exist".format(len(hotelRatings)))
     
     # check that image slider is working
+    action = ActionChains(driver)
     hotelImages = driver.find_elements(By.CLASS_NAME, "slide")
     assert(len(hotelImages) == 56)
     print("Test 8 Passed, {} images exist".format(len(hotelImages)))
     for i in range(10):
         if (i < 5):
             leftClick = driver.find_element(By.CLASS_NAME, "fa-arrow-left")
+            action.move_to_element(leftClick).perform()
+            time.sleep(1)
             leftClick.click()
         else:
             rightClick = driver.find_element(By.CLASS_NAME, "fa-arrow-right")
+            action.move_to_element(rightClick).perform()
+            time.sleep(1)
             rightClick.click()
         time.sleep(0.5)
     print("Test 9 Passed, able to scroll through images")
@@ -71,14 +81,15 @@ try:
     originalHeight = hotelDesc.get_attribute("clientHeight") 
     assert(originalHeight == "300")
     
-    driver.execute_script("arguments[0].scrollIntoView();", hotelDesc)
+    driver.execute_script("window.scrollTo(0, 600);")
     time.sleep(2)
     driver.execute_script("arguments[0].click();", showDesc)
+    time.sleep(3)
     
     currentHeight = hotelDesc.get_attribute("clientHeight") 
     assert(currentHeight >= originalHeight)
     print("Test 10 Passed, show more description increases box length from {} to {}".format(originalHeight, currentHeight))
-
+    driver.execute_script("arguments[0].click();", showDesc)
 
     showAmenities = driver.find_element(By.CLASS_NAME, "show--amenities")
     amenitiesBox = driver.find_element(By.CLASS_NAME, "amenities")
@@ -87,11 +98,12 @@ try:
     
     time.sleep(2)
     driver.execute_script("arguments[0].click();", showAmenities)
-    
+    time.sleep(3)
     currentHeight = amenitiesBox.get_attribute("clientHeight") 
     assert(currentHeight >= originalHeight)
     print("Test 11 Passed, show more amenities increases box length from {} to {}".format(originalHeight, currentHeight))
-
+    driver.execute_script("arguments[0].click();", showAmenities)
+    
 except Exception as e:
     print(e)
 

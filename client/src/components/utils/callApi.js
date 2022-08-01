@@ -29,6 +29,7 @@ export default async function callApi(type, state) {
             return "404"
         }
         const data = await response.json()
+        console.log(data)
         return data[0].rooms
     } 
     else if (type == "destination/prices") {
