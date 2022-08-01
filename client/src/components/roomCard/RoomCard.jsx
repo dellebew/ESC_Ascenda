@@ -81,8 +81,6 @@ export default function RoomCard(props) {
                         {props.data.map((item, id) => {
                             item["address"] = props.address;
                             item["name"] = props.name;
-                            console.log("props: "+ props)
-                            console.log("items: \n" +item);
                             return(
                                 <RatesCard key={id}
                                     {...item} />
