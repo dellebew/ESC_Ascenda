@@ -62,7 +62,6 @@ const Hotels = () => {
     console.log(hotelData)
     console.log(pricesData)
     console.log(filterRooms(pricesData))
-    // console.log((filterRooms(pricesData)).length)
 
     return (
         <>
@@ -81,7 +80,8 @@ const Hotels = () => {
                     {...hotelData}/>}
                 <div className='hotel--rooms'>
                     <h2>Room Choices</h2>
-                    {(filterRooms(pricesData) === null) && <div className='not-avaliable'>
+                    {(filterRooms(pricesData) === null) &&
+                    <div className='not-avaliable'>
                       No avaliable rooms at the moment.
                     </div>}
                     {filterRooms(pricesData) !== null

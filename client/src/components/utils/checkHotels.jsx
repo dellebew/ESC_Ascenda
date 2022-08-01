@@ -4,7 +4,10 @@ import { Navigate } from "react-router-dom";
 
 const CheckHotels = () => {
   const {adultsQty, childrenQty, roomQty, 
+    hotelId, destId,
     checkout, checkin} = useParams();
+
+    console.log(hotelId.length)
 
   function isValidDate(s) {
     if (!/^\d\d\d\d-\d\d\-\d\d/.test(s) ) {
@@ -19,6 +22,7 @@ const CheckHotels = () => {
     return Number(adultsQty) > 0 && Number(adultsQty) <= 6
         && Number(childrenQty) >= 0 && Number(childrenQty) <= 6
         && Number(roomQty) > 0 && Number(roomQty) <= 6
+        && (hotelId.length) === 4 && (destId.length) === 4 
         && isValidDate(checkout) && isValidDate(checkin)
       ? <Hotels />
       : <Navigate to={`/invalid-url`}/>;

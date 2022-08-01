@@ -123,7 +123,7 @@ body {
     flex-direction: column;
 }
 
-.hotel--amenities {
+.with--amenities {
     display: flex;
     flex-wrap: wrap;
     padding-left: 10px;
@@ -131,13 +131,13 @@ body {
     margin-bottom: 10px;
 }
 
-    .hotel--amenities > li {
+    .with--amenities > li {
         flex: 1 0 50%;
         list-style: none;
         margin: 5px 0px;
     }
 
-    .hotel--amenities > li:before {
+    .with--amenities > li:before {
         content: '✓';
         padding-right: 8px;
         color:cornflowerblue

@@ -2,37 +2,37 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-
+options = webdriver.ChromeOptions()
+options.add_argument('--enable-javascript')
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 try:
-    # test valid destination page based on backend: http://localhost:8080/api/destination/prices/P4FZ/2022-07-24/2022-07-29/en_US/SGD/SG/2/0
-    driver.get("http://localhost:3000/destinations/P4FZ/2022-07-24/2022-07-29/en_US/SGD/SG/2/0/1/0")
-    time.sleep(4)
+    # test valid destination page based on backend: http://localhost:8080/api/destination/prices/P4FZ/2022-08-24/2022-08-29/en_US/SGD/SG/2/0
+    driver.get("http://localhost:3000/destinations/P4FZ/2022-08-24/2022-08-29/en_US/SGD/SG/2/0/1/0")
+    driver.maximize_window()
+    time.sleep(3)
     print("Test 0 Passed, valid destinations page: " + driver.current_url)
+    driver.save_screenshot('./client/testing/screen_destinations_1.png')
 
-    # check for 10 sets of hotels
+    # check for 6 sets of hotels
     hotelCards = driver.find_elements(By.CLASS_NAME, "searchItem")
-    assert(len(hotelCards) == 10)
-    print("Test 1 Passed, 10 Hotel Cards are displayed.")
+    assert(len(hotelCards) == 6)
+    print("Test 1 Passed, 6 Hotel Cards are displayed.")
 
 
     # check hotel names
     hotelNames = driver.find_elements(By.CLASS_NAME, "si--name")
-    actualHotels = ["ibis Styles London Southwark Rose",
-                    "Ibis London Docklands",
-                    "Carlton Hotel",
-                    "ibis London Earls Court",
-                    "Holiday Inn London - Commercial Road",
-                    "ibis London Shepherds Bush",
-                    "ibis London Stratford",
-                    "Best Western The Cromwell",
-                    "ibis London Excel Docklands",
-                    "ibis London Blackfriars"]
+    actualHotels = ["Novotel Birmingham Airport",
+                    "The Arden Hotel",
+                    "Diamond - Postbox Apartment 2",
+                    "Jurys Inn Birmingham",
+                    "Staycity Aparthotels Newhall Square",
+                    "Hatters Birmingham"]
     for i, hotel in enumerate(hotelNames):
         assert(hotel.get_attribute("innerHTML") == actualHotels[i])
         print(hotel.get_attribute("innerHTML"))
@@ -40,8 +40,7 @@ try:
 
     # check hotel prices
     hotelPrices = driver.find_elements(By.CLASS_NAME, "si--price")
-    actualPrices = ["2368.52", "1677.54", "1647.08", "1291.65", "1630.8",
-                    "1382.17", "1449.31", "1942.2", "1449.69", "2095.71"]
+    actualPrices = ["909.24", "1871.86", "7939.53", "926.19", "1041.32", "517.29"]
     for i, hotel in enumerate(hotelPrices):
         assert( int(hotel.get_attribute("innerHTML")[2:]) == round(float(actualPrices[i])))
         print(hotel.get_attribute("innerHTML"))
@@ -49,34 +48,41 @@ try:
 
     # check for show prices button
     pricesButton = driver.find_elements(By.CLASS_NAME, "si--showprices")
-    assert(len(pricesButton) == 10)
-    print("Test 4 Passed, 10 Search Buttons are displayed.")
+    assert(len(pricesButton) == 6)
+    print("Test 4 Passed, 6 Search Buttons are displayed.")
     for button in pricesButton:
         assert(button.is_enabled())
-    print("Test 5 Passed, all 10 Search Buttons are enabled.")
+    print("Test 5 Passed, all 6 Search Buttons are enabled.")
 
     # check that first hotel redirects correctly
-    pricesButton[0].click()
-    time.sleep(2)
-    assert(driver.current_url == "http://localhost:3000/hotels/MnnQ/P4FZ/2022-07-24/2022-07-29/en_US/SGD/SG/2/0/1")
-    hotelName = driver.find_element(By.CLASS_NAME, "hotel--name")
-    assert(hotelName.find_element(By.TAG_NAME, "h1").get_attribute("textContent") == actualHotels[0])
+    action = ActionChains(driver)
+    for i in range(6):
+        pricesButton = driver.find_elements(By.CLASS_NAME, "si--showprices")
+        if (i >= 3):
+            driver.execute_script("window.scrollTo(0, 600);")
+        time.sleep(2)
+        action.move_to_element(pricesButton[i]).perform()
+        pricesButton[i].click()
+        time.sleep(7)
+        # assert(driver.current_url == "http://localhost:3000/hotels/Kn6a/P4FZ/2022-08-24/2022-08-29/en_US/SGD/SG/2/0/1")
+        print(driver.current_url)
+        hotelName = driver.find_element(By.ID, "hotelName")
+        assert(hotelName.get_attribute("textContent") == actualHotels[i])
+        driver.back();
+        time.sleep(5)
     print("Test 6 Passed, redirects to correct hotel: ", actualHotels[0])
-    time.sleep(5)
 
-    driver.switch_to.new_window('tab')
-    driver.get("http://localhost:3000/destinations/P4FZ/2022-07-24/2022-07-29/en_US/SGD/SG/2/0/1/0")
-    # check for all 10 images
+    # check for all 6 images
     driver.implicitly_wait(10)
     images = driver.find_elements(By.CLASS_NAME, "si--image")
-    assert(len(images) == 10)
+    assert(len(images) == 6)
     for image in images:
         assert(image.is_displayed)
-    print("Test 7 Passed, 10 Images are displayed.")
+    print("Test 7 Passed, 6 Images are displayed.")
 
     	
-    lastPage= driver.find_element(By.XPATH, "//a[text()='53']")
-    assert(lastPage.text == "53")
+    lastPage= driver.find_element(By.XPATH, "//a[text()='103']")
+    assert(lastPage.text == "103")
     print("Test 8 Passed, max number of pages:",lastPage.text)
 
     # check next page is enabled
@@ -85,9 +91,10 @@ try:
     button = nextPage.find_element(By.TAG_NAME, "a")
     time.sleep(3)
     driver.execute_script("arguments[0].scrollIntoView();", button)
-    time.sleep(5)
+    time.sleep(3)
+    action.move_to_element(button).perform()
     driver.execute_script("arguments[0].click();", button)
-    assert(driver.current_url == "http://localhost:3000/destinations/P4FZ/2022-07-24/2022-07-29/en_US/SGD/SG/2/0/1/1")
+    assert(driver.current_url == "http://localhost:3000/destinations/P4FZ/2022-08-24/2022-08-29/en_US/SGD/SG/2/0/1/1")
     print("Test 9 Passed, clicking on next button redirects to next page:", driver.current_url)
     time.sleep(3)
 

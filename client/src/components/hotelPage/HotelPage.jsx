@@ -133,16 +133,18 @@ export default function HotelPage(props) {
                             </div>
                         </div>
                         <h2 className='title'>Amenities</h2>
+                        <div className="hotel--amenities">
                         {filterAmenities(props.amenities).length == 0 &&
                             <span className="no-amenities">No additional amenities information avaliable at the moment.</span>
                         }
                         {filterAmenities(props.amenities).length > 0 && <>
-                            <div className='hotel--amenities'>
+                            <div className='with--amenities'>
                                 {filterAmenities(props.amenities).map((key, i) => {
                                     return <li key={i}>{key}</li>
                                 })}
                             </div>
                         </>}
+                        </div>
                     
                     </div>
                     

@@ -14,8 +14,8 @@ options.add_argument('--enable-javascript')
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 try:
-    # test valid hotel page based on backend: http://localhost:8080/api/hotel/price/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2
-    driver.get("http://localhost:3000/hotels/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2/0/1")
+    # test valid hotel page based on backend: http://localhost:8080/api/hotel/price/diH7/WD0M/2022-08-25/2022-08-29/en_US/SGD/SG/2
+    driver.get("http://localhost:3000/hotels/diH7/WD0M/2022-08-25/2022-08-29/en_US/SGD/SG/2/0/1")
     driver.maximize_window()
     time.sleep(2)
     print("Test 0 Passed, valid hotels page: " + driver.current_url)
