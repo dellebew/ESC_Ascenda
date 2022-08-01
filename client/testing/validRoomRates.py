@@ -15,15 +15,15 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 
 
 try:
-    # test valid hotel page based on backend: http://localhost:8080/api/hotel/price/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2
-    driver.get("http://localhost:3000/hotels/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2/0/1")
+    # test valid hotel page based on backend: http://localhost:8080/api/hotel/price/diH7/WD0M/2022-08-25/2022-08-29/en_US/SGD/SG/2
+    driver.get("http://localhost:3000/hotels/diH7/WD0M/2022-08-25/2022-08-29/en_US/SGD/SG/2/0/1")
     driver.maximize_window()
     time.sleep(2)
     print("Test 0 Passed, valid hotels page: " + driver.current_url)
 
     # go through each room card and check its elements
     rooms = driver.find_elements(By.CLASS_NAME, "roomCard")
-    assert(len(rooms) == 11)
+    assert(len(rooms) == 10)
     print("Test 1 Passed, all {} room types displayed".format(len(rooms)))
     
     roomTypes = driver.find_elements(By.CLASS_NAME, "room--normalized")
@@ -36,7 +36,6 @@ try:
                         "Straits Club Marina Bay View  Room",
                         "Straits Club Courtyard",
                         "Straits Club Heritage",
-                        "Palladian",
                         "Loft"]
     for i, room in enumerate(roomTypes):
         assert(room.get_attribute("textContent") in actualRoomTypes)
@@ -44,33 +43,33 @@ try:
     print("Test 2 Passed, all hotel names correspond to database")
 
     roomImages = driver.find_elements(By.CLASS_NAME, "room--images")
-    assert(len(roomImages) == 11)
+    assert(len(roomImages) == 10)
     for i in roomImages:
         assert(i.is_displayed())
-    print("Test 3 Passed, all 11 room types have images")
+    print("Test 3 Passed, all 10 room types have images")
     
-    freeCancellation = driver.find_elements(By.CLASS_NAME, "free-cancellation")
-    assert(len(freeCancellation) == 11)
-    print("Test 4 Passed, all 11 room types have free cancellation")
+    freeCancellation = driver.find_elements(By.CLASS_NAME, "free--cancellation")
+    assert(len(freeCancellation) == 18)
+    print("Test 4 Passed, all 18 rooms have free cancellation")
 
     amenitiesList = driver.find_elements(By.CLASS_NAME, "room--amenities")
-    assert(len(amenitiesList) == 11)
+    assert(len(amenitiesList) == 10)
     for i in amenitiesList:
         amenities = i.find_elements(By.TAG_NAME, "li")
         print(", ".join([i.get_attribute("textContent") for i in amenities]))
-    print("Test 5 Passed, all 11 room types have amenities")
+    print("Test 5 Passed, all 10 room types have amenities")
 
     ratesList = driver.find_elements(By.CLASS_NAME, "room--rates")
-    assert(len(ratesList) == 11)
+    assert(len(ratesList) == 10)
     ratesCards = driver.find_elements(By.CLASS_NAME, "ratesCard")
     assert(len(ratesCards) == 18)
-    print("Test 6 Passed, all 11 room types have a total of 18 room rates")
+    print("Test 6 Passed, all 10 room types have a total of {} room rates".format(len(ratesCards)))
     freeBreakfast = driver.find_elements(By.CLASS_NAME, "free-breakfast")
-    assert(len(freeBreakfast))
-    print("Test 7 Passed, out of 18 room rates, 11 provide free breakfast")
+    assert(len(freeBreakfast) == 10)
+    print("Test 7 Passed, out of 18 room rates, {} provide free breakfast".format((len(freeBreakfast))))
     noBreakfast = driver.find_elements(By.CLASS_NAME, "no-breakfast")
-    assert(len(noBreakfast))
-    print("Test 8 Passed, out of 18 room rates, 7 do not include breakfast")
+    assert(len(noBreakfast) == 8)
+    print("Test 8 Passed, out of 18 room rates, {} do not include breakfast".format(len(noBreakfast)))
 
     # check rates are sorted in ascending order and are clickable
     for rates in ratesList:
@@ -98,7 +97,7 @@ try:
     button.click()
     time.sleep(2)
 
-    driver.save_screenshot('./client/testing/screen_room_confirmation.png')
+    # driver.save_screenshot('./client/testing/screen_room_confirmation.png')
 
     # test confirmation
     confirmation = driver.find_element(By.CLASS_NAME, "react-confirm-alert-button-group")

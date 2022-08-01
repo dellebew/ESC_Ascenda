@@ -20,12 +20,12 @@ const Destinations = () => {
     const [loading, setLoading] = useState(false);
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchData = async() => {
             try{
                 setLoading(true);
-                console.log(state)
                 const data = await callApi('destination/prices', state);
                 setItems(data[1])
                 setPageCount(data[0]);
@@ -37,10 +37,12 @@ const Destinations = () => {
         fetchData()
     }, [page]);
 
-    const handlePageClick = (data) => {
+    function handlePageClick(data) {
         let currentPage = data.selected 
-        state.page = currentPage;
-        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}/${state.page}`)
+        // state.page = currentPage;
+        // navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}/${state.page}`)
+        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}/${currentPage}`)
+        window.scrollTo(0, 0)
         setPage(currentPage)
     }
 
