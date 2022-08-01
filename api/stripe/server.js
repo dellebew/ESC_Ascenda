@@ -6,7 +6,7 @@ const { resolve } = require('path');
 var successController = require("../controllers/successfulPaymentController.js");
 // import {default as setSuccessfulPayments, queryData} from "../controllers/successfulPaymentController.js"
 var incompleteController = require("../controllers/incompletePaymentController.js");
-import checkInputData from "./server_catches.js"
+// import checkInputData from "./server_catches.js"
 
 // Copy the .env.example in the root into a .env file in this folder
 
@@ -116,7 +116,7 @@ router.post('/create-checkout-session', async (req, res) => {
   const numOfNights = Math.ceil(diffInMs/(1000 * 60 * 60 * 24));
 
   const setStart = new Date(info.start-4);
-  const setEnd = new Date(info.start);
+  const setEnd = new Date(info.end);
 
   const startDate = setStart.getDate() + "/"+setStart.getMonth() + "/" + setStart.getFullYear();
   const endDate = setEnd.getDate() + "/"+setEnd.getMonth() + "/" + setEnd.getFullYear();
