@@ -54,7 +54,21 @@
     margin: 5px 0px;
 }
 
+.free--cancellation {
+    font-weight: bold;
+    color:green;
+    font-size: 12px;
+    margin: 5px 0px;
+}
+
 .no-breakfast {
+    font-weight: bold;
+    color:brown;
+    font-size: 12px;
+    margin: 5px 0px;
+}
+
+.no-cancellation {
     font-weight: bold;
     color:brown;
     font-size: 12px;

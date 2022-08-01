@@ -9,7 +9,10 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+options = webdriver.ChromeOptions()
+options.add_argument('--enable-javascript')
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
 
 try:
     # test valid hotel page based on backend: http://localhost:8080/api/hotel/price/diH7/WD0M/2022-07-25/2022-07-29/en_US/SGD/SG/2
@@ -83,15 +86,19 @@ try:
 
     # check for correct redirect
     firstRate = ratesCards[0]
-    driver.execute_script("arguments[0].scrollIntoView();", firstRate)
+    driver.execute_script("window.scrollTo(0, 1200);")
     time.sleep(1)
-    # driver.execute_script("arguments[0].click();", firstRate)
+
+    # driver.save_screenshot('./client/testing/screen_room_rates_1.png')
+
     action = ActionChains(driver)
     action.move_to_element(firstRate).perform()
     time.sleep(1)
     button = firstRate.find_element(By.CLASS_NAME, "rates--container")
     button.click()
     time.sleep(2)
+
+    driver.save_screenshot('./client/testing/screen_room_confirmation.png')
 
     # test confirmation
     confirmation = driver.find_element(By.CLASS_NAME, "react-confirm-alert-button-group")

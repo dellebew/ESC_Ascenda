@@ -41,16 +41,17 @@ const Hotels = () => {
     // filter priceData based on room type
     const filterRooms = (pricesData) => {
       try {
-        const results = pricesData.reduce((r, {type, images, amenities, free_cancellation, roomNormalizedDescription, ...rest}) => {
+        const results = pricesData.reduce((r, {type, images, amenities, roomNormalizedDescription, ...rest}) => {
               if(!r[type]) {
                 console.log(roomNormalizedDescription)
-              r[type] = {type, images, amenities, free_cancellation, roomNormalizedDescription, data: [rest]}
+              r[type] = {type, images, amenities, roomNormalizedDescription, data: [rest]}
             }
             else {
               r[type].data.push(rest);
             }
             return r;
         }, {});
+        console.log(results)
         return results
       } catch (err) {
         return null
@@ -61,7 +62,7 @@ const Hotels = () => {
     console.log(hotelData)
     console.log(pricesData)
     console.log(filterRooms(pricesData))
-    console.log(filterRooms(pricesData) !== null)
+    // console.log((filterRooms(pricesData)).length)
 
     return (
         <>
@@ -91,7 +92,6 @@ const Hotels = () => {
                                   key={id} 
                                   type={item.type} 
                                   amenities={item.amenities}
-                                  cancellation={item.free_cancellation}
                                   desc={item.roomNormalizedDescription}
                                   images={item.images}
                                   data={item.data}
