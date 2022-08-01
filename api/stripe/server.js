@@ -6,60 +6,85 @@ const { resolve } = require('path');
 var successController = require("../controllers/successfulPaymentController.js");
 // import {default as setSuccessfulPayments, queryData} from "../controllers/successfulPaymentController.js"
 var incompleteController = require("../controllers/incompletePaymentController.js");
+import checkInputData from "./server_catches.js"
 
 // Copy the .env.example in the root into a .env file in this folder
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
-
-  // Fetch the Checkout Session to display the JSON result on the success page
-router.get('/checkout-session/:id', async (req, res) => {
+router.get('/failed-checkout-session/:curTime', async (req, res) => {
   
-  console.log("in server side checkout-session");
-  // const sessionId = location.search.replace('?session_id=', '');
-  const sessionId = req.params.id;
-  //const sessionId = req.query.sessionId;
-  
-  const session = await stripe.checkout.sessions.retrieve(sessionId);
+  console.log("in failed server side checkout-session");
+  console.log(JSON.stringify(req.params));
 
-  console.log(sessionId);
-  console.log(session);
+  try{
+    const curTime = req.params.curTime;
+    // const sessionId = useLocation();
+    // retrieve from intermediatePayment
+    const queryData = incompleteController.setIncompletePayments(curTime, false);
+    let link = "";
 
-  // retrieve payment id, product id for product name
-  const paymentRetrieve = stripe.paymentIntents.retrieve(session.payment_intent);
-  const price = paymentRetrieve.amount/100;
-  //productRetrieve = stripe.products.retrieve(paymentRetrieve.product);
-  
-  // retrieve pre-saved data using sessionid
-  const billingInfo = {
-    sessionId: session.id,
-    name: session.customer_details.name,
-    email: session.customer_details.email,
-    // address: session.customer_details.address,
-    paymentid: session.payment_intent,
+    if (queryData.length === 0){
+      // if queryData returns false (because it has been deleted) return to main page
+      // link = process.env.CLIENT_URL;
+      link = "/";
+    } else {
+      // else return send back link
+      link = (JSON.stringify(queryData)).pageURL;
+      console.log(JSON.stringify(queryData));
+    }
+
+    if (!checkInputData(link)){throw new Error('no link created')}
+
+  } catch (e){
+    console.log("error"+ e);
+    res.sendStatus(404);
+    res.end();
   }
-
-  // const deleteData = deleteIntermediatePayments();
-  // deleteData;
   
-  console.log(billingInfo);
-  const loading = true;
-  const inputData = await successController.setSuccessfulPayments(billingInfo);
-
-  console.log("inputData");
-  console.log(inputData);
+  console.log(link);
+  res.send(link)
+});
+  // Fetch the Checkout Session to display the JSON result on the success page
+router.get('/checkout-session/', async (req, res) => {
   
+  try{
+    console.log("in server side checkout-session");
+    // const sessionId = location.search.replace('?session_id=', '');
+    const sessionId = req.params.id;
+    //const sessionId = req.query.sessionId;
+    
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
 
-  // while(loading){
-  //   if (inputData !== null){
-  //     loading = false;
-  //     console.log("sending data back from while loop");
-  //     console.log(inputData);
-  //     res.send(inputData);
-  //   }
-  // };
-  console.log("sending data back outside while loop");
-  res.send(JSON.stringify(inputData));
-  // res.send(inputData);
+    // console.log(sessionId);
+    // console.log(session);
+
+    // retrieve payment id, product id for product name
+    const paymentRetrieve = stripe.paymentIntents.retrieve(session.payment_intent);
+    const price = paymentRetrieve.amount/100;
+    //productRetrieve = stripe.products.retrieve(paymentRetrieve.product);
+    
+    // retrieve pre-saved data using sessionid
+    const billingInfo = {
+      sessionId: session.id,
+      name: session.customer_details.name,
+      email: session.customer_details.email,
+      // address: session.customer_details.address,
+      paymentid: session.payment_intent,
+    }
+    
+    console.log(billingInfo);
+    // const loading = true;
+    const inputData = await successController.setSuccessfulPayments(billingInfo);
+    
+    if (!checkInputData(inputData)){throw new Error('Your 15min has passed. Please try again.')}
+
+    res.send(JSON.stringify(inputData));
+    // res.send(inputData);
+  } catch (e){
+    console.log("error"+e);
+    res.sendStatus(404);
+    res.end();
+  }
   
 });
 
@@ -84,25 +109,24 @@ router.post('/create-checkout-session', async (req, res) => {
   //console.log(state.info);
 
   // const { date, message, roomType, options } = req.body;
-  console.log("here");
 
   const diffInMs = Math.abs(info.end - info.start);
   console.log("start: " + info.start + " end: "+ info.end+" "+diffInMs);
   
   const numOfNights = Math.ceil(diffInMs/(1000 * 60 * 60 * 24));
 
-  const setStart = new Date(info.start);
+  const setStart = new Date(info.start-4);
   const setEnd = new Date(info.start);
 
   const startDate = setStart.getDate() + "/"+setStart.getMonth() + "/" + setStart.getFullYear();
   const endDate = setEnd.getDate() + "/"+setEnd.getMonth() + "/" + setEnd.getFullYear();
 
   const description = "Number of Nights: " + 
-  numOfNights + " Start Date: " + startDate
-  + " End Date: " + endDate + " Number of Adults: "
-  + info.adultQuantity + " Number of Children: "
-  + info.childrenQuantity + " Room Type: " + info.roomType
-  + " Comments for hotel: " + info.message
+  numOfNights + " \nStart Date: " + startDate
+  + " \nEnd Date: " + endDate + " \nNumber of Adults: "
+  + info.adultQuantity + " \nNumber of Children: "
+  + info.childrenQuantity + " \nRoom Type: " + info.roomType
+  + " \nComments for hotel: " + info.message
 
   info["startDate"] = startDate;
   info["endDate"] = endDate;
@@ -125,9 +149,9 @@ router.post('/create-checkout-session', async (req, res) => {
       product: product.id,
   });
 
-  console.log(price.id);
-  console.log(numOfNights);
-  console.log(info.roomQty);
+  // console.log(price.id);
+  // console.log(numOfNights);
+  // console.log(info.roomQty);
 
   const session = await stripe.checkout.sessions.create({
     
@@ -141,7 +165,7 @@ router.post('/create-checkout-session', async (req, res) => {
     mode: 'payment',
     customer_creation: "always",
     success_url: `${process.env.CLIENT_URL}/checkout/success/{CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.CLIENT_URL}/checkout/canceled`,
+    cancel_url: `${process.env.CLIENT_URL}/checkout/canceled/${parseInt(req.body.currentTime)}`,
     billing_address_collection: 'required',
     phone_number_collection: {"enabled": true},
   });
@@ -151,10 +175,11 @@ router.post('/create-checkout-session', async (req, res) => {
     sessionId: session.id,
     billing: billing,
     info: info,
-    curTime: req.body.currentTime
+    pageURL: req.body.pageURL,
+    curTime: parseInt(req.body.currentTime)
   }
 
-  const store = incompleteController.setIncompletePayments(pre_payment_inp);
+  const store = incompleteController.setIncompletePayments(pre_payment_inp, true);
   store;
 
   console.log("Redirecting to 303")
@@ -162,41 +187,41 @@ router.post('/create-checkout-session', async (req, res) => {
 
 });
 
-router.post('/webhook', async (req, res) => {
-    let data;
-    let eventType;
-    // Check if webhook signing is configured.
-    if (process.env.STRIPE_WEBHOOK_SECRET) {
-      // Retrieve the event by verifying the signature using the raw body and secret.
-      let event;
-      let signature = req.headers['stripe-signature'];
+// router.post('/webhook', async (req, res) => {
+//     let data;
+//     let eventType;
+//     // Check if webhook signing is configured.
+//     if (process.env.STRIPE_WEBHOOK_SECRET) {
+//       // Retrieve the event by verifying the signature using the raw body and secret.
+//       let event;
+//       let signature = req.headers['stripe-signature'];
   
-      try {
-        event = stripe.webhooks.constructEvent(
-          req.rawBody,
-          signature,
-          process.env.STRIPE_WEBHOOK_SECRET
-        );
-      } catch (err) {
-        console.log(`⚠️  Webhook signature verification failed.`);
-        return res.sendStatus(400);
-      }
-      // Extract the object from the event.
-      data = event.data;
-      eventType = event.type;
-    } else {
-      // Webhook signing is recommended, but if the secret is not configured in `config.js`,
-      // retrieve the event data directly from the request body.
-      data = req.body.data;
-      eventType = req.body.type;
-    }
+//       try {
+//         event = stripe.webhooks.constructEvent(
+//           req.rawBody,
+//           signature,
+//           process.env.STRIPE_WEBHOOK_SECRET
+//         );
+//       } catch (err) {
+//         console.log(`⚠️  Webhook signature verification failed.`);
+//         return res.sendStatus(400);
+//       }
+//       // Extract the object from the event.
+//       data = event.data;
+//       eventType = event.type;
+//     } else {
+//       // Webhook signing is recommended, but if the secret is not configured in `config.js`,
+//       // retrieve the event data directly from the request body.
+//       data = req.body.data;
+//       eventType = req.body.type;
+//     }
   
-    if (eventType === 'checkout.session.completed') {
-      console.log(`🔔  Payment received!`);
-    }
+//     if (eventType === 'checkout.session.completed') {
+//       console.log(`🔔  Payment received!`);
+//     }
   
-    res.sendStatus(200);
-  });
+//     res.sendStatus(200);
+//   });
   
   // app.listen(8080, () => console.log(`Node server listening on port ${4242}!`));
 

@@ -17,16 +17,13 @@ const Success = () => {
   let { sessionId } = useParams();
   //const sessionId = state.sessionId;
 
-  //sessionId printed here
-  console.log(sessionId);
-  console.log("in checkout success");
-  console.log(loading);
+  // //sessionId printed here
+  // console.log(sessionId);
+  // console.log("in checkout success");
+  // console.log(loading);
 
-  const [startTimeText, setStartTimeText] = useState("");
-  const [endTimeText, setEndTimeText] = useState("");
-
-  console.log(loading);
-  console.log(JSON.stringify(session));
+  // console.log(loading);
+  // console.log(JSON.stringify(session));
 
   useEffect(() => {
     const fetchSession = async() => {
@@ -57,27 +54,6 @@ const Success = () => {
       
     };
     fetchSession();
-
-    // const fetchTime = async() => { 
-    //   if (!loading && (session !== undefined)) {
-    //     setLoading(false);
-    //     console.log("setting start and end times");
-    //     var startTimeNum = new Date(); 
-    //     // console.log(session.state.start);
-    //     startTimeNum.setTime(session.state.start);
-    //     let startTimeText = (startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear());
-    //     // console.log(startTimeText);
-    //     setStartTimeText(startTimeText);
-    
-    //     var endTimeNum = new Date();  
-    //     endTimeNum.setTime(session.state.end);
-    //     let endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + endTimeNum.getFullYear();
-    //     // console.log(endTimeText);
-    //     setEndTimeText(endTimeText);
-    //     // console.log("after effect");
-    //   };
-    // };
-    // fetchTime();
   }, []);
   
 
@@ -141,7 +117,7 @@ const Success = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span>S${session.state.unit_amount}</span>
+                    <span>S${session.state.unit_amount * session.state.roomQty}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>

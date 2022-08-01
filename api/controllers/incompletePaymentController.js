@@ -11,18 +11,32 @@ const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 const fin_coll_name = "successful_payments";
 const mid_coll_name = "incomplete_payments";
 
-module.exports.setIncompletePayments = async function (newListing){
+module.exports.setIncompletePayments = async function (newListing, set){
     
+   
     try {
         await client.connect();
         const dbo = client.db(dbName);
         const collec = dbo.collection(mid_coll_name);
 
-        // const session = await stripe.checkout.sessions.retrieve(sessionId);
-        const result = await collec.insertOne(newListing);
+        if (set){
+            // newListing is a JSON file
+            // const session = await stripe.checkout.sessions.retrieve(sessionId);
+            const result = await collec.insertOne(newListing);
+        } else {
+            // newListing = sessionID
+            console.log(newListing);
+            const oldListingQuery = await collec.find({curTime: newListing});
+            const oldListing = await oldListingQuery.toArray();
+            console.log(oldListing[0]);
 
-    } finally { // closing connection no matter what
+            return oldListing[0];
+        }
+        
+
+    } catch(e) { // closing connection no matter what
         // await client.close();
-        console.log("mid payment created");
+        console.log("mid payment cannot be accessed");
+        console.log(e);
     }
 }

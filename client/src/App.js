@@ -38,7 +38,7 @@ function App() {
         <Route path='*' element={<ErrorPage/>}> </Route>
         <Route path= "/checkout" element= {<Checkout />} />
         <Route path= '/checkout/success/:sessionId' element = {<Success />}/>
-        <Route path= '/checkout/canceled' element = {<Canceled />}/>
+        <Route path= '/checkout/canceled/:curTime' element = {<Canceled />}/>
 
       </Routes>
     </BrowserRouter>

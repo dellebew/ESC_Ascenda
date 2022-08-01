@@ -15,17 +15,6 @@ const Checkout = () => {
   // const state = useParams();
   const location = useLocation();
   const state = location.state;
-  // console.log(state);
-
-  // const route.params
-  // console.log((params));
-  // const state = params.newState;
-  // console.log(JSON.stringify(state));
-
-  // const navigate = useNavigate();
-
-  // get information from previous page
-  
 
   console.log("in Checkout");
 
@@ -48,39 +37,12 @@ const Checkout = () => {
     hotelName: state.hotelName,
   };
 
-
   const billing = {
     unit_amount: state.price,
     name: state.roomName,
     destination: state.destination,
     hotel_id: state.hotelId,
   }
-
-  // const startTime = new Date();
-  // let endTime = new Date();
-  // endTime.setTime(startTime.getTime() + 1000*60*60*24*5)
-  // const endTime2 = endTime.getTime();
-  // const startTime2 = startTime.getTime();
-
-  // const data = {
-  //   // start: new Date(2022, 7, 22), 
-  //   // end: new Date(2022, 7, 28),
-  //   start: startTime2,
-  //   end: endTime2,
-  //   message: message,
-  //   roomQty: 3,
-  //   roomType: "Single Room",
-  //   adultQuantity: 2,
-  //   childrenQuantity: 0,
-  //   cust_name: "",
-  // };
-
-  // const billing = {
-  //   unit_amount: 20*100,
-  //   name: "Hotel Name",
-  //   hotel_id: "",
-  //   destination: "location",
-  // }
 
   const currentTime = new Date();
   const currentTime2 = currentTime.getTime();
@@ -90,6 +52,8 @@ const Checkout = () => {
     billing: billing,
     data: data,
   }
+
+  const currentURL = window.location.href
 
   console.log(JSON.stringify(intermediateData));
 
@@ -147,7 +111,7 @@ const Checkout = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span>S${billing.unit_amount}</span>
+                    <span>S${billing.unit_amount * data.roomQty}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>
@@ -190,6 +154,10 @@ const Checkout = () => {
                 <input hidden={true} 
                 defaultValue={currentTime2}
                 name="currentTime"></input>
+
+                <input hidden={true}
+                defaultValue={currentURL}
+                name="pageURL"></input>
                 
                 <div className='btn'>
                   <button className="checkout-button" role="link" id="submit" type="submit">
