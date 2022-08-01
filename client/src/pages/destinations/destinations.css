@@ -1,13 +1,14 @@
-html { 
-  background: url(/public/change.gif) repeat center center fixed #000; 
-  width: 100%;
+.bg-container {
+  min-width: 100%;
+  min-height: 100vh;
+  background-image: url(../Images/VlX1.gif);
+  width:100%;
   height:100%;
-  position: relative;
-  -webkit-background-size: relative;
-  -moz-background-size: relative;
-  -o-background-size: relative;
   background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
+
 
 .body {
     min-width: 1024px;

@@ -18,7 +18,6 @@ const Destinations = () => {
     
     const [page, setPage] = useState(state.page)
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);  
     const [items, setItems] = useState()
     const [pageCount, setPageCount] = useState(0);
 
@@ -28,14 +27,10 @@ const Destinations = () => {
                 setLoading(true);
                 console.log(state)
                 const data = await callApi('destination/prices', state);
-                if (data[1] === undefined) {
-                    throw Error("Data not found");
-                } 
                 setItems(data[1])
                 setPageCount(data[0]);
                 setLoading(false);  
             } catch (err) {
-                setError(err.message);
                 setLoading(false);
             }
         };
@@ -49,13 +44,15 @@ const Destinations = () => {
         setPage(currentPage)
     }
 
+    console.log(items)
     return (
         <>
         <NavBar />
-        {error && <Error {...{img:"/404-invalid-dest.png"}}/>}
+        <div className= "bg-container">
         {loading && <Loader/>}
-        {!loading && items === undefined && <Error {...{img:"/404-429-error.png"}}/>}
-        {!loading && (items !== undefined) &&  <div className="body">                        
+        {!loading && items === "404" && <Error {...{img:"/404-invalid-dest.png"}}/>}
+        {!loading && items === "429" && <Error {...{img:"/404-429-error.png"}}/>}
+        {!loading && items !== undefined && items !== "404" && items !== "429" &&  <div className="body">                        
             <div className="list--container">
                 <div className="list--wrapper">
                     
@@ -82,7 +79,9 @@ const Destinations = () => {
                     </div>
                 </div>
             </div>
+            
         </div>}
+        </div>
         </>
     )
 }

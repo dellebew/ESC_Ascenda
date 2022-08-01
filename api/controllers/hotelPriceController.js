@@ -39,7 +39,13 @@ exports.getHotelPrice = async function(req, resPage, next) {
                 console.log("Not found in database")
                 // waterfall
                 promiseWaterfall([
-                    call_axios(url),
+                    call_axios(url).catch(error => {
+                        if (error.response) {
+                            console.log("axios1");
+                            //   console.log(error.response);
+                            resPage.sendStatus(404);
+                            resPage.end();
+                        }}),
                     setTimeout(()=>{call_axios(url).then((r)=>{
                         console.log(r)
                         if (r == null || r.rooms.length == 0){
@@ -57,13 +63,15 @@ exports.getHotelPrice = async function(req, resPage, next) {
                         })                     
                         
                    
-                    },2000)
+                    },2000).catch(console.log("timeout"))
                     
-                  ])
+                  ]).catch(e=>{
+                    console.log("promiseWaterfall")
+                })
 
             }
-        })
-    })
+        }).catch(console.log("query error"));
+    }).catch(console.log("db connection error"));
    
   };
 

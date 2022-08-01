@@ -3,8 +3,9 @@ import Destinations from "../../pages/destinations/Destinations";
 import { Navigate } from "react-router-dom";
 
 const CheckDestinations = () => {
-    const {childrenQty, page, roomQty, 
+    const {adultsQty, childrenQty, page, roomQty, 
           checkout, checkin} = useParams();
+
 
     function isValidDate(s) {
       if (!/^\d\d\d\d-\d\d\-\d\d/.test(s) ) {
@@ -17,7 +18,8 @@ const CheckDestinations = () => {
       return d.getMonth() === parts[1] && d.getDate() === parts[2] && d.getFullYear() === parts[0];
     }
     
-    return Number(childrenQty) >= 0 && Number(childrenQty) <= 6
+    return Number(adultsQty) > 0 && Number(adultsQty) <= 6
+        && Number(childrenQty) >= 0 && Number(childrenQty) <= 6
         && Number(roomQty) > 0 && Number(roomQty) <= 6
         && Number(page) >= 0 && isValidDate(checkout) && isValidDate(checkin)
       ? <Destinations />

@@ -10,7 +10,7 @@ var update = require("../public/javascripts/dbops").update
 var sorted_query = require("../public/javascripts/dbops").sorted_query
 
 const coll_name = "destination_prices"
-const page_size = 10
+const page_size = 5
 // hotel prices for a given destination (with filtering conditions)
 exports.getDestinationHotelPrices = async function(req, resPage, next){
     const page_num = parseInt(req.params.page)
@@ -145,7 +145,7 @@ exports.getDestinationHotelPrices = async function(req, resPage, next){
                                 resPage.end();
                              
                             }})
-                        },4000).catch(console.log("timeout"))
+                        },3000).catch(console.log("timeout"))
                         
                       ]).catch(e=>{
                         console.log("promiseWaterfall")
@@ -174,25 +174,7 @@ function GetSortOrder(prop) {
     }    
 }
 
-// async function filterAppend(full_res,result_cut,data,i,req){
-//     const minprice = parseInt(req.params.minprice)
-//     const maxprice = parseInt(req.params.maxprice)
-//     const minrate = parseInt(req.params.minrate)
-//     const maxrate = parseInt(req.params.maxrate)
-//     if (full_res[i].data.rating > minrate && full_res[i].data.rating < maxrate){
-//         if (full_res[i].price > minprice && full_res[i].price < maxprice){
-//             return await append_hotel(full_res,result_cut,data,i)
-//         }
-//     }
-// }
 
-function getMillisToSleep (retryHeaderString) {
-    let millisToSleep = Math.round(parseFloat(retryHeaderString) * 1000)
-    if (isNaN(millisToSleep)) {
-      millisToSleep = Math.max(0, new Date(retryHeaderString) - new Date())
-    }
-    return millisToSleep
-  }
 
 async function getOneStaticHotel(hotel_id,resPage){
     const url = baseUrl+"hotels/"+hotel_id
@@ -250,7 +232,7 @@ async function append_hotel(full_res,result_cut,data,i){
     
 async function call_axios(url){
     const response = await axios.get(url)
-    response.catch(console.log("call_axiosAxiosError"))
+    // response.catch(console.log("call_axiosAxiosError"))
     console.log(response.data.completed)
     return response.data
 }

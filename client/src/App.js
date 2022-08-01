@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import Home from "./pages/home/Home"
+import About from "./pages/about/About"
 import HotelsSearch from "./pages/hotelSearch/hsearch"
 import Hotels from "./pages/hotels/Hotels"
 import Destinations from "./pages/destinations/Destinations";
@@ -21,6 +22,7 @@ function App() {
     <BrowserRouter> 
       <Routes>
         <Route path='/' element = {<Home />}/>
+        <Route path='/About' element = {<About />}/>
         <Route path='/hotels' element = {<HotelsSearch />}/>
         <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/:page' 
               element = {(
