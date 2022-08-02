@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:900');
 
 body {
-    color: #fff;
     margin:0;
     padding:0;
       -webkit-perspective: 1px;
@@ -23,6 +22,10 @@ body {
     transform-style: inherit;
     width: 100vw;
 
+}
+
+.whole-container {
+  color: #fff
 }
 
 .topBox, .topBox:before {
