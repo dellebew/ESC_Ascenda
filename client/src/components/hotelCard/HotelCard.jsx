@@ -14,17 +14,9 @@ export default function HotelCard(props) {
     // navigate to corresponding hotel page
     const onNavigatePageClick = (e) => {
         e.preventDefault();
-    
-        navigate(`../hotels/${props.id}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}`, {
-        //   state: { hotelId: props.id, 
-        //     destId:"WD0M",
-        //     checkin:"2022-07-25",
-        //     checkout:"2022-07-29",
-        //     lang:"en_US",
-        //     currency:"SGD",
-        //     code:"SG",
-        //     guests:"2" },
-        })
+        window.open(`http://localhost:3000/hotels/${props.id}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}`)
+        // navigate(`../hotels/${props.id}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}`, {
+        // })
     }
     
     // replace unfound images with placeholder

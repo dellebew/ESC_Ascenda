@@ -1,15 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:900');
 
 body {
-    margin:0;
-    padding:0;
-      -webkit-perspective: 1px;
-      perspective: 1px;
-      -webkit-transform-style: preserve-3d;
-      transform-style: preserve-3d;
-    height: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  /* -webkit-perspective: 1px;
+  perspective: 1px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d; */
+  height: 100%;
 }
 
 
@@ -25,7 +21,13 @@ body {
 }
 
 .whole-container {
-  color: #fff
+  color: #fff;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  -webkit-perspective: 1px;
+  perspective: 1px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 
 .topBox, .topBox:before {

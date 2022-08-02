@@ -88,7 +88,7 @@ try:
     driver.execute_script("window.scrollTo(0, 1200);")
     time.sleep(1)
 
-    # driver.save_screenshot('./client/testing/screen_room_rates_1.png')
+    driver.save_screenshot('./client/testing/screenshots/room_rates_diH7.png')
 
     action = ActionChains(driver)
     action.move_to_element(firstRate).perform()

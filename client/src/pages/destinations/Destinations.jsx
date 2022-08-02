@@ -46,7 +46,7 @@ const Destinations = () => {
         setPage(currentPage)
     }
 
-    console.log(items)
+    console.log(pageCount)
     return (
         <>
         <NavBar />
