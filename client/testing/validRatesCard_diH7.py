@@ -37,10 +37,11 @@ try:
                         "Straits Club Courtyard",
                         "Straits Club Heritage",
                         "Loft"]
+    rooms = []
     for i, room in enumerate(roomTypes):
         assert(room.get_attribute("textContent") in actualRoomTypes)
-        print(room.get_attribute("textContent"))
-    print("Test 2 Passed, all hotel names correspond to database")
+        rooms.append(room.get_attribute("textContent"))
+    print("Test 2 Passed, all hotel names correspond to database: {}".format(rooms))
 
     roomImages = driver.find_elements(By.CLASS_NAME, "room--images")
     assert(len(roomImages) == 10)
@@ -88,7 +89,7 @@ try:
     driver.execute_script("window.scrollTo(0, 1200);")
     time.sleep(1)
 
-    driver.save_screenshot('./client/testing/screenshots/room_rates_diH7.png')
+    # driver.save_screenshot('./client/testing/screenshots/room_rates_diH7.png')
 
     action = ActionChains(driver)
     action.move_to_element(firstRate).perform()

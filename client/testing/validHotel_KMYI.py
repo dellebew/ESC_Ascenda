@@ -54,7 +54,7 @@ try:
     assert(hotelRatings.is_displayed)
     print("Test 7 Passed, ratings container exist: {}".format(hotelRatings.get_attribute("textContent")))
     
-    # check that image slider is working
+    # check that main image exists
     action = ActionChains(driver)
     hotelImages = driver.find_element(By.CLASS_NAME, "hotel--images")
     assert(hotelImages.is_displayed)

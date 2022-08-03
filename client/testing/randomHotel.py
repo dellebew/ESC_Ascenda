@@ -1,108 +1,114 @@
+from msilib.schema import Error
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
+from check_hotel import check_hotel
 import time, json, random
 
 
+# custom exception classes
+class Server429Error(Exception):
+    pass
+
+class Server404Error(Exception):
+    pass
+
+
+# catch function for no avaliable hotels
+def no_hotels_avaliable(driver):
+    try:
+        driver.find_element(By.CLASS_NAME, "server_404")
+        return True
+    except:
+        return False
+
+# catch function for server 429 loading error
+def loading_error(driver):
+    try:
+        driver.find_element(By.CLASS_NAME, "server_429")
+        return True
+    except:
+        return False
+            
+
 # checks for relevant elements in destinations page
-def check_hotels(destId):
+def random_dest(destId, startDate, endDate):
     options = webdriver.ChromeOptions()
     options.add_argument('--enable-javascript')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     
     try:
         # test valid destination page based on backend: http://localhost:8080/api/destination/prices/P4FZ/2022-08-24/2022-08-29/en_US/SGD/SG/2/0
-        driver.get("http://localhost:3000/destinations/{}/2022-08-24/2022-08-25/en_US/SGD/SG/2/0/1/0".format(destId))
+        driver.get("http://localhost:3000/destinations/{}/{}/{}/en_US/SGD/SG/2/0/1/0".format(destId, startDate, endDate))
         # driver.maximize_window()
-        time.sleep(12)
-        
-        results = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.CLASS_NAME, "list--result"))
-        ) 
-        destUrl = driver.current_url
-        print("Test 0 Passed, valid destinations page: " + driver.current_url)
-        # driver.save_screenshot('./client/testing/screenshots/destinations_{}.png'.format(destId))
+        time.sleep(7)
+        driver.save_screenshot('./client/testing/screenshots/destinations_{}.png'.format(destId))
 
+        if (no_hotels_avaliable(driver)):
+            raise Server404Error("No Hotels Avaliable")
+
+        if(loading_error(driver)):
+            raise Server429Error("429 Loading Error")
+
+        action = ActionChains(driver)
+        print("Test 0 Passed, valid destinations page: " + driver.current_url)
 
         # check for show prices button
         pricesButton = driver.find_elements(By.CLASS_NAME, "si--showprices")
         totalButtons = len(pricesButton)
-        print("Test 1 Passed, {} Search Buttons are displayed.".format(totalButtons))
-        for button in pricesButton:
-            assert(button.is_enabled())
-        print("Test 2 Passed, {} Search Buttons are enabled.".format(totalButtons))
 
-        # check that hotels redirects correctly
-        action = ActionChains(driver)
+
+        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+                f.write("For destination: {} @ {}".format(destId, time.ctime()))
+                f.write('\n')
+                f.close()
+        
+        
+        # check valid hotels
         for i in range(totalButtons):
             pricesButton = driver.find_elements(By.CLASS_NAME, "si--showprices")
-            button = pricesButton[i]
-            driver.execute_script("arguments[0].scrollIntoView();", button)
-            time.sleep(2)
-            action.move_to_element(button).perform()
-            button.click()
-            time.sleep(10)
-            print(driver.current_url[29:33])
-            hotelName = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.ID, "hotelName"))
-            )  
-            print(hotelName.get_attribute("textContent"))
-            driver.back();
-            time.sleep(10)
-
-        print("Test 6 Passed, redirects to valid hotel: ")
-
-        # checks for all images
-        driver.implicitly_wait(10)
-        images = driver.find_elements(By.CLASS_NAME, "si--image")
-        for image in images:
-            assert(image.is_displayed)
-        print("Test 7 Passed, {} Images are displayed.".format(len(images)))
-
-
-        # check if next page is enabled
-        nextPage = driver.find_element(By.CLASS_NAME, "next")
-        if (nextPage.is_displayed()):
-            if (nextPage.is_enabled()):
-                button = nextPage.find_element(By.TAG_NAME, "a")
-                time.sleep(3)
-                driver.execute_script("arguments[0].scrollIntoView();", button)
-                time.sleep(3)
-                action.move_to_element(button).perform()
-                driver.execute_script("arguments[0].click();", button)
-                assert(driver.current_url == "http://localhost:3000/destinations/{}/2022-08-24/2022-08-25/en_US/SGD/SG/2/0/1/1".format(destId))
-                print("Test 8 Passed, clicking on next button redirects to next page:", driver.current_url)
-                time.sleep(3)
+            check_hotel(driver, action, pricesButton[i], "fuzzing_hotels")
         
-        with open('client\\testing\\fuzzing_hotels.txt', 'a') as f:
-            f.write("Success: {}".format(destId))
-            f.write('\n')
-            f.close()
+        
+    except Server404Error as e:
+        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+                f.write("Destination 404 Loading Error: {} @ {}".format(destId, time.ctime()))
+                f.write('\n')
+                f.close()
+        print(e)
+    
+    except Server429Error as e:
+        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+                f.write("Destination 429 Loading Error: {} @ {}".format(destId, time.ctime()))
+                f.write('\n')
+                f.close()
+        print(e)
 
     except Exception as e:
-        with open('client\\testing\\fuzzing_hotels.txt', 'a') as f:
-            f.write("Failed: {}".format(destId))
-            f.write('\n')
-            f.close()
-        print(e)
+        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+                f.write("Destination Timeout Loading Error: {} @ {}".format(destId, time.ctime()))
+                f.write('\n')
+                f.close()
 
     finally:
         driver.quit()
+
 
 
 # open list of destination uids
 with open('client\\src\\database\\uids.json') as f:
     data = json.load(f)
 
-# run fuzzing for destinations based on random int
-for i in range(3):
+# run logs\\fuzzing for destinations based on random int
+destinationCount=10
+
+for i in range(destinationCount):
     randomIndex = random.randint(0, len(data) -1)
     destId = data[randomIndex]['uid']
-    print("Running test for: {}...".format(destId))
-    check_hotels(destId)
+    print("Running test for {} ...".format(destId))
+    random_dest(destId, startDate="2022-08-12", endDate="2022-08-13")
     time.sleep(5)
