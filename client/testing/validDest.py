@@ -17,7 +17,7 @@ try:
     driver.maximize_window()
     time.sleep(3)
     print("Test 0 Passed, valid destinations page: " + driver.current_url)
-    driver.save_screenshot('./client/testing/screen_destinations_1.png')
+    # driver.save_screenshot('./client/testing/screen_destinations_1.png')
 
     # check for 6 sets of hotels
     hotelCards = driver.find_elements(By.CLASS_NAME, "searchItem")
@@ -58,17 +58,25 @@ try:
     action = ActionChains(driver)
     for i in range(6):
         pricesButton = driver.find_elements(By.CLASS_NAME, "si--showprices")
-        if (i >= 3):
-            driver.execute_script("window.scrollTo(0, 600);")
+        
+        # select button
+        driver.execute_script("arguments[0].scrollIntoView();", pricesButton[i])
         time.sleep(2)
         action.move_to_element(pricesButton[i]).perform()
         pricesButton[i].click()
-        time.sleep(7)
-        # assert(driver.current_url == "http://localhost:3000/hotels/Kn6a/P4FZ/2022-08-24/2022-08-29/en_US/SGD/SG/2/0/1")
+
+        # change driver windows to new tab
+        p = driver.current_window_handle
+        parent = driver.window_handles[0]
+        child = driver.window_handles[1]
+        driver.switch_to.window(child)
+        time.sleep(5)
+
         print(driver.current_url)
         hotelName = driver.find_element(By.ID, "hotelName")
         assert(hotelName.get_attribute("textContent") == actualHotels[i])
-        driver.back()
+        driver.close()
+        driver.switch_to.window(parent)
         time.sleep(5)
     print("Test 6 Passed, redirects to correct hotel: ", actualHotels[0])
 

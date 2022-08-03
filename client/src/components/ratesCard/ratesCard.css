@@ -1,3 +1,4 @@
+
 .ratesCard {
     height:170px;
     width:170px;
@@ -98,4 +99,8 @@
 .rates--pricing > .room {
     font-size: 12px;
     color:grey;
+}
+
+#react-confirm-alert {
+    color:black; 
 }

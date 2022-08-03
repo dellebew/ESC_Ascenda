@@ -68,8 +68,8 @@ const Hotels = () => {
         <div className="bg-container2">
         <NavBar/>
         {loading && <Loader/>}
-        {!loading && hotelData === "404" && pricesData === "404" && <Error {...{img:"/404-invalid-hotel.png"}}/>}
-        {!loading && (hotelData === "429" || pricesData === "429") && <Error {...{img:"/404-429-error.png"}}/>}
+        {!loading && hotelData === "404" && pricesData === "404" && <div className='server_404'><Error {...{img:"/404-invalid-hotel.png"}}/></div>}
+        {!loading && (hotelData === "429" || pricesData === "429") && <div className='server_429'><Error {...{img:"/404-429-error.png"}}/></div>}
         {!loading
           && <div className='body'>
             <div className='hotel--container'>

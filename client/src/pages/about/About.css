@@ -1,38 +1,89 @@
-* {
+@import url('https://fonts.googleapis.com/css?family=Montserrat:900');
+
+body {
+  /* -webkit-perspective: 1px;
+  perspective: 1px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d; */
+  height: 100%;
+}
+
+
+.topBox {
+    box-sizing: border-box;
+    min-height: 60vw;
+    z-index: 0;
+    position: relative;
+    -webkit-transform-style: inherit;
+    transform-style: inherit;
+    width: 100vw;
+
+}
+
+.whole-container {
+  color: #fff;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  -webkit-perspective: 1px;
+  perspective: 1px;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.topBox, .topBox:before {
+    background: 50% 50% / cover;
+  }
+  .topBox::before {
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    display: block;
+    background-size: cover;
+    background-image: radial-gradient(ellipse at bottom, #00434e 0%, #000000 100%);
+    -webkit-transform-origin: center center 0;
+    -webkit-transform: translateZ(-1px) scale(2);
+    transform-origin: center center 0;
+    transform: translateZ(-1px) scale(2);
+    z-index: -1;
+    min-height: 130vh;
+  }
+
+.aboutHeader {
     margin: 0;
-    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30vh;
+    letter-spacing: 1vw;
+    position: absolute;
+    top: 25vh;
+    left: 50%;
+    transform: translateX(-50%);
+    color: black;
+    background: url(./hotel_stuff.jpg);
+    background-size: auto 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 8s linear infinite;
 }
-section {
+
+.main_desc {
+    background-color: hsl(0, 0%, 0%);
+    line-height: 1.7;
+    max-width: 130%;
+    padding: 5% calc(50% - 16em) 35%;
     position: relative;
-    width: 100%;
-    height: 100vh;
-    background: rgb(32, 31, 31);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    } 
-
-section .row {
-    position: relative;
-    width: 100%;
-    display: flex;
-    padding: 10px 0;
-    white-space: nowrap;
-    transform: rotate(20deg);
+    z-index: 2;
 }
 
-i {
-    color: rgba(0,0,0,0.5);
-    font-size: 64px;
-    transition: 1.2s;
-    padding: 0 5px;
-    user-select: none;
-    cursor:default;
-}
 
-i:hover {
-    transition: 0s;
-    color: #0f0;
-    text-shadow: 0 0 60px #0f0;
-}
 
+@keyframes shine {
+  from {
+    background-position: center 0;
+  }
+  to {
+    background-position: center 200%;
+  }
+}

@@ -25,7 +25,7 @@ try:
     assert(hotelName.is_displayed)
     print("Test 1 Passed, hotel name exists:", hotelName.get_attribute("textContent"))
 
-    driver.save_screenshot('./client/testing/screen_hotel_2.png')
+    driver.save_screenshot('./client/testing/screenshots/hotel_KMYI.png')
 
     # check valid hotel static elements
     hotelAddress = driver.find_element(By.ID, "hotelAddress")
@@ -54,7 +54,7 @@ try:
     assert(hotelRatings.is_displayed)
     print("Test 7 Passed, ratings container exist: {}".format(hotelRatings.get_attribute("textContent")))
     
-    # check that image slider is working
+    # check that main image exists
     action = ActionChains(driver)
     hotelImages = driver.find_element(By.CLASS_NAME, "hotel--images")
     assert(hotelImages.is_displayed)

@@ -2,6 +2,7 @@
     height:60px;
     min-width:1024px;
     background-color: black;
+    z-index: 999;
     opacity: 0.3;
     filter: alpha(opacity=50);
     animation: fadeOutNew 0.2s ease backwards;
@@ -128,8 +129,10 @@
     
     .sub-menu {
       position: absolute;
+      z-index: 999;
       width: 100%;
       top: 100%;
+      z-index: 1;
       left: 0;
       display: none;
       z-index: 1; }
