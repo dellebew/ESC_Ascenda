@@ -1,10 +1,4 @@
-var https = require('https')
 var { MongoClient } = require("mongodb");
-var axios = require("axios");
-const { constants } = require('fs');
-const { resourceLimits } = require('worker_threads');
-const { Console } = require('console');
-const { getSystemErrorMap } = require('util');
 const uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority";
 var client = new MongoClient(uri);
 // const baseUrl = 'https://hotelapi.loyalty.dev/api/'

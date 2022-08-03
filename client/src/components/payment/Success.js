@@ -74,11 +74,11 @@ const Success = () => {
           <div className="room-info">
               <div>
                   <label me>Full Name:</label>
-                  <span>{session.billing.name}</span>
+                  <span name="display--name">{session.billing.name}</span>
               </div>
               <div>
                   <label me>Email:</label>
-                      <span>{session.billing.email}</span>
+                      <span name="display--email">{session.billing.email}</span>
               </div>
           </div>
           
@@ -89,25 +89,25 @@ const Success = () => {
           <div className="room-info">
               <div>
                   <label me>Start Date:</label>
-                  <span>{session.state.startDate}</span>
+                  <span name="display--startDate">{session.state.startDate}</span>
               </div>
               <div>
                   <label me>End Date:</label>
-                      <span>{session.state.endDate}</span>
+                      <span name="display--endDate">{session.state.endDate}</span>
               </div>
           </div>
           <div className="address-info">
               <div>
                   <label>Adults:</label>
-                  <span>{session.state.adultQuantity}</span>
+                  <span name="display--adultQty">{session.state.adultQuantity}</span>
               </div>
               <div>
                   <label >Children:</label>
-                  <span>{session.state.childrenQuantity}</span>
+                  <span name="display--childQty">{session.state.childrenQuantity}</span>
               </div>
               <div>
                   <label >Rooms:</label>
-                  <span>{session.state.roomQty}</span>
+                  <span name="display--roomQty">{session.state.roomQty}</span>
               </div>
           </div>
 
@@ -117,19 +117,19 @@ const Success = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span>S${session.state.unit_amount * session.state.roomQty}</span>
+                    <span name="display--price">S${session.state.unit_amount * session.state.roomQty}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>
-                    <span>{session.state.hotelName}</span>
+                    <span name="display--hotelName">{session.state.hotelName}</span>
                 </div>
                 <div className="billing-info">
                     <label>Destination:</label>
-                    <span>{session.state.destination}</span>
+                    <span name="display--destination">{session.state.destination}</span>
                 </div>
                 <div className="billing-info">
                     <label>Room Type:</label>
-                    <span>{session.state.roomType}</span>
+                    <span name="display--roomType">{session.state.roomType}</span>
                 </div>
                 <Link to="/">Find another vacation destination</Link>
     

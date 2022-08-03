@@ -68,7 +68,7 @@ try:
         print(driver.current_url)
         hotelName = driver.find_element(By.ID, "hotelName")
         assert(hotelName.get_attribute("textContent") == actualHotels[i])
-        driver.back();
+        driver.back()
         time.sleep(5)
     print("Test 6 Passed, redirects to correct hotel: ", actualHotels[0])
 
