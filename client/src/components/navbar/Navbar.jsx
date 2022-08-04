@@ -13,14 +13,6 @@ const NavBar = () => {
                 <li className="menu-item"><a href="/hotels">Hotel Search</a></li>
             </ol>
             </li>
-            <li className="menu-item">
-                <a href="#/">Currency</a>
-                <ol className="sub-menu">
-                <li className="menu-item"><a href="#/">SGD</a></li>
-                <li className="menu-item"><a href="#/">JPY</a></li>
-                <li className="menu-item"><a href="#/">EUR</a></li>
-                </ol>
-            </li>
             </ol>
         </nav>
     )
