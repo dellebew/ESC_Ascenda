@@ -14,7 +14,7 @@ export default function HotelCard(props) {
     // navigate to corresponding hotel page
     const onNavigatePageClick = (e) => {
         e.preventDefault();
-        window.open(`http://localhost:3000/hotels/${props.id}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}`)
+        window.open(`http://localhost:3000/hotels/${props.id}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}`)
         // navigate(`../hotels/${props.id}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}`, {
         // })
     }

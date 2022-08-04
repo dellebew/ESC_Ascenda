@@ -37,7 +37,7 @@ const Hotel_SearchBar = () => {
         {
           adult: 2,
           children: 0,
-          room: 1,
+        //   room: 1,
         });
     
     const handleOption = (name, operation) => {
@@ -77,7 +77,7 @@ const Hotel_SearchBar = () => {
         const currency = "SGD"
 
         // number of guests & rooms
-        const {adult, children,  room} = options
+        const {adult, children} = options
 
         // c_code is the country code
         // const c_code = country_code.filter(element => {
@@ -94,7 +94,7 @@ const Hotel_SearchBar = () => {
 
         // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
         // let path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/SG/2/0`
-        let path = `/hotels/${hotel_uid}/A6Dz/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}/${room}`
+        let path = `/hotels/${hotel_uid}/A6Dz/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}`
         navigate(path)
 
     };
@@ -162,7 +162,7 @@ const Hotel_SearchBar = () => {
                 <div className="search--item">
                 <FontAwesomeIcon icon={faPerson} className="search--icon"/>
                 <span className="search--text" onClick={() => setOpenOptions(!openOptions)}>
-                    {`${options.adult} adults ${options.children} children ${options.room} room`}
+                    {`${options.adult} adults ${options.children} children`}
                 </span>
                 {openOptions && (<div className="options" onMouseLeave={() => setOpenOptions(!openOptions)}>
                     <div className="options--item">
@@ -188,7 +188,7 @@ const Hotel_SearchBar = () => {
                                     disabled={options.children>=6}>+</button>
                         </div>
                     </div>
-                    <div className="options--item">
+                    {/* <div className="options--item">
                         <span className="options--text">Room</span>
                         <div className="options--counter">
                             <button 
@@ -197,7 +197,7 @@ const Hotel_SearchBar = () => {
                             <span>{options.room}</span>
                             <button onClick={() => handleOption("room", "i")}>+</button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>)}
                 </div>
 

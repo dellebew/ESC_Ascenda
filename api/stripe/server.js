@@ -112,7 +112,7 @@ router.post('/create-checkout-session', async (req, res) => {
       line_items: [
       {
         price: price.id,
-        quantity: numOfNights * info.roomQty,
+        quantity: numOfNights,
       },
     ],
     mode: 'payment',
@@ -127,6 +127,7 @@ router.post('/create-checkout-session', async (req, res) => {
   // add information for input into intermediate database
   info["startDate"] = startDate;
   info["endDate"] = endDate;
+  info["numOfNights"] = numOfNights;
   // add the state info to database with the session id as key first
   const pre_payment_inp = {
     sessionId: session.id,

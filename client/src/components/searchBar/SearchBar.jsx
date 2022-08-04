@@ -38,7 +38,7 @@ const SearchBar = () => {
         {
           adult: 2,
           children: 0,
-          room: 1,
+        //   room: 1,
         });
     
     const handleOption = (name, operation) => {
@@ -78,7 +78,7 @@ const SearchBar = () => {
         const currency = "SGD"
 
         // number of guests & rooms
-        const {adult, children,  room} = options
+        const {adult, children} = options
 
         if (destination_uid != 0) {
 
@@ -93,7 +93,7 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-            const path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}/${room}/0`
+            const path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}/0`
             navigate(path);
 
         } else {
@@ -119,7 +119,7 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/${room}/0`
+            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/0`
             navigate(path);
 
         }
@@ -195,7 +195,7 @@ const SearchBar = () => {
                 <div className="search--item">
                 <FontAwesomeIcon icon={faPerson} className="search--icon"/>
                 <span className="search--text" id="search--people" onClick={() => setOpenOptions(!openOptions)}>
-                    {`${options.adult} adults ${options.children} children ${options.room} room`}
+                    {`${options.adult} adults ${options.children} children`}
                 </span>
                 {openOptions && (<div className="options" onMouseLeave={() => setOpenOptions(!openOptions)}>
                     <div className="options--item">
@@ -227,7 +227,7 @@ const SearchBar = () => {
                                 disabled={options.children>=6}>+</button>
                         </div>
                     </div>
-                    <div className="options--item">
+                    {/* <div className="options--item">
                         <span className="options--text">Room</span>
                         <div className="options--counter room">
                             <button 
@@ -240,7 +240,7 @@ const SearchBar = () => {
                                 onClick={() => handleOption("room", "i")}
                                 disabled={options.room>=6}>+</button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>)}
                 </div>
 

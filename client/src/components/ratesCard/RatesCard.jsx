@@ -20,7 +20,6 @@ export default function RatesCard(props) {
       //from nicholas's side
       startDate: state.checkin,
       endDate: state.checkout,
-      roomQty: state.roomQty, //need information
       adultQty: state.adultsQty,
       childQty: state.childrenQty, //need information
       // from px's side

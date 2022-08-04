@@ -30,7 +30,6 @@ const Checkout = () => {
     start: startTime.getTime(), 
     end: endTime.getTime(),
     roomType: state.roomType,
-    roomQty: state.roomQty,
     adultQuantity: state.adultQty,
     childrenQuantity: state.childQty,
     message: message,
@@ -99,10 +98,6 @@ const Checkout = () => {
                   <div>
                       <label >Children:</label>
                       <span>{data.childrenQuantity}</span>
-                  </div>
-                  <div>
-                      <label >Rooms:</label>
-                      <span>{data.roomQty}</span>
                   </div>
               </div>
               <h1 className='checkout-title'>

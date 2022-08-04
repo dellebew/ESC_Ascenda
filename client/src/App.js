@@ -24,13 +24,13 @@ function App() {
         <Route path='/' element = {<Home />}/>
         <Route path='/About' element = {<About />}/>
         <Route path='/hotels' element = {<HotelsSearch />}/>
-        <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/:page' 
+        <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:page' 
               element = {(
               <CheckDestinations>
                 <Destinations />
               </CheckDestinations>
               )}/>
-        <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/' 
+        <Route path='/hotels/:hotelId/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/' 
               element = {(
               <CheckHotels>
                 <Hotels />
