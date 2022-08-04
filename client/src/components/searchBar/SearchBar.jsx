@@ -7,7 +7,7 @@ import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
 var country_code = require("../../database/countries.json");
 var destination_ids = require("../../database/output.json");
-var test1 = require("../../database/uids.json");
+var test1 = require("../../database/uids.json");    
 
 
 const SearchBar = () => {
