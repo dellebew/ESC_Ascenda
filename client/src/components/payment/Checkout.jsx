@@ -68,7 +68,7 @@ const Checkout = () => {
   endTimeNum.setTime(data.end);
   const endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + (endTimeNum.getFullYear());
   
-  const numOfNights = Math.ceil((endTimeNum-startTimeNum) / (1000*24*60*60))
+  const numOfNights = Math.ceil(Math.abs(endTimeNum.getTime()-startTimeNum.getTime()) / (1000*24*60*60))
 
   return (
     <>
@@ -114,11 +114,11 @@ const Checkout = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span>S${billing.unit_amount * data.roomQuantity * numOfNights}</span>
+                    <span>S${numOfNights}</span>
                 </div>
-                <div className="billing-info">
+                <div className="billing-info"> 
                     <label>Hotel Name:</label>
-                    <span>{data.hotelName}</span>
+                    <span>S${Math.ceil((billing.unit_amount)*100)/100 * data.roomQuantity * numOfNights}</span>
                 </div>
                 <div className="billing-info">
                     <label>Destination:</label>

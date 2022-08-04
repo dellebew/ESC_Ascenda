@@ -76,7 +76,7 @@ router.post('/create-checkout-session', async (req, res) => {
   info["destination"] = billing.destination;
   info["unit_amount"] = billing.unit_amount;
 
-  const diffInMs = Math.abs(info.end - info.start);
+  const diffInMs = Math.abs(info.end - info.start); 
   console.log("start: " + info.start + " end: "+ info.end+" "+diffInMs);
   
   // set information for input into stripe checkout

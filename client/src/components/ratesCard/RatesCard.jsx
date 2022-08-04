@@ -22,6 +22,7 @@ export default function RatesCard(props) {
       endDate: state.checkout,
       adultQty: state.adultsQty,
       childQty: state.childrenQty, //need information
+      roomQty: state.roomQty,
       // from px's side
       price: props.price,
       hotelName: props.name, 

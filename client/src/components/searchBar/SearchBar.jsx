@@ -119,7 +119,7 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/0`
+            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/${room}/0`
             navigate(path);
 
         }
