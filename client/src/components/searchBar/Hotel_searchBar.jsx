@@ -124,6 +124,7 @@ const Hotel_SearchBar = () => {
                         
                         return (
                         searchTerm &&
+                        item.name.startsWith(searchTerm) &&
                         item.name.includes(searchTerm)
                         );
                     })

@@ -156,6 +156,7 @@ const SearchBar = () => {
                         
                         return (
                         searchTerm &&
+                        modified.startsWith(searchTerm) &&
                         modified.includes(searchTerm)
                         );
                     })
