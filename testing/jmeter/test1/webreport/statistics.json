@@ -1,0 +1,34 @@
+{
+  "ESC" : {
+    "transaction" : "ESC",
+    "sampleCount" : 100,
+    "errorCount" : 20,
+    "errorPct" : 20.0,
+    "meanResTime" : 1254.4500000000003,
+    "medianResTime" : 138.0,
+    "minResTime" : 2.0,
+    "maxResTime" : 8763.0,
+    "pct1ResTime" : 4860.8,
+    "pct2ResTime" : 5757.099999999999,
+    "pct3ResTime" : 8755.119999999995,
+    "throughput" : 0.33238934758618854,
+    "receivedKBytesPerSec" : 2.0874310707590444,
+    "sentKBytesPerSec" : 0.2950604657771928
+  },
+  "Total" : {
+    "transaction" : "Total",
+    "sampleCount" : 100,
+    "errorCount" : 20,
+    "errorPct" : 20.0,
+    "meanResTime" : 1254.4500000000003,
+    "medianResTime" : 138.0,
+    "minResTime" : 2.0,
+    "maxResTime" : 8763.0,
+    "pct1ResTime" : 4860.8,
+    "pct2ResTime" : 5757.099999999999,
+    "pct3ResTime" : 8755.119999999995,
+    "throughput" : 0.33238934758618854,
+    "receivedKBytesPerSec" : 2.0874310707590444,
+    "sentKBytesPerSec" : 0.2950604657771928
+  }
+}

@@ -19,7 +19,7 @@
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">100</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">800</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">300</stringProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.duration">5</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
@@ -223,7 +223,7 @@
         </ResponseAssertion>
         <hashTree/>
         <DurationAssertion guiclass="DurationAssertionGui" testclass="DurationAssertion" testname="Assersion Time" enabled="true">
-          <stringProp name="DurationAssertion.duration">3000</stringProp>
+          <stringProp name="DurationAssertion.duration">5000</stringProp>
         </DurationAssertion>
         <hashTree/>
       </hashTree>

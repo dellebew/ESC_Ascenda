@@ -1,0 +1,101 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1659598840627,26,ESC,200,OK,Thread Group 1-1,text,true,,961,906,1,1,http://localhost:3000/destinations/A6Dz/2022-08-05/2022-08-06/en_US/SGD/IT/2/0/1/0,26,0,18
+1659598843556,585,ESC,200,OK,Thread Group 1-2,,true,,17532,912,1,1,http://localhost:8080/api/destination/prices/A6Dz/2022-08-05/2022-08-06/en_US/SGD/IT/2/1,584,0,0
+1659598846555,4,ESC,200,OK,Thread Group 1-3,text,true,,961,906,1,1,http://localhost:3000/destinations/A6Dz/2022-08-05/2022-08-11/en_US/SGD/IT/2/0/1/0,4,0,1
+1659598849555,250,ESC,200,OK,Thread Group 1-4,,true,,17188,912,1,1,http://localhost:8080/api/destination/prices/A6Dz/2022-08-05/2022-08-11/en_US/SGD/IT/2/1,250,0,3
+1659598852555,4,ESC,200,OK,Thread Group 1-5,text,true,,961,906,1,1,http://localhost:3000/destinations/A6Dz/2022-08-05/2022-08-16/en_US/SGD/IT/2/0/1/0,4,0,2
+1659598855556,261,ESC,200,OK,Thread Group 1-6,,true,,13196,912,1,1,http://localhost:8080/api/destination/prices/A6Dz/2022-08-05/2022-08-16/en_US/SGD/IT/2/1,261,0,2
+1659598858552,3,ESC,200,OK,Thread Group 1-7,text,true,,961,906,1,1,http://localhost:3000/destinations/A6Dz/2022-08-05/2022-08-21/en_US/SGD/IT/2/0/1/0,3,0,1
+1659598861553,304,ESC,200,OK,Thread Group 1-8,,true,,13197,912,1,1,http://localhost:8080/api/destination/prices/A6Dz/2022-08-05/2022-08-21/en_US/SGD/IT/2/1,304,0,3
+1659598864552,4,ESC,200,OK,Thread Group 1-9,text,true,,961,906,1,1,http://localhost:3000/destinations/A6Dz/2022-08-05/2022-08-26/en_US/SGD/IT/2/0/1/0,4,0,2
+1659598867553,321,ESC,200,OK,Thread Group 1-10,,true,,14357,912,1,1,http://localhost:8080/api/destination/prices/A6Dz/2022-08-05/2022-08-26/en_US/SGD/IT/2/1,321,0,2
+1659598870552,8,ESC,200,OK,Thread Group 1-11,text,true,,961,906,1,1,http://localhost:3000/destinations/WP3Z/2022-08-05/2022-08-06/en_US/SGD/ID/2/0/1/0,8,0,3
+1659598873553,2119,ESC,200,OK,Thread Group 1-12,,true,,20247,912,1,1,http://localhost:8080/api/destination/prices/WP3Z/2022-08-05/2022-08-06/en_US/SGD/ID/2/1,2119,0,1
+1659598876551,5,ESC,200,OK,Thread Group 1-13,text,true,,961,906,1,1,http://localhost:3000/destinations/WP3Z/2022-08-05/2022-08-11/en_US/SGD/ID/2/0/1/0,5,0,2
+1659598879556,625,ESC,200,OK,Thread Group 1-14,,true,,15992,912,1,1,http://localhost:8080/api/destination/prices/WP3Z/2022-08-05/2022-08-11/en_US/SGD/ID/2/1,625,0,2
+1659598882546,6,ESC,200,OK,Thread Group 1-15,text,true,,961,906,1,1,http://localhost:3000/destinations/WP3Z/2022-08-05/2022-08-16/en_US/SGD/ID/2/0/1/0,5,0,1
+1659598885547,464,ESC,200,OK,Thread Group 1-16,,true,,16002,912,1,1,http://localhost:8080/api/destination/prices/WP3Z/2022-08-05/2022-08-16/en_US/SGD/ID/2/1,464,0,2
+1659598888549,4,ESC,200,OK,Thread Group 1-17,text,true,,961,906,1,1,http://localhost:3000/destinations/WP3Z/2022-08-05/2022-08-21/en_US/SGD/ID/2/0/1/0,4,0,1
+1659598891544,351,ESC,200,OK,Thread Group 1-18,,true,,16009,912,1,1,http://localhost:8080/api/destination/prices/WP3Z/2022-08-05/2022-08-21/en_US/SGD/ID/2/1,351,0,0
+1659598894546,4,ESC,200,OK,Thread Group 1-19,text,true,,961,906,1,1,http://localhost:3000/destinations/WP3Z/2022-08-05/2022-08-26/en_US/SGD/ID/2/0/1/0,4,0,2
+1659598897546,394,ESC,200,OK,Thread Group 1-20,,true,,16594,912,1,1,http://localhost:8080/api/destination/prices/WP3Z/2022-08-05/2022-08-26/en_US/SGD/ID/2/1,394,0,2
+1659598900547,9,ESC,200,OK,Thread Group 1-21,text,true,,961,906,1,1,http://localhost:3000/destinations/jC3Y/2022-08-05/2022-08-06/en_US/SGD/GB/2/0/1/0,9,0,3
+1659598903543,322,ESC,200,OK,Thread Group 1-22,,true,,15908,912,1,1,http://localhost:8080/api/destination/prices/jC3Y/2022-08-05/2022-08-06/en_US/SGD/GB/2/1,322,0,2
+1659598906542,4,ESC,200,OK,Thread Group 1-23,text,true,,961,906,1,1,http://localhost:3000/destinations/jC3Y/2022-08-05/2022-08-11/en_US/SGD/GB/2/0/1/0,4,0,1
+1659598909542,391,ESC,200,OK,Thread Group 1-24,,true,,14823,912,1,1,http://localhost:8080/api/destination/prices/jC3Y/2022-08-05/2022-08-11/en_US/SGD/GB/2/1,391,0,1
+1659598912555,4,ESC,200,OK,Thread Group 1-25,text,true,,961,906,1,1,http://localhost:3000/destinations/jC3Y/2022-08-05/2022-08-16/en_US/SGD/GB/2/0/1/0,4,0,1
+1659598915542,360,ESC,200,OK,Thread Group 1-26,,true,,14536,912,1,1,http://localhost:8080/api/destination/prices/jC3Y/2022-08-05/2022-08-16/en_US/SGD/GB/2/1,359,0,2
+1659598918543,13,ESC,200,OK,Thread Group 1-27,text,true,,961,906,1,1,http://localhost:3000/destinations/jC3Y/2022-08-05/2022-08-21/en_US/SGD/GB/2/0/1/0,13,0,3
+1659598921540,377,ESC,200,OK,Thread Group 1-28,,true,,15030,912,1,1,http://localhost:8080/api/destination/prices/jC3Y/2022-08-05/2022-08-21/en_US/SGD/GB/2/1,377,0,2
+1659598924539,3,ESC,200,OK,Thread Group 1-29,text,true,,961,906,1,1,http://localhost:3000/destinations/jC3Y/2022-08-05/2022-08-26/en_US/SGD/GB/2/0/1/0,2,0,1
+1659598927541,530,ESC,200,OK,Thread Group 1-30,,true,,15037,912,1,1,http://localhost:8080/api/destination/prices/jC3Y/2022-08-05/2022-08-26/en_US/SGD/GB/2/1,530,0,2
+1659598930539,3,ESC,200,OK,Thread Group 1-31,text,true,,961,906,1,1,http://localhost:3000/destinations/EWUH/2022-08-05/2022-08-06/en_US/SGD/TR/2/0/1/0,3,0,1
+1659598933542,1363,ESC,200,OK,Thread Group 1-32,,true,,18013,912,1,1,http://localhost:8080/api/destination/prices/EWUH/2022-08-05/2022-08-06/en_US/SGD/TR/2/1,1362,0,3
+1659598936539,4,ESC,200,OK,Thread Group 1-33,text,true,,961,906,1,1,http://localhost:3000/destinations/EWUH/2022-08-05/2022-08-11/en_US/SGD/TR/2/0/1/0,4,0,2
+1659598939597,467,ESC,200,OK,Thread Group 1-34,,true,,17729,912,1,1,http://localhost:8080/api/destination/prices/EWUH/2022-08-05/2022-08-11/en_US/SGD/TR/2/1,467,0,3
+1659598942535,3,ESC,200,OK,Thread Group 1-35,text,true,,961,906,1,1,http://localhost:3000/destinations/EWUH/2022-08-05/2022-08-16/en_US/SGD/TR/2/0/1/0,3,0,1
+1659598945539,1812,ESC,200,OK,Thread Group 1-36,,true,,16336,912,1,1,http://localhost:8080/api/destination/prices/EWUH/2022-08-05/2022-08-16/en_US/SGD/TR/2/1,1812,0,3
+1659598948538,6,ESC,200,OK,Thread Group 1-37,text,true,,961,906,1,1,http://localhost:3000/destinations/EWUH/2022-08-05/2022-08-21/en_US/SGD/TR/2/0/1/0,6,0,1
+1659598951535,499,ESC,200,OK,Thread Group 1-38,,true,,15742,912,1,1,http://localhost:8080/api/destination/prices/EWUH/2022-08-05/2022-08-21/en_US/SGD/TR/2/1,499,0,1
+1659598954536,2,ESC,200,OK,Thread Group 1-39,text,true,,961,906,1,1,http://localhost:3000/destinations/EWUH/2022-08-05/2022-08-26/en_US/SGD/TR/2/0/1/0,2,0,0
+1659598957535,652,ESC,200,OK,Thread Group 1-40,,true,,14489,912,1,1,http://localhost:8080/api/destination/prices/EWUH/2022-08-05/2022-08-26/en_US/SGD/TR/2/1,652,0,1
+1659598960533,3,ESC,200,OK,Thread Group 1-41,text,true,,961,906,1,1,http://localhost:3000/destinations/Zauv/2022-08-05/2022-08-06/en_US/SGD/TH/2/0/1/0,3,0,1
+1659598966533,3,ESC,200,OK,Thread Group 1-43,text,true,,961,906,2,2,http://localhost:3000/destinations/Zauv/2022-08-05/2022-08-11/en_US/SGD/TH/2/0/1/0,3,0,1
+1659598963534,8763,ESC,200,OK,Thread Group 1-42,,false,"The operation lasted too long: It took 8,763 milliseconds, but should not have lasted longer than 5,000 milliseconds.",18784,912,2,2,http://localhost:8080/api/destination/prices/Zauv/2022-08-05/2022-08-06/en_US/SGD/TH/2/1,8763,0,1
+1659598972532,4,ESC,200,OK,Thread Group 1-45,text,true,,961,906,2,2,http://localhost:3000/destinations/Zauv/2022-08-05/2022-08-16/en_US/SGD/TH/2/0/1/0,4,0,1
+1659598969538,3605,ESC,404,Not Found,Thread Group 1-44,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/Zauv/2022-08-05/2022-08-11/en_US/SGD/TH/2/1,3605,0,1
+1659598978532,3,ESC,200,OK,Thread Group 1-47,text,true,,961,906,2,2,http://localhost:3000/destinations/Zauv/2022-08-05/2022-08-21/en_US/SGD/TH/2/0/1/0,3,0,0
+1659598975532,7539,ESC,200,OK,Thread Group 1-46,,false,"The operation lasted too long: It took 7,539 milliseconds, but should not have lasted longer than 5,000 milliseconds.",16153,912,2,2,http://localhost:8080/api/destination/prices/Zauv/2022-08-05/2022-08-16/en_US/SGD/TH/2/1,7539,0,0
+1659598984532,3,ESC,200,OK,Thread Group 1-49,text,true,,961,906,2,2,http://localhost:3000/destinations/Zauv/2022-08-05/2022-08-26/en_US/SGD/TH/2/0/1/0,3,0,1
+1659598981532,7842,ESC,200,OK,Thread Group 1-48,,false,"The operation lasted too long: It took 7,842 milliseconds, but should not have lasted longer than 5,000 milliseconds.",16283,912,2,2,http://localhost:8080/api/destination/prices/Zauv/2022-08-05/2022-08-21/en_US/SGD/TH/2/1,7842,0,0
+1659598990531,7,ESC,200,OK,Thread Group 1-51,text,true,,961,906,2,2,http://localhost:3000/destinations/fCWp/2022-08-05/2022-08-06/en_US/SGD/GR/2/0/1/0,7,0,2
+1659598993529,844,ESC,404,Not Found,Thread Group 1-52,text,false,Test failed: code expected to contain /200/,243,912,2,2,http://localhost:8080/api/destination/prices/fCWp/2022-08-05/2022-08-06/en_US/SGD/GR/2/1,844,0,1
+1659598987528,7975,ESC,200,OK,Thread Group 1-50,,false,"The operation lasted too long: It took 7,975 milliseconds, but should not have lasted longer than 5,000 milliseconds.",16292,912,1,1,http://localhost:8080/api/destination/prices/Zauv/2022-08-05/2022-08-26/en_US/SGD/TH/2/1,7975,0,1
+1659598996529,3,ESC,200,OK,Thread Group 1-53,text,true,,961,906,1,1,http://localhost:3000/destinations/fCWp/2022-08-05/2022-08-11/en_US/SGD/GR/2/0/1/0,3,0,1
+1659598999530,502,ESC,404,Not Found,Thread Group 1-54,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/fCWp/2022-08-05/2022-08-11/en_US/SGD/GR/2/1,502,0,0
+1659599002528,3,ESC,200,OK,Thread Group 1-55,text,true,,961,906,1,1,http://localhost:3000/destinations/fCWp/2022-08-05/2022-08-16/en_US/SGD/GR/2/0/1/0,3,0,1
+1659599005528,477,ESC,404,Not Found,Thread Group 1-56,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/fCWp/2022-08-05/2022-08-16/en_US/SGD/GR/2/1,476,0,1
+1659599008539,3,ESC,200,OK,Thread Group 1-57,text,true,,961,906,1,1,http://localhost:3000/destinations/fCWp/2022-08-05/2022-08-21/en_US/SGD/GR/2/0/1/0,3,0,1
+1659599011529,360,ESC,404,Not Found,Thread Group 1-58,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/fCWp/2022-08-05/2022-08-21/en_US/SGD/GR/2/1,360,0,1
+1659599014526,3,ESC,200,OK,Thread Group 1-59,text,true,,961,906,1,1,http://localhost:3000/destinations/fCWp/2022-08-05/2022-08-26/en_US/SGD/GR/2/0/1/0,3,0,0
+1659599017528,324,ESC,404,Not Found,Thread Group 1-60,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/fCWp/2022-08-05/2022-08-26/en_US/SGD/GR/2/1,324,0,1
+1659599020528,2,ESC,200,OK,Thread Group 1-61,text,true,,961,906,1,1,http://localhost:3000/destinations/xmXl/2022-08-05/2022-08-06/en_US/SGD/PT/2/0/1/0,2,0,0
+1659599023525,711,ESC,404,Not Found,Thread Group 1-62,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/xmXl/2022-08-05/2022-08-06/en_US/SGD/PT/2/1,711,0,1
+1659599026525,3,ESC,200,OK,Thread Group 1-63,text,true,,961,906,1,1,http://localhost:3000/destinations/xmXl/2022-08-05/2022-08-11/en_US/SGD/PT/2/0/1/0,3,0,1
+1659599029524,425,ESC,404,Not Found,Thread Group 1-64,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/xmXl/2022-08-05/2022-08-11/en_US/SGD/PT/2/1,425,0,0
+1659599032525,4,ESC,200,OK,Thread Group 1-65,text,true,,961,906,1,1,http://localhost:3000/destinations/xmXl/2022-08-05/2022-08-16/en_US/SGD/PT/2/0/1/0,4,0,1
+1659599035528,362,ESC,404,Not Found,Thread Group 1-66,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/xmXl/2022-08-05/2022-08-16/en_US/SGD/PT/2/1,362,0,0
+1659599038524,6,ESC,200,OK,Thread Group 1-67,text,true,,961,906,1,1,http://localhost:3000/destinations/xmXl/2022-08-05/2022-08-21/en_US/SGD/PT/2/0/1/0,5,0,2
+1659599041523,421,ESC,404,Not Found,Thread Group 1-68,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/xmXl/2022-08-05/2022-08-21/en_US/SGD/PT/2/1,421,0,1
+1659599044524,3,ESC,200,OK,Thread Group 1-69,text,true,,961,906,1,1,http://localhost:3000/destinations/xmXl/2022-08-05/2022-08-26/en_US/SGD/PT/2/0/1/0,3,0,1
+1659599047522,800,ESC,404,Not Found,Thread Group 1-70,text,false,Test failed: code expected to contain /200/,243,912,1,1,http://localhost:8080/api/destination/prices/xmXl/2022-08-05/2022-08-26/en_US/SGD/PT/2/1,800,0,0
+1659599050527,6,ESC,200,OK,Thread Group 1-71,text,true,,961,906,1,1,http://localhost:3000/destinations/YCcf/2022-08-05/2022-08-06/en_US/SGD/CN/2/0/1/0,6,0,2
+1659599056523,3,ESC,200,OK,Thread Group 1-73,text,true,,961,906,2,2,http://localhost:3000/destinations/YCcf/2022-08-05/2022-08-11/en_US/SGD/CN/2/0/1/0,3,0,0
+1659599053521,5721,ESC,200,OK,Thread Group 1-72,,false,"The operation lasted too long: It took 5,721 milliseconds, but should not have lasted longer than 5,000 milliseconds.",14024,912,1,1,http://localhost:8080/api/destination/prices/YCcf/2022-08-05/2022-08-06/en_US/SGD/CN/2/1,5721,0,1
+1659599062520,3,ESC,200,OK,Thread Group 1-75,text,true,,961,906,2,2,http://localhost:3000/destinations/YCcf/2022-08-05/2022-08-16/en_US/SGD/CN/2/0/1/0,3,0,1
+1659599059522,4315,ESC,200,OK,Thread Group 1-74,,true,,14047,912,1,1,http://localhost:8080/api/destination/prices/YCcf/2022-08-05/2022-08-11/en_US/SGD/CN/2/1,4315,0,2
+1659599068521,3,ESC,200,OK,Thread Group 1-77,text,true,,961,906,2,2,http://localhost:3000/destinations/YCcf/2022-08-05/2022-08-21/en_US/SGD/CN/2/0/1/0,3,0,1
+1659599065530,4865,ESC,200,OK,Thread Group 1-76,,true,,14060,912,1,1,http://localhost:8080/api/destination/prices/YCcf/2022-08-05/2022-08-16/en_US/SGD/CN/2/1,4865,0,1
+1659599074519,4,ESC,200,OK,Thread Group 1-79,text,true,,961,906,2,2,http://localhost:3000/destinations/YCcf/2022-08-05/2022-08-26/en_US/SGD/CN/2/0/1/0,4,0,1
+1659599071519,4823,ESC,200,OK,Thread Group 1-78,,true,,14064,912,1,1,http://localhost:8080/api/destination/prices/YCcf/2022-08-05/2022-08-21/en_US/SGD/CN/2/1,4822,0,1
+1659599080519,4,ESC,200,OK,Thread Group 1-81,text,true,,961,906,2,2,http://localhost:3000/destinations/lL9x/2022-08-05/2022-08-06/en_US/SGD/MA/2/0/1/0,4,0,1
+1659599077519,4181,ESC,200,OK,Thread Group 1-80,,true,,14076,912,1,1,http://localhost:8080/api/destination/prices/YCcf/2022-08-05/2022-08-26/en_US/SGD/CN/2/1,4181,0,1
+1659599086518,3,ESC,200,OK,Thread Group 1-83,text,true,,961,906,2,2,http://localhost:3000/destinations/lL9x/2022-08-05/2022-08-11/en_US/SGD/MA/2/0/1/0,3,0,1
+1659599083518,5759,ESC,200,OK,Thread Group 1-82,,false,"The operation lasted too long: It took 5,759 milliseconds, but should not have lasted longer than 5,000 milliseconds.",14968,912,1,1,http://localhost:8080/api/destination/prices/lL9x/2022-08-05/2022-08-06/en_US/SGD/MA/2/1,5759,0,1
+1659599092518,3,ESC,200,OK,Thread Group 1-85,text,true,,961,906,2,2,http://localhost:3000/destinations/lL9x/2022-08-05/2022-08-16/en_US/SGD/MA/2/0/1/0,3,0,1
+1659599089518,5533,ESC,200,OK,Thread Group 1-84,,false,"The operation lasted too long: It took 5,533 milliseconds, but should not have lasted longer than 5,000 milliseconds.",13681,912,1,1,http://localhost:8080/api/destination/prices/lL9x/2022-08-05/2022-08-11/en_US/SGD/MA/2/1,5533,0,1
+1659599098516,3,ESC,200,OK,Thread Group 1-87,text,true,,961,906,2,2,http://localhost:3000/destinations/lL9x/2022-08-05/2022-08-21/en_US/SGD/MA/2/0/1/0,3,0,1
+1659599095517,5319,ESC,200,OK,Thread Group 1-86,,false,"The operation lasted too long: It took 5,319 milliseconds, but should not have lasted longer than 5,000 milliseconds.",13694,912,1,1,http://localhost:8080/api/destination/prices/lL9x/2022-08-05/2022-08-16/en_US/SGD/MA/2/1,5319,0,0
+1659599104515,4,ESC,200,OK,Thread Group 1-89,text,true,,961,906,2,2,http://localhost:3000/destinations/lL9x/2022-08-05/2022-08-26/en_US/SGD/MA/2/0/1/0,4,0,1
+1659599101516,4537,ESC,200,OK,Thread Group 1-88,,true,,12793,912,1,1,http://localhost:8080/api/destination/prices/lL9x/2022-08-05/2022-08-21/en_US/SGD/MA/2/1,4537,0,1
+1659599110514,3,ESC,200,OK,Thread Group 1-91,text,true,,961,906,2,2,http://localhost:3000/destinations/mX8x/2022-08-05/2022-08-06/en_US/SGD/BR/2/0/1/0,3,0,1
+1659599107515,5190,ESC,200,OK,Thread Group 1-90,,false,"The operation lasted too long: It took 5,190 milliseconds, but should not have lasted longer than 5,000 milliseconds.",12815,912,1,1,http://localhost:8080/api/destination/prices/lL9x/2022-08-05/2022-08-26/en_US/SGD/MA/2/1,5190,0,0
+1659599116515,4,ESC,200,OK,Thread Group 1-93,text,true,,961,906,2,2,http://localhost:3000/destinations/mX8x/2022-08-05/2022-08-11/en_US/SGD/BR/2/0/1/0,4,0,1
+1659599113515,4221,ESC,200,OK,Thread Group 1-92,,true,,12200,912,1,1,http://localhost:8080/api/destination/prices/mX8x/2022-08-05/2022-08-06/en_US/SGD/BR/2/1,4221,0,1
+1659599122512,3,ESC,200,OK,Thread Group 1-95,text,true,,961,906,2,2,http://localhost:3000/destinations/mX8x/2022-08-05/2022-08-16/en_US/SGD/BR/2/0/1/0,3,0,1
+1659599119514,4466,ESC,200,OK,Thread Group 1-94,,true,,14937,912,1,1,http://localhost:8080/api/destination/prices/mX8x/2022-08-05/2022-08-11/en_US/SGD/BR/2/1,4465,0,1
+1659599128514,3,ESC,200,OK,Thread Group 1-97,text,true,,961,906,2,2,http://localhost:3000/destinations/mX8x/2022-08-05/2022-08-21/en_US/SGD/BR/2/0/1/0,3,0,1
+1659599125512,4611,ESC,200,OK,Thread Group 1-96,,true,,14943,912,1,1,http://localhost:8080/api/destination/prices/mX8x/2022-08-05/2022-08-16/en_US/SGD/BR/2/1,4611,0,0
+1659599134511,3,ESC,200,OK,Thread Group 1-99,text,true,,961,906,2,2,http://localhost:3000/destinations/mX8x/2022-08-05/2022-08-26/en_US/SGD/BR/2/0/1/0,3,0,1
+1659599131513,4317,ESC,200,OK,Thread Group 1-98,,true,,12904,912,1,1,http://localhost:8080/api/destination/prices/mX8x/2022-08-05/2022-08-21/en_US/SGD/BR/2/1,4317,0,0
+1659599137513,3966,ESC,200,OK,Thread Group 1-100,,true,,13682,912,1,1,http://localhost:8080/api/destination/prices/mX8x/2022-08-05/2022-08-26/en_US/SGD/BR/2/1,3966,0,1
