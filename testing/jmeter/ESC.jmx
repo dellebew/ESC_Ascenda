@@ -18,9 +18,9 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.num_threads">300</stringProp>
         <stringProp name="ThreadGroup.ramp_time">300</stringProp>
-        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration">5</stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -31,7 +31,7 @@
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="HTTPSampler.domain">localhost</stringProp>
-          <stringProp name="HTTPSampler.port">3000</stringProp>
+          <stringProp name="HTTPSampler.port">${port}</stringProp>
           <stringProp name="HTTPSampler.protocol">http</stringProp>
           <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
           <stringProp name="HTTPSampler.path">${path}</stringProp>
@@ -39,7 +39,7 @@
           <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">true</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
-          <boolProp name="HTTPSampler.DO_MULTIPART_POST">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
           <boolProp name="HTTPSampler.BROWSER_COMPATIBLE_MULTIPART">true</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
           <stringProp name="HTTPSampler.connect_timeout"></stringProp>
@@ -140,9 +140,9 @@
         <hashTree/>
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP header manager" enabled="true">
           <collectionProp name="HeaderManager.headers">
-            <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">Content-type</stringProp>
-              <stringProp name="Header.value">text/html</stringProp>
+            <elementProp name="Accept" elementType="Header">
+              <stringProp name="Header.name">Accept</stringProp>
+              <stringProp name="Header.value">text/html,application/json,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</stringProp>
             </elementProp>
             <elementProp name="Accept-Encoding" elementType="Header">
               <stringProp name="Header.name">Accept-Encoding</stringProp>
@@ -150,11 +150,7 @@
             </elementProp>
             <elementProp name="Accept-Language" elementType="Header">
               <stringProp name="Header.name">Accept-Language</stringProp>
-              <stringProp name="Header.value">en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7</stringProp>
-            </elementProp>
-            <elementProp name="Cache-Control" elementType="Header">
-              <stringProp name="Header.name">Cache-Control</stringProp>
-              <stringProp name="Header.value">max-age=0</stringProp>
+              <stringProp name="Header.value">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</stringProp>
             </elementProp>
             <elementProp name="Connection" elementType="Header">
               <stringProp name="Header.name">Connection</stringProp>
@@ -166,7 +162,7 @@
             </elementProp>
             <elementProp name="sec-ch-ua" elementType="Header">
               <stringProp name="Header.name">sec-ch-ua</stringProp>
-              <stringProp name="Header.value">&quot;.Not/A)Brand&quot;;v=&quot;99&quot;, &quot;Google Chrome&quot;;v=&quot;103&quot;, &quot;Chromium&quot;;v=&quot;103&quot;</stringProp>
+              <stringProp name="Header.value">&quot; Not;A Brand&quot;;v=&quot;99&quot;, &quot;Microsoft Edge&quot;;v=&quot;103&quot;, &quot;Chromium&quot;;v=&quot;103&quot;</stringProp>
             </elementProp>
             <elementProp name="sec-ch-ua-mobile" elementType="Header">
               <stringProp name="Header.name">sec-ch-ua-mobile</stringProp>
@@ -178,27 +174,27 @@
             </elementProp>
             <elementProp name="Sec-Fetch-Dest" elementType="Header">
               <stringProp name="Header.name">Sec-Fetch-Dest</stringProp>
-              <stringProp name="Header.value">document</stringProp>
+              <stringProp name="Header.value">empty</stringProp>
             </elementProp>
             <elementProp name="Sec-Fetch-Mode" elementType="Header">
               <stringProp name="Header.name">Sec-Fetch-Mode</stringProp>
-              <stringProp name="Header.value">navigate</stringProp>
+              <stringProp name="Header.value">cors</stringProp>
             </elementProp>
             <elementProp name="Sec-Fetch-Site" elementType="Header">
               <stringProp name="Header.name">Sec-Fetch-Site</stringProp>
-              <stringProp name="Header.value">none</stringProp>
+              <stringProp name="Header.value">same-origin</stringProp>
             </elementProp>
-            <elementProp name="Sec-Fetch-User" elementType="Header">
-              <stringProp name="Header.name">Sec-Fetch-User</stringProp>
-              <stringProp name="Header.value">?1</stringProp>
+            <elementProp name="User-Agent" elementType="Header">
+              <stringProp name="Header.name">User-Agent</stringProp>
+              <stringProp name="Header.value">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36 Edg/103.0.1264.7</stringProp>
             </elementProp>
-            <elementProp name="Upgrade-Insecure-Requests" elementType="Header">
-              <stringProp name="Header.name">Upgrade-Insecure-Requests</stringProp>
-              <stringProp name="Header.value">1</stringProp>
+            <elementProp name="Content-Type" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/x-www-form-urlencoded,text/html</stringProp>
             </elementProp>
             <elementProp name="" elementType="Header">
-              <stringProp name="Header.name">Accept</stringProp>
-              <stringProp name="Header.value">text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</stringProp>
+              <stringProp name="Header.name">X-Requested-With</stringProp>
+              <stringProp name="Header.value">xmlhttprequest</stringProp>
             </elementProp>
           </collectionProp>
         </HeaderManager>
@@ -206,13 +202,13 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV data config" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding">UTF-8</stringProp>
-          <stringProp name="filename">jmeter_data.csv</stringProp>
+          <stringProp name="filename">D:/ESC_Ascenda/testing/jmeter/jmeter_data.csv</stringProp>
           <boolProp name="ignoreFirstLine">false</boolProp>
           <boolProp name="quotedData">false</boolProp>
           <boolProp name="recycle">true</boolProp>
           <stringProp name="shareMode">shareMode.all</stringProp>
           <boolProp name="stopThread">false</boolProp>
-          <stringProp name="variableNames">path,expectedVal</stringProp>
+          <stringProp name="variableNames">path,expectedVal,port</stringProp>
         </CSVDataSet>
         <hashTree/>
       </hashTree>

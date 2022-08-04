@@ -1,6 +1,6 @@
 import json
 
-uid_file_path = "..client/src/database/uid_code.json"
+uid_file_path = "../../client/src/database/uid_code.json"
 w_file_path = "jmeter_data.csv"
 
 uid_file = open(uid_file_path)
@@ -16,12 +16,14 @@ for i in data:
         desti_id = i["uid"]
         code = i["code"]
 
-        url = f"/destinations/{desti_id}/2022-08-05/2022-08-{checkout_day}/en_US/SGD/{code}/2/0/1/0"
+        url_frontend = f"/destinations/{desti_id}/2022-08-05/2022-08-{checkout_day}/en_US/SGD/{code}/2/0/1/0"
+        url_backend = f"/api/destination/prices/{desti_id}/2022-08-05/2022-08-{checkout_day}/en_US/SGD/{code}/2/1"
         expVal = "200"
+        line1 = url_frontend +","+ expVal +","+ "3000"
+        line2 = url_backend +","+ expVal +","+ "8080"
 
-        line = url +","+ expVal
-
-        f_write.writelines(line+"\n")
+        f_write.writelines(line1+"\n")
+        f_write.writelines(line2+"\n")
     
 uid_file.close()
 
@@ -39,13 +41,14 @@ for desti in dic:
                 checkout_day = "0"+str(checkout)
             for guest in range(6):
                 guest = str(guest)
-                url = f"/hotels/{hotel}/{desti}/2022-08-05/2022-08-{checkout_day}/en_US/SGD/GB/{guest}/0/1"
+                url_frontend = f"/hotels/{hotel}/{desti}/2022-08-05/2022-08-{checkout_day}/en_US/SGD/GB/{guest}/0/1"
+                url_backend = f"/api/hotel/price/{hotel}/{desti}/2022-08-05/2022-08-{checkout_day}/en_US/SGD/SG/{guest}"
                 expVal = "200"
+                line1 = url_frontend +","+ expVal +","+ "3000"
+                line2 = url_backend +","+ expVal +","+ "8080"
 
-                line = url +","+ expVal
-
-                f_write.writelines(line+"\n")
+                f_write.writelines(line1+"\n")
+                f_write.writelines(line2+"\n")
 
 f_write.close()
-
 
