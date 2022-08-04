@@ -112,24 +112,18 @@ const SearchBar = () => {
             const incomplete_country_code = country_code.filter(element => {
                 const destination_title = incomplete_name;
     
-                if (destination_title.includes(element.name) || destination_title == element.name) {
+                if (destination_title.includes(element.name) || destination_title == element.name || destination_title.startsWith(element.name)) {
                     return element.code
                 } else {
                     return 0
                 }
             })[0].code;
 
-            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/0`
+            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/${room}`
             navigate(path);
 
         }
     };
-
-
-    function ontest() {
-        let path = "/hotels"
-        navigate(path)
-    }
 
 
     return (
@@ -157,6 +151,7 @@ const SearchBar = () => {
                         
                         return (
                         searchTerm &&
+                        modified.startsWith(searchTerm) &&
                         modified.includes(searchTerm)
                         );
                     })
@@ -210,7 +205,7 @@ const SearchBar = () => {
                             <button 
                                 className="increase"
                                 onClick={() => handleOption("adult", "i")}
-                                disabled={options.adult>=6}>+</button>
+                                disabled={options.adult>=20}>+</button>
                         </div>
                         
                     </div>
@@ -239,7 +234,7 @@ const SearchBar = () => {
                             <button 
                                 className="increase"
                                 onClick={() => handleOption("room", "i")}
-                                disabled={options.room>=6}>+</button>
+                                disabled={options.room>=20}>+</button>
                         </div>
                     </div>
                 </div>)}
