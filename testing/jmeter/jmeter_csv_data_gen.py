@@ -28,7 +28,6 @@ for i in data:
 uid_file.close()
 
 hotels = ["v3JS","hxj6","WUN0","Hfdt","sOyG"]
-dest = "jC3Y"
 dic = {"RsBU":["cETW","qRUF","8BCr","nPbT","qO6Y"],
        "jC3Y":["v3JS","hxj6","WUN0","Hfdt","sOyG"]}
 for desti in dic:
