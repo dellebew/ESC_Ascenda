@@ -7,7 +7,7 @@ import "./searchBar.css"
 import {useNavigate} from 'react-router-dom';
 var country_code = require("../../database/countries.json");
 var destination_ids = require("../../database/output.json");
-var test1 = require("../../database/uids.json");
+var test1 = require("../../database/uids.json");    
 
 
 const SearchBar = () => {
@@ -38,7 +38,7 @@ const SearchBar = () => {
         {
           adult: 2,
           children: 0,
-          room: 1,
+        //   room: 1,
         });
     
     const handleOption = (name, operation) => {
@@ -195,7 +195,7 @@ const SearchBar = () => {
                 <div className="search--item">
                 <FontAwesomeIcon icon={faPerson} className="search--icon"/>
                 <span className="search--text" id="search--people" onClick={() => setOpenOptions(!openOptions)}>
-                    {`${options.adult} adults ${options.children} children ${options.room} rooms`}
+                    {`${options.adult} adults ${options.children} children`}
                 </span>
                 {openOptions && (<div className="options" onMouseLeave={() => setOpenOptions(!openOptions)}>
                     <div className="options--item">
@@ -227,7 +227,7 @@ const SearchBar = () => {
                                 disabled={options.children>=6}>+</button>
                         </div>
                     </div>
-                    <div className="options--item">
+                    {/* <div className="options--item">
                         <span className="options--text">Room</span>
                         <div className="options--counter room">
                             <button 
@@ -240,7 +240,7 @@ const SearchBar = () => {
                                 onClick={() => handleOption("room", "i")}
                                 disabled={options.room>=6}>+</button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>)}
                 </div>
 
