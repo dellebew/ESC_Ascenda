@@ -41,7 +41,7 @@ const Destinations = () => {
         let currentPage = data.selected 
         // state.page = currentPage;
         // navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}/${state.page}`)
-        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${currentPage}`)
+        navigate(`../destinations/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.childrenQty}/${state.roomQty}/${currentPage}`)
         window.scrollTo(0, 0)
         setPage(currentPage)
     }

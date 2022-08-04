@@ -32,6 +32,7 @@ const Checkout = () => {
     roomType: state.roomType,
     adultQuantity: state.adultQty,
     childrenQuantity: state.childQty,
+    roomQuantity: state.roomQty,
     message: message,
     hotelName: state.hotelName,
   };
@@ -58,6 +59,7 @@ const Checkout = () => {
 
   // add to intermediate database
   // setIncompletePayments(intermediateData)
+
   const startTimeNum = new Date();  
   startTimeNum.setTime(data.start);
   const startTimeText = startTimeNum.getDate() + "-" + startTimeNum.getMonth() + "-" + startTimeNum.getFullYear();
@@ -66,6 +68,8 @@ const Checkout = () => {
   endTimeNum.setTime(data.end);
   const endTimeText = endTimeNum.getDate() + "-" + endTimeNum.getMonth() + "-" + (endTimeNum.getFullYear());
   
+  const numOfNights = Math.ceil((endTimeNum-startTimeNum) / (1000*24*60*60))
+
   return (
     <>
     <NavBar/>
@@ -99,6 +103,10 @@ const Checkout = () => {
                       <label >Children:</label>
                       <span>{data.childrenQuantity}</span>
                   </div>
+                  <div>
+                      <label >Rooms:</label>
+                      <span>{data.roomQuantity}</span>
+                  </div>
               </div>
               <h1 className='checkout-title'>
                   <i className="far fa-credit-card"></i> 
@@ -106,7 +114,7 @@ const Checkout = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span>S${billing.unit_amount * data.roomQty}</span>
+                    <span>S${billing.unit_amount * data.roomQuantity * numOfNights}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>

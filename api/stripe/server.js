@@ -91,7 +91,8 @@ router.post('/create-checkout-session', async (req, res) => {
   numOfNights + " \nStart Date: " + startDate
   + " \nEnd Date: " + endDate + " \nNumber of Adults: "
   + info.adultQuantity + " \nNumber of Children: "
-  + info.childrenQuantity + " \nRoom Type: " + info.roomType
+  + info.childrenQuantity + " \nRoom Type: " + info.roomType 
+  + "\nRoom Quantity: " + info.roomQuantity
   + " \nComments for hotel: " + info.message
 
   // create product id for payment id
@@ -112,7 +113,7 @@ router.post('/create-checkout-session', async (req, res) => {
       line_items: [
       {
         price: price.id,
-        quantity: numOfNights,
+        quantity: numOfNights * info.roomQuantity,
       },
     ],
     mode: 'payment',

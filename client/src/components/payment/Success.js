@@ -105,6 +105,10 @@ const Success = () => {
                   <label >Children:</label>
                   <span name="display--childQty">{session.state.childrenQuantity}</span>
               </div>
+              <div>
+                  <label >Children:</label>
+                  <span name="display--childQty">{session.state.roomQuantity}</span>
+              </div>
           </div>
 
           <h1 className='checkout-title'>
@@ -113,7 +117,7 @@ const Success = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span name="display--price">S${session.state.unit_amount * session.state.numOfNights}</span>
+                    <span name="display--price">S${session.state.unit_amount * session.state.numOfNights *session.state.roomQuantity}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>
