@@ -14,7 +14,7 @@ driver.get("http://localhost:8080/api/hotel/diH7")
 driver.implicitly_wait(30)
 
 # get answer data
-with open('./api/testing/diH7.json', 'r',encoding="utf-8") as f:
+with open('../../api/testing/diH7.json', 'r',encoding="utf-8") as f:
   data = json.load(f)
 
 # test hotel data retrival
@@ -38,7 +38,7 @@ driver.get("http://localhost:8080/api/destination/hotels/4FBY/0")
 driver.implicitly_wait(30)
 
 # get answer data
-with open('./api/testing/4FBY_0.json', 'r',encoding="utf-8") as f:
+with open('../../api/testing/4FBY_0.json', 'r',encoding="utf-8") as f:
   data = json.load(f)
 
 # test hotel data retrival
@@ -61,7 +61,7 @@ driver.get("http://localhost:8080/api/hotel/price/diH7/WD0M/2022-08-25/2022-08-2
 driver.implicitly_wait(30)
 
 # get answer data
-with open('./api/testing/hotel_price.json', 'r',encoding="utf-8") as f:
+with open('../../api/testing/hotel_price.json', 'r',encoding="utf-8") as f:
   data = json.load(f)[0]["rooms"]
 
 # test hotel data retrival
