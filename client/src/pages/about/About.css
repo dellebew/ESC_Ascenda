@@ -1,89 +1,74 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:900');
-
-body {
-  /* -webkit-perspective: 1px;
-  perspective: 1px;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d; */
-  height: 100%;
+* {
+  box-sizing: border-box;
 }
-
-
-.topBox {
-    box-sizing: border-box;
-    min-height: 60vw;
-    z-index: 0;
-    position: relative;
-    -webkit-transform-style: inherit;
-    transform-style: inherit;
-    width: 100vw;
-
+html, body {
+  background-color: #FEDCC8;
 }
-
-.whole-container {
-  color: #fff;
-  overflow-y: hidden;
+.parallax {
+  perspective: 100px;
+  height: 100vh;
   overflow-x: hidden;
-  -webkit-perspective: 1px;
-  perspective: 1px;
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
+  overflow-y: auto;
+  position: absolute;
+  z-index: -100;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  margin-left: -1500px;
+}
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -100;
+}
+.parallax__layer img {
+  display: block;
+  position: absolute;
+  bottom: 0;
+}
+.parallax__cover {
+  background: #2D112B;
+  display: block;
+  position: absolute;
+  top: 98%;
+  left: 0;
+  right: 0;
+  height: 600px;
+  z-index: 10;
 }
 
-.topBox, .topBox:before {
-    background: 50% 50% / cover;
-  }
-  .topBox::before {
-    bottom: 0;
-    content: "";
-    left: 0;
-    position: absolute;
-    right: 0;
-    display: block;
-    background-size: cover;
-    background-image: radial-gradient(ellipse at bottom, #00434e 0%, #000000 100%);
-    -webkit-transform-origin: center center 0;
-    -webkit-transform: translateZ(-1px) scale(2);
-    transform-origin: center center 0;
-    transform: translateZ(-1px) scale(2);
-    z-index: -1;
-    min-height: 130vh;
-  }
-
-.aboutHeader {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 30vh;
-    letter-spacing: 1vw;
-    position: absolute;
-    top: 25vh;
-    left: 50%;
-    transform: translateX(-50%);
-    color: black;
-    background: url(./hotel_stuff.jpg);
-    background-size: auto 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 8s linear infinite;
-}
-
-.main_desc {
-    background-color: hsl(0, 0%, 0%);
-    line-height: 1.7;
-    max-width: 130%;
-    padding: 5% calc(50% - 16em) 35%;
-    position: relative;
-    z-index: 2;
+.description {
+  position: absolute;
+  text-align: left;
+  top: 200px;
+  right: 400px;
+  color: #FEDCC8;
+  
 }
 
 
-
-@keyframes shine {
-  from {
-    background-position: center 0;
-  }
-  to {
-    background-position: center 200%;
-  }
+.parallax__layer__0 {
+  transform: translateZ(-300px) scale(4);
+}
+.parallax__layer__1 {
+  transform: translateZ(-250px) scale(3.5);
+}
+.parallax__layer__2 {
+  transform: translateZ(-200px) scale(3);
+}
+.parallax__layer__3 {
+  transform: translateZ(-150px) scale(2.5);
+}
+.parallax__layer__4 {
+  transform: translateZ(-100px) scale(2);
+}
+.parallax__layer__5 {
+  transform: translateZ(-50px) scale(1.5);
+}
+.parallax__layer__6 {
+  transform: translateZ(0px) scale(1);
 }
