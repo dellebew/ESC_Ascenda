@@ -34,14 +34,14 @@ def check_dest(destId, url, runHotelTests, location):
     options = webdriver.ChromeOptions()
     options.add_argument('--enable-javascript')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    fileLocation = 'client\\testing\\logs\\{}.txt'.format(location)
+    fileLocation = 'testing\\frontend\\logs\\{}.txt'.format(location)
 
     try:
         # test valid destination page based on backend: http://localhost:8080/api/destination/prices/P4FZ/2022-08-24/2022-08-29/en_US/SGD/SG/2/0
         driver.get(url)
         # driver.maximize_window()
         time.sleep(10)
-        driver.save_screenshot('./client/testing/screenshots/destinations_{}.png'.format(destId))
+        driver.save_screenshot('./testing/frontend/screenshots/destinations_{}.png'.format(destId))
 
         
         if (no_hotels_avaliable(driver)):

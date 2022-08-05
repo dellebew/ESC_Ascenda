@@ -17,7 +17,7 @@ try:
     driver.maximize_window()
     time.sleep(3)
     print("Test 0 Passed, valid destinations page: " + driver.current_url)
-    # driver.save_screenshot('./client/testing/screen_destinations_1.png')
+    driver.save_screenshot('./testing/frontend/screenshots/dest_P4FZ.png')
 
     # check for 6 sets of hotels
     hotelCards = driver.find_elements(By.CLASS_NAME, "searchItem")

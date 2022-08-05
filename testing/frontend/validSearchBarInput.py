@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
@@ -45,13 +46,13 @@ try:
         input.send_keys(Keys.CONTROL + "a")
         input.send_keys(Keys.DELETE)
         if count == 0:
-            input.send_keys('Aug 3, 2022')
+            input.send_keys('Aug 23, 2022')
             print("Start Date: ", input.get_attribute('value'))
         else:
-            input.send_keys('Aug 4, 2022')
+            input.send_keys('Aug 24, 2022')
             print("End Date: ", input.get_attribute('value'))
         count += 1
-    print(calendar.get_attribute("innerHTML") == "08/03/2022 to 08/04/2022")
+    print(calendar.get_attribute("innerHTML") == "08/23/2022 to 08/24/2022")
     print("Test 2 Passed, date is correct: " + calendar.get_attribute("innerHTML"))
     time.sleep(1)
 
@@ -87,14 +88,13 @@ try:
     time.sleep(2)
 
     # test search redirect
-    searchButton = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "search--button"))
-    )  
+    action = ActionChains(driver)
+    searchButton = driver.find_element(By.CLASS_NAME, "search--button")
+    action.move_to_element(searchButton).perform()
     searchButton.click()
-    
-    assert(driver.current_url == "http://localhost:3000/destinations/RsBU/2022-08-03/2022-08-04/en_US/SGD/SG/3/1/1/0")
+    time.sleep(4)
+    assert(driver.current_url == "http://localhost:3000/destinations/RsBU/2022-08-23/2022-08-24/en_US/SGD/SG/3/1/1/0")
     print("Test 5 Passed, URL has been redirected correctly: " + driver.current_url)
-    time.sleep(2)
 
 except Exception as e:
     print(e)

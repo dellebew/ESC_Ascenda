@@ -46,7 +46,7 @@ def random_dest(destId, startDate, endDate):
         driver.get("http://localhost:3000/destinations/{}/{}/{}/en_US/SGD/SG/2/0/1/0".format(destId, startDate, endDate))
         # driver.maximize_window()
         time.sleep(7)
-        driver.save_screenshot('./client/testing/screenshots/destinations_{}.png'.format(destId))
+        driver.save_screenshot('./testing/frontend/screenshots/destinations_{}.png'.format(destId))
 
         if (no_hotels_avaliable(driver)):
             raise Server404Error("No Hotels Avaliable")
@@ -62,7 +62,7 @@ def random_dest(destId, startDate, endDate):
         totalButtons = len(pricesButton)
 
 
-        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+        with open('testing\\frontend\\logs\\fuzzing_hotels.txt', 'a') as f:
                 f.write("For destination: {} @ {}".format(destId, time.ctime()))
                 f.write('\n')
                 f.close()
@@ -75,21 +75,21 @@ def random_dest(destId, startDate, endDate):
         
         
     except Server404Error as e:
-        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+        with open('testing\\frontend\\logs\\fuzzing_hotels.txt', 'a') as f:
                 f.write("Destination 404 Loading Error: {} @ {}".format(destId, time.ctime()))
                 f.write('\n')
                 f.close()
         print(e)
     
     except Server429Error as e:
-        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+        with open('testing\\frontend\\logs\\fuzzing_hotels.txt', 'a') as f:
                 f.write("Destination 429 Loading Error: {} @ {}".format(destId, time.ctime()))
                 f.write('\n')
                 f.close()
         print(e)
 
     except Exception as e:
-        with open('client\\testing\\logs\\fuzzing_hotels.txt', 'a') as f:
+        with open('testing\\frontend\\logs\\fuzzing_hotels.txt', 'a') as f:
                 f.write("Destination Timeout Loading Error: {} @ {}".format(destId, time.ctime()))
                 f.write('\n')
                 f.close()
