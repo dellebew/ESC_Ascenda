@@ -1,16 +1,37 @@
-# ESC_Ascenda
+# 50.003: Ascenda Loyalty Hotel Booking System
 
-to enter client: 
-1. `cd client`
-2. `npm install`
-3. `npm start`
+## Description
+A hotel booking system built using the MERN stack framework (MongoDB, Express, React, Node) for 2022 50.003 Elements of Software Construction.
 
-to enter backend/db:
-1. `cd api`
-2. `npm install`
-3. `npm start`
+### Cohort 1 Group 6
+1005552 Soh Pei Xuan <br>
+1005418 Adelle Chan	<br>
+1004885 Guo Yuchen <br>         		
+1005194 Nicholas Goh	
 
-use `npm start` to start the server
+
+### Getting Started (Installation)
+First, make sure to install relevant node packages in both frontend and backend servers.
+
+```
+cd api         # backend server
+npm install
+
+cd client      # frontend server
+npm install
+```
+
+### Running Web Server
+To begin running the web application, first start a new terminal and run the backend Express server.
+```
+cd api
+npm start
+```
+Subequently, start another terminal and run the frontend React server.
+```
+cd client   
+npm start
+```
 
 # backend call
 1. hotel static data: http://localhost:8080/api/hotel/:id
@@ -55,11 +76,6 @@ https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946
 4. hotel prices for a given destination
     E.g. https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=WD0M&checkin=2022-06-18&checkout=2022-06-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
     https://hotelapi.loyalty.dev/api/hotels/prices?destination_id="+<destination_id>+"&checkin="+<checkin_YYYY-MM-DD>+"&checkout="+<checkout_YYYY-MM-DD>+"&lang="+<lang>+"&currency="+<currency>+"&country_code="+<country_code2>+"&guests="+<guest_number>+"&partner_id=1"
-
-# Client Side
-
-## Todo:
-1. Clean up console.log code
 
 ## External Resources Used:
 
