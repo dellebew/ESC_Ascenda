@@ -93,7 +93,7 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-            const path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}/${room}`
+            const path = `/destinations/${destination_uid}/${startd}/${endd}/${language}/${currency}/${c_code}/${adult}/${children}/${room}/0`
             navigate(path);
 
         } else {
@@ -119,7 +119,7 @@ const SearchBar = () => {
                 }
             })[0].code;
 
-            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/${room}`
+            let path = `/destinations/${incomplete_uid}/${startd}/${endd}/${language}/${currency}/${incomplete_country_code}/${adult}/${children}/${room}/0`
             navigate(path);
 
         }
@@ -234,7 +234,7 @@ const SearchBar = () => {
                             <button 
                                 className="increase"
                                 onClick={() => handleOption("room", "i")}
-                                disabled={options.room>=20}>+</button>
+                                disabled={options.room>=options.adult}>+</button>
                         </div>
                     </div>
                 </div>)}

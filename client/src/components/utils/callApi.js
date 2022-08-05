@@ -2,6 +2,29 @@ import Error from "../error/Error";
 
 export default async function callApi(type, state) {
     let response;
+
+    // converts no of rooms and pax into "x|x|x" format
+    async function adultsRooms() {
+        let result
+        const totalPax = Number(state.adultsQty)
+        const rooms = Number(state.roomQty)
+        const paxPerRoom = Math.floor(totalPax/rooms)
+        const test = String(paxPerRoom) + "|"
+        const remainder = totalPax % rooms
+        console.log(totalPax, rooms)
+        console.log("pax" + paxPerRoom, "remainder" + remainder)
+        if (remainder === 0) {
+            result = test.repeat(rooms)
+        } else if (paxPerRoom > remainder) {
+            result = (String(paxPerRoom + remainder)) + "|" + test.repeat(rooms-1) 
+        } else if (paxPerRoom <= remainder) {
+            let add = String(paxPerRoom+1) + "|"
+            result = add.repeat(remainder) + test.repeat(rooms-remainder)
+        }
+        result = result.substring(0, result.length-1)
+        console.log(result)
+        return result
+    }
     
     console.log(state)
     if (type == "hotel") {
@@ -17,7 +40,9 @@ export default async function callApi(type, state) {
         }
     } 
     else if (type == "hotel/price") {
-        response = await fetch(`/api/${type}/${state.hotelId}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}`);
+        const adultRoom = await adultsRooms()
+        console.log(adultRoom)
+        response = await fetch(`/api/${type}/${state.hotelId}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${adultRoom}`);
         console.log(response)
         if (response.status === 429) {
             console.log("429 Error")
@@ -33,7 +58,9 @@ export default async function callApi(type, state) {
         return data[0].rooms
     } 
     else if (type == "destination/prices") {
-        response = await fetch(`/api/${type}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${state.adultsQty}/${state.page}`);
+        const adultRoom = await adultsRooms()
+        console.log(adultRoom)
+        response = await fetch(`/api/${type}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${adultRoom}/${state.page}`);
         if (response.status === 429) {
             console.log("429 Error")
             return [0, "429"]
@@ -47,11 +74,10 @@ export default async function callApi(type, state) {
         if (data[0] == 0) {
             data[0] = 1
         }
-        console.log("data: " + data)
         return data
     }  
         
     const data = await response.json()
-    console.log("data: " + data)
+    console.log(data)
     return data
 }

@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 const CheckDestinations = () => {
     const {adultsQty, childrenQty, page,
-          destId,  
+          destId, roomQty,
           checkout, checkin} = useParams();
 
 
@@ -14,14 +14,14 @@ const CheckDestinations = () => {
       }
       const parts = s.split('-').map((p) => parseInt(p, 10));
       parts[0] -= 1;
-      const d = new Date(parts[0], parts[1], parts[2]);
+      const d = new Date(parts[0], parts[1]-1, parts[2]);
       console.log(d)
-      return d.getMonth() === parts[1] && d.getDate() === parts[2] && d.getFullYear() === parts[0];
+      return d.getMonth() === parts[1]-1 && d.getDate() === parts[2] && d.getFullYear() === parts[0];
     }
     
-    return Number(adultsQty) > 0 && Number(adultsQty) <= 6
+    return Number(adultsQty) > 0 && Number(adultsQty) <= 20
         && Number(childrenQty) >= 0 && Number(childrenQty) <= 6
-        // && Number(roomQty) > 0 && Number(roomQty) <= 6
+        && Number(roomQty) > 0 && Number(roomQty) <= Number(adultsQty)
         && Number(page) >= 0 && (destId.length) === 4 
         && isValidDate(checkout) && isValidDate(checkin)
       ? <Destinations />
