@@ -95,3 +95,4 @@ Stripe: https://stripe.com/docs/api
 1. prereq: 
     `pip install webdriver-manager`
     `pip install selenium`
+    `pip install pymongo`
