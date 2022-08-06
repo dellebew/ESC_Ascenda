@@ -114,11 +114,11 @@ const Checkout = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span>S${numOfNights}</span>
+                    <span>S${(billing.unit_amount * data.roomQuantity * numOfNights).toFixed(2)}</span>
                 </div>
                 <div className="billing-info"> 
                     <label>Hotel Name:</label>
-                    <span>S${Math.ceil((billing.unit_amount)*100)/100 * data.roomQuantity * numOfNights}</span>
+                    <span>{data.hotelName}</span>
                 </div>
                 <div className="billing-info">
                     <label>Destination:</label>

@@ -24,6 +24,7 @@ const Success = () => {
 
   // console.log(loading);
   // console.log(JSON.stringify(session));
+  console.log(session.state.unit_amount + session.state.numOfNights + session.state.roomQuantity);
 
   useEffect(() => {
     const fetchSession = async() => {

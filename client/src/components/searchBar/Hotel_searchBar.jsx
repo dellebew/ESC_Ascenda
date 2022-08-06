@@ -79,17 +79,6 @@ const Hotel_SearchBar = () => {
         // number of guests & rooms
         const {adult, children} = options
 
-        // c_code is the country code
-        // const c_code = country_code.filter(element => {
-        //     const destination_title = hotel_name;
-
-        //     if (hotel_name.includes(element.name) || hotel_name == element.name) {
-        //         return element.code
-        //     } else {
-        //         return 0
-        //     }
-        // })[0].code;
-
         const c_code = "IT"
 
         // let path = "/destinations/P4FZ/2022-07-25/2022-07-29/en_US/SGD/SG/3/0"
@@ -119,12 +108,14 @@ const Hotel_SearchBar = () => {
                 <div className="dropdown"> 
                     {hotel_uids
                     .filter((item) => {
-                        const searchTerm = value;
+                        let searchTerm = value.toLowerCase();
+                        let modified = item.term.toLowerCase();
 
                         
                         return (
                         searchTerm &&
-                        item.name.includes(searchTerm)
+                        modified.startsWith(searchTerm) &&
+                        modified.includes(searchTerm)
                         );
                     })
                     .slice(0, 10)
