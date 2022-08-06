@@ -22,7 +22,7 @@ function App() {
     <BrowserRouter> 
       <Routes>
         <Route path='/' element = {<Home />}/>
-        <Route path='/About' element = {<About />}/>
+        <Route path='/about' element = {<About />}/>
         <Route path='/hotels' element = {<HotelsSearch />}/>
         <Route path='/destinations/:destId/:checkin/:checkout/:lang/:currency/:code/:adultsQty/:childrenQty/:roomQty/:page' 
               element = {(

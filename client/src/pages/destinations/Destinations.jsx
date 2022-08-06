@@ -46,13 +46,12 @@ const Destinations = () => {
         setPage(currentPage)
     }
 
-    console.log(pageCount)
     return (
         <>
         <NavBar />
         <div className= "bg-container">
         {loading && <Loader/>}
-        {!loading && items === "404" && <div className="404"><Error {...{img:"/404-invalid-dest.png"}}/></div>}
+        {!loading && items === "404" && <div className="server_404"><Error {...{img:"/404-invalid-dest.png"}}/></div>}
         {!loading && items === "429" && <div className="server_429"><Error {...{img:"/404-429-error.png"}}/></div>}
         {!loading && items !== undefined && items !== "404" && items !== "429" &&  <div className="body">                        
             <div className="list--container">

@@ -25,7 +25,7 @@ try:
     assert(hotelName.get_attribute("textContent") == "The Fullerton Hotel Singapore")
     print("Test 1 Passed, correct hotel name:", hotelName.get_attribute("textContent"))
 
-    # driver.save_screenshot('./client/testing/screenshots/hotel_diH7.png')
+    driver.save_screenshot('./testing/frontend/screenshots/hotel_diH7.png')
 
     # check valid hotel static elements
     hotelAddress = driver.find_element(By.ID, "hotelAddress")

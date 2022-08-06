@@ -6,7 +6,7 @@ import random
 
 # checks for relevant elements in hotel page
 def check_hotel(driver, action, button, location):
-    fileLocation = 'client\\testing\\logs\\{}.txt'.format(location)
+    fileLocation = 'testing\\frontend\\logs\\{}.txt'.format(location)
 
     # catch function for no avaliable hotels
     def no_hotels_avaliable(driver):
@@ -39,8 +39,7 @@ def check_hotel(driver, action, button, location):
 
         # obtain hotel Id
         hotelId = driver.current_url[29:33]
-        driver.save_screenshot(
-            './client/testing/screenshots/hotels_{}.png'.format(hotelId))
+        driver.save_screenshot('./testing/frontend/screenshots/hotels_{}.png'.format(hotelId))
 
         if(loading_error(driver)):
             raise UnboundLocalError("404 Error")

@@ -1,0 +1,7 @@
+Success Destination: TE1Z @ Sat Aug  6 00:09:01 2022
+Success Hotel: P0p3 @ Sat Aug  6 00:09:20 2022
+Failed Loading Time Hotel: GVz3 @ Sat Aug  6 00:09:42 2022
+Success Hotel: wCa1 @ Sat Aug  6 00:10:11 2022
+Success Hotel: n2MH @ Sat Aug  6 00:10:39 2022
+Success Hotel: uAFj @ Sat Aug  6 00:11:09 2022
+Success Hotel: cXMV @ Sat Aug  6 00:11:37 2022

@@ -64,8 +64,8 @@ const SearchBar = () => {
 
         // For dates of checkin and checkout  
         const extractDates = (oldDate) => {
-            // const newDate = addDays(oldDate, 1)
-            return (JSON.stringify(oldDate).slice(1,11))
+            const newDate = addDays(oldDate, 1)
+            return (JSON.stringify(newDate).slice(1,11))
         } 
         const startd = extractDates(date[0].startDate)
         const endd = extractDates(date[0].endDate)
@@ -234,7 +234,7 @@ const SearchBar = () => {
                             <button 
                                 className="increase"
                                 onClick={() => handleOption("room", "i")}
-                                disabled={options.room>=20}>+</button>
+                                disabled={options.room>=options.adult}>+</button>
                         </div>
                     </div>
                 </div>)}
