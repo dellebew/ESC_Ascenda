@@ -89,6 +89,8 @@ Pigeon-Maps: https://github.com/mariusandra/pigeon-maps
 
 React-Confirm-Alert: https://github.com/GA-MO/react-confirm-alert
 
+Stripe: https://stripe.com/docs/api
+
 ## Testing 
 1. prereq: 
     `pip install webdriver-manager`
