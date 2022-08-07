@@ -1,0 +1,18 @@
+button was pressedbutton was pressedbutton was pressed
+
+================
+
+======Action Counts======
+totalActionCount: 9
+buttonActionCount: 3
+enterNewTabActionCount: 0
+closeNewTabActionCount: 0
+inputTextActionCount: 0
+scrollActionCount: 0
+refreshBtnActionCount: 2
+backBtnActionCount: 1
+
+======Max Counts======
+maxBrowsersOpen: 1
+numOfCaughtFails: 3
+totalFails: 0

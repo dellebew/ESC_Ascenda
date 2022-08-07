@@ -18,16 +18,17 @@ def validCheckoutDisplay(hotelLink, count):
         
         #========== entering from hotel page =======#
         driver.get(hotelLink)
+        driver.maximize_window()
         
         element = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'ratesCard'))
         )
-        ratesCards = driver.find_elements(By.CLASS_NAME, 'ratesCard')
-
         time.sleep(2)
-        driver.execute_script("window.scrollTo(0, 1200);")
-
+        
+        ratesCards = driver.find_elements(By.CLASS_NAME, 'ratesCard')
         firstRate = ratesCards[0]
+        driver.execute_script("return arguments[0].scrollIntoView();", firstRate)
+        print("scrolled")
 
         action = ActionChains(driver)
         time.sleep(3)

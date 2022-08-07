@@ -17,6 +17,7 @@ import pprint # makes it easier to print and retrieve
 options = webdriver.ChromeOptions()
 options.add_argument('--enable-javascript')
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver.maximize_window()
 
 # ==== instantiation for mongoDB
 uri =  "mongodb+srv://ringdong2022:Abcdef2022@cluster0.8cytz.mongodb.net/?retryWrites=true&w=majority"
@@ -29,23 +30,34 @@ dbo = client[dbName]
 collec = dbo[fin_coll_name]
 mid_collec = dbo[mid_coll_name]
 
-def validCheckoutData(hotelLink, count):
+text = ""
+
+def validCheckoutData(hotelLink, count, text):
+    stripe_payment_url = ""
     try:
         # hotelLink = "http://localhost:3000/hotels/lXJq/WD0M/2022-08-03/2022-08-04/en_US/SGD/SG/2/0/1"
         action = ActionChains(driver)
         
         #========== entering from hotel page =======#
         driver.get(hotelLink)
+        time.sleep(5)
+        
+        while not EC.presence_of_element_located((By.ID, 'root')):
+            print("still here")
+        
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        print("scrolled")
+        time.sleep(2)
         
         element = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'ratesCard'))
         )
         ratesCards = driver.find_elements(By.CLASS_NAME, 'ratesCard')
 
-        time.sleep(2)
-        driver.execute_script("window.scrollTo(0, 1200);")
-
         firstRate = ratesCards[0]
+
+        driver.execute_script("return arguments[0].scrollIntoView();", firstRate)
+        print("scrolled")
 
         action = ActionChains(driver)
         time.sleep(3)
@@ -62,7 +74,8 @@ def validCheckoutData(hotelLink, count):
 
         assert(driver.current_url == "http://localhost:3000/checkout")
 
-        print("Test 0 Passed, valid checkout page: " + driver.current_url)
+        print(f"Link {count}: Test 0 Passed, valid checkout page: " + driver.current_url)
+        text += f"Link {count}: Test 0 Passed, valid checkout page: " + driver.current_url + "\n"
         # ====== leave hotel page ====== #
 
         # ===================================
@@ -86,7 +99,8 @@ def validCheckoutData(hotelLink, count):
         time.sleep(2)
         assert("/".join(driver.current_url.split('/')[2:-1]) == "checkout.stripe.com/pay")
         # assert(driver.current_url == "http://localhost:8080/stripe/create-checkout-session/")
-        print("Test 1 Passed, confirmation page is clickable and redirectable to", driver.current_url)
+        print(f"Link {count}: Test 1 Passed, confirmation page is clickable and redirectable to", driver.current_url)
+        text += f"Link {count}: Test 1 Passed, confirmation page is clickable and redirectable to"+ driver.current_url + "\n"
         
         # get stripe payment url
         stripe_payment_url = driver.current_url
@@ -99,16 +113,18 @@ def validCheckoutData(hotelLink, count):
         assert(len(list(corresponding_data)) >= 1)
         print("here")
         # assert(len(list(corresponding_data)) >= 1)
-        print("Test 2 Passed, data found in mid_collec")
+        print(f"Link {count}: Test 2 Passed, data found in mid_collec")
+        text += f"Link {count}: Test 2 Passed, data found in mid_collec" + "\n"
         # ================
 
         # Check price and name attributes
         payment_price_display = paymentDetails[4].text.split(' ')[1]
         print(price, name)
         assert (payment_price_display == price)
-        print("Test 3 Passed, price value is equivalent")
+        print(f"Link {count}: Test 3 Passed, price value is equivalent")
         assert(paymentDetails[3].text.upper() == name)
-        print("Test 3 Passed, hotelName value is equivalent")
+        print(f"Link {count}: Test 3 Passed, hotelName value is equivalent")
+        text += f"Link {count}: Test 3 Passed, price value is equivalent, Test 3 Passed, hotelName value is equivalent" + "\n"
         time.sleep(2)
 
         # Check cancel page successful
@@ -117,32 +133,37 @@ def validCheckoutData(hotelLink, count):
         cancel_button.click()
         time.sleep(2) # wait to enter checkout/cancel
         assert("/".join(driver.current_url.split('/')[2:-1]) == "localhost:3000/checkout/canceled")
-        print("Test 4 Passed, success page is clickable and redirectable to", driver.current_url)
+        print(f"Link {count}: Test 4 Passed, success page is clickable and redirectable to", driver.current_url)
+        text += f"Link {count}: Test 4 Passed, success page is clickable and redirectable to"+ driver.current_url+ "\n"
         
         # check retrieval of hotelLink in cancel page
-        link = driver.find_element(By.TAG_NAME, "a")
-        time.sleep(6)
-        link.click()
+        time.sleep(3)
+        link = driver.find_elements(By.TAG_NAME, "a")
+        link[-1].click()
         time.sleep(3)
         print(driver.current_url)
         print(hotelLink)
         assert(driver.current_url == hotelLink or driver.current_url == "http://localhost:3000/" )
-        print("Test 5 Passed, cancel page link redirects to original room", driver.current_url)
+        print(f"Link {count}: Test 5 Passed, cancel page link redirects to original room", driver.current_url)
+        text += f"Link {count}: Test 5 Passed, cancel page link redirects to original room"+ driver.current_url + "\n"
 
         print(f"Number {count} passed the Intermediate Data test: {hotelLink}\n")
-        
+        text += f"Number {count} passed the Intermediate Data test: {hotelLink}\n\n"
+
     except Exception as e:
         print(e)
         print(f"Number {count} failed the Intermediate Data test: {hotelLink}\n")
+        text += f"Number {count} failed the Intermediate Data test: {hotelLink}\n"
         driver.quit()
 
     
     return stripe_payment_url
 
+# find a new set every time you test
 hotelsListURL = [
-    "http://localhost:3000/hotels/RC8n/WP3Z/2022-08-04/2022-08-05/en_US/SGD/ID/2/0/1",
-    "http://localhost:3000/hotels/uSyP/YCcf/2022-08-03/2022-08-04/en_US/SGD/CN/2/0/1",
-    "http://localhost:3000/hotels/AHVJ/YCcf/2022-08-03/2022-08-04/en_US/SGD/CN/2/0/1",
+    "http://localhost:3000/hotels/lThy/GUJI/2022-08-10/2022-08-11/en_US/SGD/IT/1/3/1",
+    "http://localhost:3000/hotels/gcmj/GUJI/2022-08-10/2022-08-11/en_US/SGD/IT/1/3/1",
+    "http://localhost:3000/hotels/Fqma/GUJI/2022-08-10/2022-08-11/en_US/SGD/IT/1/3/1",
     "http://localhost:3000/hotels/yyZq/YCcf/2022-08-03/2022-08-04/en_US/SGD/CN/2/0/1",
     "http://localhost:3000/hotels/ndER/YCcf/2022-08-03/2022-08-04/en_US/SGD/CN/2/0/1",
 ]
@@ -150,8 +171,10 @@ hotelsListURL = [
 stripeListURL = []
 for i, hotelURL in enumerate(hotelsListURL):
     print(i, hotelURL)
-    stripeURL = validCheckoutData(hotelURL,i)
+    stripeURL = validCheckoutData(hotelURL,i, text)
     stripeListURL.append(stripeURL)
 
 print(stripeListURL)
+
+driver.quit()
 

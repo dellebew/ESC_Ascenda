@@ -98,10 +98,14 @@ def validCheckoutSuccessData(stripeURL, count):
         success_button[0].click()
         print("button was clicked")
         time.sleep(2)
-        print("Test 0 Passed, success page is clickable and redirectable to", driver.current_url)
+
+        time.sleep(5)
+        while not EC.presence_of_element_located((By.TAG_NAME, "span")):
+            print("still here")     
 
         successURL = driver.current_url
-        time.sleep(5)
+        print("Test 0 Passed, success page is clickable and redirectable to", driver.current_url)
+
         # =====================
         # ====== in success page
         # ======================
@@ -170,14 +174,14 @@ def validCheckoutSuccessData(stripeURL, count):
 # ]
 
 stripeListURL = [
-# get URLs from valid Checkout Data
-# 'https://checkout.stripe.com/pay/cs_test_a1Vc7UGUJcUuknqDyvQRka2uwarXoa7Il6wvTOwKyU5XgIlbXtgWndYTAQ#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 
-# 'https://checkout.stripe.com/pay/cs_test_a1PMSErJouweVcIisfZLmKI4je9Hlv8qXwzrFnkebfkL1vUPmM4h5d86b2#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 
-# 'https://checkout.stripe.com/pay/cs_test_a1qlnbiJ96edbwwQGqKEMXUT3JNklHGJkYT4A0xDOKL9mMJtXLAfjUdPDp#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 
+# # get URLs from valid Checkout Data
+# 'https://checkout.stripe.com/pay/cs_test_a1859THQuE8HtzH7Ijw0700pRtYdyEqAOypu0nsEldLcoiTSQWoCqLWOmo#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
+# 'https://checkout.stripe.com/pay/cs_test_a1VhYPNuyeLH6BIC9xraVupwg9Dzw8AzOdwYfpyjjNZlP28QajCvu8Fzxo#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 
+# 'https://checkout.stripe.com/pay/cs_test_a1lI6Wf4P1oG6QYrRQE6euJ0DOO4yIEtz09DnCyAyyyfCL3pkouVpSBplE#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
 # 'https://checkout.stripe.com/pay/cs_test_a1uiRRS3b2xBI6Sp7yagSvCUFBgpKfERG5FQ7IuD0IZfo04cjuZk4SWxHH#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 
-# 'https://checkout.stripe.com/pay/cs_test_a1cwsVTyTsfCUExGWiA6lkIizHy8LxCqbMxJVhDqB0q3l189Sg1XYpX9ib#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl'
+'https://checkout.stripe.com/pay/cs_test_a1cwsVTyTsfCUExGWiA6lkIizHy8LxCqbMxJVhDqB0q3l189Sg1XYpX9ib#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl'
 ]
-
+# https://checkout.stripe.com/pay/cs_test_a1859THQuE8HtzH7Ijw0700pRtYdyEqAOypu0nsEldLcoiTSQWoCqLWOmo#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl
 successListURL = []
 for i, stripeURL in enumerate(stripeListURL):
     successURL = validCheckoutSuccessData(stripeURL, i)
