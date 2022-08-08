@@ -5,3 +5,70 @@ Success Hotel: wCa1 @ Sat Aug  6 00:10:11 2022
 Success Hotel: n2MH @ Sat Aug  6 00:10:39 2022
 Success Hotel: uAFj @ Sat Aug  6 00:11:09 2022
 Success Hotel: cXMV @ Sat Aug  6 00:11:37 2022
+Success Destination: r4Da @ Sat Aug  6 19:39:30 2022
+Destination Timeout Loading Error: r4Da @ Sat Aug  6 19:39:30 2022
+Success Destination: 9J6d @ Sat Aug  6 19:40:07 2022
+Success Destination: qSAp @ Sat Aug  6 19:50:02 2022
+Failed Loading Time Hotel: nXbn @ Sat Aug  6 19:50:20 2022
+Destination Timeout Loading Error: qSAp @ Sat Aug  6 19:50:20 2022
+Success Destination: wp2N @ Sat Aug  6 19:50:38 2022
+Success Hotel: NSoP @ Sat Aug  6 19:50:56 2022
+Success Destination: 8r1x @ Sat Aug  6 19:51:28 2022
+Failed Loading Time Hotel: n18p @ Sat Aug  6 19:51:41 2022
+Success Destination: ZneZ @ Sat Aug  6 19:52:54 2022
+Destination Timeout Loading Error: ZneZ @ Sat Aug  6 19:52:54 2022
+Success Destination: kZT5 @ Sat Aug  6 19:53:16 2022
+Success Hotel: VMYy @ Sat Aug  6 19:53:36 2022
+Success Destination: SODV @ Sat Aug  6 19:58:16 2022
+Success Hotel: wUzt @ Sat Aug  6 19:58:34 2022
+Success Destination: W8w5 @ Sat Aug  6 19:59:15 2022
+Success Hotel: YQc0 @ Sat Aug  6 19:59:33 2022
+Success Destination: zjTT @ Sat Aug  6 20:02:03 2022
+Success Hotel: j0Qx @ Sat Aug  6 20:02:21 2022
+Success Destination: SYIl @ Sat Aug  6 20:02:51 2022
+Destination Timeout Loading Error: SYIl @ Sat Aug  6 20:02:51 2022
+Success Destination: FV1O @ Sat Aug  6 20:03:13 2022
+Success Hotel: O9qp @ Sat Aug  6 20:03:32 2022
+Success Destination: cdNS @ Sat Aug  6 20:04:17 2022
+Destination Timeout Loading Error: cdNS @ Sat Aug  6 20:04:17 2022
+Success Destination: 7XxQ @ Sat Aug  6 20:04:38 2022
+Success Hotel: pooW @ Sat Aug  6 20:04:58 2022
+Success Destination: 247M @ Sat Aug  6 20:06:41 2022
+Success Hotel: sRno @ Sat Aug  6 20:07:00 2022
+Success Destination: mRAg @ Sat Aug  6 20:07:32 2022
+Success Hotel: 3UQ9 @ Sat Aug  6 20:07:50 2022
+Success Destination: d9Lk @ Sat Aug  6 20:08:22 2022
+Success Hotel: 1ZJK @ Sat Aug  6 20:08:41 2022
+Destination 404 Error: rCHB @ Sat Aug  6 20:09:39 2022
+Success Destination: PdcH @ Sat Aug  6 20:10:01 2022
+Destination 404 Error: bBGn @ Sat Aug  6 20:10:27 2022
+Success Destination: rFOT @ Sat Aug  6 20:10:49 2022
+Success Destination: HYLG @ Sat Aug  6 20:11:11 2022
+Success Destination: vJh2 @ Sat Aug  6 20:11:33 2022
+Success Destination: eJvc @ Sat Aug  6 20:11:54 2022
+Success Destination: uweh @ Sat Aug  6 20:12:16 2022
+Success Destination: G9ZQ @ Sat Aug  6 20:12:38 2022
+Success Destination: MLAS @ Sat Aug  6 20:13:01 2022
+Success Destination: 5OFL @ Sat Aug  6 20:13:22 2022
+Success Destination: D6JP @ Sat Aug  6 20:13:44 2022
+Success Destination: ikec @ Sat Aug  6 20:14:05 2022
+Success Destination: Z62O @ Sat Aug  6 20:14:27 2022
+Success Destination: wCL1 @ Sat Aug  6 20:14:55 2022
+Success Destination: ZDzQ @ Sat Aug  6 20:15:47 2022
+Success Destination: pS0H @ Sat Aug  6 20:16:08 2022
+Success Destination: SM0F @ Sat Aug  6 20:17:46 2022
+Success Destination: jrKo @ Sat Aug  6 20:18:14 2022
+Success Destination: PPQH @ Sat Aug  6 20:18:42 2022
+Success Destination: UHjy @ Sat Aug  6 20:19:10 2022
+Success Destination: 5bbj @ Sat Aug  6 20:19:39 2022
+Success Destination: YG8F @ Sat Aug  6 20:20:07 2022
+Success Destination: T2W4 @ Sat Aug  6 20:20:35 2022
+Success Destination: Q8FX @ Sat Aug  6 20:23:04 2022
+Failed Loading Time Hotel: yhzj @ Sat Aug  6 20:23:22 2022
+Success Destination: JHHN @ Sat Aug  6 20:24:22 2022
+Success Destination: 4UMB @ Sat Aug  6 20:24:50 2022
+Success Destination: Enkd @ Sat Aug  6 20:25:18 2022
+Success Destination: Bjlx @ Sat Aug  6 20:26:02 2022
+Destination Timeout Loading Error: Bjlx @ Sat Aug  6 20:26:08 2022
+Success Destination: w7GR @ Sat Aug  6 20:26:30 2022
+Success Destination: KIWL @ Sat Aug  6 20:26:58 2022

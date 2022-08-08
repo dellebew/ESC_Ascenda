@@ -30,7 +30,7 @@ def loading_error(driver):
 
 
 # checks for relevant elements in destinations page
-def check_dest(destId, url, runHotelTests, location):
+def check_dest(destId, url, runHotelTests, randomHotels, location):
     options = webdriver.ChromeOptions()
     options.add_argument('--enable-javascript')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
@@ -88,12 +88,6 @@ def check_dest(destId, url, runHotelTests, location):
         for image in images:
             assert(image.is_displayed)
         print("Test 6 Passed, {} Images are displayed.".format(len(images)))
-
-        # check if next page is enabled
-        def checkNextPage():
-            nextPage = driver.find_element(By.CLASS_NAME, "next")
-            button = nextPage.find_element(By.TAG_NAME, "a")
-            return (button.get_attribute("ariaDisabled") == "false")
         
         with open(fileLocation, 'a') as f:
             f.write("Success Destination: {} @ {}".format(destId, time.ctime()))
@@ -103,22 +97,29 @@ def check_dest(destId, url, runHotelTests, location):
 
         """ check for valid hotel pages """
         if(runHotelTests):
-            for i in range(totalButtons):
+            # selects a random hotel for checking
+            if(randomHotels):
+                i = random.randint(0, totalButtons-1)
                 pricesButton = driver.find_elements(By.CLASS_NAME, "si--showprices")
                 check_hotel(driver, action, pricesButton[i], location)
+            
+            # else runs each hotel in the page list
+            else:
+                for i in range(totalButtons):
+                    pricesButton = driver.find_elements(By.CLASS_NAME, "si--showprices")
+                    check_hotel(driver, action, pricesButton[i], location)
         
-
         # test next page functionality
-        if(checkNextPage()):
-            driver.execute_script("arguments[0].scrollIntoView();", button)
-            time.sleep(3)
-            action.move_to_element(button).perform()
-            driver.execute_script("arguments[0].click();", button)
-            print("Test 7 Passed, clicking on next button redirects to next page:", driver.current_url)
-            time.sleep(5)
-        print("Test 7: next button is disabled")
-        
-        
+        pagination = driver.find_element(By.CLASS_NAME, "pagination")
+        pageButtons = pagination.find_elements(By.TAG_NAME, "a")
+        noOfButtons = len(pageButtons)
+        j = random.randint(0, noOfButtons-1)
+        driver.execute_script("arguments[0].scrollIntoView();", pageButtons[j])
+        time.sleep(3)
+        action.move_to_element(pageButtons[j]).perform()
+        driver.execute_script("arguments[0].click();", pageButtons[j])
+        time.sleep(3)
+        print("Test 7 Passed, clicking on button redirects to {}th page:".format(pageButtons[j].get_attribute("text")), driver.current_url)
         
     # custom exception catches    
     except UnboundLocalError as e:
@@ -130,7 +131,7 @@ def check_dest(destId, url, runHotelTests, location):
         
     except Server404Error as e:
         with open(fileLocation, 'a') as f:
-            f.write("Destination 404 Error: {} @ {}".format(destId), time.ctime())
+            f.write("Destination 404 Error: {} @ {}".format(destId, time.ctime()))
             f.write('\n')
             f.close()
         print(e)
@@ -152,6 +153,7 @@ destinationCount = 10
 startDate = "2022-08-19"
 endDate = "2022-08-20"
 runHotelTests = True
+randomHotels = True
 location = "fuzzing_desthotels"
 
 
@@ -164,5 +166,5 @@ for i in range(destinationCount):
     destId = data[randomIndex]['uid']
     url = "http://localhost:3000/destinations/{}/{}/{}/en_US/SGD/SG/2/0/1/0".format(destId, startDate, endDate)
     print("Running test for {} ...".format(destId))
-    check_dest(destId, url, runHotelTests, location)
+    check_dest(destId, url, runHotelTests, randomHotels, location)
     time.sleep(5)
