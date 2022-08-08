@@ -68,14 +68,12 @@ npm start
 ## :mag: Destination Search
 Text-based autocomplete search that facilitates a fast return of relevant destinations. Accompanied with a datepicker and dropdown for number of guests and rooms.
 
-Direct URL:
 http://localhost:3000/ <br>
 ![home-page](./media/home-page.jpeg) 
 
 ## :tokyo_tower: Hotel Search Results
 Given a set of parameters (e.g. destination, dates, no. of guests, no. of rooms), provides a list of avaliable hotels, with description and lowest price (paginated). 
 
-Direct URL:
 `http://localhost:3000/destinations/destId/checkInDate/checkOutDate/en_US/SGD/SG/adultQty/childrenQty/roomQty/pageNo` <br>
 :heavy_check_mark: http://localhost:3000/destinations/RsBU/2022-08-09/2022-08-10/en_US/SGD/SG/2/0/1/0 <br>
 ![destinations-page](./media/destinations-page.jpeg) 
@@ -83,13 +81,12 @@ Direct URL:
 ## :hotel: Hotel Room Details
 Given a set of parameters and particular hotel, provides a list of all matching room listings, prices and description. Accompanied with Pigeon Maps API for hotel location and hotel details.
 
-Direct URL:
 `http://localhost:3000/hotels/hotelId/destId/checkInDate/checkOutDate/en_US/SGD/SG/adultQty/childrenQty/roomQty` <br>
 :heavy_check_mark: http://localhost:3000/hotels/S57Q/RsBU/2022-08-09/2022-08-10/en_US/SGD/SG/2/0/1 <br>
 
 <p float="left">
-  <img src="./media/hotel-details.jpeg" width="280" />
-  <img src="./media/room-rates.jpeg" width="280" /> 
+  <img src="./media/hotel-details.jpeg" width="400" />
+  <img src="./media/room-rates.jpeg" width="400" /> 
 </p>
 
 ## :calendar: Booking Data
@@ -97,8 +94,8 @@ By clicking on a room rate card, customers will be redirected to a booking confi
 
 `http://localhost:3000/checkout` <br>
 <p float="left">
-  <img src="./media/booking-info.jpeg" width="280" />
-  <img src="./media/stripe-checkout.jpeg" width="280" /> 
+  <img src="./media/booking-info.jpeg" width="400" />
+  <img src="./media/stripe-checkout.jpeg" width="400" /> 
 </p>
 
 # API Calling
