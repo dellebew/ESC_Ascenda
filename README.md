@@ -1,98 +1,159 @@
-# 50.003: Ascenda Loyalty Hotel Booking System
+<h1 align="center" style="border-bottom: none">
+    <b>
+        Ascenda Loyalty Hotel Booking System<br>
+    </b>
+    2022 50.003 Elements of Software Construction
+    <br>
+</h1>
 
-## Description
-A hotel booking system built using the MERN stack framework (MongoDB, Express, React, Node) for 2022 50.003 Elements of Software Construction.
+<p align="center">
+    A hotel booking system built using the MERN framework (MongoDB, Express, React, Node)
+</p>
 
-### Cohort 1 Group 6
-1005552 Soh Pei Xuan <br>
-1005418 Adelle Chan	<br>
-1004885 Guo Yuchen <br>         		
-1005194 Nicholas Goh	
+<div align="center">
 
+[![Npm package version](https://badgen.net/npm/v/express)](https://npmjs.com/package/express)
+[![React](https://img.shields.io/badge/React-18.2-61dafb)](https://reactjs.org/)
+[![Node](https://img.shields.io/badge/node->=16.0-success)](https://www.typescriptlang.org/)
+</div>
 
-### Getting Started (Installation)
-First, make sure to install relevant node packages in both frontend and backend servers.
+<table align="center">
+<b> Cohort 1 Group 6: </b>
+  <tr>
+    <td align="center"><a href="https://github.com/bloomspx"><img src="https://avatars.githubusercontent.com/bloomspx?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Soh Pei Xuan</b><br/> 1005552</sub></a><br/>
+    <td align="center"><a href="https://github.com/MasonGYC"><img src="https://avatars.githubusercontent.com/MasonGYC?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Guo Yuchen</b><br/> 1004885</sub></a><br />
+    <td align="center"><a href="https://github.com/Ignite99"><img src="https://avatars.githubusercontent.com/Ignite99?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nicholas Goh</b><br/> 1005194</sub></a><br />
+    <td align="center"><a href="https://github.com/dellebew"><img src="https://avatars.githubusercontent.com/dellebew?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adelle Chan</b><br/> 1005418</sub></a><br />
+  </tr>
+</table>
+
+# Table of Contents
+-   [Getting Started](#getting-started)
+-   [Features](#features)
+    -   [Destination Search](#shape-your-page)
+    -   [Hotel Search Results](#plan-your-task)
+    -   [Hotel Room Details](#sort-your-knowledge)
+    -   [Booking Data](#create-your-story)
+-   [API Calling](#api-calling)
+-   [File Directories](#file-directories)
+-   [External Resources](#external-resources)
+
+# Getting Started
+### 1. Install React and Node.js
+### 2. Install Node and Python dependencies 
 
 ```
-cd api         # backend server
+pip install -r requirements.txt 
+
+cd api       
 npm install
 
-cd client      # frontend server
+cd client      
 npm install
 ```
-
-### Running Web Server
-To begin running the web application, first start a new terminal and run the backend Express server.
+### 3. Running Web Server
+To begin running the web application, first start a new terminal and run the backend Express server (http://localhost:8080/)
 ```
 cd api
 npm start
 ```
-Subequently, start another terminal and run the frontend React server.
+Subequently, start another terminal and run the frontend React server (http://localhost:3000/)
 ```
 cd client   
 npm start
 ```
 
-# backend call
-1. hotel static data: http://localhost:8080/api/hotel/:id
-e.g. http://localhost:8080/api/hotel/diH7
+# Features
 
-2. destination hotels: http://localhost:8080/api/destination/hotels/:id
-e.g. http://localhost:8080/api/destination/hotels/4FBY 
+## :mag: Destination Search
+Text-based autocomplete search that facilitates a fast return of relevant destinations. Accompanied with a datepicker and dropdown for number of guests and rooms.
 
-3. price for a given hotel: http://localhost:8080/api/hotel/price/:id
-e.g. http://localhost:8080/api/destination/hotels/C7r0 
+Direct URL:
+http://localhost:3000/ <br>
+![home-page](./media/home-page.jpeg) 
 
-4. hotel prices for a given destination: http://localhost:8080/api/destination/prices/:id
-e.g. http://localhost:8080/api/destination/prices/0 //this is for testing only
+## :tokyo_tower: Hotel Search Results
+Given a set of parameters (e.g. destination, dates, no. of guests, no. of rooms), provides a list of avaliable hotels, with description and lowest price (paginated). 
 
-## Mongodb:
-https://cloud.mongodb.com/v2/62a1936a1131ef1ef96f9ff0#metrics/replicaSet/62a1946a522a036eec26ba6f/explorer/ascenda-hotel-booking/destinations/find 
+Direct URL:
+`http://localhost:3000/destinations/destId/checkInDate/checkOutDate/en_US/SGD/SG/adultQty/childrenQty/roomQty/pageNo` <br>
+:heavy_check_mark: http://localhost:3000/destinations/RsBU/2022-08-09/2022-08-10/en_US/SGD/SG/2/0/1/0 <br>
+![destinations-page](./media/destinations-page.jpeg) 
 
-# APIs:
-1. static details for a given hotel:
-    e.g. https://hotelapi.loyalty.dev/api/hotels/diH7 
-    "https://hotelapi.loyalty.dev/api/hotels/"+<hotel_id>
+## :hotel: Hotel Room Details
+Given a set of parameters and particular hotel, provides a list of all matching room listings, prices and description. Accompanied with Pigeon Maps API for hotel location and hotel details.
 
-2. hotels belonging to a particular destination
-    E.g. https://hotelapi.loyalty.dev/api/hotels?destination_id=RsBU
-    "https://hotelapi.loyalty.dev/api/hotels?destination_id="+<destination_id>
+Direct URL:
+`http://localhost:3000/hotels/hotelId/destId/checkInDate/checkOutDate/en_US/SGD/SG/adultQty/childrenQty/roomQty` <br>
+:heavy_check_mark: http://localhost:3000/hotels/S57Q/RsBU/2022-08-09/2022-08-10/en_US/SGD/SG/2/0/1 <br>
 
-3. price for a given hotel
-    E.g. https://hotelapi.loyalty.dev/api/hotels/diH7/price?destination_id=WD0M&checkin=2022-06-18&checkout=2022-06-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
-    "https://hotelapi.loyalty.dev/api/hotels/"+<hotel_id>+"/price?destination_id="+<destination_id>+"&checkin="+<checkin_YYYY-MM-DD>+"&checkout="+<checkout_YYYY-MM-DD>+"&lang="+<lang>+"&currency="+<currency>+"&country_code="+<country_code2>+"&guests="+<guest_number>+"&partner_id=1"
-    ### params:
-    - checkin_YYYY-MM-DD = 2022-06-18
-    - checkout_YYYY-MM-DD = 2022-06-
-    - lang = en_US,zh_CN,zh_TW,fr_FR,de_DE,it_IT,ja_JP,ko_KR,pt_BR,es_ES
-    - currency = e.g. SGD, ISO code for currencies
-    - country_code2 =  e.g. SG https://zh.wikipedia.org/zh-cn/ISO_3166-1
-    - guest_number = int
+<p float="left">
+  <img src="./media/hotel-details.jpeg" width="280" />
+  <img src="./media/room-rates.jpeg" width="280" /> 
+</p>
 
-    ### mock price
-    E.g. https://ascendahotels.mocklab.io/api/destinations/WD0M/prices 
-    https://ascendahotels.mocklab.io/api/destinations/"+<hotel_id>+"/prices 
+## :calendar: Booking Data
+By clicking on a room rate card, customers will be redirected to a booking confirmation page and can perform payment through Stripe API. Booking data will also be stored in local database.
 
-4. hotel prices for a given destination
-    E.g. https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=WD0M&checkin=2022-06-18&checkout=2022-06-19&lang=en_US&currency=SGD&country_code=SG&guests=2&partner_id=1
-    https://hotelapi.loyalty.dev/api/hotels/prices?destination_id="+<destination_id>+"&checkin="+<checkin_YYYY-MM-DD>+"&checkout="+<checkout_YYYY-MM-DD>+"&lang="+<lang>+"&currency="+<currency>+"&country_code="+<country_code2>+"&guests="+<guest_number>+"&partner_id=1"
+`http://localhost:3000/checkout` <br>
+<p float="left">
+  <img src="./media/booking-info.jpeg" width="280" />
+  <img src="./media/stripe-checkout.jpeg" width="280" /> 
+</p>
 
-## External Resources Used:
+# API Calling
+Our backend server makes API calls `api\routes\api.js` to Ascenda's API using the following format:
+### 1. Hotel Static Data: 
+`http://localhost:8080/api/hotel/:id` <br>
+:heavy_check_mark: http://localhost:8080/api/hotel/diH7
 
-React-Date-Range: https://hypeserver.github.io/react-date-range/
+### 2. Hotel Static Data for a Given Destination: 
+`http://localhost:8080/api/destination/hotels/:id/:page` <br>
+:heavy_check_mark: http://localhost:8080/api/destination/hotels/4FBY/0 
 
-FontAwesomeIcon: https://fontawesome.com/icons
+### 3. Room Prices for a Given Hotel: 
+`http://localhost:8080/api/hotel/price/:hotelid/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber` <br>
+:heavy_check_mark: http://localhost:8080/api/hotel/price/diH7/WD0M/2022-08-25/2022-08-29/en_US/SGD/SG/2 
 
-React-Rating-Stars: https://www.npmjs.com/package/react-rating-stars-component
+### 4. Hotel Prices for a Given Destination: <br>
+`http://localhost:8080/api/destination/prices/:destinationid/:checkin/:checkout/:lang/:currency/:countrycode2/:guestnumber/:page` <br>
+:heavy_check_mark: http://localhost:8080/api/destination/prices/FkG9/2022-08-25/2022-08-26/en_US/SGD/ES/2/0
 
-Pigeon-Maps: https://github.com/mariusandra/pigeon-maps
+# File Directories
+```
+📦api   # backend Express 
+ ┣ 📂bin
+ ┣ 📂controllers       # individual routing controllers
+ ┣ 📂node_modules
+ ┣ 📂public
+ ┣ 📂routes            # api.js, routing for backend
+ ┣ 📂stripe            # stripe integration for backend
+ ┣ 📂views
+ ┣ 📜app.js
+ 📦client   # frontend React
+ ┣ 📂node_modules
+ ┣ 📂public
+ ┣ 📂src
+ ┃ ┣ 📂components      # building blocks for webpage
+ ┃ ┃ ┗ 📂utils         # api call function, url checker
+ ┃ ┣ 📂database        # static JSON data
+ ┃ ┣ 📂pages           # main webpages: hotel, home, error, dest
+ ┃ ┣ 📜App.js
+ ┃ ┗ 📜index.js
+ 📦media               # webpage screenshots
+ 📦testing             # selenium and jmeter testing files
+ 📜README.md
+ 📜requirements.txt    # python dependencies
+ 📜stripe-merging
+ ```
 
-React-Confirm-Alert: https://github.com/GA-MO/react-confirm-alert
+# External Resources
+- [Date-FNS](https://date-fns.org/)
+- [FontAwesomeIcon](https://fontawesome.com/icons)
+- [Pigeon-Maps](https://github.com/mariusandra/pigeon-maps)
+- [React-Confirm-Alert](https://github.com/GA-MO/react-confirm-alert)
+- [React-Date-Range](https://hypeserver.github.io/react-date-range/)
+- [React-Paginate](https://www.npmjs.com/package/react-paginate)
+- [React-Rating-Stars](https://www.npmjs.com/package/react-rating-stars-component)
+- [Stripe](https://stripe.com/docs/api)
 
-Stripe: https://stripe.com/docs/api
-
-## Testing 
-1. prereq: 
-    `pip install webdriver-manager`
-    `pip install selenium`
-    `pip install pymongo`
