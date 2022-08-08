@@ -24,8 +24,8 @@ const SearchBar = () => {
     const [openDate, setOpenDate] = useState(false);
     const [date, setDate] = useState([
         {
-          startDate: new Date(),
-          endDate: addDays(new Date(), 1),
+          startDate: addDays(new Date(), 1),
+          endDate: addDays(new Date(), 2),
           key: 'selection'
         }
       ]);
@@ -124,6 +124,8 @@ const SearchBar = () => {
 
         }
     };
+
+    console.log(date[0].startDate)
 
 
     return (
