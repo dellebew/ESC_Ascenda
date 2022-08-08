@@ -143,7 +143,7 @@ const SearchBar = () => {
                 />
                 
                 {/*Dropdown bar for suggestions*/}
-                <div className="dropdown"> 
+                {value.length > 0 && <div className="dropdown"> 
                     {destination_ids
                     .filter((item) => {
                         let searchTerm = value.toLowerCase();
@@ -152,7 +152,7 @@ const SearchBar = () => {
                         
                         return (
                         searchTerm &&
-                        modified.startsWith(searchTerm) &&
+                        // modified.startsWith(searchTerm) &&
                         modified.includes(searchTerm)
                         );
                     })
@@ -166,7 +166,7 @@ const SearchBar = () => {
                         {item.term}
                         </div>
                     ))}
-                </div>
+                </div>}
             </div>
 
             <div className="search--item2">
