@@ -50,7 +50,7 @@ const Success = () => {
       } catch (err) {
           console.log("error retrieving");
           setError(err.message);
-          setLoading(false);
+          setLoading(true);
       } 
       
     };

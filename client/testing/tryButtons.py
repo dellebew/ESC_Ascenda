@@ -13,10 +13,10 @@ import random
 import string
 
 # ==== instantiation for selenium
-# options = webdriver.ChromeOptions()
-# options.add_argument('--enable-javascript')
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-# action = ActionChains(driver)
+options = webdriver.ChromeOptions()
+options.add_argument('--enable-javascript')
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+action = ActionChains(driver)
 
 def trySearchBar():
     possibleInputs = string.ascii_lowercase + string.digits
