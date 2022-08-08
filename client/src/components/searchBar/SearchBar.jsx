@@ -80,13 +80,13 @@ const SearchBar = () => {
         const {adult, children, room} = options
 
 
-        if (destination_uid != 0) {
+        if (destination_uid !== 0) {
 
             // c_code is the country code
             const c_code = country_code.filter(element => {
                 const destination_title = destination_name;
     
-                if (destination_title.includes(element.name) || destination_title == element.name) {
+                if (destination_title.includes(element.name) || destination_title === element.name) {
                     return element.code
                 } else {
                     return 0
@@ -112,7 +112,7 @@ const SearchBar = () => {
             const incomplete_country_code = country_code.filter(element => {
                 const destination_title = incomplete_name;
     
-                if (destination_title.includes(element.name) || destination_title == element.name || destination_title.startsWith(element.name)) {
+                if (destination_title.includes(element.name) || destination_title === element.name || destination_title.startsWith(element.name)) {
                     return element.code
                 } else {
                     return 0
@@ -139,6 +139,7 @@ const SearchBar = () => {
                     placeholder="e.g. Singapore"
                     className="search--input"
                     id="search--destinations" 
+                    autocomplete="off"
                 />
                 
                 {/*Dropdown bar for suggestions*/}

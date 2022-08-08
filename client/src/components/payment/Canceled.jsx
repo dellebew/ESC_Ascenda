@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import "./checkout.css"
 import NavBar from '../navbar/Navbar';
 import Loader from "../loader/Loader";
-import Error from "../../components/error/Error";
+import Error from "../error/Error";
 
 const Canceled = () => {
   const [session, setSession] = useState("");
@@ -19,13 +19,11 @@ const Canceled = () => {
     const fetchSession = async() => {
       try{
         setLoading(true);
-        // TODO: determine actual number of pages
         console.log("in async function");
         const responseRaw = await fetch(`../../stripe/failed-checkout-session/${curTime}`);
         console.log("out");
         const response = await responseRaw.json();
         const resLink = response.link;
-        // const temp_sess = await response.json()
         console.log("finish fetching");
         console.log("link = " + resLink);
   
@@ -62,7 +60,7 @@ const Canceled = () => {
 
           <div className="room-info">
               <div>
-                <label me>Retrieve Choices:</label>
+                <label>Retrieve Choices:</label>
                 <Link to={session}>Return to purchase page</Link>
               </div>
           </div>

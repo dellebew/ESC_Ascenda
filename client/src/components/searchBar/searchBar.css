@@ -152,6 +152,9 @@ input {
   z-index:1;
   position: absolute;
   width: 100%;
+  max-height: 300px;
+  overflow: scroll;
+  overflow-x: hidden;   
   max-width: 250px;
   top: 40px;
   background-color: white;
@@ -163,8 +166,6 @@ input {
   padding: 5px 0px 5px 10px;
   font-weight: 500;
 }
-
-/*Need modify .dropdown, realised I fuggin hate the color*/
 
 .dropdown:empty {
   border: none;
