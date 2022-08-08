@@ -24,8 +24,8 @@ const SearchBar = () => {
     const [openDate, setOpenDate] = useState(false);
     const [date, setDate] = useState([
         {
-          startDate: addDays(new Date(), 1),
-          endDate: addDays(new Date(), 2),
+          startDate: new Date(),
+          endDate: addDays(new Date(), 1),
           key: 'selection'
         }
       ]);
@@ -63,12 +63,8 @@ const SearchBar = () => {
         const destination_uid = dest;
 
         // For dates of checkin and checkout  
-        const extractDates = (oldDate) => {
-            const newDate = addDays(oldDate, 1)
-            return (JSON.stringify(newDate).slice(1,11))
-        } 
-        const startd = extractDates(date[0].startDate)
-        const endd = extractDates(date[0].endDate)
+        const startd = new Date(date[0].startDate).toISOString().substring(0, 10)
+        const endd = new Date(date[0].endDate).toISOString().substring(0, 10)
 
         // language
         const language = "en_US"
@@ -125,7 +121,7 @@ const SearchBar = () => {
         }
     };
 
-    console.log(date[0].startDate)
+    console.log();
 
 
     return (
