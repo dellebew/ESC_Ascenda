@@ -15,7 +15,6 @@ const CheckDestinations = () => {
       const parts = s.split('-').map((p) => parseInt(p, 10));
       parts[0] -= 1;
       const d = new Date(parts[0], parts[1]-1, parts[2]);
-      console.log(d)
       return d.getMonth() === parts[1]-1 && d.getDate() === parts[2] && d.getFullYear() === parts[0];
     }
     

@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
-import { useEffect, useState } from "react";
-import { format, addDays } from "date-fns";
+import { useState } from "react";
+import { format, addDays, setHours } from "date-fns";
 import "./searchBar.css"
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { setMilliseconds, setMinutes } from "date-fns/esm";
 var country_code = require("../../database/countries.json");
 var destination_ids = require("../../database/output.json");   
 
@@ -19,14 +20,21 @@ const SearchBar = () => {
     const onChange = (event) => {
       setValue(event.target.value);
     };
+
+    const roundDate = (dd) => {
+        dd = setHours(dd, 0)
+        dd = setMinutes(dd, 0)
+        dd = setMilliseconds(dd, 0)
+        return dd
+    }
     
     /** FOR DATE-RANGE */
     const [openDate, setOpenDate] = useState(false);
     const [date, setDate] = useState([
         {
-          startDate: new Date(),
-          endDate: addDays(new Date(), 1),
-          key: 'selection'
+            startDate: roundDate(new Date()),
+            endDate: roundDate(addDays(new Date(), 1)),
+            key: 'selection'
         }
       ]);
 
@@ -62,9 +70,13 @@ const SearchBar = () => {
         const destination_name = searchTerm
         const destination_uid = dest;
 
+        console.log(date[0].startDate, date[0].endDate)
+
         // For dates of checkin and checkout  
-        const startd = new Date(date[0].startDate).toISOString().substring(0, 10)
-        const endd = new Date(date[0].endDate).toISOString().substring(0, 10)
+        const startd = addDays(date[0].startDate,1).toISOString().substring(0, 10)
+        const endd = addDays(date[0].endDate,1).toISOString().substring(0, 10)
+
+        console.log(startd, endd)
 
         // language
         const language = "en_US"
@@ -121,8 +133,6 @@ const SearchBar = () => {
         }
     };
 
-    console.log();
-
 
     return (
         <div className="searchBar">
@@ -137,7 +147,7 @@ const SearchBar = () => {
                     placeholder="e.g. Singapore"
                     className="search--input"
                     id="search--destinations" 
-                    autocomplete="off"
+                    autoComplete="off"
                 />
                 
                 {/*Dropdown bar for suggestions*/}
