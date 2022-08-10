@@ -33,20 +33,20 @@ const Success = () => {
       try{
         
         setLoading(true);
-          // TODO: determine actual number of pages
-          console.log("in async function");
-          const response = await fetch(`../../stripe/checkout-session/${sessionId}`);
-          // .then((res) =>res.json());
-          if (response === null) {
-            throw Error("hotelData not found");
-          }
-          const temp_sess = await response.json()
-          console.log("finish fetching");
-          console.log(temp_sess);
+        // TODO: determine actual number of pages
+        console.log("in async function");
+        const response = await fetch(`../../stripe/checkout-session/${sessionId}`);
+        // .then((res) =>res.json());
+        if (response === null) {
+          throw Error("hotelData not found");
+        }
+        const temp_sess = await response.json()
+        console.log("finish fetching");
+        console.log(temp_sess);
 
-          setSession(temp_sess);
-          setError(null);
-          setLoading(false);
+        setSession(temp_sess);
+        setError(null);
+        setLoading(false);
       } catch (err) {
           console.log("error retrieving");
           setError(err.message);
@@ -118,7 +118,7 @@ const Success = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span name="display--price">S${session.state.unit_amount * session.state.numOfNights *session.state.roomQuantity}</span>
+                    <span name="display--price">S${(session.state.unit_amount * session.state.numOfNights *session.state.roomQuantity).toFixed(2)}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>

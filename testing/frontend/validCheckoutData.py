@@ -77,6 +77,7 @@ def validCheckoutData(hotelLink, count, text):
         print(f"Link {count}: Test 0 Passed, valid checkout page: " + driver.current_url)
         text += f"Link {count}: Test 0 Passed, valid checkout page: " + driver.current_url + "\n"
         # ====== leave hotel page ====== #
+        
 
         # ===================================
         # =========== tests begin ===========
@@ -118,8 +119,8 @@ def validCheckoutData(hotelLink, count, text):
         # ================
 
         # Check price and name attributes
-        payment_price_display = paymentDetails[4].text.split(' ')[1]
-        print(price, name)
+        payment_price_display = "".join(paymentDetails[4].text.split(' ')[1].split(","))
+        print(price, name, payment_price_display)
         assert (payment_price_display == price)
         print(f"Link {count}: Test 3 Passed, price value is equivalent")
         assert(paymentDetails[3].text.upper() == name)
@@ -137,10 +138,10 @@ def validCheckoutData(hotelLink, count, text):
         text += f"Link {count}: Test 4 Passed, success page is clickable and redirectable to"+ driver.current_url+ "\n"
         
         # check retrieval of hotelLink in cancel page
-        time.sleep(3)
+        time.sleep(2)
         link = driver.find_elements(By.TAG_NAME, "a")
         link[-1].click()
-        time.sleep(3)
+        time.sleep(1)
         print(driver.current_url)
         print(hotelLink)
         assert(driver.current_url == hotelLink or driver.current_url == "http://localhost:3000/" )
@@ -161,11 +162,13 @@ def validCheckoutData(hotelLink, count, text):
 
 # find a new set every time you test
 hotelsListURL = [
-    "http://localhost:3000/hotels/lThy/GUJI/2022-08-10/2022-08-11/en_US/SGD/IT/1/3/1",
-    "http://localhost:3000/hotels/gcmj/GUJI/2022-08-10/2022-08-11/en_US/SGD/IT/1/3/1",
-    "http://localhost:3000/hotels/Fqma/GUJI/2022-08-10/2022-08-11/en_US/SGD/IT/1/3/1",
-    "http://localhost:3000/hotels/yyZq/YCcf/2022-08-03/2022-08-04/en_US/SGD/CN/2/0/1",
-    "http://localhost:3000/hotels/ndER/YCcf/2022-08-03/2022-08-04/en_US/SGD/CN/2/0/1",
+    "http://localhost:3000/hotels/ii2q/WP3Z/2022-08-10/2022-08-19/en_US/SGD/ID/4/1/2",
+    "http://localhost:3000/hotels/yQUM/WP3Z/2022-08-10/2022-08-19/en_US/SGD/ID/4/1/2",
+    "http://localhost:3000/hotels/kvAG/ofhC/2022-08-11/2022-08-12/en_US/SGD/TH/12/0/3",
+    "http://localhost:3000/hotels/VQfe/ofhC/2022-08-11/2022-08-12/en_US/SGD/TH/12/0/3",
+    "http://localhost:3000/hotels/2qae/ofhC/2022-08-11/2022-08-12/en_US/SGD/TH/7/0/3",
+    "http://localhost:3000/hotels/Z1FP/2mb5/2022-09-23/2022-09-24/en_US/SGD/US/2/0/1",
+    "http://localhost:3000/hotels/NtlT/2mb5/2022-09-23/2022-09-24/en_US/SGD/US/2/0/1",
 ]
 
 stripeListURL = []

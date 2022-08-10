@@ -26,10 +26,12 @@ const Checkout = () => {
   // handle message to hotel
   const [message, setMessage] = useState("");
 
+  const roomType = state.roomType;
+  // console.log(state.roomType.upper());
   const data = {
     start: startTime.getTime(), 
     end: endTime.getTime(),
-    roomType: state.roomType,
+    roomType: roomType.toUpperCase(),
     adultQuantity: state.adultQty,
     childrenQuantity: state.childQty,
     roomQuantity: state.roomQty,

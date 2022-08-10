@@ -42,11 +42,11 @@ def validCheckoutSuccessData(stripeURL, count):
         # ======= retrieve details from stripe page
         paymentDetails = driver.find_elements(By.TAG_NAME, "span")
         hotelName = paymentDetails[3].text
-        payment_price_display = paymentDetails[4].text.split(' ')[1]
+        payment_price_display = "".join(paymentDetails[4].text.split(' ')[1].split(","))
         startDate = paymentDetails[6].text.split(":")[2].split(" ")[1]
         endDate = paymentDetails[6].text.split(":")[3].split(" ")[1]
         print("dates", startDate, endDate)
-        roomType = " ".join(paymentDetails[6].text.split(":")[6].split(" ")[:-3])
+        roomType = " ".join(paymentDetails[6].text.split(":")[6].split(" ")[:-2])
         print("roomType: ",roomType)
 
         details = {
@@ -54,7 +54,7 @@ def validCheckoutSuccessData(stripeURL, count):
             "hotelName": hotelName,
             "startDate": startDate,
             "endDate": endDate,
-            "roomType": roomType
+            "roomType": roomType.upper().strip()
         }
         print("details: ", details)
         
@@ -120,30 +120,34 @@ def validCheckoutSuccessData(stripeURL, count):
 
         displayed_elements = driver.find_elements(By.TAG_NAME, "span")
 
-        print("problem with assert")
         # ========= Added when filling in information
         assert(displayed_elements[0].text == details["name"])
-        print("problem with name assert")
         assert(displayed_elements[1].text == details["email"])
         # ========= Added when filling in information
-        print("no problem with assert")
 
+        
+        
         assert(displayed_elements[2].text == details["startDate"])
         assert(displayed_elements[3].text == details["endDate"])
         assert(displayed_elements[7].text == details["price"])
+        print(displayed_elements[8].text, details["hotelName"].upper())
         assert(displayed_elements[8].text == details["hotelName"].upper())
-        assert(displayed_elements[10].text == details["roomType"].upper())
+        print(displayed_elements[10].text.upper().strip(), details["roomType"].upper())
+        assert(displayed_elements[10].text.upper().strip() == details["roomType"].upper())
         print("Test 1 Passed, all information is displayed")
 
         # ======= check that booking is in successful collection
         # use hotel name to find
         paymentDetails = driver.find_elements(By.TAG_NAME, "span")
+        print("elements found")
         
         corresponding_data = collec.find({"state.hotelName": details["hotelName"], "state.roomType": details["roomType"]})
         # ===== cursor type requires for each loop
         corresponding_data_set = []
         for data in corresponding_data:
             corresponding_data_set.append(data)
+            print("data: ",data)
+        print(len(corresponding_data_set))
         assert(len(corresponding_data_set) > 0)
         print("Test 2 Passed, data found in successful collection")
 
@@ -173,18 +177,13 @@ def validCheckoutSuccessData(stripeURL, count):
 #     "http://localhost:3000/hotels/ndER/YCcf/2022-08-03/2022-08-04/en_US/SGD/CN/2/0/1",
 # ]
 
-stripeListURL = [
-# # get URLs from valid Checkout Data
-# 'https://checkout.stripe.com/pay/cs_test_a1859THQuE8HtzH7Ijw0700pRtYdyEqAOypu0nsEldLcoiTSQWoCqLWOmo#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
-# 'https://checkout.stripe.com/pay/cs_test_a1VhYPNuyeLH6BIC9xraVupwg9Dzw8AzOdwYfpyjjNZlP28QajCvu8Fzxo#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 
-# 'https://checkout.stripe.com/pay/cs_test_a1lI6Wf4P1oG6QYrRQE6euJ0DOO4yIEtz09DnCyAyyyfCL3pkouVpSBplE#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
-# 'https://checkout.stripe.com/pay/cs_test_a1uiRRS3b2xBI6Sp7yagSvCUFBgpKfERG5FQ7IuD0IZfo04cjuZk4SWxHH#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 
-'https://checkout.stripe.com/pay/cs_test_a1cwsVTyTsfCUExGWiA6lkIizHy8LxCqbMxJVhDqB0q3l189Sg1XYpX9ib#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl'
-]
-# https://checkout.stripe.com/pay/cs_test_a1859THQuE8HtzH7Ijw0700pRtYdyEqAOypu0nsEldLcoiTSQWoCqLWOmo#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl
+stripeListURL = ['https://checkout.stripe.com/pay/cs_test_a18fJBGDwzuxemwdpXD638Yd1IGLlBWcnY6xzLqpRhlUMRqbpk32QzQgvE#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 'https://checkout.stripe.com/pay/cs_test_a1BslTR3V4X2prA6qBSHREpHMLGXwRwhSUYDOROYFeeLJvbaOZ3icLbMVp#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 'https://checkout.stripe.com/pay/cs_test_a1qwRFIFHLvs2oMcyjb7ug8U1z3RLJeRNqCLlxD85gZCVZFwdjD6eGJvUL#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 'https://checkout.stripe.com/pay/cs_test_a1ah4nYu5ySFO1VP3eFHknfI082bghJPg67juViN66OpFn3xYJYLBjDZmI#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 'https://checkout.stripe.com/pay/cs_test_a1ycyVGHtkSRZgUDnivanKwiEOerZoPpcDLpJ5Mn7xqby5D4p11evyw2LJ#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 'https://checkout.stripe.com/pay/cs_test_a16ydgq7gMZ1CCTfLBUeay7IWGbqUimOWkGDTs13tOhwmspbv91V1NsjHj#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl', 'https://checkout.stripe.com/pay/cs_test_a1hqEpr6vpZWUVHWoeqe0zRGPvlnWgOPmt1TMmKB0aaHsXfxft75h9D32E#fidkdWxOYHwnPyd1blpxYHZxWjA0ST1jUHdCbH1kZm03QnE1ZlRHQl92bjVMXDFhUXVGdDJNaXdXZGNAbUhCaFByaGpERnNQTlJHPDNgd2xEQ2JDaEtqUH1DbGFrczRNQUwzQUFVbFNEVXNPNTVtM2xKQ3NNNicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl']
+
 successListURL = []
 for i, stripeURL in enumerate(stripeListURL):
     successURL = validCheckoutSuccessData(stripeURL, i)
     successListURL.append(successURL)
 
 print(successListURL)
+
+driver.quit()
