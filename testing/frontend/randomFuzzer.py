@@ -70,15 +70,27 @@ def getButtons(text):
         allbuttonsread += [len(yes)*"yes"]
     text = text + f"List of all {len(allbuttons)}\n"
     print(f"List of all {len(allbuttons)}")
-    return allbuttons
+    return allbuttons, text
 
 def goToNewTab(text):
     currentURL = driver.current_url
-    driver.current_window_handle
-    chwnd = driver.window_handles[totalBrowsersOpen-1] # newest addition
-    driver.switch_to.window(chwnd) # go to most recent tab
+    if EC.presence_of_element_located((By.TAG_NAME, 'button')):
+        # === click a relevant button ==== #
+        numbers = driver.find_elements(By.TAG_NAME, 'button')
+        print(len(numbers))
+        action.move_to_element(numbers[1]).perform()
+        numbers[1].click()
+
+    p = driver.current_window_handle
+    chwnd = driver.window_handles # newest addition
+    for w in chwnd:
+        if (w!=p):
+            driver.switch_to.window(w) # go to most recent tab
+    time.sleep(0.9)
+    scroll(text)
     text = text + f"goToNewTab: from {currentURL}, redirect to {driver.current_url}\n"
     print(f"goToNewTab: from {currentURL}, redirect to {driver.current_url}\n")
+    return text
 
 def closeCurrentTab(text):
     if totalBrowsersOpen == 1:
@@ -97,6 +109,7 @@ def closeCurrentTab(text):
             text = text + f"closeCurrentTab: {currentTabUrl}, redirect to {driver.current_url}\n"
             print(f"closeCurrentTab: {currentTabUrl}, redirect to {driver.current_url}\n")
             break
+    return text
         
 
 def fillInput(text):
@@ -104,16 +117,19 @@ def fillInput(text):
     inputBox.send_keys('s')
     text = text + f"fillInput in: {driver.current_url}\n"
     print(f"fillInput in: {driver.current_url}\n")
+    return text
 
 def scroll(text):
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     text = text + f"scroll in: {driver.current_url}\n"
     print(f"scroll in: {driver.current_url}\n")
+    return text
 
 def refresh(text):
     driver.refresh()
     text = text + f"refresh in: {driver.current_url}"
     print(f"refresh in: {driver.current_url}")
+    return text
 
 def backTab(text):
     currentTabUrl = driver.current_url
@@ -121,6 +137,23 @@ def backTab(text):
     time.sleep(2)
     text = text + f"backTab from: {currentTabUrl} to {driver.current_url}"
     print(f"backTab from: {currentTabUrl} to {driver.current_url}")
+    return text
+
+def reconfirmLocation(text):
+    p = driver.current_window_handle
+    change = False
+    chwnd = driver.window_handles # newest addition
+    for w in chwnd:
+        if (w!=p):
+            driver.switch_to.window(w) # go to most recent tab
+            change = True
+            time.sleep(0.9)
+    if (change):
+        text = text + f"reconfirmLocation change location: to {driver.current_url}\n"
+        print(f"reconfirmLocation change location: to {driver.current_url}\n")
+    # update text if changes were made
+
+    return text
 
 def searchBar(text):
     possibleInputs = string.ascii_lowercase + string.digits
@@ -145,11 +178,35 @@ def searchBar(text):
     # action.move_by_offset(-100)
     # action.double_click()
 
+    #===== change dates ====#
+    if EC.presence_of_element_located((By.ID, 'search--date')):
+        date = driver.find_element(By.ID, 'search--date')
+        action.move_to_element(date).perform()
+        date.click()
+        print("date wrapper clicked")
+    
+    # 2 random int (sorted)
+    time.sleep(1)
+    
+    if EC.presence_of_all_elements_located((By.CLASS_NAME, 'rdrDay')):
+        print("in rdrDay")
+        dates = driver.find_elements(By.CLASS_NAME, "rdrDay")
+        print("dates found successfully")
+        print(len(dates)//2)
+        value_list = sorted([random.randint(0, len(dates)), random.randint(0, len(dates))])
+        print(value_list)
+        print("dates found")
+        action.move_to_element(dates[value_list[0]]).perform()
+        dates[value_list[0]].click()
+        action.move_to_element(dates[value_list[1]]).perform()
+        dates[value_list[1]].click()
+
     #===== change number of people and number of rooms ====#
     if EC.presence_of_element_located((By.ID, 'search--people')):
         numbers = driver.find_element(By.ID, 'search--people')
         action.move_to_element(numbers).perform()
         numbers.click()
+    time.sleep(1)
     if EC.presence_of_element_located((By.CLASS_NAME, 'increase')):
         print("presence detected")
         increaseBtn = driver.find_elements(By.CLASS_NAME, 'increase')
@@ -168,6 +225,8 @@ def searchBar(text):
 
     text = text + f"complete searchbar entry to {driver.current_url}"
     print(f"complete searchbar entry to {driver.current_url}")
+
+    return text
 
 """
 actions our little bosses can take:
@@ -195,11 +254,14 @@ Counter/tracker:
 # to test later: check if all the button types can be pressed
 """
 startTimer = time.time()
-endTimer = startTimer + 60*60 # 1 hour
+endTimer = startTimer + 60*30 # 1 hour
 print(endTimer, startTimer)
 driver.maximize_window()
 driver.get("http://localhost:3000/")
 
+# driver.get("http://localhost:3000/destinations/A6Dz/2022-08-27/2022-08-28/en_US/SGD/IT/2/0/1/0")
+# time.sleep(2)
+# goToNewTab(text)
 # try:
 # check for end time.
 while currentTime < endTimer:
@@ -209,6 +271,9 @@ while currentTime < endTimer:
 
     try:
         #if else functions here
+        waiter = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.TAG_NAME, "span"))
+        )
 
         #===========fail catches============#
         #check if 429 error 
@@ -222,14 +287,16 @@ while currentTime < endTimer:
         # if search bar page
         if driver.current_url == "http://localhost:3000/":
             print("in here")
-            searchBar(text)
+            text = searchBar(text)
+
+        #=========== check location of viewing == location of existence =======#
+        text = reconfirmLocation(text)
         
-        # #===========just scroll==============#
         # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         #===========execute buttons===========#
         element = WebDriverWait(driver,100).until(EC.presence_of_element_located((By.ID, 'root')))
         print("executing getButtons")
-        btnList = getButtons(text)
+        btnList, text = getButtons(text)
         btnListLen = 0
         print("successfully get buttons")
 
@@ -242,25 +309,25 @@ while currentTime < endTimer:
 
         #====== other actions =======#
         if mode == 0:
-            goToNewTab(text)
+            text = goToNewTab(text)
             enterNewTabActionCount+=1
         elif mode == 1:
-            closeCurrentTab(text)
+            text = closeCurrentTab(text)
             closeNewTabActionCount+=1
         elif mode == 2:
             # detect input
             if EC.presence_of_element_located((By.TAG_NAME, 'input')):
-                fillInput(text)
+                text = fillInput(text)
                 inputTextActionCount+=1
             totalActionCount -= 1
         elif mode == 3:
-            scroll(text)
+            text = scroll(text)
             scrollActionCount+=1
         elif mode == 4:
-            refresh(text)
+            text = refresh(text)
             refreshBtnActionCount+=1
         elif mode == 5:
-            backTab(text)
+            text = backTab(text)
             backBtnActionCount+=1
         elif mode > 5:
             currentTabNumber = len(driver.window_handles) # check original number of tabs
@@ -271,8 +338,8 @@ while currentTime < endTimer:
             btnList[n].click()
             buttonActionCount+=1
 
-            if len(driver.window_handles) > currentTabNumber: # if number of tabs increased
-                goToNewTab()
+            if len(driver.window_handles) >= currentTabNumber: # if number of tabs increased
+                text = goToNewTab(text)
             text = text + f"button was pressed"
             print("button was pressed")
         
@@ -289,8 +356,15 @@ while currentTime < endTimer:
         numOfFails += 1
         print("failure due to passthrough is not supported")
         totalActionCount += 1
+        coin_flip = random.randint(0,2)
         time.sleep(5)
-        driver.refresh()
+        if coin_flip==1:
+            driver.refresh()
+        elif coin_flip == 2:
+            driver.back()
+        else:
+            driver.get("http://localhost:3000/")
+        
         # driver.get("http://localhost:3000")
 
 # except:
@@ -316,9 +390,12 @@ text += "======Max Counts======" + "\n"
 text += "maxBrowsersOpen: " + str(maxBrowsersOpen) + "\n"
 text += "numOfCaughtFails: " + str(numOfFails) + "\n"
 text += "totalFails: " + str(numOfCycles-totalActionCount) + "\n"
+text += "\n"
+text += "======Time Spent======" + "\n"
+text += "endTime-startTime: " + str(endTimer-startTimer) + "s\n"
 
 #====== print text report ========#
-f = open("./testing/logs/randomFuzzerLog.txt", "w")
+f = open("./testing/frontend/logs/randomFuzzerLog.txt", "w")
 f.write(text)
 f.close()
 
