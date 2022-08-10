@@ -282,10 +282,16 @@ while currentTime < endTimer:
             text = text + f"reached http://localhost:3000/invalid-url\n\n"
             print(f"reached http://localhost:3000/invalid-url\n")
             driver.get("http://localhost:3000/") # redirect to http://localhost:3000/
+        
+        elif driver.current_url == "https://www.openstreetmap.org/copyright":
+            text = text + f"entered openstreetmap: https://www.openstreetmap.org/copyright\n"
+            print(f"entered openstreetmap: https://www.openstreetmap.org/copyright\n")
+            driver.back() # redirect to http://localhost:3000/
+
 
         #===========generate random catches============#
         # if search bar page
-        if driver.current_url == "http://localhost:3000/":
+        elif driver.current_url == "http://localhost:3000/":
             print("in here")
             text = searchBar(text)
 
@@ -309,26 +315,26 @@ while currentTime < endTimer:
 
         #====== other actions =======#
         if mode == 0:
-            text = goToNewTab(text)
             enterNewTabActionCount+=1
+            text = goToNewTab(text)
         elif mode == 1:
-            text = closeCurrentTab(text)
             closeNewTabActionCount+=1
+            text = closeCurrentTab(text)
         elif mode == 2:
             # detect input
             if EC.presence_of_element_located((By.TAG_NAME, 'input')):
-                text = fillInput(text)
                 inputTextActionCount+=1
+                text = fillInput(text)
             totalActionCount -= 1
         elif mode == 3:
-            text = scroll(text)
             scrollActionCount+=1
+            text = scroll(text)
         elif mode == 4:
-            text = refresh(text)
             refreshBtnActionCount+=1
+            text = refresh(text)
         elif mode == 5:
-            text = backTab(text)
             backBtnActionCount+=1
+            text = backTab(text)
         elif mode > 5:
             currentTabNumber = len(driver.window_handles) # check original number of tabs
             n = mode-6
@@ -339,6 +345,7 @@ while currentTime < endTimer:
             buttonActionCount+=1
 
             if len(driver.window_handles) >= currentTabNumber: # if number of tabs increased
+                enterNewTabActionCount+=1
                 text = goToNewTab(text)
             text = text + f"button was pressed"
             print("button was pressed")
