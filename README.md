@@ -1,7 +1,6 @@
 <h1 align="center" style="border-bottom: none">
-    <b>
-        Ascenda Loyalty Hotel Booking System<br>
-    </b>
+    <b>Ascenda Loyalty Hotel Booking System</b>
+    <br>
     2022 50.003 Elements of Software Construction
     <br>
 </h1>
@@ -94,8 +93,12 @@ By clicking on a room rate card, customers will be redirected to a booking confi
 
 `http://localhost:3000/checkout` <br>
 <p float="left">
-  <img src="./media/booking-info.jpeg" width="400" />
-  <img src="./media/stripe-checkout.jpeg" width="400" /> 
+  <img src="./media/popup-confirmation.jpeg" width="400" />
+  <img src="./media/booking-info.jpeg" width="400" /> 
+</p>
+<p float="left">
+  <img src="./media/stripe-checkout.jpeg" width="400" />
+  <img src="./media/booking-success.jpeg" width="400" /> 
 </p>
 
 # API Calling
@@ -118,7 +121,7 @@ Our backend server makes API calls `api\routes\api.js` to Ascenda's API using th
 
 # File Directories
 ```
-📦api   # backend Express 
+📦api                  # backend Express files
  ┣ 📂bin
  ┣ 📂controllers       # individual routing controllers
  ┣ 📂node_modules
@@ -127,7 +130,7 @@ Our backend server makes API calls `api\routes\api.js` to Ascenda's API using th
  ┣ 📂stripe            # stripe integration for backend
  ┣ 📂views
  ┣ 📜app.js
- 📦client   # frontend React
+ 📦client              # frontend React files
  ┣ 📂node_modules
  ┣ 📂public
  ┣ 📂src

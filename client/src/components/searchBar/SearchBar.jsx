@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
 import { DateRange} from 'react-date-range';
-import { useEffect, useState } from "react";
-import { format, addDays } from "date-fns";
+import { useState } from "react";
+import { format, addDays, setHours } from "date-fns";
 import "./searchBar.css"
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { setMilliseconds, setMinutes } from "date-fns/esm";
 var country_code = require("../../database/countries.json");
 var destination_ids = require("../../database/output.json");   
 
@@ -19,14 +20,21 @@ const SearchBar = () => {
     const onChange = (event) => {
       setValue(event.target.value);
     };
+
+    const roundDate = (dd) => {
+        dd = setHours(dd, 0)
+        dd = setMinutes(dd, 0)
+        dd = setMilliseconds(dd, 0)
+        return dd
+    }
     
     /** FOR DATE-RANGE */
     const [openDate, setOpenDate] = useState(false);
     const [date, setDate] = useState([
         {
-          startDate: new Date(),
-          endDate: addDays(new Date(), 1),
-          key: 'selection'
+            startDate: roundDate(new Date()),
+            endDate: roundDate(addDays(new Date(), 1)),
+            key: 'selection'
         }
       ]);
 
@@ -62,13 +70,13 @@ const SearchBar = () => {
         const destination_name = searchTerm
         const destination_uid = dest;
 
+        console.log(date[0].startDate, date[0].endDate)
+
         // For dates of checkin and checkout  
-        const extractDates = (oldDate) => {
-            const newDate = addDays(oldDate, 1)
-            return (JSON.stringify(newDate).slice(1,11))
-        } 
-        const startd = extractDates(date[0].startDate)
-        const endd = extractDates(date[0].endDate)
+        const startd = addDays(date[0].startDate,1).toISOString().substring(0, 10)
+        const endd = addDays(date[0].endDate,1).toISOString().substring(0, 10)
+
+        console.log(startd, endd)
 
         // language
         const language = "en_US"
@@ -80,13 +88,13 @@ const SearchBar = () => {
         const {adult, children, room} = options
 
 
-        if (destination_uid != 0) {
+        if (destination_uid !== 0) {
 
             // c_code is the country code
             const c_code = country_code.filter(element => {
                 const destination_title = destination_name;
     
-                if (destination_title.includes(element.name) || destination_title == element.name) {
+                if (destination_title.includes(element.name) || destination_title === element.name) {
                     return element.code
                 } else {
                     return 0
@@ -112,7 +120,7 @@ const SearchBar = () => {
             const incomplete_country_code = country_code.filter(element => {
                 const destination_title = incomplete_name;
     
-                if (destination_title.includes(element.name) || destination_title == element.name || destination_title.startsWith(element.name)) {
+                if (destination_title.includes(element.name) || destination_title === element.name || destination_title.startsWith(element.name)) {
                     return element.code
                 } else {
                     return 0
@@ -139,10 +147,11 @@ const SearchBar = () => {
                     placeholder="e.g. Singapore"
                     className="search--input"
                     id="search--destinations" 
+                    autoComplete="off"
                 />
                 
                 {/*Dropdown bar for suggestions*/}
-                <div className="dropdown"> 
+                {value.length > 0 && <div className="dropdown"> 
                     {destination_ids
                     .filter((item) => {
                         let searchTerm = value.toLowerCase();
@@ -151,7 +160,7 @@ const SearchBar = () => {
                         
                         return (
                         searchTerm &&
-                        modified.startsWith(searchTerm) &&
+                        // modified.startsWith(searchTerm) &&
                         modified.includes(searchTerm)
                         );
                     })
@@ -165,7 +174,7 @@ const SearchBar = () => {
                         {item.term}
                         </div>
                     ))}
-                </div>
+                </div>}
             </div>
 
             <div className="search--item2">

@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBed, faCalendarDays, faPerson } from '@fortawesome/free-solid-svg-icons'
-import { DateRange} from 'react-date-range';
-import { format } from "date-fns";
-import {useNavigate, useParams, useLocation} from 'react-router-dom';
+import React, { useState } from 'react'
+import {useLocation} from 'react-router-dom';
 import "./checkout.css"
 import NavBar from '../navbar/Navbar';
 
@@ -88,12 +84,12 @@ const Checkout = () => {
               </h1>
               <div className="room-info">
                   <div>
-                      <label me>Start Date:</label>
+                      <label>Start Date:</label>
                       <span>{startTimeText}</span>
                   </div>
                   <div>
-                      <label me>End Date:</label>
-                          <span>{endTimeText}</span>
+                      <label>End Date:</label>
+                      <span>{endTimeText}</span>
                   </div>
               </div>
               <div className="address-info">
@@ -102,7 +98,7 @@ const Checkout = () => {
                       <span>{data.adultQuantity}</span>
                   </div>
                   <div>
-                      <label >Children:</label>
+                      <label>Children:</label>
                       <span>{data.childrenQuantity}</span>
                   </div>
                   <div>
@@ -139,12 +135,6 @@ const Checkout = () => {
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Leave your message here"
                         type = "text"/>
-                {/* <input className="options--item"
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Leave your message here"
-                    name="message"
-                    type = "text"
-                /> */}
 
                 <input hidden={true} 
                 encType="application/json"
@@ -169,12 +159,6 @@ const Checkout = () => {
                     Confirm Purchase
                   </button>
                 </div>
-                
-                
-
-                {/* <button role="link" id="submit" type="submit">
-                  Buy Now
-                </button> */}
             </form>
         </div>
       </div>

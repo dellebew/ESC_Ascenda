@@ -1,5 +1,3 @@
-import Error from "../error/Error";
-
 export default async function callApi(type, state) {
     let response;
 
@@ -27,7 +25,7 @@ export default async function callApi(type, state) {
     }
     
     console.log(state)
-    if (type == "hotel") {
+    if (type === "hotel") {
         response = await fetch(`/api/${type}/${state.hotelId}`);
         if (response.status === 429) {
             console.log("429 Error")
@@ -39,7 +37,7 @@ export default async function callApi(type, state) {
             return "404"
         }
     } 
-    else if (type == "hotel/price") {
+    else if (type === "hotel/price") {
         const adultRoom = await adultsRooms()
         console.log(adultRoom)
         response = await fetch(`/api/${type}/${state.hotelId}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${adultRoom}`);
@@ -57,7 +55,7 @@ export default async function callApi(type, state) {
         console.log(data)
         return data[0].rooms
     } 
-    else if (type == "destination/prices") {
+    else if (type === "destination/prices") {
         const adultRoom = await adultsRooms()
         console.log(adultRoom)
         response = await fetch(`/api/${type}/${state.destId}/${state.checkin}/${state.checkout}/${state.lang}/${state.currency}/${state.code}/${adultRoom}/${state.page}`);
@@ -71,7 +69,7 @@ export default async function callApi(type, state) {
             return [0, "404"]
         }
         const data = await response.json()
-        if (data[0] == 0) {
+        if (data[0] === 0) {
             data[0] = 1
         }
         return data
