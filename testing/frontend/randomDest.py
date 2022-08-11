@@ -117,9 +117,9 @@ def check_dest(destId, url, runHotelTests, randomHotels, location):
         driver.execute_script("arguments[0].scrollIntoView();", pageButtons[j])
         time.sleep(3)
         action.move_to_element(pageButtons[j]).perform()
+        print("Test 12 Passed, clicking on button redirects to {}th page:".format(pageButtons[j].get_attribute("text")), driver.current_url)
         driver.execute_script("arguments[0].click();", pageButtons[j])
         time.sleep(3)
-        print("Test 7 Passed, clicking on button redirects to {}th page:".format(pageButtons[j].get_attribute("text")), driver.current_url)
         
     # custom exception catches    
     except UnboundLocalError as e:
@@ -153,7 +153,7 @@ destinationCount = 10
 startDate = "2022-08-19"
 endDate = "2022-08-20"
 runHotelTests = True
-randomHotels = True
+randomHotels = False
 location = "fuzzing_desthotels"
 
 

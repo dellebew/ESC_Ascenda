@@ -132,7 +132,7 @@ Our backend server makes API calls `api\routes\api.js` to Ascenda's API using th
  ┣ 📜app.js
  📦client              # frontend React files
  ┣ 📂node_modules
- ┣ 📂public
+ ┣ 📂public            # images used in webapp
  ┣ 📂src
  ┃ ┣ 📂components      # building blocks for webpage
  ┃ ┃ ┗ 📂utils         # api call function, url checker
