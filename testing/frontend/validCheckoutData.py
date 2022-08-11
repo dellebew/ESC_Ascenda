@@ -47,7 +47,7 @@ def validCheckoutData(hotelLink, count, text):
         
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         print("scrolled")
-        time.sleep(2)
+        time.sleep(0.5)
         
         element = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.CLASS_NAME, 'ratesCard'))
@@ -60,17 +60,17 @@ def validCheckoutData(hotelLink, count, text):
         print("scrolled")
 
         action = ActionChains(driver)
-        time.sleep(3)
+        time.sleep(1)
         action.move_to_element(firstRate).perform()
         button = firstRate.find_element(By.CLASS_NAME, "rates--container")
         button.click()
-        time.sleep(2)
+        time.sleep(1)
 
         # test confirmation
         confirmation = driver.find_element(By.CLASS_NAME, "react-confirm-alert-button-group")
         yes = confirmation.find_element(By.XPATH, "//button[@label='Yes']")
         driver.execute_script("arguments[0].click();", yes)
-        time.sleep(2)
+        time.sleep(0.5)
 
         assert(driver.current_url == "http://localhost:3000/checkout")
 
@@ -126,7 +126,6 @@ def validCheckoutData(hotelLink, count, text):
         assert(paymentDetails[3].text.upper() == name)
         print(f"Link {count}: Test 3 Passed, hotelName value is equivalent")
         text += f"Link {count}: Test 3 Passed, price value is equivalent, Test 3 Passed, hotelName value is equivalent" + "\n"
-        time.sleep(2)
 
         # Check cancel page successful
         cancel_button = driver.find_element(By.TAG_NAME, "a")
@@ -138,7 +137,7 @@ def validCheckoutData(hotelLink, count, text):
         text += f"Link {count}: Test 4 Passed, success page is clickable and redirectable to"+ driver.current_url+ "\n"
         
         # check retrieval of hotelLink in cancel page
-        time.sleep(2)
+        # time.sleep(2)
         link = driver.find_elements(By.TAG_NAME, "a")
         link[-1].click()
         time.sleep(1)
@@ -162,10 +161,10 @@ def validCheckoutData(hotelLink, count, text):
 
 # find a new set every time you test
 hotelsListURL = [
-    "http://localhost:3000/hotels/ii2q/WP3Z/2022-08-10/2022-08-19/en_US/SGD/ID/4/1/2",
-    "http://localhost:3000/hotels/yQUM/WP3Z/2022-08-10/2022-08-19/en_US/SGD/ID/4/1/2",
-    "http://localhost:3000/hotels/kvAG/ofhC/2022-08-11/2022-08-12/en_US/SGD/TH/12/0/3",
-    "http://localhost:3000/hotels/VQfe/ofhC/2022-08-11/2022-08-12/en_US/SGD/TH/12/0/3",
+    "http://localhost:3000/hotels/ii2q/WP3Z/2022-08-17/2022-08-19/en_US/SGD/ID/4/1/2",
+    "http://localhost:3000/hotels/yQUM/WP3Z/2022-08-17/2022-08-19/en_US/SGD/ID/4/1/2",
+    "http://localhost:3000/hotels/kvAG/ofhC/2022-08-13/2022-08-14/en_US/SGD/TH/6/0/3",
+    "http://localhost:3000/hotels/VQfe/ofhC/2022-08-13/2022-08-14/en_US/SGD/TH/6/0/3",
     "http://localhost:3000/hotels/2qae/ofhC/2022-08-11/2022-08-12/en_US/SGD/TH/7/0/3",
     "http://localhost:3000/hotels/Z1FP/2mb5/2022-09-23/2022-09-24/en_US/SGD/US/2/0/1",
     "http://localhost:3000/hotels/NtlT/2mb5/2022-09-23/2022-09-24/en_US/SGD/US/2/0/1",

@@ -74,12 +74,12 @@ def getButtons(text):
 
 def goToNewTab(text):
     currentURL = driver.current_url
-    if EC.presence_of_element_located((By.TAG_NAME, 'button')):
-        # === click a relevant button ==== #
-        numbers = driver.find_elements(By.TAG_NAME, 'button')
-        print(len(numbers))
-        action.move_to_element(numbers[1]).perform()
-        numbers[1].click()
+    # if EC.presence_of_element_located((By.TAG_NAME, 'button')):
+    #     # === click a relevant button ==== #
+    #     numbers = driver.find_elements(By.TAG_NAME, 'button')
+    #     print(len(numbers))
+    #     action.move_to_element(numbers[1]).perform()
+    #     numbers[1].click()
 
     p = driver.current_window_handle
     chwnd = driver.window_handles # newest addition
@@ -133,7 +133,7 @@ def refresh(text):
 
 def backTab(text):
     currentTabUrl = driver.current_url
-    driver.back()
+    driver.execute_script("window.history.go(-1)")
     time.sleep(2)
     text = text + f"backTab from: {currentTabUrl} to {driver.current_url}"
     print(f"backTab from: {currentTabUrl} to {driver.current_url}")
@@ -164,14 +164,14 @@ def searchBar(text):
 
     # text = text + f"fillInput in: {driver.current_url}\n"
     print(f"fillInput in: {driver.current_url}\n")
-    print("error is at EC")
+    # print("error is at EC")
      
     if EC.presence_of_element_located((By.CLASS_NAME, 'dropdown-row')):
         selector = driver.find_elements(By.CLASS_NAME, 'dropdown-row')
         n = random.randint(0,len(selector)-1)
-        print("error is at action")
+        # print("error is at action")
         action.move_to_element(selector[n]).perform()
-        print(n, "moving")
+        # print(n, "moving")
         selector[n].click()
         time.sleep(2)
     
@@ -283,10 +283,10 @@ while currentTime < endTimer:
             print(f"reached http://localhost:3000/invalid-url\n")
             driver.get("http://localhost:3000/") # redirect to http://localhost:3000/
         
-        elif driver.current_url == "https://www.openstreetmap.org/copyright":
+        elif driver.current_url == "https://www.openstreetmap.org/copyright" or driver.current_url == "https://pigeon-maps.js.org/":
             text = text + f"entered openstreetmap: https://www.openstreetmap.org/copyright\n"
             print(f"entered openstreetmap: https://www.openstreetmap.org/copyright\n")
-            driver.back() # redirect to http://localhost:3000/
+            closeCurrentTab(text) # redirect to http://localhost:3000/
 
 
         #===========generate random catches============#
@@ -315,12 +315,15 @@ while currentTime < endTimer:
 
         #====== other actions =======#
         if mode == 0:
+            print("in mode 0")
             enterNewTabActionCount+=1
             text = goToNewTab(text)
         elif mode == 1:
+            print("in mode 1")
             closeNewTabActionCount+=1
             text = closeCurrentTab(text)
         elif mode == 2:
+            print("in mode 2")
             # detect input
             if EC.presence_of_element_located((By.TAG_NAME, 'input')):
                 inputTextActionCount+=1
@@ -330,12 +333,15 @@ while currentTime < endTimer:
             scrollActionCount+=1
             text = scroll(text)
         elif mode == 4:
+            print("in mode 3")
             refreshBtnActionCount+=1
             text = refresh(text)
         elif mode == 5:
+            print("in mode 4")
             backBtnActionCount+=1
             text = backTab(text)
         elif mode > 5:
+            print(f"in mode {mode}")
             currentTabNumber = len(driver.window_handles) # check original number of tabs
             n = mode-6
             driver.execute_script("arguments[0].scrollIntoView();", btnList[n])
@@ -344,7 +350,8 @@ while currentTime < endTimer:
             btnList[n].click()
             buttonActionCount+=1
 
-            if len(driver.window_handles) >= currentTabNumber: # if number of tabs increased
+            print(f"current tab number: {currentTabNumber}, new tab number: {len(driver.window_handles)}")
+            if len(driver.window_handles) > currentTabNumber-1: # if number of tabs increased
                 enterNewTabActionCount+=1
                 text = goToNewTab(text)
             text = text + f"button was pressed"
@@ -361,15 +368,18 @@ while currentTime < endTimer:
 
     except:
         numOfFails += 1
-        print("failure due to passthrough is not supported")
+        print("Load took more than 5 seconds")
         totalActionCount += 1
         coin_flip = random.randint(0,2)
         time.sleep(5)
         if coin_flip==1:
+            print("coin flip 1")
             driver.refresh()
         elif coin_flip == 2:
-            driver.back()
+            print("coin flip 2")
+            driver.execute_script("window.history.go(-1)")
         else:
+            print("coin flip 3")
             driver.get("http://localhost:3000/")
         
         # driver.get("http://localhost:3000")
@@ -407,3 +417,5 @@ f.write(text)
 f.close()
 
 driver.quit()
+
+# show from 11.31

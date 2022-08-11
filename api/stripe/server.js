@@ -113,7 +113,7 @@ router.post('/create-checkout-session', async (req, res) => {
       line_items: [
       {
         price: price.id,
-        quantity: numOfNights * info.roomQuantity,
+        quantity: 1,
       },
     ],
     mode: 'payment',

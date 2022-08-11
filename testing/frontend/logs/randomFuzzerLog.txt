@@ -1,111 +1,179 @@
-complete searchbar entry to http://localhost:3000/destinations/5Y3F/2022-08-23/2022-08-25/en_US/SGD/FR/4/1/3/0List of all 5
-complete searchbar entry to http://localhost:3000/destinations/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/P4FZ/2022-08-16/2022-08-26/en_US/SGD/GB/5/2/2/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/5NM2/2022-08-10/2022-08-20/en_US/SGD/ID/2/1/1/0List of all 5
 List of all 24
+List of all 25
+complete searchbar entry to http://localhost:3000/destinations/aYF8/2022-08-31/2022-09-01/en_US/SGD/DM/3/0/1/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/XwkL/2022-08-21/2022-08-23/en_US/SGD/CN/6/1/4/0List of all 5
 List of all 24
+complete searchbar entry to http://localhost:3000/destinations/5Y3F/2022-08-25/2022-08-26/en_US/SGD/FR/4/4/3/0List of all 5
 List of all 24
-goToNewTab: from http://localhost:3000/destinations/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2/0, redirect to http://localhost:3000/hotels/gcmj/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2
-reconfirmLocation change location: to http://localhost:3000/destinations/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2/0
+complete searchbar entry to http://localhost:3000/destinations/GUJI/2022-08-31/2022-08-31/en_US/SGD/IT/6/5/2/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/PCFH/2022-08-28/2022-08-29/en_US/SGD/FR/6/1/3/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/PCFH/2022-08-15/2022-08-16/en_US/SGD/FR/2/1/1/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/vJh2/2022-08-18/2022-08-19/en_US/SGD/FR/2/1/2/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/0zyy/2022-08-10/2022-08-11/en_US/SGD/FR/2/0/1/0List of all 5
+scroll in: http://localhost:3000/destinations/0zyy/2022-08-10/2022-08-11/en_US/SGD/FR/2/0/1/0
+complete searchbar entry to http://localhost:3000/destinations/vJh2/2022-08-10/2022-08-11/en_US/SGD/FR/4/1/1/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/PCFH/2022-08-25/2022-08-26/en_US/SGD/FR/3/1/2/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/D8Qs/2022-08-10/2022-08-11/en_US/SGD/ID/4/1/2/0List of all 5
+backTab from: http://localhost:3000/destinations/D8Qs/2022-08-10/2022-08-11/en_US/SGD/ID/4/1/2/0 to http://localhost:3000/complete searchbar entry to http://localhost:3000/destinations/6FXD/2022-08-11/2022-08-15/en_US/SGD/ES/3/0/1/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/gMIr/2022-08-12/2022-08-13/en_US/SGD/US/5/1/3/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/ChXD/2022-08-18/2022-08-20/en_US/SGD/US/5/0/3/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/jv4W/2022-08-20/2022-08-24/en_US/SGD/IN/4/0/1/0List of all 5
+complete searchbar entry to http://localhost:3000/destinations/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1/0List of all 5
 List of all 24
-reconfirmLocation change location: to http://localhost:3000/hotels/gcmj/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2
-List of all 61
-goToNewTab: from http://localhost:3000/hotels/gcmj/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2, redirect to http://localhost:3000/destinations/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2/2
-button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/gcmj/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2
-List of all 61
-refresh in: http://localhost:3000/hotels/gcmj/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2reconfirmLocation change location: to http://localhost:3000/destinations/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2/2
-List of all 26
-goToNewTab: from http://localhost:3000/destinations/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2/2, redirect to http://localhost:3000/hotels/aBEx/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2
-button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/aBEx/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2
-List of all 16
-complete searchbar entry to http://localhost:3000/destinations/avoZ/2022-08-10/2022-08-11/en_US/SGD/US/3/4/3/0reconfirmLocation change location: to http://localhost:3000/hotels/aBEx/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2
-List of all 16
-backTab from: http://localhost:3000/hotels/aBEx/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2 to http://localhost:3000/hotels/aBEx/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2reconfirmLocation change location: to http://localhost:3000/destinations/avoZ/2022-08-10/2022-08-11/en_US/SGD/US/3/4/3/0
+reconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1
+List of all 31
+scroll in: http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1
+reconfirmLocation change location: to http://localhost:3000/destinations/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1/0
+List of all 24
+reconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1
+List of all 31
+refresh in: http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1reconfirmLocation change location: to http://localhost:3000/destinations/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1/0
+List of all 24
+complete searchbar entry to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0reconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1
+List of all 31
+reconfirmLocation change location: to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+List of all 24
+backTab from: http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0 to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0reconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+reconfirmLocation change location: to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+List of all 24
+reconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+goToNewTab: from http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/, redirect to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/QE6A/A6Dz/2022-08-21/2022-08-22/en_US/SGD/IT/2/0/1#/
+List of all 31
+complete searchbar entry to http://localhost:3000/destinations/5E5N/2022-08-19/2022-08-20/en_US/SGD/CA/4/3/1/0reconfirmLocation change location: to http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0
+List of all 24
+goToNewTab: from http://localhost:3000/destinations/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3/0, redirect to http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3
+button was pressedreconfirmLocation change location: to http://localhost:3000/destinations/5E5N/2022-08-19/2022-08-20/en_US/SGD/CA/4/3/1/0
 List of all 5
-scroll in: http://localhost:3000/destinations/avoZ/2022-08-10/2022-08-11/en_US/SGD/US/3/4/3/0
-complete searchbar entry to http://localhost:3000/destinations/kOTa/2022-08-10/2022-08-11/en_US/SGD/IT/3/2/2/0reconfirmLocation change location: to http://localhost:3000/hotels/aBEx/cm8g/2022-08-18/2022-08-20/en_US/SGD/IT/2/2/2
-List of all 16
-complete searchbar entry to http://localhost:3000/destinations/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3/0reconfirmLocation change location: to http://localhost:3000/destinations/kOTa/2022-08-10/2022-08-11/en_US/SGD/IT/3/2/2/0
-List of all 24
-reconfirmLocation change location: to http://localhost:3000/hotels/OB2t/kOTa/2022-08-10/2022-08-11/en_US/SGD/IT/3/2/2
+complete searchbar entry to http://localhost:3000/destinations/7HSJ/2022-08-19/2022-08-24/en_US/SGD/RO/4/3/2/0reconfirmLocation change location: to http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3
+List of all 27
+reconfirmLocation change location: to http://localhost:3000/destinations/7HSJ/2022-08-19/2022-08-24/en_US/SGD/RO/4/3/2/0
+List of all 5
+complete searchbar entry to http://localhost:3000/destinations/p5Lz/2022-08-19/2022-08-31/en_US/SGD/CN/2/2/2/0reconfirmLocation change location: to http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3
+List of all 27
+goToNewTab: from http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3, redirect to http://localhost:3000/destinations/p5Lz/2022-08-19/2022-08-31/en_US/SGD/CN/2/2/2/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3
+List of all 27
+reconfirmLocation change location: to http://localhost:3000/destinations/p5Lz/2022-08-19/2022-08-31/en_US/SGD/CN/2/2/2/0
 List of all 23
-reconfirmLocation change location: to http://localhost:3000/destinations/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3/0
+complete searchbar entry to http://localhost:3000/destinations/Y5OA/2022-08-17/2022-08-18/en_US/SGD/VN/3/5/3/0reconfirmLocation change location: to http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3#/
+List of all 27
+goToNewTab: from http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3#/, redirect to http://localhost:3000/destinations/Y5OA/2022-08-17/2022-08-18/en_US/SGD/VN/3/5/3/0
+button was pressedcomplete searchbar entry to http://localhost:3000/destinations/I7E8/2022-08-13/2022-08-14/en_US/SGD/IT/4/2/3/0reconfirmLocation change location: to http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3#/
+List of all 27
+goToNewTab: from http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3#/, redirect to http://localhost:3000/destinations/I7E8/2022-08-13/2022-08-14/en_US/SGD/IT/4/2/3/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/mKKg/N23M/2022-08-23/2022-08-25/en_US/SGD/IT/5/1/3#/
+List of all 27
+complete searchbar entry to http://localhost:3000/destinations/cm8g/2022-08-10/2022-08-19/en_US/SGD/IT/2/0/1/0reconfirmLocation change location: to http://localhost:3000/destinations/I7E8/2022-08-13/2022-08-14/en_US/SGD/IT/4/2/3/0
 List of all 24
-goToNewTab: from http://localhost:3000/destinations/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3/0, redirect to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3
-button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3
-List of all 11
-complete searchbar entry to http://localhost:3000/reconfirmLocation change location: to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3
-List of all 11
-backTab from: http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3 to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3reconfirmLocation change location: to http://localhost:3000/
-List of all 6
-reconfirmLocation change location: to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3
-List of all 11
-reconfirmLocation change location: to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3
-List of all 11
-reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3#/
-List of all 11
-reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/hotels/uqIx/aDTM/2022-08-21/2022-08-22/en_US/SGD/US/5/1/3
-List of all 11
-complete searchbar entry to http://localhost:3000/destinations/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1/0reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/destinations/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1/0
-List of all 24
-goToNewTab: from http://localhost:3000/destinations/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1/0, redirect to http://localhost:3000/hotels/nOBG/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1
-button was pressedreconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/hotels/nOBG/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1
-List of all 9
-scroll in: http://localhost:3000/hotels/nOBG/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1
-reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/hotels/nOBG/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1
-List of all 9
-goToNewTab: from http://localhost:3000/hotels/nOBG/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1, redirect to https://www.openstreetmap.org/copyright
-button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/nOBG/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1
-List of all 9
-reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/hotels/nOBG/lnS2/2022-08-23/2022-08-28/en_US/SGD/US/3/1/1
-List of all 9
-complete searchbar entry to http://localhost:3000/destinations/vJh2/2022-08-17/2022-08-18/en_US/SGD/FR/5/0/2/0reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/destinations/vJh2/2022-08-17/2022-08-18/en_US/SGD/FR/5/0/2/0
+refresh in: http://localhost:3000/destinations/I7E8/2022-08-13/2022-08-14/en_US/SGD/IT/4/2/3/0complete searchbar entry to http://localhost:3000/destinations/775W/2022-08-14/2022-08-18/en_US/SGD/MX/2/1/2/0reconfirmLocation change location: to http://localhost:3000/destinations/cm8g/2022-08-10/2022-08-19/en_US/SGD/IT/2/0/1/0
+List of all 0
+scroll in: http://localhost:3000/destinations/cm8g/2022-08-10/2022-08-19/en_US/SGD/IT/2/0/1/0
+complete searchbar entry to http://localhost:3000/reconfirmLocation change location: to http://localhost:3000/destinations/775W/2022-08-14/2022-08-18/en_US/SGD/MX/2/1/2/0
 List of all 5
-complete searchbar entry to http://localhost:3000/destinations/jC3Y/2022-08-16/2022-08-28/en_US/SGD/GB/2/0/1/0reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/destinations/jC3Y/2022-08-16/2022-08-28/en_US/SGD/GB/2/0/1/0
+complete searchbar entry to http://localhost:3000/destinations/7URY/2022-08-18/2022-08-19/en_US/SGD/US/2/1/1/0reconfirmLocation change location: to http://localhost:3000/
+List of all 6
+complete searchbar entry to http://localhost:3000/destinations/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2/0reconfirmLocation change location: to http://localhost:3000/destinations/7URY/2022-08-18/2022-08-19/en_US/SGD/US/2/1/1/0
 List of all 24
+complete searchbar entry to http://localhost:3000/destinations/jC3Y/2022-08-10/2022-08-11/en_US/SGD/GB/6/0/2/0reconfirmLocation change location: to http://localhost:3000/destinations/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2/0
+List of all 24
+reconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
 reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/destinations/jC3Y/2022-08-16/2022-08-28/en_US/SGD/GB/2/0/1/0
+complete searchbar entry to http://localhost:3000/destinations/5E5N/2022-08-23/2022-08-26/en_US/SGD/CA/2/0/1/0reconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+backTab from: http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2 to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2reconfirmLocation change location: to http://localhost:3000/destinations/5E5N/2022-08-23/2022-08-26/en_US/SGD/CA/2/0/1/0
+List of all 5
+scroll in: http://localhost:3000/destinations/5E5N/2022-08-23/2022-08-26/en_US/SGD/CA/2/0/1/0
+complete searchbar entry to http://localhost:3000/destinations/I7E8/2022-08-27/2022-08-28/en_US/SGD/IT/5/2/1/0reconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+goToNewTab: from http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2, redirect to http://localhost:3000/destinations/I7E8/2022-08-27/2022-08-28/en_US/SGD/IT/5/2/1/0
+button was pressedcomplete searchbar entry to http://localhost:3000/destinations/WP3Z/2022-08-13/2022-08-20/en_US/SGD/ID/4/1/2/0reconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+goToNewTab: from http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2, redirect to http://localhost:3000/destinations/WP3Z/2022-08-13/2022-08-20/en_US/SGD/ID/4/1/2/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+scroll in: http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+reconfirmLocation change location: to http://localhost:3000/destinations/WP3Z/2022-08-13/2022-08-20/en_US/SGD/ID/4/1/2/0
 List of all 24
-complete searchbar entry to http://localhost:3000/destinations/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1/0reconfirmLocation change location: to https://www.openstreetmap.org/copyright
-reconfirmLocation change location: to http://localhost:3000/destinations/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1/0
+backTab from: http://localhost:3000/destinations/WP3Z/2022-08-13/2022-08-20/en_US/SGD/ID/4/1/2/0 to http://localhost:3000/destinations/WP3Z/2022-08-13/2022-08-20/en_US/SGD/ID/4/1/2/0reconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+backTab from: http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2 to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2reconfirmLocation change location: to http://localhost:3000/destinations/WP3Z/2022-08-13/2022-08-20/en_US/SGD/ID/4/1/2/0
 List of all 24
-goToNewTab: from http://localhost:3000/destinations/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1/0, redirect to http://localhost:3000/hotels/Qdef/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1
-button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/Qdef/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1
+complete searchbar entry to http://localhost:3000/destinations/fqM9/2022-08-15/2022-08-24/en_US/SGD/IT/2/0/1/0reconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+goToNewTab: from http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2, redirect to http://localhost:3000/destinations/fqM9/2022-08-15/2022-08-24/en_US/SGD/IT/2/0/1/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+goToNewTab: from http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2, redirect to http://localhost:3000/destinations/fqM9/2022-08-15/2022-08-24/en_US/SGD/IT/2/0/1/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+goToNewTab: from http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2, redirect to http://localhost:3000/destinations/fqM9/2022-08-15/2022-08-24/en_US/SGD/IT/2/0/1/0
+button was pressedreconfirmLocation change location: to http://localhost:3000/hotels/cgKy/3Syx/2022-08-14/2022-08-17/en_US/SGD/TH/2/2/2
+List of all 25
+complete searchbar entry to http://localhost:3000/destinations/SGH5/2022-08-13/2022-08-30/en_US/SGD/VN/6/2/3/0reconfirmLocation change location: to http://localhost:3000/destinations/fqM9/2022-08-15/2022-08-24/en_US/SGD/IT/2/0/1/0
+List of all 10
+complete searchbar entry to http://localhost:3000/destinations/xmXl/2022-08-17/2022-08-18/en_US/SGD/PT/3/0/2/0reconfirmLocation change location: to http://localhost:3000/destinations/SGH5/2022-08-13/2022-08-30/en_US/SGD/VN/6/2/3/0
+List of all 5
+complete searchbar entry to http://localhost:3000/destinations/lDcw/2022-08-12/2022-08-13/en_US/SGD/ID/2/2/2/0reconfirmLocation change location: to http://localhost:3000/destinations/xmXl/2022-08-17/2022-08-18/en_US/SGD/PT/3/0/2/0
+List of all 5
+scroll in: http://localhost:3000/destinations/xmXl/2022-08-17/2022-08-18/en_US/SGD/PT/3/0/2/0
+complete searchbar entry to http://localhost:3000/destinations/C7r0/2022-08-12/2022-08-24/en_US/SGD/IT/2/0/2/0reconfirmLocation change location: to http://localhost:3000/destinations/lDcw/2022-08-12/2022-08-13/en_US/SGD/ID/2/2/2/0
+List of all 24
+reconfirmLocation change location: to http://localhost:3000/destinations/C7r0/2022-08-12/2022-08-24/en_US/SGD/IT/2/0/2/0
+List of all 24
+complete searchbar entry to http://localhost:3000/destinations/XDT1/2022-08-17/2022-08-29/en_US/SGD/MX/2/1/2/0reconfirmLocation change location: to http://localhost:3000/hotels/2hQl/C7r0/2022-08-12/2022-08-24/en_US/SGD/IT/2/0/2
 List of all 11
-complete searchbar entry to http://localhost:3000/destinations/7Ik6/2022-08-28/2022-08-29/en_US/SGD/ID/4/4/3/0reconfirmLocation change location: to http://localhost:3000/hotels/Qdef/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1
-List of all 11
-reconfirmLocation change location: to http://localhost:3000/destinations/7Ik6/2022-08-28/2022-08-29/en_US/SGD/ID/4/4/3/0
-List of all 24
-reconfirmLocation change location: to http://localhost:3000/hotels/Qdef/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1
-List of all 11
-reconfirmLocation change location: to http://localhost:3000/destinations/7Ik6/2022-08-28/2022-08-29/en_US/SGD/ID/4/4/3/0
-List of all 24
-reconfirmLocation change location: to http://localhost:3000/hotels/cWPT/7Ik6/2022-08-28/2022-08-29/en_US/SGD/ID/4/4/3
-List of all 15
-goToNewTab: from http://localhost:3000/hotels/cWPT/7Ik6/2022-08-28/2022-08-29/en_US/SGD/ID/4/4/3, redirect to http://localhost:3000/hotels/Qdef/lnS2/2022-08-11/2022-08-22/en_US/SGD/US/3/2/1
-button was pressed
+complete searchbar entry to http://localhost:3000/destinations/XDT1/2022-08-14/2022-08-20/en_US/SGD/MX/3/5/2/0reconfirmLocation change location: to http://localhost:3000/destinations/XDT1/2022-08-17/2022-08-29/en_US/SGD/MX/2/1/2/0
+List of all 5
+refresh in: http://localhost:3000/destinations/XDT1/2022-08-17/2022-08-29/en_US/SGD/MX/2/1/2/0
 
 ================
 
 ======Action Counts======
-totalActionCount: 57
-buttonActionCount: 21
-enterNewTabActionCount: 22
-closeNewTabActionCount: 2
-inputTextActionCount: 2
-scrollActionCount: 2
-refreshBtnActionCount: 1
-backBtnActionCount: 2
+totalActionCount: 125
+buttonActionCount: 45
+enterNewTabActionCount: 50
+closeNewTabActionCount: 3
+inputTextActionCount: 3
+scrollActionCount: 6
+refreshBtnActionCount: 3
+backBtnActionCount: 5
 
 ======Max Counts======
 maxBrowsersOpen: 1
-numOfCaughtFails: 44
+numOfCaughtFails: 92
 totalFails: 0
 
 ======Time Spent======

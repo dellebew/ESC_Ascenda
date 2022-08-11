@@ -105,7 +105,7 @@ const Success = () => {
                   <span className="display--childQty">{session.state.childrenQuantity}</span>
               </div>
               <div>
-                  <label >Children:</label>
+                  <label >Rooms:</label>
                   <span className="display--childQty">{session.state.roomQuantity}</span>
               </div>
           </div>
@@ -116,7 +116,7 @@ const Success = () => {
               </h1>
                 <div className="billing-info">
                     <label>Total Amount Paid:</label>
-                    <span name="display--price">S${(session.state.unit_amount * session.state.numOfNights *session.state.roomQuantity).toFixed(2)}</span>
+                    <span name="display--price">S${(session.state.unit_amount).toFixed(2)}</span>
                 </div>
                 <div className="billing-info">
                     <label>Hotel Name:</label>
