@@ -74,7 +74,33 @@ async function deleteDocument(){
         const dbo = client.db(dbName);
         const mid_collec = dbo.collection(mid_coll_name);
         const maxTime = Date.now() - (1000 * 60 * 15);
+        let sessionId = 0;
         
+        // const session = await stripe.checkout.sessions.expire(
+        //     'cs_test_a1KQj1Gb3wHCiviGdNvwYWCTDiCwHawuivSeDdGUFkb9lEpad8QPKr8J8h'
+        //   );
+
+        const oldListingQuery = await mid_collec.find({ "curTime": { $lt: maxTime } });
+        const oldListing = await oldListingQuery.toArray();
+
+
+        for (let i=0; i< oldListing.length; i++){
+            console.log("oldListing"+JSON.parse(JSON.stringify(oldListing[i])).sessionId);
+            sessionId = JSON.parse(JSON.stringify(oldListing[i])).sessionId;
+    
+            // check if status is expired
+            const session = await stripe.checkout.sessions.retrieve(sessionId);
+            const expiredRetrieve = stripe.paymentIntents.retrieve(session.status);
+
+            if (expiredRetrieve == "open"){
+                const expiration = await stripe.checkout.sessions.expire(
+                    sessionId,
+                );
+            }
+
+        }
+
+        // get all endpoints that should expire
         // console.log(maxTime);
         await mid_collec.deleteMany({ "curTime": { $lt: maxTime } });
         // console.log("maxTime deleted");

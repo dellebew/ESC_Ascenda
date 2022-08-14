@@ -59,8 +59,9 @@ const Success = () => {
   return (
     <>
     <NavBar />
-        {error && <Error/>}
         {loading && <Loader/>}
+        {!loading && session === {error: "404"} && <div className='server_404'><Error {...{img:"/404-invalid-hotel.png"}}/></div>}
+        {!loading && (session === {error: "429"}) && <div className='server_429'><Error {...{img:"/404-429-error.png"}}/></div>}
         {!loading && (session !== undefined) && 
       <div className="success-body">    
 

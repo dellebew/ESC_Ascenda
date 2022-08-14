@@ -78,6 +78,8 @@ router.post('/create-checkout-session', async (req, res) => {
 
   const diffInMs = Math.abs(info.end - info.start); 
   console.log("start: " + info.start + " end: "+ info.end+" "+diffInMs);
+  // const expiryTime = new Date(parseInt(req.body.currentTime) + (30*60*1000));
+  const expiryTime = parseInt(req.body.currentTime) + (31*60*1000);
   
   // set information for input into stripe checkout
   const numOfNights = Math.ceil(diffInMs/(1000 * 60 * 60 * 24));
@@ -108,13 +110,14 @@ router.post('/create-checkout-session', async (req, res) => {
       // product: 'prod_M0kZOf836DEs60',
       product: product.id,
   });
+  console.log("here");
   // create session id 
   const session = await stripe.checkout.sessions.create({
-      line_items: [
-      {
-        price: price.id,
-        quantity: 1,
-      },
+    line_items: [
+    {
+      price: price.id,
+      quantity: 1,
+    },
     ],
     mode: 'payment',
     customer_creation: "always",
@@ -123,6 +126,7 @@ router.post('/create-checkout-session', async (req, res) => {
     billing_address_collection: 'required',
     phone_number_collection: {"enabled": true},
   });
+  console.log("here");
 
   // ====== store information into intermediate database ======== //
   // add information for input into intermediate database
